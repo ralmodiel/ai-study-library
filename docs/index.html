@@ -24,12 +24,80 @@
 <meta name="twitter:description" content="Every resource from 1,448 reels and posts by Bashiri Smith and Melvin Vivas and Melvin Vivas, organised into a free study plan: 64 free things to watch, 1,232 linked resources.">
 <meta name="twitter:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
 <meta name="twitter:image:alt" content="AI Engineer Study Library: the Facebook and X profiles it is built from, and what is inside">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-CSFCML3KMM"></script>
-<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag("js", new Date());gtag("config", "G-CSFCML3KMM");</script>
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, .18); padding: 16px 18px; font: var(--s-md)/1.45 var(--body); }
+#consent[hidden] { display: none; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent); }
+#consent .row { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+#consent button { font: 600 var(--s-md) var(--body); border-radius: 8px; padding: 8px 18px; cursor: pointer;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink); min-width: 7rem; }
+#consent button.yes { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+#consent button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", KEY = "cookie-consent";
+  const saved = () => { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
+  const save = v => { try { localStorage.setItem(KEY, v); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features; cookies last at most 13 months (CNIL guidance) instead of Google's default 2 years.
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false, cookie_expires: 33696000 });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: stop measuring and remove GA's cookies
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+        document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/" + d;
+    }
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.innerHTML = '<p>Can this site use Google Analytics cookies to count visits and see which tabs and searches are used? '
+        + 'Nothing is tracked unless you accept. <a href="privacy.html">Privacy policy</a></p>'
+        + '<div class="row"><button type="button" class="no">Decline</button><button type="button" class="yes">Accept</button></div>';
+      box.querySelector(".no").addEventListener("click", () => choose("denied"));
+      box.querySelector(".yes").addEventListener("click", () => choose("granted"));
+      document.body.appendChild(box);
+    }
+    box.hidden = false;
+    box.querySelector(".yes").focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  if (saved() === "granted") load();
+  else if (!saved()) document.addEventListener("DOMContentLoaded", show);
+})();
+</script>
 <title>AI Engineer Study Library</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,750&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="fonts/fonts.css">
 <style>
 /* Layout: one 1040px study column; a sticky bar holds the tabs and search; lists are
    hairline-separated rows (a checkbox gutter + text), cards only for the PDF guides. */
@@ -433,7 +501,8 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--line);
     const licLine = D.public && lic ? ` Summaries and notes: <a href="${esc(lic.url)}" target="_blank" rel="noopener">${esc(lic.name)}</a> (${/NC/.test(lic.name) ? "credit the creators, non-commercial" : "free to reuse with credit to the creators"}; see <a href="LICENSE.md">LICENSE.md</a> and <a href="CREDITS.md">CREDITS.md</a>). Code: MIT-0, no credit needed.` : "";
     document.getElementById("footer").innerHTML = (D.public
       ? `A personal study index of public reels and posts by ${esc(D.creator)}: summaries and links only. All videos, posts and guides belong to their creators; every entry links to the original. Progress is saved in this browser only. Generated ${esc(D.generated)}.`
-      : `Built from public reels and posts by ${esc(D.creator)}. Progress is saved in this browser only. Generated ${esc(D.generated)}.`) + licLine;
+      : `Built from public reels and posts by ${esc(D.creator)}. Progress is saved in this browser only. Generated ${esc(D.generated)}.`) + licLine
+      + (window.cookieConsent ? ` <a href="privacy.html">Privacy</a> &middot; <a href="#" data-cookie-settings>Cookie settings</a>.` : "");
     if (D.public) document.getElementById("q").placeholder = "Search names, topics and summaries";
   }
 
@@ -486,7 +555,7 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--line);
     clearTimeout(timer);
     timer = setTimeout(() => { state.q = e.target.value.trim(); render(false); }, 120);
     clearTimeout(searchTimer);  // one event per search once typing stops, not one per keystroke
-    searchTimer = setTimeout(() => { const q = e.target.value.trim(); if (q.length >= 3) track("search", { search_term: q.slice(0, 100), tab: state.tab }); }, 1500);
+    searchTimer = setTimeout(() => { const q = e.target.value.trim(); if (q.length >= 3 && !/@|\d{5,}|\+?\d[\d\s().-]{7,}\d/.test(q)) track("search", { search_term: q.slice(0, 100), tab: state.tab }); }, 1500);
   });
   document.getElementById("topic").addEventListener("change", e => { state.topic = e.target.value; render(false); });
   document.getElementById("who").addEventListener("change", e => { state.who = e.target.value; render(false); });

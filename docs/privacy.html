@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy policy - AI Engineer Study Library</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, .18); padding: 16px 18px; font: var(--s-md)/1.45 var(--body); }
+#consent[hidden] { display: none; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent); }
+#consent .row { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+#consent button { font: 600 var(--s-md) var(--body); border-radius: 8px; padding: 8px 18px; cursor: pointer;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink); min-width: 7rem; }
+#consent button.yes { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+#consent button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", KEY = "cookie-consent";
+  const saved = () => { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
+  const save = v => { try { localStorage.setItem(KEY, v); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features; cookies last at most 13 months (CNIL guidance) instead of Google's default 2 years.
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false, cookie_expires: 33696000 });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: stop measuring and remove GA's cookies
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+        document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/" + d;
+    }
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.innerHTML = '<p>Can this site use Google Analytics cookies to count visits and see which tabs and searches are used? '
+        + 'Nothing is tracked unless you accept. <a href="privacy.html">Privacy policy</a></p>'
+        + '<div class="row"><button type="button" class="no">Decline</button><button type="button" class="yes">Accept</button></div>';
+      box.querySelector(".no").addEventListener("click", () => choose("denied"));
+      box.querySelector(".yes").addEventListener("click", () => choose("granted"));
+      document.body.appendChild(box);
+    }
+    box.hidden = false;
+    box.querySelector(".yes").focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  if (saved() === "granted") load();
+  else if (!saved()) document.addEventListener("DOMContentLoaded", show);
+})();
+</script>
+<style>
+:root { --bg: #f1f4f1; --surface: #fff; --ink: #16201b; --muted: #56635d; --line: #d6ded9; --accent: #2344bd;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif; --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif; }
+@media (prefers-color-scheme: dark) { :root { --bg: #0e1311; --surface: #151c19; --ink: #e3eae6; --muted: #98a59f;
+  --line: #28322e; --accent: #9cb0ff; color-scheme: dark; } }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 1rem/1.6 var(--body); }
+main { max-width: 46rem; margin: 0 auto; padding: 32px 16px 64px; }
+h1 { font: 750 2rem/1.1 var(--display); margin: 0 0 4px; }
+h2 { font: 600 1.15rem/1.3 var(--display); margin: 32px 0 8px; }
+a { color: var(--accent); }
+.meta { color: var(--muted); font-size: .875rem; margin-bottom: 24px; }
+code { font-size: .9em; }
+</style>
+</head>
+<body>
+<main>
+<p class="meta"><a href="index.html">&larr; Back to the library</a></p>
+<h1>Privacy policy</h1>
+<p class="meta">Last updated 2026-10-02</p>
+
+<p>This page explains what happens to your data when you use the AI Engineer Study Library at
+<a href="https://ralmodiel.github.io/ai-study-library/">ralmodiel.github.io/ai-study-library</a>. The site is run by Roque Almodiel, a private
+individual, as a free study resource. It has no accounts, no ads and no sign-up, and it sells nothing.</p>
+
+<h2>Who to contact</h2>
+<p>Roque Almodiel is responsible for this site. Contact them by opening an issue at <a href="https://github.com/ralmodiel/ai-study-library/issues">github.com/ralmodiel/ai-study-library/issues</a> (issues are public, so do not include personal details there; ask for a private channel instead).</p>
+
+<h2>What stays on your device</h2>
+<p>Your ticked checkboxes, the tab you were on, and your cookie choice are saved in your browser's local storage.
+They never leave your device, and you can clear them by clearing this site's data in your browser.</p>
+
+<h2>Hosting</h2>
+<p>The site is hosted on GitHub Pages (GitHub, Inc., United States). Like any web server, GitHub receives your IP
+address when you load the page and logs it for security purposes. See the
+<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub General
+Privacy Statement</a>. The fonts are served from this site too, so loading the page does not contact Google.</p>
+
+<h2>Google Analytics (only if you accept)</h2>
+<p>When you first visit, a banner asks whether this site may use Google Analytics. Until you click <b>Accept</b>,
+Google's script is not loaded and nothing is sent to Google. If you accept, Google Analytics 4 (Google Ireland
+Limited / Google LLC) receives:</p>
+<ul>
+<li>the pages and tabs you open and how long you stay,</li>
+<li>what you type in the search box (searches that look like an email address or phone number are never sent),</li>
+<li>the site that referred you, your browser, device type, screen size and language,</li>
+<li>your approximate location (country and city), which Google derives from your IP address. Google Analytics 4
+does not log or store IP addresses.</li>
+</ul>
+<p>It sets the cookies <code>_ga</code> and <code>_ga_CSFCML3KMM</code>, which keep a random ID so
+repeat visits can be counted. They expire after at most 13 months. Google signals and ad personalisation are
+switched off: the data is not used for advertising and is not linked to your Google account.</p>
+<p><b>Legal basis:</b> your consent (Article 6(1)(a) GDPR and the cookie consent rules of the ePrivacy
+Directive). <b>Purpose:</b> to see how many people use the library and which parts are useful.
+<b>Retention:</b> event data is kept in Google Analytics for 2 months, then deleted.</p>
+<p><b>Changing your mind:</b> use <a href="#" data-cookie-settings>Cookie settings</a> (here or at the bottom of the
+library) at any time. Declining after accepting stops measurement and deletes the cookies.</p>
+<p>Google may process this data in the United States. Google LLC is certified under the EU-U.S. Data Privacy
+Framework. See <a href="https://policies.google.com/privacy">Google's privacy policy</a> and
+<a href="https://policies.google.com/technologies/partner-sites">how Google uses data from sites that use its
+services</a>.</p>
+<h2>Your rights</h2>
+<p>Depending on where you live (for example under the GDPR in the EU and UK, or the Data Privacy Act in the
+Philippines) you can ask for access to, correction of, or deletion of your data, object to its use, and withdraw
+your consent at any time without affecting what happened before. Because the analytics data has no name or
+account attached, it usually cannot be matched to you, but you can always decline or withdraw consent so none is
+collected. You also have the right to complain to the data protection authority where you live.</p>
+
+<h2>Links to other sites</h2>
+<p>The library links to many other sites (Facebook, X, YouTube, course providers and more). Their own privacy
+policies apply once you follow a link.</p>
+
+<h2>The creators' content</h2>
+<p>This is an unofficial study index of public posts by Bashiri Smith and Melvin Vivas and Melvin Vivas. It is not affiliated with or endorsed by them.
+It holds summaries, key points and short quotes with credit and a link to every original; the videos, posts,
+articles and guides themselves belong to their creators and are not copied here. If you are one of the creators,
+or you hold rights in something referenced here, and want an entry corrected or removed, get in touch as above and
+it will be handled promptly.</p>
+
+<h2>Changes</h2>
+<p>If this policy changes, the date at the top changes too.</p>
+</main>
+</body>
+</html>

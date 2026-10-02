@@ -33,4 +33,8 @@ Software engineer building with AI, with a focus on local and open models and AI
 
 This is an unofficial study index. It is not affiliated with or endorsed by Bashiri Smith or Melvin Vivas.
 
-The summaries and notes are licensed CC BY 4.0 - see [LICENSE.md](LICENSE.md). The code that builds the library is under MIT No Attribution (MIT-0).
+The summaries and notes are licensed CC BY 4.0 - see [LICENSE.md](LICENSE.md). The page itself (index.html) is under MIT No Attribution (MIT-0).
+
+## Corrections and removal
+
+If you are one of the creators, or hold rights in something referenced here, and want an entry corrected or removed, open an issue at [github.com/ralmodiel/ai-study-library/issues](https://github.com/ralmodiel/ai-study-library/issues) and it will be handled promptly. How the site handles visitors' data: [privacy.html](privacy.html).
