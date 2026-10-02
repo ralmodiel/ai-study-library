@@ -1,0 +1,14 @@
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }

@@ -14,6 +14,12 @@ and the AI articles on [Melvin Vivas's blog](https://www.melvinvivas.com/), with
 
 ## What is inside
 
+- **[Study plans](https://ralmodiel.github.io/ai-study-library/study-plans.html):** week-by-week plans for
+  [1 month](https://ralmodiel.github.io/ai-study-library/study-plan-1-month.html) (the fast track, about 15 hours a week),
+  [2 months](https://ralmodiel.github.io/ai-study-library/study-plan-2-months.html) (the standard path, about 10 hours a week) and
+  [3 months](https://ralmodiel.github.io/ai-study-library/study-plan-3-months.html) (the thorough path, about 8 hours a week). Each week has a goal, the
+  core resources with the part to do, the creators' most useful posts and one build step on a single portfolio
+  project. A few outside resources fill gaps their posts leave and are marked as not from the creators.
 - **Free to watch:** the free videos, playlists and courses they recommend, grouped by topic in study order.
 - **[Learning path](https://ralmodiel.github.io/ai-study-library/learning-path.html):** 16 topics in study order,
   from roadmaps and LLM fundamentals to RAG, agents, evals and deployment. Each has its own page with the reels and
@@ -23,8 +29,8 @@ and the AI articles on [Melvin Vivas's blog](https://www.melvinvivas.com/), with
   [`docs/notes/`](docs/notes/) (`01-roadmap/` to `16-trends/`).
 - **Guides:** the PDFs shared in captions, with every resource listed inside them.
 
-The same content is in plain Markdown in [`docs/`](docs/): start with [docs/README.md](docs/README.md),
-[the free watch list](docs/free-watch-list.md) or [the learning path](docs/learning-path.md).
+Every part also has its own page: the [overview](https://ralmodiel.github.io/ai-study-library/overview.html), [the free watch list](https://ralmodiel.github.io/ai-study-library/free-watch-list.html),
+[the learning path](https://ralmodiel.github.io/ai-study-library/learning-path.html) and one page per note and per topic. The site's files are in [`docs/`](docs/).
 
 > **About the content.** This repository holds no full copies of anyone's videos, audio, transcripts, posts,
 > articles or PDFs: only AI-assisted summaries and key points in the library's own words, short excerpts such as
@@ -47,7 +53,7 @@ all their channels are listed on the [credits page](https://ralmodiel.github.io/
 
 | What | License |
 |---|---|
-| The summaries, key points and notes in `docs/` | [CC BY-NC 4.0](docs/LICENSE.md): share and adapt them for non-commercial purposes, crediting Bashiri Smith and Melvin Vivas. Parts written by AI alone may not be protected by copyright, and nothing here grants rights in the creators' own words. |
+| The summaries, key points and notes in `docs/` | [CC BY-NC 4.0](https://ralmodiel.github.io/ai-study-library/license.html): share and adapt them for non-commercial purposes, crediting Bashiri Smith and Melvin Vivas. Parts written by AI alone may not be protected by copyright, and nothing here grants rights in the creators' own words. |
 | The page's code (the HTML, CSS and JavaScript of the site, not the library data in it) | [MIT No Attribution (MIT-0)](LICENSE). No credit needed. |
 | The fonts in `docs/fonts/` | SIL Open Font License 1.1 (the `OFL-*.txt` files next to them). |
 | The share image and promo videos | Not licensed for reuse. |

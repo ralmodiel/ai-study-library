@@ -23,115 +23,14 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="fonts/fonts.css">
 <link rel="stylesheet" href="assets/pages.css">
-<style>
-#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
-  background: var(--surface, #fff); color: var(--ink, #16201b);
-  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
-  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
-  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
-#consent[hidden] { display: none; }
-#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
-#consent p { margin: 0 0 12px; }
-#consent a { color: var(--accent, #2344bd); }
-#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
-#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
-  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
-#consent button:hover { background: var(--accent-soft, #e4e9fd); }
-#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
-</style>
-<script>
-(() => {
-  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "", KEY = "ai-study-library:cookie-consent";
-  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
-  const saved = () => {
-    try {
-      const c = JSON.parse(localStorage.getItem(KEY) || "null");
-      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
-    } catch (e) { return null; }
-  };
-  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
-  let loaded = false, box = null, before = null;
-  const load = () => {  // Google's script only ever loads from here, after "Accept"
-    if (loaded) return;
-    loaded = true;
-    window["ga-disable-" + ID] = false;
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function () { dataLayer.push(arguments); };
-    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
-    gtag("js", new Date());
-    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
-    // cookie_update false means a visit does not extend them (CNIL guidance).
-    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
-      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
-    const s = document.createElement("script");
-    s.async = true;
-    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
-    document.head.appendChild(s);
-  };
-  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
-    window["ga-disable-" + ID] = true;
-    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
-    window.gtag = undefined;
-    for (const c of document.cookie.split(";")) {
-      const name = c.split("=")[0].trim();
-      if (!/^_ga/.test(name)) continue;
-      for (const p of ["/", PATH])
-        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
-          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
-    }
-    if (loaded) location.reload();
-  };
-  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
-    const h = on && box ? box.offsetHeight + 32 + "px" : "";
-    document.body.style.paddingBottom = h;
-    document.documentElement.style.scrollPaddingBottom = h;
-  };
-  const choose = v => {
-    save(v);
-    box.hidden = true;
-    pad(false);
-    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
-    if (v === "granted") load(); else forget();
-  };
-  const show = () => {
-    before = document.activeElement;
-    if (!box) {
-      box = document.createElement("div");
-      box.id = "consent";
-      box.setAttribute("role", "dialog");
-      box.setAttribute("aria-label", "Cookie consent");
-      box.setAttribute("aria-describedby", "consent-text");
-      box.tabIndex = -1;
-      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
-        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
-        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
-        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
-        + '<button type="button" data-choice="granted">Accept</button></div>';
-      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
-      document.body.appendChild(box);
-      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
-    }
-    box.hidden = false;
-    pad(true);
-    box.focus({ preventScroll: true });
-  };
-  window.cookieConsent = { open: show };
-  document.addEventListener("click", e => {
-    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
-  });
-  const choice = saved();
-  if (choice === "granted") load();
-  else if (!choice) {
-    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
-  }
-})();
-</script>
+<link rel="stylesheet" href="assets/consent.css?v=ec8939542e">
+<script src="assets/consent.js?v=60f790d54a"></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://ralmodiel.github.io/ai-study-library/resources.html","name":"Every AI engineering resource they recommend","url":"https://ralmodiel.github.io/ai-study-library/resources.html","isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"}},{"@type":"WebSite","@id":"https://ralmodiel.github.io/ai-study-library/#website","name":"AI Engineer Study Library","url":"https://ralmodiel.github.io/ai-study-library/","inLanguage":"en","publisher":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"}},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Every AI engineering resource they recommend"}]}]}</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="top"><a class="brand" href="./">AI Engineer Study Library</a>
-<nav class="menu" aria-label="Library"><a href="learning-path.html">Learning path</a><a href="free-watch-list.html">Free to watch</a><a href="resources.html">All resources</a><a href="credits.html">Credits</a></nav></header>
+<nav class="menu" aria-label="Library"><a href="learning-path.html">Learning path</a><a href="study-plans.html">Study plans</a><a href="free-watch-list.html">Free to watch</a><a href="resources.html">All resources</a><a href="credits.html">Credits</a></nav></header>
 <main id="main">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="./">Library</a> &rsaquo; <span aria-current="page">Every AI engineering resource they recommend</span></nav><h1>Every resource Bashiri Smith and Melvin Vivas mention</h1>
 <p>1257 resources. Links: 1186 verified, 47 open only in a browser, 6 sent only by DM, 2 broken, 16 without a link. Each entry links the reel or post it came from. Most-mentioned first within each group.</p>
@@ -193,28 +92,28 @@
   Free YouTube series by Andrej Karpathy that builds neural networks and GPT-style language models from scratch in code.<br>
   Mentioned in: AI Engineer Roadmap Before 2027: Fundamentals, RAG, Agents, Ops, Evals (Bashiri Smith on <a href="https://www.facebook.com/reel/943434268837194">Facebook</a> · <a href="notes/01-roadmap/2026-09-19-ai-engineer-roadmap-before-2027-fundamentals-rag-agents-ops.html">notes</a>), AI Engineer Roadmap: Fundamentals, RAG, Agents, Books &amp; Your First AI Service (Bashiri Smith on <a href="https://www.facebook.com/reel/2012814779367142">Facebook</a> · <a href="notes/01-roadmap/2026-08-28-ai-engineer-roadmap-fundamentals-rag-agents-books-your.html">notes</a>)</li>
 <li><strong><a href="https://www.deeplearning.ai/short-courses/advanced-retrieval-for-ai/">Advanced Retrieval for AI with Chroma (DeepLearning.AI)</a></strong> · course · deeplearning.ai · free<br>
-  A DeepLearning.AI short course on advanced retrieval techniques that improve RAG results.<br>
+  A DeepLearning.AI short course on advanced retrieval techniques that improve RAG results. Free with a DeepLearning.AI account during its platform beta; certificates are paid.<br>
   Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
 <li><strong><a href="https://www.deeplearning.ai/courses/building-adaptive-ai-agents">Building Adaptive AI Agents</a></strong> · course · deeplearning.ai · free<br>
   A course on agents that learn from experience: turning their traces into reusable skills and building a code knowledge graph for retrieval.<br>
   Mentioned in: Building Adaptive AI Agents: Skills from Traces and Code Knowledge Graphs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2092968683140489349">X</a> · <a href="notes/07-agents/2026-08-27-building-adaptive-ai-agents-skills-from-traces-and-code.html">notes</a>)</li>
 <li><strong><a href="https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/">Building Systems with the ChatGPT API</a></strong> · course · deeplearning.ai · free<br>
-  A DeepLearning.AI course on building with LLM APIs.<br>
+  A DeepLearning.AI course on building with LLM APIs. Free with a DeepLearning.AI account during its platform beta; certificates are paid.<br>
   Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
 <li><strong><a href="https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers">ChatGPT Prompt Engineering for Developers</a></strong> · course · deeplearning.ai · free<br>
-  A DeepLearning.AI short course on prompt engineering.<br>
+  A DeepLearning.AI short course on prompt engineering. Free with a DeepLearning.AI account during its platform beta; certificates are paid.<br>
   Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
 <li><strong><a href="https://academy.claude.com/">Claude Academy</a></strong> · course · academy.claude.com · free<br>
   Learning content about Claude that can be opened in the Claude desktop app.<br>
   Mentioned in: Claude Academy is now in the Claude desktop app (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2091191226431312093">X</a> · <a href="notes/13-ai-tools/2026-08-22-claude-academy-is-now-in-the-claude-desktop-app.html">notes</a>)</li>
-<li><strong><a href="https://learn.deeplearning.ai/courses/retrieval-augmented-generation/information">DeepLearning.AI: Retrieval Augmented Generation</a></strong> · course · learn.deeplearning.ai · free<br>
-  Course taught by Zain Hasan with five hands-on modules, free to audit; the same site hosts free short courses on agentic, knowledge-graph and multimodal RAG.<br>
+<li><strong><a href="https://learn.deeplearning.ai/courses/retrieval-augmented-generation/information">DeepLearning.AI: Retrieval Augmented Generation</a></strong> · course · learn.deeplearning.ai · paid<br>
+  Course taught by Zain Hasan with five hands-on modules. Module 1 is free to audit; the full course needs a paid upgrade. The same site hosts free short courses on agentic, knowledge-graph and multimodal RAG.<br>
   In a shared PDF: <a href="https://drive.google.com/file/d/1Thj1wcILRDxniC231RaDx0wyuc81f2M5/view">How to become an expert in RAG (BASWE AI Engineer Field Guide)</a> - shared in <a href="https://www.facebook.com/reel/1639527170837316">this reel on Facebook</a>, <a href="https://www.facebook.com/reel/28850952981168407">this reel on Facebook</a></li>
 <li><strong><a href="https://huggingface.co/learn/llm-course/chapter7/3">Hugging Face LLM Course – Chapter 7.3</a></strong> · course · huggingface.co · free<br>
   A section of Hugging Face's free LLM Course with hands-on training and fine-tuning of models.<br>
   Mentioned in: Hugging Face LLM Course: Chapter 7.3 for Training Your Own Model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102093173195694401">X</a> · <a href="notes/10-fine-tuning/2026-09-22-hugging-face-llm-course-chapter-7-3-for-training-your-own.html">notes</a>)</li>
 <li><strong><a href="https://www.deeplearning.ai/short-courses/langchain-chat-with-your-data/">LangChain Chat with Your Data</a></strong> · course · deeplearning.ai · free<br>
-  A DeepLearning.AI course on building RAG with LangChain.<br>
+  A DeepLearning.AI course on building RAG with LangChain. Free with a DeepLearning.AI account during its platform beta; certificates are paid.<br>
   Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
 <li><strong><a href="https://www.boot.dev/courses/learn-retrieval-augmented-generation">Learn Retrieval Augmented Generation (Boot.dev)</a></strong> · course · boot.dev · paid<br>
   Boot.dev's RAG course (one of Class Central's picks): lessons are free to read, interactive exercises and certificates need a paid membership.<br>
@@ -223,7 +122,7 @@
   A DeepLearning.AI course on putting LLM applications into production. The exact course was shown on screen only.<br>
   Mentioned in: AI Engineer Roadmap Before 2027: Fundamentals, RAG, Agents, Ops, Evals (Bashiri Smith on <a href="https://www.facebook.com/reel/943434268837194">Facebook</a> · <a href="notes/01-roadmap/2026-09-19-ai-engineer-roadmap-before-2027-fundamentals-rag-agents-ops.html">notes</a>)</li>
 <li><strong><a href="https://www.deeplearning.ai/courses/preprocessing-unstructured-data-for-llm-applications">Preprocessing Unstructured Data for LLM Applications</a></strong> · course · deeplearning.ai · free<br>
-  A DeepLearning.AI course on document processing and chunking.<br>
+  A DeepLearning.AI course on document processing and chunking. Free with a DeepLearning.AI account during its platform beta; certificates are paid.<br>
   Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
 <li><strong><a href="https://wandb.ai/site/courses/rag/">RAG++: From POC to Production (Weights &amp; Biases)</a></strong> · course · wandb.ai · free<br>
   RAG course from Weights &amp; Biases named in the Class Central roundup of the best RAG courses.<br>
@@ -232,7 +131,7 @@
   A DeepLearning.AI course on embeddings and semantic search.<br>
   Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
 <li><strong><a href="https://www.deeplearning.ai/short-courses/vector-databases-embeddings-applications/">Vector Databases: from Embeddings to Applications (DeepLearning.AI)</a></strong> · course · deeplearning.ai · free<br>
-  A DeepLearning.AI short course on how vector databases work and how to build applications with them.<br>
+  A DeepLearning.AI short course on how vector databases work and how to build applications with them. Free with a DeepLearning.AI account during its platform beta; certificates are paid.<br>
   Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
 </ul>
 <h2>Books (11)</h2>
@@ -430,13 +329,13 @@
   The creator's YouTube channel with videos on AI and agents, including a beginner's guide to Buzz.<br>
   Mentioned in: Connecting Hermes Agent to the Buzz Agent-First Chat App via the Native Gateway (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2082811961239388654">X</a> · <a href="notes/07-agents/2026-07-30-connecting-hermes-agent-to-the-buzz-agent-first-chat-app.html">notes</a>)</li>
 </ul>
-<h2>Articles &amp; guides (68)</h2>
+<h2>Articles &amp; guides (69)</h2>
 <ul>
 <li><strong><a href="https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-gemma-4">A Visual Guide to Gemma 4</a></strong> · article · newsletter.maartengrootendorst.com · free<br>
   Illustrated walkthrough of the Gemma 4 architecture: MoE, vision encoder, per-layer embeddings and audio encoder.<br>
   Mentioned in: A Visual Guide to Gemma 4 Architecture (Maarten Grootendorst) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2040300401325637702">X</a> · <a href="notes/03-llm-fundamentals/2026-04-04-a-visual-guide-to-gemma-4-architecture-maarten-grootendorst.html">notes</a>), Gemma 4 Architecture: MoE, Encoders and Per-Layer Embeddings (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2040278656988414277">X</a> · <a href="notes/03-llm-fundamentals/2026-04-04-gemma-4-architecture-moe-encoders-and-per-layer-embeddings.html">notes</a>)</li>
-<li><strong><a href="https://x.com/AndrewYNg/article/2090840747738374568">AI Engineering Skills Map: Building and Deploying AI Applications</a></strong> · article · x.com · free<br>
-  Andrew Ng's article mapping the skills needed to build and deploy AI applications as an AI engineer.<br>
+<li><strong><a href="https://x.com/AndrewYNg/status/2090840747738374568">AI Engineering Skills Map: Building and Deploying AI Applications</a></strong> · article · x.com · free<br>
+  Andrew Ng's article mapping the skills needed to build and deploy AI applications as an AI engineer. It's on X, so reading it may need an X account.<br>
   Mentioned in: Andrew Ng's AI Engineering Skills Map (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2091396934225592476">X</a> · <a href="notes/01-roadmap/2026-08-23-andrew-ng-s-ai-engineering-skills-map.html">notes</a>), Andrew Ng on how anyone can become an AI Engineer (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2091396929771204880">X</a> · <a href="notes/01-roadmap/2026-08-23-andrew-ng-on-how-anyone-can-become-an-ai-engineer.html">notes</a>)</li>
 <li><strong><a href="https://www.forbes.com/sites/maryroeloffs/2026/07/22/did-chinas-ai-save-hugging-face-from-disaster-after-open-ai-hack/">Did China's AI Save Hugging Face From Disaster After OpenAI Hack? (Forbes)</a></strong> · article · forbes.com · check price · open in a browser to verify<br>
   A Forbes news article on the Hugging Face cyberattack incident and how a Chinese AI model may have helped stop it.<br>
@@ -540,6 +439,9 @@
 <li><strong><a href="https://openai.com/blog/gpt-3-apps">GPT-3 powers the next generation of apps</a></strong> · article · openai.com · free<br>
   OpenAI blog post showcasing products built on GPT-3.<br>
   Mentioned in: Q&amp;A Over Your Own PDFs with LlamaIndex, OpenAI and Python (2023) (Melvin Vivas on <a href="https://www.melvinvivas.com/chatgpt-openai-langchain-llama-index-generative-text-ai">melvinvivas.com</a> · <a href="notes/06-rag/2023-04-08-q-a-over-your-own-pdfs-with-llamaindex-openai-and-python.html">notes</a>)</li>
+<li><strong><a href="https://x.com/zainhas/status/2098577202287894574">How inference engines actually work (talk slides)</a></strong> · article · x.com · free<br>
+  Talk slides that follow an LLM request through an inference engine: caching, batching, paged attention, chunked prefill, sampling and agentic loops.<br>
+  Mentioned in: How inference engines work: the full life of an LLM request (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098761893473394861">X</a> · <a href="notes/09-llmops/2026-09-12-how-inference-engines-work-the-full-life-of-an-llm-request.html">notes</a>)</li>
 <li><strong><a href="https://replicate.com/blog/seedance-2">How to make remarkable videos with Seedance 2.0 – Replicate blog</a></strong> · article · replicate.com · free<br>
   Replicate's practical guide and findings on generating video with Seedance 2.0.<br>
   Mentioned in: Replicate's Guide to Making Videos with Seedance 2.0 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2044630290333855845">X</a> · <a href="notes/13-ai-tools/2026-04-16-replicate-s-guide-to-making-videos-with-seedance-2-0.html">notes</a>)</li>
@@ -1083,7 +985,7 @@
   X's published recommendation-algorithm source code, which the skill is based on.<br>
   Mentioned in: Turning the X 'For You' Algorithm Code into an Agent Skill (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2088233775713178073">X</a> · <a href="notes/07-agents/2026-08-14-turning-the-x-for-you-algorithm-code-into-an-agent-skill.html">notes</a>)</li>
 </ul>
-<h2>Tools, frameworks &amp; platforms (735)</h2>
+<h2>Tools, frameworks &amp; platforms (736)</h2>
 <ul>
 <li><strong><a href="https://openai.com/codex">OpenAI Codex</a></strong> · tool · openai.com · paid<br>
   OpenAI's coding agent. In the diagram it writes code, fixes review findings and drives the build loop. The creator also used it to make this video.<br>
@@ -1107,7 +1009,7 @@
 <li><strong><a href="https://x.com/DevinAI">Devin</a></strong> · tool · x.com · paid<br>
   A desktop app from the makers of the Devin coding agent for planning, delegating, reviewing and shipping work across fleets of local and cloud coding agents.<br>
   Mentioned in: Using the Devin iOS App to Build iOS Apps (Quick Demo) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105923285418668441">X</a> · <a href="notes/13-ai-tools/2026-10-02-using-the-devin-ios-app-to-build-ios-apps-quick-demo.html">notes</a>), Use Your ChatGPT Plus/Pro Subscription to Run Devin (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105133960296898826">X</a> · <a href="notes/13-ai-tools/2026-09-30-use-your-chatgpt-plus-pro-subscription-to-run-devin.html">notes</a>), OpenAI DevDay recap: Dots, GPT-6.1 Sol, Codex Cloud, Agents API (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105018489794879836">X</a> · <a href="notes/16-trends/2026-09-30-openai-devday-recap-dots-gpt-6-1-sol-codex-cloud-agents-api.html">notes</a>), Devin price cuts and top score on FrontierCode 1.1 Extended (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104637875396735214">X</a> · <a href="notes/13-ai-tools/2026-09-29-devin-price-cuts-and-top-score-on-frontiercode-1-1-extended.html">notes</a>) and 45 more</li>
-<li><strong><a href="https://openrouter.ai/z-ai/glm-5-tur">OpenRouter</a></strong> · tool · openrouter.ai · free<br>
+<li><strong><a href="https://openrouter.ai/">OpenRouter</a></strong> · tool · openrouter.ai · free<br>
   OpenRouter is a unified API gateway that gives access to many LLMs behind one OpenAI-compatible endpoint; this link is its X account.<br>
   Mentioned in: Customizing Your Coding Setup with Pi Coding Agent Extensions (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105871612591714651">X</a> · <a href="notes/13-ai-tools/2026-10-02-customizing-your-coding-setup-with-pi-coding-agent.html">notes</a>), The Jev model is now on OpenRouter (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103826669324869745">X</a> · <a href="notes/03-llm-fundamentals/2026-09-26-the-jev-model-is-now-on-openrouter.html">notes</a>), Kev-4B model, an alternative to Jev, now available on OpenRouter (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103655416299466815">X</a> · <a href="notes/03-llm-fundamentals/2026-09-26-kev-4b-model-an-alternative-to-jev-now-available-on.html">notes</a>), Space Bunny Alpha: stealth 1M-context flash model on OpenRouter (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102779478737142186">X</a> · <a href="notes/16-trends/2026-09-23-space-bunny-alpha-stealth-1m-context-flash-model-on.html">notes</a>) and 43 more</li>
 <li><strong><a href="https://x.com/pidotdev">Pi</a></strong> · tool · x.com · free<br>
@@ -1116,8 +1018,8 @@
 <li><strong><a href="https://x.com/lmstudio">LM Studio</a></strong> · tool · x.com · free<br>
   Desktop app for downloading and running LLMs locally, with a developer mode that serves models through an API.<br>
   Mentioned in: Running LLMs Locally Without an Expensive Rig (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104363353045123168">X</a> · <a href="notes/03-llm-fundamentals/2026-09-28-running-llms-locally-without-an-expensive-rig.html">notes</a>), Adding Vercel AI Gateway as a provider in AIBackends with Devin (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101160927718781084">X</a> · <a href="notes/09-llmops/2026-09-19-adding-vercel-ai-gateway-as-a-provider-in-aibackends-with.html">notes</a>), LoRA Fine-Tune Qwen3.5-2B on Your Tweets with Unsloth Studio (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101111328714993970">X</a> · <a href="notes/10-fine-tuning/2026-09-19-lora-fine-tune-qwen3-5-2b-on-your-tweets-with-unsloth-studio.html">notes</a>), AIBackends: An API Layer Between Your App and AI Models (Now with Jev) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100848362648195307">X</a> · <a href="notes/12-system-design/2026-09-18-aibackends-an-api-layer-between-your-app-and-ai-models-now.html">notes</a>) and 32 more</li>
-<li><strong><a href="https://x.com/UnslothAI">Unsloth</a></strong> · tool · x.com · free<br>
-  Open-source web UI from Unsloth for fine-tuning and running LLMs (text, vision, audio, embedding, GGUF) locally, with dataset creation from documents.<br>
+<li><strong><a href="https://unsloth.ai/docs">Unsloth</a></strong> · tool · unsloth.ai · free<br>
+  Open-source library for fast, memory-efficient fine-tuning of open LLMs (LoRA/QLoRA) on a single GPU or in Colab.<br>
   Mentioned in: Run Laya Decision models locally with Unsloth on 4GB RAM (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104744976089579549">X</a> · <a href="notes/09-llmops/2026-09-29-run-laya-decision-models-locally-with-unsloth-on-4gb-ram.html">notes</a>), Unsloth passes 500M model downloads on Hugging Face (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102849447885734173">X</a> · <a href="notes/16-trends/2026-09-24-unsloth-passes-500m-model-downloads-on-hugging-face.html">notes</a>), Run Qwen-Image-2.1 locally on 12GB VRAM with Unsloth GGUFs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102440958164115529">X</a> · <a href="notes/09-llmops/2026-09-23-run-qwen-image-2-1-locally-on-12gb-vram-with-unsloth-ggufs.html">notes</a>), Base vs fine-tuned Gemma 4 E2B as a model router (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101538253929406562">X</a> · <a href="notes/10-fine-tuning/2026-09-20-base-vs-fine-tuned-gemma-4-e2b-as-a-model-router.html">notes</a>) and 30 more</li>
 <li><strong><a href="https://huggingface.co/zai-org/GLM-5.2">GLM 5.2</a></strong> · tool · huggingface.co · free<br>
   A GLM-family LLM (the transcript says 'GLM-5-2') that the demo ranked as a strong, affordable model for coding and design.<br>
@@ -2416,6 +2318,9 @@
 <li><strong><a href="https://github.com/features/copilot/cli">GitHub Copilot CLI</a></strong> · tool · github.com · free<br>
   GitHub Copilot's command-line coding agent.<br>
   Mentioned in: Docker Sandboxes: Disposable Isolated Sandboxes for AI Agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2093332445617885437">X</a> · <a href="notes/13-ai-tools/2026-08-28-docker-sandboxes-disposable-isolated-sandboxes-for-ai-agents.html">notes</a>)</li>
+<li><strong><a href="https://colab.research.google.com/github/donvito/aibackends/blob/main/examples/notebooks/gliguard_moderation_colab.ipynb">GliGuard Moderation Colab Notebook</a></strong> · tool · colab.research.google.com · free<br>
+  A Google Colab notebook showing GliGuard moderation of prompts and responses with AIBackends.<br>
+  Mentioned in: Screening LLM Prompts and Responses on CPU with AIBackends + GliGuard (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2091958588193603624">X</a> · <a href="notes/11-safety/2026-08-25-screening-llm-prompts-and-responses-on-cpu-with-aibackends.html">notes</a>)</li>
 <li><strong><a href="https://huggingface.co/zai-org">GLM (Zhipu AI / Z.ai)</a></strong> · tool · huggingface.co · free<br>
   A family of open-weight large language models from Zhipu AI (Z.ai), strong at coding and agent tasks.<br>
   Mentioned in: Bolt.new Adds Open Models (GLM, DeepSeek, Kimi) via Bolt Forge (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099557234707726844">X</a> · <a href="notes/13-ai-tools/2026-09-15-bolt-new-adds-open-models-glm-deepseek-kimi-via-bolt-forge.html">notes</a>)</li>
@@ -3296,7 +3201,7 @@
   Z.ai's subscription plan for accessing GLM models.<br>
   Mentioned in: Models That Work With the Hermes Agent for Personal Productivity (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2079895506806030617">X</a> · <a href="notes/07-agents/2026-07-22-models-that-work-with-the-hermes-agent-for-personal.html">notes</a>)</li>
 </ul>
-<h2>PDFs, cheat sheets &amp; roadmaps (12)</h2>
+<h2>PDFs, cheat sheets &amp; roadmaps (10)</h2>
 <ul>
 <li><strong><a href="https://drive.google.com/drive/folders/1juyW1jEWgVNw12la8twx53PhwMhkrnK3">Bashiri Smith's AI Projects Guide</a></strong> · pdf · drive.google.com · free<br>
   The creator's guide to 27 AI projects, with full architecture, build steps phase by phase, interview talking points, and the stack for each project.<br>
@@ -3316,15 +3221,9 @@
 <li><strong><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng">EU AI Act</a></strong> · pdf · eur-lex.europa.eu · free<br>
   The European Union's law regulating AI systems by risk level.<br>
   Mentioned in: 17-Step AI Engineer Roadmap: From Basic RAG to Agents, Evals, LLMOps &amp; Governance (Bashiri Smith on <a href="https://www.facebook.com/reel/1137452818806022">Facebook</a> · <a href="notes/01-roadmap/2026-08-22-17-step-ai-engineer-roadmap-from-basic-rag-to-agents-evals.html">notes</a>)</li>
-<li><strong><a href="https://colab.research.google.com/github/donvito/aibackends/blob/main/examples/notebooks/gliguard_moderation_colab.ipynb">GliGuard Moderation Colab Notebook</a></strong> · pdf · colab.research.google.com · free<br>
-  A Google Colab notebook showing GliGuard moderation of prompts and responses with AIBackends.<br>
-  Mentioned in: Screening LLM Prompts and Responses on CPU with AIBackends + GliGuard (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2091958588193603624">X</a> · <a href="notes/11-safety/2026-08-25-screening-llm-prompts-and-responses-on-cpu-with-aibackends.html">notes</a>)</li>
 <li><strong><a href="https://media.x.ai/v1/website/4p5-5184fdf9.pdf">Grok 4.5 Model Card</a></strong> · pdf · media.x.ai · free<br>
   The official model card for Grok 4.5, describing its capabilities and evaluations.<br>
   Mentioned in: Grok 4.5 model card released (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2077357005426327928">X</a> · <a href="notes/03-llm-fundamentals/2026-07-15-grok-4-5-model-card-released.html">notes</a>)</li>
-<li><strong><a href="https://x.com/zainhas/status/2098577202287894574">How inference engines actually work (talk slides)</a></strong> · pdf · x.com · free<br>
-  Talk slides that follow an LLM request through an inference engine: caching, batching, paged attention, chunked prefill, sampling and agentic loops.<br>
-  Mentioned in: How inference engines work: the full life of an LLM request (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098761893473394861">X</a> · <a href="notes/09-llmops/2026-09-12-how-inference-engines-work-the-full-life-of-an-llm-request.html">notes</a>)</li>
 <li><strong><a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI Risk Management Framework (AI RMF)</a></strong> · pdf · nist.gov · free<br>
   US NIST framework for identifying and managing risks of AI systems.<br>
   Mentioned in: 17-Step AI Engineer Roadmap: From Basic RAG to Agents, Evals, LLMOps &amp; Governance (Bashiri Smith on <a href="https://www.facebook.com/reel/1137452818806022">Facebook</a> · <a href="notes/01-roadmap/2026-08-22-17-step-ai-engineer-roadmap-from-basic-rag-to-agents-evals.html">notes</a>)</li>

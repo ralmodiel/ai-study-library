@@ -35,10 +35,12 @@ th, td { border: 1px solid var(--line); padding: 6px 8px; text-align: left; vert
 .more ul, .cards { list-style: none; padding: 0; }
 .more li { margin: 8px 0; }
 .cards { display: grid; gap: 10px; }
-.cards li { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; margin: 0; max-width: none; }
-.cards p { margin: 4px 0 0; }
+.cards > li { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; margin: 0; max-width: none; }
+.cards > li > p { margin: 4px 0 0; }
 .links { columns: 2 16rem; margin-top: 0; }
 .links li { break-inside: avoid; margin: 0 0 8px; }
+.weeks { margin: 6px 0 0; padding-left: 1.3rem; color: var(--muted); font-size: var(--s-md); }
+.weeks li { margin: 2px 0; }
 .brand-tag { font: 500 var(--s-sm) var(--mono); color: var(--muted); margin-left: 6px; }
 .pager { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 32px; padding-top: 14px; border-top: 1px solid var(--line); }
 .foot { max-width: 52rem; margin: 0 auto; padding: 18px 16px 48px; border-top: 1px solid var(--line); color: var(--muted); font-size: var(--s-sm); }

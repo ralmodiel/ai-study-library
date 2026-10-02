@@ -9,6 +9,7 @@
 /setup.cmd
 /requirements.txt
 /overrides.json
+/plans.json
 /DEVELOPMENT.md
 
 # --- Keys and local settings, wherever they end up ------------------------------

@@ -23,115 +23,14 @@
 <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
 <link rel="stylesheet" href="../../fonts/fonts.css">
 <link rel="stylesheet" href="../../assets/pages.css">
-<style>
-#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
-  background: var(--surface, #fff); color: var(--ink, #16201b);
-  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
-  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
-  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
-#consent[hidden] { display: none; }
-#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
-#consent p { margin: 0 0 12px; }
-#consent a { color: var(--accent, #2344bd); }
-#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
-#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
-  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
-#consent button:hover { background: var(--accent-soft, #e4e9fd); }
-#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
-</style>
-<script>
-(() => {
-  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../../", KEY = "ai-study-library:cookie-consent";
-  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
-  const saved = () => {
-    try {
-      const c = JSON.parse(localStorage.getItem(KEY) || "null");
-      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
-    } catch (e) { return null; }
-  };
-  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
-  let loaded = false, box = null, before = null;
-  const load = () => {  // Google's script only ever loads from here, after "Accept"
-    if (loaded) return;
-    loaded = true;
-    window["ga-disable-" + ID] = false;
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function () { dataLayer.push(arguments); };
-    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
-    gtag("js", new Date());
-    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
-    // cookie_update false means a visit does not extend them (CNIL guidance).
-    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
-      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
-    const s = document.createElement("script");
-    s.async = true;
-    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
-    document.head.appendChild(s);
-  };
-  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
-    window["ga-disable-" + ID] = true;
-    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
-    window.gtag = undefined;
-    for (const c of document.cookie.split(";")) {
-      const name = c.split("=")[0].trim();
-      if (!/^_ga/.test(name)) continue;
-      for (const p of ["/", PATH])
-        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
-          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
-    }
-    if (loaded) location.reload();
-  };
-  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
-    const h = on && box ? box.offsetHeight + 32 + "px" : "";
-    document.body.style.paddingBottom = h;
-    document.documentElement.style.scrollPaddingBottom = h;
-  };
-  const choose = v => {
-    save(v);
-    box.hidden = true;
-    pad(false);
-    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
-    if (v === "granted") load(); else forget();
-  };
-  const show = () => {
-    before = document.activeElement;
-    if (!box) {
-      box = document.createElement("div");
-      box.id = "consent";
-      box.setAttribute("role", "dialog");
-      box.setAttribute("aria-label", "Cookie consent");
-      box.setAttribute("aria-describedby", "consent-text");
-      box.tabIndex = -1;
-      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
-        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
-        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
-        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
-        + '<button type="button" data-choice="granted">Accept</button></div>';
-      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
-      document.body.appendChild(box);
-      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
-    }
-    box.hidden = false;
-    pad(true);
-    box.focus({ preventScroll: true });
-  };
-  window.cookieConsent = { open: show };
-  document.addEventListener("click", e => {
-    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
-  });
-  const choice = saved();
-  if (choice === "granted") load();
-  else if (!choice) {
-    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
-  }
-})();
-</script>
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/03-llm-fundamentals/2026-07-30-1-bit-kimi-k3-gguf-running-locally-vs-claude-opus-5-and-gpt.html#note","headline":"1-bit Kimi K3 GGUF Running Locally vs Claude Opus 5 and GPT 5.6","description":"Unsloth released a 1-bit quantized GGUF of Kimi K3 and compared it with Claude Opus 5 and GPT 5.6 on the same creative coding prompt. The quantized model ran locally on 4x B200s at 36 tokens/s. Melvin notes that running it at home would take serious hardware, such as a Mac Studio with 128GB RAM.","url":"https://ralmodiel.github.io/ai-study-library/notes/03-llm-fundamentals/2026-07-30-1-bit-kimi-k3-gguf-running-locally-vs-claude-opus-5-and-gpt.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"LLM Fundamentals"},{"@type":"Thing","name":"LLMOps, Deployment & Monitoring"},{"@type":"Thing","name":"Fine-tuning & Model Customization"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2082651738109338036","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-07-30"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/03-llm-fundamentals/2026-07-30-1-bit-kimi-k3-gguf-running-locally-vs-claude-opus-5-and-gpt.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"LLM Fundamentals","item":"https://ralmodiel.github.io/ai-study-library/topics/llm-fundamentals.html"},{"@type":"ListItem","position":4,"name":"1-bit Kimi K3 GGUF Running Locally vs Claude Opus 5 and GPT 5.6"}]}]}</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
-<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
 <main id="main">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/llm-fundamentals.html">LLM Fundamentals</a> &rsaquo; <span aria-current="page">1-bit Kimi K3 GGUF Running Locally vs Claude Opus 5 and GPT 5.6</span></nav><h1>1-bit Kimi K3 GGUF Running Locally vs Claude Opus 5 and GPT 5.6</h1>
 <aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2082651738109338036">a video post by Melvin Vivas on X</a>, posted 30 July 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
@@ -149,8 +48,8 @@
 </ul>
 <h2>Resources mentioned</h2>
 <ul>
-<li><strong><a href="https://x.com/UnslothAI">Unsloth</a></strong> · tool · x.com · free<br>
-  Open-source web UI from Unsloth for fine-tuning and running LLMs (text, vision, audio, embedding, GGUF) locally, with dataset creation from documents.<br>
+<li><strong><a href="https://unsloth.ai/docs">Unsloth</a></strong> · tool · unsloth.ai · free<br>
+  Open-source library for fast, memory-efficient fine-tuning of open LLMs (LoRA/QLoRA) on a single GPU or in Colab.<br>
   Also in: Run Laya Decision models locally with Unsloth on 4GB RAM (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104744976089579549">X</a> · <a href="../09-llmops/2026-09-29-run-laya-decision-models-locally-with-unsloth-on-4gb-ram.html">notes</a>), Unsloth passes 500M model downloads on Hugging Face (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102849447885734173">X</a> · <a href="../16-trends/2026-09-24-unsloth-passes-500m-model-downloads-on-hugging-face.html">notes</a>), Run Qwen-Image-2.1 locally on 12GB VRAM with Unsloth GGUFs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102440958164115529">X</a> · <a href="../09-llmops/2026-09-23-run-qwen-image-2-1-locally-on-12gb-vram-with-unsloth-ggufs.html">notes</a>), Base vs fine-tuned Gemma 4 E2B as a model router (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101538253929406562">X</a> · <a href="../10-fine-tuning/2026-09-20-base-vs-fine-tuned-gemma-4-e2b-as-a-model-router.html">notes</a>) and 29 more</li>
 <li><strong><a href="https://huggingface.co/moonshotai/Kimi-K3">Kimi K3</a></strong> · tool · huggingface.co · free<br>
   Moonshot AI's large multimodal LLM with a 1M-token context window and Kimi Delta Attention.<br>
