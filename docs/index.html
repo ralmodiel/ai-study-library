@@ -24,6 +24,8 @@
 <meta name="twitter:description" content="Every resource from 1,448 reels and posts by Bashiri Smith and Melvin Vivas and Melvin Vivas, organised into a free study plan: 64 free things to watch, 1,232 linked resources.">
 <meta name="twitter:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
 <meta name="twitter:image:alt" content="AI Engineer Study Library: the Facebook and X profiles it is built from, and what is inside">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CSFCML3KMM"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag("js", new Date());gtag("config", "G-CSFCML3KMM");</script>
 <title>AI Engineer Study Library</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -467,6 +469,9 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--line);
   }
 
   // ---------- events
+  // Google Analytics, when the public page has it (see analytics() in site.py); a no-op otherwise.
+  const track = (name, params) => { try { if (typeof gtag === "function") gtag("event", name, params); } catch (e) { /* blocked */ } };
+  let searchTimer;
   document.getElementById("tabs").addEventListener("click", e => {
     const b = e.target.closest("[data-tab]");
     if (!b) return;
@@ -474,11 +479,14 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--line);
     store.set("tab", state.tab);
     setHash(state.tab);
     render(false);
+    track("select_tab", { tab: state.tab });
   });
   let timer;
   document.getElementById("q").addEventListener("input", e => {
     clearTimeout(timer);
     timer = setTimeout(() => { state.q = e.target.value.trim(); render(false); }, 120);
+    clearTimeout(searchTimer);  // one event per search once typing stops, not one per keystroke
+    searchTimer = setTimeout(() => { const q = e.target.value.trim(); if (q.length >= 3) track("search", { search_term: q.slice(0, 100), tab: state.tab }); }, 1500);
   });
   document.getElementById("topic").addEventListener("change", e => { state.topic = e.target.value; render(false); });
   document.getElementById("who").addEventListener("change", e => { state.who = e.target.value; render(false); });
