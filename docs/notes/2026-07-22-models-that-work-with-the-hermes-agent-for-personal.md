@@ -1,0 +1,49 @@
+# Models That Work With the Hermes Agent for Personal Productivity
+
+Melvin Vivas · X post · 2026-07-22 · [Open on X](https://x.com/melvindvivas/status/2079895506806030617)
+
+**Topics:** AI Agents, Tool Use & MCP, LLM Fundamentals, AI Dev Tools & Productivity · **Level:** intermediate
+
+## Summary
+
+The creator lists the LLMs he swaps between inside the Hermes agent for personal productivity tasks (not coding). He picks models by availability, cost and job: a daily driver, a fallback, a coding plan, OpenRouter access, a local model and a separate vision model. He says Hermes' harness is good enough that switching models doesn't feel very different.
+
+## Key points
+
+- Daily driver: Grok 4.5.
+- Fallback when Grok usage runs out: GPT 5.5.
+- GLM 5.2 through the Z.ai coding plan.
+- DeepSeek V4 through OpenRouter.
+- Qwen 3.6 35B (MTP) runs locally when he isn't using his PC.
+- Gemini Flash is a helper model for vision tasks.
+- A good agent harness makes the choice of model matter less, so you can swap models for cost or availability.
+- His use case is personal productivity, not coding.
+
+## Resources mentioned
+
+- [ ] **[Hermes](https://hermes-agent.nousresearch.com/)** · tool · hermes-agent.nousresearch.com · free  
+  The AI agent the creator uses to automate making explainer videos. It is probably Nous Research's Hermes Agent, but the post does not say so.  
+  Also in: OpenAI DevDay recap: Dots, GPT-6.1 Sol, Codex Cloud, Agents API (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105018489794879836) · [notes](../notes/2026-09-30-openai-devday-recap-dots-gpt-6-1-sol-codex-cloud-agents-api.md)), Coworker: free open-source desktop AI coworker app (Melvin Vivas on [X](https://x.com/melvindvivas/status/2103533091117736005) · [notes](../notes/2026-09-26-coworker-free-open-source-desktop-ai-coworker-app.md)), Agent Monitor: see traces, tokens and costs of your coding agents (Melvin Vivas on [X](https://x.com/melvindvivas/status/2100681194585432373) · [notes](../notes/2026-09-18-agent-monitor-see-traces-tokens-and-costs-of-your-coding.md)), Coworker: An Open-Source Desktop Agent App for Local and Cloud Models (Melvin Vivas on [X](https://x.com/melvindvivas/status/2099551050130936120) · [notes](../notes/2026-09-15-coworker-an-open-source-desktop-agent-app-for-local-and.md)) and 13 more
+- [ ] **[Grok 4.5](https://x.ai/news/grok-4-5)** · tool · x.ai · paid  
+  An LLM said to be trained in partnership with SpaceXAI, pitched as a general model beyond software engineering.  
+  Also in: Grok 4.5 Works Well as the Model Behind Hermes Agent (Melvin Vivas on [X](https://x.com/melvindvivas/status/2082662373400412296) · [notes](../notes/2026-07-30-grok-4-5-works-well-as-the-model-behind-hermes-agent.md)), Agent-Made Video in 10 Minutes: Hermes Agent + Grok 4.5 + Hyperframes (Melvin Vivas on [X](https://x.com/melvindvivas/status/2078761137001443365) · [notes](../notes/2026-07-19-agent-made-video-in-10-minutes-hermes-agent-grok-4-5.md)), Personal Assistant Agent on Hermes: Morning Briefings and Inbox Triage (Melvin Vivas on [X](https://x.com/melvindvivas/status/2078760898102219148) · [notes](../notes/2026-07-19-personal-assistant-agent-on-hermes-morning-briefings-and.md)), Running Parallel Agents With Different Models in Cursor Mobile (Melvin Vivas on [X](https://x.com/melvindvivas/status/2078688456251998567) · [notes](../notes/2026-07-19-running-parallel-agents-with-different-models-in-cursor.md)) and 9 more
+- [ ] **[GPT 5.5](https://openai.com/index/introducing-gpt-5-5/)** · tool · openai.com · paid  
+  OpenAI models the creator used as the coding model inside Cursor.  
+  Also in: Running GPT-5.5 via Codex as Hermes's Main Model (Melvin Vivas on [X](https://x.com/melvindvivas/status/2073394924549267576) · [notes](../notes/2026-07-04-running-gpt-5-5-via-codex-as-hermes-s-main-model.md)), Conductor Walkthrough: Running Parallel Coding Agents in Isolated Git Worktrees (Melvin Vivas on [X](https://x.com/melvindvivas/status/2069521472742404424) · [notes](../notes/2026-06-23-conductor-walkthrough-running-parallel-coding-agents-in.md)), Composer 2.5 as the Default Coding Model in Cursor (Melvin Vivas on [X](https://x.com/melvindvivas/status/2056633730996060252) · [notes](../notes/2026-05-19-composer-2-5-as-the-default-coding-model-in-cursor.md)), Which AI coding model to use for which task (Melvin Vivas on [X](https://x.com/melvindvivas/status/2054966217698672859) · [notes](../notes/2026-05-15-which-ai-coding-model-to-use-for-which-task.md)) and 2 more
+- [ ] **[GLM 5.2](https://huggingface.co/zai-org/GLM-5.2)** · tool · huggingface.co · free  
+  A GLM-family LLM (the transcript says 'GLM-5-2') that the demo ranked as a strong, affordable model for coding and design.  
+  Also in: Qwen3.8-Max on the Frontend Code Arena cost-performance frontier (Melvin Vivas on [X](https://x.com/melvindvivas/status/2084174074201416042) · [notes](../notes/2026-08-03-qwen3-8-max-on-the-frontend-code-arena-cost-performance.md)), Open Model GLM 5.2 Helped Mitigate OpenAI-Caused Cyberattack (Melvin Vivas on [X](https://x.com/melvindvivas/status/2079789131115487624) · [notes](../notes/2026-07-22-open-model-glm-5-2-helped-mitigate-openai-caused-cyberattack.md)), AI News Roundup: Claude Fable 5, Scientist AI, ZCode, NVIDIA RL (Melvin Vivas on [X](https://x.com/melvindvivas/status/2072785831606304801) · [notes](../notes/2026-07-03-ai-news-roundup-claude-fable-5-scientist-ai-zcode-nvidia-rl.md)), Trying ZCode by Z.ai with GLM 5.2 on a Mac (Melvin Vivas on [X](https://x.com/melvindvivas/status/2072757541617230199) · [notes](../notes/2026-07-03-trying-zcode-by-z-ai-with-glm-5-2-on-a-mac.md)) and 27 more
+- [ ] **[Z.ai Coding Plan](https://docs.z.ai/devpack/overview)** · tool · docs.z.ai · paid  
+  Z.ai's subscription plan for accessing GLM models.
+- [ ] **[DeepSeek V4](https://huggingface.co/collections/deepseek-ai/deepseek-v4)** · tool · huggingface.co · free  
+  A DeepSeek LLM, accessed through OpenRouter as the final fallback.  
+  Also in: Multi-Teacher On-Policy Distillation (MOPD) in 2026 (Melvin Vivas on [X](https://x.com/melvindvivas/status/2095322105172885931) · [notes](../notes/2026-09-03-multi-teacher-on-policy-distillation-mopd-in-2026.md)), Cost-Saving Model Fallback Chain: Grok → Codex → OpenRouter DeepSeek (Melvin Vivas on [X](https://x.com/melvindvivas/status/2077235607118684426) · [notes](../notes/2026-07-15-cost-saving-model-fallback-chain-grok-codex-openrouter.md))
+- [ ] **[OpenRouter](https://openrouter.ai/z-ai/glm-5-tur)** · tool · openrouter.ai · free  
+  OpenRouter is a unified API gateway that gives access to many LLMs behind one OpenAI-compatible endpoint; this link is its X account.  
+  Also in: The Jev model is now on OpenRouter (Melvin Vivas on [X](https://x.com/melvindvivas/status/2103826669324869745) · [notes](../notes/2026-09-26-the-jev-model-is-now-on-openrouter.md)), Kev-4B model, an alternative to Jev, now available on OpenRouter (Melvin Vivas on [X](https://x.com/melvindvivas/status/2103655416299466815) · [notes](../notes/2026-09-26-kev-4b-model-an-alternative-to-jev-now-available-on.md)), Space Bunny Alpha: stealth 1M-context flash model on OpenRouter (Melvin Vivas on [X](https://x.com/melvindvivas/status/2102779478737142186) · [notes](../notes/2026-09-23-space-bunny-alpha-stealth-1m-context-flash-model-on.md)), Adding Vercel AI Gateway as a provider in AIBackends with Devin (Melvin Vivas on [X](https://x.com/melvindvivas/status/2101160927718781084) · [notes](../notes/2026-09-19-adding-vercel-ai-gateway-as-a-provider-in-aibackends-with.md)) and 41 more
+- [ ] **[Qwen 3.6 35B (MTP)](https://huggingface.co/Qwen/Qwen3.6-35B-A3B)** · tool · huggingface.co · free  
+  Qwen 3.6 mixture-of-experts model (35B total, about 3B active parameters) with multi-token prediction for local inference.  
+  Also in: Use a Local Model for Confidential Data with Your Agent (Melvin Vivas on [X](https://x.com/melvindvivas/status/2085345530251735193) · [notes](../notes/2026-08-06-use-a-local-model-for-confidential-data-with-your-agent.md)), Running Qwen 3.6 35B locally on an RTX 3090 for agent tool calling (Melvin Vivas on [X](https://x.com/melvindvivas/status/2084140795653976196) · [notes](../notes/2026-08-03-running-qwen-3-6-35b-locally-on-an-rtx-3090-for-agent-tool.md)), Run Hermes Agent locally with Qwen 3.6 35B MTP in LM Studio (Melvin Vivas on [X](https://x.com/melvindvivas/status/2079169631802314881) · [notes](../notes/2026-07-20-run-hermes-agent-locally-with-qwen-3-6-35b-mtp-in-lm-studio.md)), Local Personal AI Agent to Explain Your Investment Portfolio (Melvin Vivas on [X](https://x.com/melvindvivas/status/2079076309175791706) · [notes](../notes/2026-07-20-local-personal-ai-agent-to-explain-your-investment-portfolio.md)) and 4 more
+- [ ] **[Gemini Flash](https://deepmind.google/models/gemini/flash/)** · tool · deepmind.google · free  
+  Google's fast, low-cost Gemini model, suited to auxiliary tasks like web browsing and vision.  
+  Also in: Testing Gemini 3.8 Flash in Cursor with a CRM Smoke Test (Melvin Vivas on [X](https://x.com/melvindvivas/status/2095386598871638086) · [notes](../notes/2026-09-03-testing-gemini-3-8-flash-in-cursor-with-a-crm-smoke-test.md)), Gemini 3.8 Flash Available in Cursor CLI (Melvin Vivas on [X](https://x.com/melvindvivas/status/2095378823995117944) · [notes](../notes/2026-09-03-gemini-3-8-flash-available-in-cursor-cli.md)), Cut Hermes Agent Token Costs with Gemini Flash as an Auxiliary Model (Melvin Vivas on [X](https://x.com/melvindvivas/status/2074575936952119462) · [notes](../notes/2026-07-08-cut-hermes-agent-token-costs-with-gemini-flash-as-an.md))

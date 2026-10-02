@@ -1,0 +1,39 @@
+{
+  "_comment": "Who the library credits. `run.cmd build` uses this for the credits banner on the page and for CREDITS.md and LICENSE.md in library/ and docs/. Edit freely, then run `run.cmd build`.",
+  "maintainer": "Roque Almodiel",
+  "content_license": {
+    "name": "CC BY 4.0",
+    "title": "Creative Commons Attribution 4.0 International",
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "legal_code": "https://creativecommons.org/licenses/by/4.0/legalcode"
+  },
+  "creators": [
+    {
+      "name": "Bashiri Smith",
+      "brand": "BASWE.Ai",
+      "about": "Helps aspiring and working software engineers move into AI engineering roles.",
+      "links": {
+        "Facebook": "https://www.facebook.com/basweai",
+        "YouTube": "https://www.youtube.com/@BashiFuirkashi",
+        "Instagram": "https://www.instagram.com/bashi_fuirkashi/",
+        "TikTok": "https://www.tiktok.com/@bashifuirkashi",
+        "LinkedIn": "https://www.linkedin.com/in/bashiri-smith/",
+        "X": "https://x.com/bashifuirkashi",
+        "BASWE.Ai community": "https://www.skool.com/baswe-ai",
+        "Website": "https://baswe.ai/"
+      }
+    },
+    {
+      "name": "Melvin Vivas",
+      "brand": null,
+      "about": "Software engineer building with AI, with a focus on local and open models and AI agents.",
+      "links": {
+        "X (@melvindvivas)": "https://x.com/melvindvivas",
+        "X (@donvito)": "https://x.com/donvito",
+        "GitHub": "https://github.com/donvito",
+        "Website": "https://www.donvitocodes.com/",
+        "Blog": "https://www.melvinvivas.com/"
+      }
+    }
+  ]
+}
