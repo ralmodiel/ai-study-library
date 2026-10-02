@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fine-tuning &amp; Model Customization: free resources and study plan |…</title>
+<meta name="description" content="LoRA, distillation, preference tuning and training your own models. 93 summarised reels and posts and 75 linked resources (3 free to watch), from Bashiri…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/topics/fine-tuning.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Fine-tuning &amp; Model Customization: free resources and study plan |…">
+<meta property="og:description" content="LoRA, distillation, preference tuning and training your own models. 93 summarised reels and posts and 75 linked resources (3 free to watch), from Bashiri…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/topics/fine-tuning.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://ralmodiel.github.io/ai-study-library/topics/fine-tuning.html","name":"Fine-tuning & Model Customization","url":"https://ralmodiel.github.io/ai-study-library/topics/fine-tuning.html","description":"LoRA, distillation, preference tuning and training your own models.","about":{"@type":"Thing","name":"Fine-tuning & Model Customization"},"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"inLanguage":"en"},{"@type":"WebSite","@id":"https://ralmodiel.github.io/ai-study-library/#website","name":"AI Engineer Study Library","url":"https://ralmodiel.github.io/ai-study-library/","inLanguage":"en","publisher":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"}},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"Fine-tuning & Model Customization"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../learning-path.html">Learning path</a><a href="../free-watch-list.html">Free to watch</a><a href="../resources.html">All resources</a><a href="../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../">Library</a> &rsaquo; <a href="../learning-path.html">Learning path</a> &rsaquo; <span aria-current="page">Fine-tuning &amp; Model Customization</span></nav><p class="step">Topic 10 of 16 in the <a href="../learning-path.html">learning path</a></p><h1>Fine-tuning &amp; Model Customization</h1>
+<p><em>LoRA, distillation, preference tuning and training your own models.</em></p>
+<p><strong>Reels and posts (63)</strong></p>
+<ul>
+<li><a href="../notes/10-fine-tuning/2026-10-02-using-an-ml-agent-to-train-an-open-source-tts-model-on-your.html">Using an ML agent to train an open-source TTS model on your voice</a> · Melvin Vivas, X: The creator's ML Grok Bot explained how to fine-tune an open-source text-to-speech model on his own voice.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-25-run-local-models-on-a-free-gpu-with-google-colab-t4.html">Run Local Models on a Free GPU with Google Colab (T4)</a> · Melvin Vivas, X · 0:54: Melvin Vivas shows how to use Google Colab to run open, local-style models on a free GPU, without buying hardware.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-25-free-colab-notebooks-for-local-model-fine-tuning-and.html">Free Colab Notebooks for Local Model Fine-Tuning and Inference</a> · Melvin Vivas, X: The creator has added more AIBackends notebooks to his free GitHub repo.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-25-train-your-own-llm-model-router-by-fine-tuning-modernbert.html">Train Your Own LLM Model Router by Fine-Tuning ModernBERT as a Classifier</a> · Melvin Vivas, X · 1:00: Melvin Vivas shows how to build a model router.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-25-fine-tuning-liquid-ai-lfm2-lfm2-5-moe-models-with-the-new.html">Fine-tuning Liquid AI LFM2/LFM2.5 MoE models with the new Halo framework</a> · Melvin Vivas, X: Melvin Vivas shares Halo, a new fine-tuning framework, along with Liquid AI's two official recipes for fine-tuning their Mixture-of-Experts models.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-22-hugging-face-llm-course-chapter-7-3-for-training-your-own.html">Hugging Face LLM Course: Chapter 7.3 for Training Your Own Model</a> · Melvin Vivas, X: The creator quotes a post saying that Hugging Face Learn has 'premium Jev material' and links to chapter 7, section 3 of the free Hugging Face LLM Course.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-21-model-routing-fine-tune-your-own-router-on-your-prompts.html">Model Routing: Fine-Tune Your Own Router on Your Prompts</a> · Melvin Vivas, X: Melvin Vivas argues that the best way to get model routing right is to fine-tune your own routing model on your own prompts.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-20-base-vs-fine-tuned-gemma-4-e2b-as-a-model-router.html">Base vs fine-tuned Gemma 4 E2B as a model router</a> · Melvin Vivas, X: Compares the base model with the fine-tuned one for the creator's Gemma 4 E2B model router.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-20-qlora-fine-tune-gemma-4-e2b-with-unsloth-as-a-model-router.html">QLoRA fine-tune Gemma 4 E2B with Unsloth as a model router</a> · Melvin Vivas, X: The creator QLoRA fine-tuned Gemma 4 E2B Instruct with Unsloth to classify software tasks and send each one to Luna (cheaper) or Astra (stronger).</li>
+<li><a href="../notes/10-fine-tuning/2026-09-20-free-colab-notebooks-modernbert-gemma-qlora-gliner.html">Free Colab Notebooks: ModernBERT, Gemma QLoRA, GLiNER &amp; Guardrails</a> · Melvin Vivas, X: Melvin Vivas shares a set of free Google Colab notebooks on his website, mostly about fine-tuning.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-19-fine-tuning-gemma4-e2b-on-your-own-tweet-style-with-unsloth.html">Fine-tuning Gemma4-E2B on your own tweet style with Unsloth</a> · Melvin Vivas, X: The creator is building a notebook that fine-tunes the small Gemma4-E2B model to write in his own tweet style, using Unsloth.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-19-not-every-problem-needs-an-llm-small-fine-tuned-models-jev.html">Not every problem needs an LLM: small fine-tuned models (Jev by TypeSafe AI)</a> · Melvin Vivas, X: The creator praises TypeSafe AI's Jev model.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-19-hugging-face-autotrain-a-no-code-fine-tuning-tool.html">Hugging Face AutoTrain: a no-code fine-tuning tool</a> · Melvin Vivas, X: The creator asks Hugging Face to revive AutoTrain, its no-code/low-code tool for fine-tuning models.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-19-lora-fine-tune-qwen3-5-2b-on-your-tweets-with-unsloth-studio.html">LoRA Fine-Tune Qwen3.5-2B on Your Tweets with Unsloth Studio</a> · Melvin Vivas, X: The creator fine-tuned Qwen3.5-2B with LoRA in Unsloth Studio, using his own popular tweets as the dataset.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-19-fine-tune-modernbert-base-as-a-task-routing-classifier.html">Fine-Tune ModernBERT-base as a Task-Routing Classifier</a> · Melvin Vivas, X: The creator is experimenting with fine-tuning ModernBERT-base to classify incoming tasks and send each one to one of two agents (Astra or Luna).</li>
+<li><a href="../notes/10-fine-tuning/2026-09-19-kev-0-5b-a-tiny-open-source-decision-model-to-train-on-a.html">Kev-0.5B: A Tiny Open-Source Decision Model to Train on a MacBook</a> · Melvin Vivas, X: Shares Kev-0.5B, a tiny open-source decision model similar to Jev, with a TypeSafe-compatible API.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-18-train-modernbert-as-a-prompt-router-between-two-models.html">Train ModernBERT as a Prompt Router Between Two Models (Colab Notebook)</a> · Melvin Vivas, X: The creator shares a Colab notebook that fine-tunes a ModernBERT classifier on prompts.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-18-fine-tuning-modernbert-base-as-a-task-router-quote-post.html">Fine-tuning ModernBERT-base as a task router (quote post)</a> · Melvin Vivas, X: The creator adds 'awesome' to his own post about fine-tuning ModernBERT-base.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-18-fine-tuning-modernbert-base-to-route-tasks-between-two.html">Fine-tuning ModernBERT-base to route tasks between two models</a> · Melvin Vivas, X: The creator is experimenting with fine-tuning ModernBERT-base as a task classifier.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-18-train-models-locally-with-the-unsloth-docker-image.html">Train models locally with the Unsloth Docker image</a> · Melvin Vivas, X: The creator recommends Unsloth's Docker image for training models locally because it avoids the trouble of setting up Python and CUDA.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-15-post-training-qwen3-5-2b-on-your-own-x-posts-with-unsloth.html">Post-training Qwen3.5-2B on your own X posts with Unsloth Studio</a> · Melvin Vivas, X: The creator post-trained the small Qwen3.5-2B model with Unsloth Studio, using his own popular X posts as the training and validation data.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-15-use-codex-to-prepare-fine-tuning-datasets.html">Use Codex to Prepare Fine-Tuning Datasets</a> · Melvin Vivas, X: Tip: when you train a model, ask Codex to help prepare the dataset.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-14-melvin-vivas-s-hugging-face-profile.html">Melvin Vivas's Hugging Face Profile</a> · Melvin Vivas, X: The creator shares his Hugging Face profile, where he publishes his fine-tuned models.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-14-gpt-6-astra-medium-in-codex-as-a-low-cost-fine-tuning.html">GPT-6 Astra Medium in Codex as a Low-Cost Fine-Tuning Assistant</a> · Melvin Vivas, X: The creator recommends GPT-6 Astra on the medium setting in Codex as an assistant for fine-tuning and training small models, because it doesn't use much of your usage allowance.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-14-push-fine-tuned-models-to-hugging-face-from-unsloth-studio.html">Push Fine-Tuned Models to Hugging Face from Unsloth Studio</a> · Melvin Vivas, X: After post-training, Unsloth Studio can upload your model to Hugging Face from its UI.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-14-fine-tuned-qwen3-5-2b-lora-model-that-writes-x-posts-in.html">Fine-Tuned Qwen3.5-2B LoRA Model That Writes X Posts in Your Style</a> · Melvin Vivas, X: The creator fine-tuned Qwen3.5-2B with LoRA in Unsloth Studio.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-14-first-lora-run-on-qwen3-5-2b-with-codex-as-training.html">First LoRA Run on Qwen3.5-2B with Codex as Training Companion</a> · Melvin Vivas, X: The creator finished his first fine-tuning run of Qwen3.5-2B to copy his tweet style.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-14-using-codex-to-generate-synthetic-training-pairs-for-fine.html">Using Codex to Generate Synthetic Training Pairs for Fine-tuning Qwen2.5</a> · Melvin Vivas, X: Melvin Vivas shows that a coding agent (OpenAI Codex) can handle dataset prep for machine learning.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-14-unsloth-studio-fine-tuning-without-colab-notebooks.html">Unsloth Studio: Fine-tuning Without Colab Notebooks</a> · Melvin Vivas, X: The creator says Unsloth Studio makes fine-tuning easier than the old workflow of running Google Colab notebooks.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-14-training-a-small-model-on-your-own-popular-tweets.html">Training a Small Model on Your Own Popular Tweets</a> · Melvin Vivas, X: The creator is preparing data to train a small model on his most popular tweets, which suggests a personal style-tuning project.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-14-model-distillation-explained-a-teacher-model-trains-a.html">Model Distillation Explained: A Teacher Model Trains a Smaller Student</a> · Melvin Vivas, X: The post explains model distillation: a stronger 'teacher' model generates high-quality examples, and those outputs are used to train a smaller model for one specific task.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-13-idea-fine-tune-a-small-model-on-your-best-tweets.html">Idea: Fine-Tune a Small Model on Your Best Tweets</a> · Melvin Vivas, X: The creator plans to fine-tune a small model to write in his own style, using his most successful posts as the training dataset.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-13-hugging-face-training-agents-series-post-training-coding.html">Hugging Face Training Agents series: post-training coding agents</a> · Melvin Vivas, X: The creator recommends Hugging Face's finished Training Agents series for learning how to post-train models for coding agents.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-06-jsonl-viewer-a-tool-to-view-and-edit-jsonl-training-datasets.html">jsonl-viewer: a tool to view and edit JSONL training datasets</a> · Melvin Vivas, X: The creator shares his open-source jsonl-viewer, a tool for viewing and editing .jsonl files.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-04-fine-tune-lfm2-5-350m-with-grpo-in-trl-for-structured.html">Fine-Tune LFM2.5-350M with GRPO in TRL for Structured Outputs</a> · Melvin Vivas, X: The creator points to a Hugging Face blog tutorial on fine-tuning a tiny model for better structured outputs.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-03-multi-teacher-on-policy-distillation-mopd-in-2026.html">Multi-Teacher On-Policy Distillation (MOPD) in 2026</a> · Melvin Vivas, X: The creator shares a compilation of model distillation papers, quoting a post about Multi-Teacher On-Policy Distillation (MOPD).</li>
+<li><a href="../notes/10-fine-tuning/2026-09-02-ready-made-docker-image-for-running-coding-agents-on-ml.html">Ready-made Docker image for running coding agents on ML/fine-tuning jobs</a> · Melvin Vivas, X: For ML work like fine-tuning with coding agents, the creator offers a ready-made Docker image with PyTorch/CUDA and the agents already installed.</li>
+<li><a href="../notes/10-fine-tuning/2026-09-02-nuextract3-open-4b-vlm-for-ocr-and-structured-json.html">NuExtract3: Open 4B VLM for OCR and Structured JSON Extraction</a> · Melvin Vivas, X: NuExtract3 is NuMind's open-source (Apache 2.0) 4B vision-language model with reasoning.</li>
+<li><a href="../notes/10-fine-tuning/2026-08-31-jsonl-viewer-viewing-and-editing-fine-tuning-datasets-in.html">jsonl-viewer: Viewing and Editing Fine-Tuning Datasets in JSONL</a> · Melvin Vivas, X: The creator built jsonl-viewer, an open-source tool for viewing and editing .jsonl (JSON Lines) files.</li>
+<li><a href="../notes/10-fine-tuning/2026-08-30-fine-tune-a-model-on-your-own-coding-agent-traces.html">Fine-Tune a Model on Your Own Coding Agent Traces</a> · Melvin Vivas, X: The creator recommends a Hugging Face live tutorial by Ben Burtenshaw on fine-tuning a coding agent with its own agent traces, so it keeps learning over time.</li>
+<li><a href="../notes/10-fine-tuning/2026-08-27-model-routing-fine-tuned-on-your-agent-harness-traces.html">Model Routing Fine-Tuned on Your Agent Harness Traces</a> · Melvin Vivas, X: An example of how model routing can work: fine-tune Liquid AI's LFM2.5 Encoder on traces from your agent harness, which record each prompt and the model used for it.</li>
+<li><a href="../notes/10-fine-tuning/2026-08-26-fine-tune-and-deploy-qwen3-8-27b-on-together-ai.html">Fine-tune and Deploy Qwen3.8 27B on Together AI</a> · Melvin Vivas, X: Together AI now supports fine-tuning Qwen3.8 27B and serving it on dedicated inference.</li>
+<li><a href="../notes/10-fine-tuning/2026-08-20-quantization-aware-distillation-qad-for-better-4-bit-gguf.html">Quantization-Aware Distillation (QAD) for Better 4-bit GGUF Models</a> · Melvin Vivas, X: Liquid AI released new 4-bit checkpoints trained with Quantization-Aware Distillation (QAD).</li>
+<li><a href="../notes/10-fine-tuning/2026-08-19-fine-tune-muse-glimmer-30b-with-lora-or-full-parameter-on.html">Fine-Tune Muse Glimmer 30B with LoRA or Full-Parameter on Fireworks</a> · Melvin Vivas, X: Muse Glimmer 30B is now on Fireworks' Dedicated Training API for both LoRA and full-parameter fine-tuning.</li>
+<li><a href="../notes/10-fine-tuning/2026-08-16-jsonl-viewer-view-and-edit-jsonl-fine-tuning-datasets.html">jsonl-viewer: view and edit JSONL fine-tuning datasets</a> · Melvin Vivas, X: The creator added a file explorer to jsonl-viewer, his open-source tool for viewing and editing .jsonl files.</li>
+<li><a href="../notes/10-fine-tuning/2026-08-14-fine-tune-muse-glimmer-30b-for-free-with-unsloth-incl-grpo.html">Fine-Tune Muse Glimmer 30B for Free with Unsloth (incl. GRPO)</a> · Melvin Vivas, X: Shares Unsloth's announcement that Meta's Muse Glimmer 30B can now be fine-tuned for free with Unsloth notebooks.</li>
+<li><a href="../notes/10-fine-tuning/2026-08-11-smoke-testing-lfm-fine-tuning-with-codex-and-liquid-ai-s.html">Smoke-Testing LFM Fine-tuning with Codex and Liquid AI's LEAP</a> · Melvin Vivas, X: The creator is trying out fine-tuning Liquid AI's LFM models with the LEAP framework, using Codex as a coding assistant.</li>
+<li><a href="../notes/10-fine-tuning/2026-08-11-free-jsonl-viewer-for-inspecting-fine-tuning-datasets.html">Free JSONL Viewer for Inspecting Fine-tuning Datasets</a> · Melvin Vivas, X: The creator shares a free, open-source tool he built for viewing and editing .jsonl files.</li>
+<li><a href="../notes/10-fine-tuning/2026-08-11-liquid-ai-cookbook-fine-tuning-lfms-with-cpt-sft-dpo-and.html">Liquid AI Cookbook: Fine-Tuning LFMs with CPT, SFT, DPO and GRPO</a> · Melvin Vivas, X: Melvin Vivas recommends the Liquid AI cookbook as a strong, underrated resource for fine-tuning Liquid's LFM models.</li>
+<li><a href="../notes/10-fine-tuning/2026-08-09-loop-engineering-fits-fine-tuning-better-than-coding.html">Loop engineering fits fine-tuning better than coding</a> · Melvin Vivas, X: The creator argues that loop engineering (automated iterate-and-check loops) works better for fine-tuning models than for coding.</li>
+<li><a href="../notes/10-fine-tuning/2026-08-09-small-local-models-fine-tuning-instead-of-more-compute.html">Small Local Models + Fine-Tuning Instead of More Compute (Liquid AI, LEAP)</a> · Melvin Vivas, X: Melvin argues that instead of chasing more compute, you should make small local models work for your specific use case.</li>
+<li><a href="../notes/10-fine-tuning/2026-07-30-evolution-of-image-loras-stable-diffusion-flux-krea-2.html">Evolution of Image LoRAs: Stable Diffusion → Flux → Krea 2</a> · Melvin Vivas, X: A short note on which base models image LoRAs have been trained on over time: first Stable Diffusion, then Flux, and now Krea 2.</li>
+<li><a href="../notes/10-fine-tuning/2026-06-27-open-source-jsonl-viewer-for-fine-tuning-datasets.html">Open-Source JSONL Viewer for Fine-Tuning Datasets</a> · Melvin Vivas, X: The creator built an open-source viewer and editor for .jsonl files using GLM 5.2 in Cursor.</li>
+<li><a href="../notes/10-fine-tuning/2026-06-23-krea-2-open-weights-raw-undistilled-vs-turbo-distilled.html">Krea 2 Open Weights: Raw (Undistilled) vs Turbo (Distilled) Image Models</a> · Melvin Vivas, X · 0:24: This is a short post sharing Krea's announcement that it has released the open weights of its Krea 2 image generation model.</li>
+<li><a href="../notes/10-fine-tuning/2026-06-17-paper-context-aware-rl-for-agentic-and-multimodal-llms.html">Paper: Context-Aware RL for Agentic and Multimodal LLMs</a> · Melvin Vivas, X: The creator shares a link to an arXiv paper (2606.17053) titled 'Context-Aware RL for Agentic and Multimodal LLMs'.</li>
+<li><a href="../notes/10-fine-tuning/2026-05-27-1-bit-bonsai-image-4b-a-diffusion-model-under-1gb.html">1-bit Bonsai Image 4B: A Diffusion Model Under 1GB</a> · Melvin Vivas, X: A quoted announcement says the 1-bit Bonsai Image 4B diffusion transformer is only 0.93GB, 8.3x smaller than the full-precision version.</li>
+<li><a href="../notes/10-fine-tuning/2026-05-11-unsloth-joins-the-pytorch-ecosystem.html">Unsloth joins the PyTorch Ecosystem</a> · Melvin Vivas, X: The creator congratulates Unsloth on joining the PyTorch Ecosystem.</li>
+<li><a href="../notes/10-fine-tuning/2026-04-23-ml-intern-post-train-a-model-by-chatting-hugging-face.html">ML Intern: Post-Train a Model by Chatting (Hugging Face)</a> · Melvin Vivas, X: Highlights Hugging Face's ML Intern, an agent that lets you train or post-train models through a chat conversation.</li>
+<li><a href="../notes/10-fine-tuning/2026-04-15-fine-tuning-models-with-unsloth-studio.html">Fine-Tuning Models with Unsloth Studio</a> · Melvin Vivas, X: Unsloth Studio makes fine-tuning models easier.</li>
+<li><a href="../notes/10-fine-tuning/2026-04-04-fine-tuning-gemma-3-270m-with-unsloth-for-work-tasks.html">Fine-tuning Gemma 3 270M with Unsloth for Work Tasks</a> · Melvin Vivas, X: The creator says he is fine-tuning Google's tiny Gemma 3 270M model for a work use case with Unsloth, and is thinking about fine-tuning Gemma 4 next.</li>
+<li><a href="../notes/10-fine-tuning/2026-04-03-installing-unsloth-studio-on-windows-via-wsl.html">Installing Unsloth Studio on Windows via WSL</a> · Melvin Vivas, X: The creator reports that he installed Unsloth Studio on Windows using WSL (Windows Subsystem for Linux).</li>
+<li><a href="../notes/10-fine-tuning/2026-03-27-looking-for-a-low-cost-replacement-for-hugging-face.html">Looking for a Low-Cost Replacement for Hugging Face AutoTrain</a> · Melvin Vivas, X: The creator notes that Hugging Face AutoTrain has been discontinued and asks for a cheaper alternative, since Google AutoML and Amazon SageMaker cost too much for him.</li>
+<li><a href="../notes/10-fine-tuning/2026-03-17-unsloth-studio-open-source-web-ui-to-train-and-run-llms.html">Unsloth Studio: Open-Source Web UI to Train and Run LLMs Locally</a> · Melvin Vivas, X · 0:45: Melvin Vivas shares the launch of Unsloth Studio, an open-source web UI from the Unsloth team for training (fine-tuning) and running LLMs on your own machine.</li>
+</ul>
+<p><strong>Watch, free (3)</strong></p>
+<ul>
+<li><strong><a href="https://www.youtube.com/watch?v=rNgUoH7Wbv8">Training Agents series (Hugging Face)</a></strong> · video · youtube.com · free<br>
+  Hugging Face live tutorial on fine-tuning a coding agent with its own traces for continual learning.<br>
+  Mentioned in: Hugging Face Training Agents series: post-training coding agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098823366379749485">X</a> · <a href="../notes/10-fine-tuning/2026-09-13-hugging-face-training-agents-series-post-training-coding.html">notes</a>), Fine-Tune a Model on Your Own Coding Agent Traces (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2093954206478774398">X</a> · <a href="../notes/10-fine-tuning/2026-08-30-fine-tune-a-model-on-your-own-coding-agent-traces.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/learn/llm-course/chapter7/3">Hugging Face LLM Course – Chapter 7.3</a></strong> · course · huggingface.co · free<br>
+  A section of Hugging Face's free LLM Course with hands-on training and fine-tuning of models.<br>
+  Mentioned in: Hugging Face LLM Course: Chapter 7.3 for Training Your Own Model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102093173195694401">X</a> · <a href="../notes/10-fine-tuning/2026-09-22-hugging-face-llm-course-chapter-7-3-for-training-your-own.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/@HuggingFace">Hugging Face YouTube channel</a></strong> · channel · youtube.com · free<br>
+  Hugging Face's official YouTube channel, which hosts the Training Agents sessions.<br>
+  Mentioned in: Hugging Face Training Agents series: post-training coding agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098823366379749485">X</a> · <a href="../notes/10-fine-tuning/2026-09-13-hugging-face-training-agents-series-post-training-coding.html">notes</a>)</li>
+</ul>
+<p><strong>Read and use (42)</strong></p>
+<ul>
+<li><strong><a href="https://x.com/UnslothAI">Unsloth</a></strong> · tool · x.com · free<br>
+  Open-source web UI from Unsloth for fine-tuning and running LLMs (text, vision, audio, embedding, GGUF) locally, with dataset creation from documents.<br>
+  Mentioned in: Run Laya Decision models locally with Unsloth on 4GB RAM (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104744976089579549">X</a> · <a href="../notes/09-llmops/2026-09-29-run-laya-decision-models-locally-with-unsloth-on-4gb-ram.html">notes</a>), Unsloth passes 500M model downloads on Hugging Face (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102849447885734173">X</a> · <a href="../notes/16-trends/2026-09-24-unsloth-passes-500m-model-downloads-on-hugging-face.html">notes</a>), Run Qwen-Image-2.1 locally on 12GB VRAM with Unsloth GGUFs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102440958164115529">X</a> · <a href="../notes/09-llmops/2026-09-23-run-qwen-image-2-1-locally-on-12gb-vram-with-unsloth-ggufs.html">notes</a>), Base vs fine-tuned Gemma 4 E2B as a model router (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101538253929406562">X</a> · <a href="../notes/10-fine-tuning/2026-09-20-base-vs-fine-tuned-gemma-4-e2b-as-a-model-router.html">notes</a>) and 30 more</li>
+<li><strong><a href="https://github.com/donvito/notebooks">donvito/notebooks</a></strong> · repo · github.com · free<br>
+  The creator's notebooks for fine-tuning and running local models, which you can run in Google Colab, including a GLiNER2.5-Decide intent classification example.<br>
+  Mentioned in: Run Local Models on a Free GPU with Google Colab (T4) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103502126865658236">X</a> · <a href="../notes/10-fine-tuning/2026-09-25-run-local-models-on-a-free-gpu-with-google-colab-t4.html">notes</a>), Free Colab Notebooks for Local Model Fine-Tuning and Inference (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103489519815442882">X</a> · <a href="../notes/10-fine-tuning/2026-09-25-free-colab-notebooks-for-local-model-fine-tuning-and.html">notes</a>), Intent classification for support using GLiNER2.5-Decide notebook (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103372920605331589">X</a> · <a href="../notes/03-llm-fundamentals/2026-09-25-intent-classification-for-support-using-gliner2-5-decide.html">notes</a>), Getting started with GLiNER2.5-Decide in a Colab notebook (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103358381050503368">X</a> · <a href="../notes/03-llm-fundamentals/2026-09-25-getting-started-with-gliner2-5-decide-in-a-colab-notebook.html">notes</a>) and 4 more</li>
+<li><strong><a href="https://huggingface.co/answerdotai/ModernBERT-base">ModernBERT-base</a></strong> · tool · huggingface.co · free<br>
+  An open-source modernized BERT encoder model. The quoted post uses it as the speed baseline for LFM2.5-Encoder.<br>
+  Mentioned in: Train Your Own LLM Model Router by Fine-Tuning ModernBERT as a Classifier (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103467817156886893">X</a> · <a href="../notes/10-fine-tuning/2026-09-25-train-your-own-llm-model-router-by-fine-tuning-modernbert.html">notes</a>), Free Colab Notebooks: ModernBERT, Gemma QLoRA, GLiNER &amp; Guardrails (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101342034481312250">X</a> · <a href="../notes/10-fine-tuning/2026-09-20-free-colab-notebooks-modernbert-gemma-qlora-gliner.html">notes</a>), Fine-Tune ModernBERT-base as a Task-Routing Classifier (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101110603909873800">X</a> · <a href="../notes/10-fine-tuning/2026-09-19-fine-tune-modernbert-base-as-a-task-routing-classifier.html">notes</a>), Train ModernBERT as a Prompt Router Between Two Models (Colab Notebook) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100961076237971918">X</a> · <a href="../notes/10-fine-tuning/2026-09-18-train-modernbert-as-a-prompt-router-between-two-models.html">notes</a>) and 3 more</li>
+<li><strong><a href="https://huggingface.co/google/gemma-4-E2B-it">Gemma 4 E2B Instruct</a></strong> · tool · huggingface.co · free<br>
+  Small open-weight instruction-tuned Gemma model, used here as the base for a QLoRA fine-tune.<br>
+  Mentioned in: Base vs fine-tuned Gemma 4 E2B as a model router (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101538253929406562">X</a> · <a href="../notes/10-fine-tuning/2026-09-20-base-vs-fine-tuned-gemma-4-e2b-as-a-model-router.html">notes</a>), QLoRA fine-tune Gemma 4 E2B with Unsloth as a model router (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101525110196945095">X</a> · <a href="../notes/10-fine-tuning/2026-09-20-qlora-fine-tune-gemma-4-e2b-with-unsloth-as-a-model-router.html">notes</a>), Free Colab Notebooks: ModernBERT, Gemma QLoRA, GLiNER &amp; Guardrails (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101342034481312250">X</a> · <a href="../notes/10-fine-tuning/2026-09-20-free-colab-notebooks-modernbert-gemma-qlora-gliner.html">notes</a>)</li>
+<li><strong><a href="https://leap.liquid.ai/">LEAP (Liquid AI)</a></strong> · tool · leap.liquid.ai · check price<br>
+  Liquid AI's framework for fine-tuning and customizing its small models.<br>
+  Mentioned in: Smoke-Testing LFM Fine-tuning with Codex and Liquid AI's LEAP (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2087135593822294020">X</a> · <a href="../notes/10-fine-tuning/2026-08-11-smoke-testing-lfm-fine-tuning-with-codex-and-liquid-ai-s.html">notes</a>), Small Local Models + Fine-Tuning Instead of More Compute (Liquid AI, LEAP) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2086156825297318213">X</a> · <a href="../notes/10-fine-tuning/2026-08-09-small-local-models-fine-tuning-instead-of-more-compute.html">notes</a>), LFM2.5-2.6B Matches DeepSeek-V4-Flash on Tool Calling; LEAP Fine-Tuning (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2086086945055363569">X</a> · <a href="../notes/07-agents/2026-08-08-lfm2-5-2-6b-matches-deepseek-v4-flash-on-tool-calling-leap.html">notes</a>)</li>
+<li><strong><a href="https://ideogram.ai/blog/ideogram-4.0/">Ideogram 4.0</a></strong> · tool · ideogram.ai · free<br>
+  Ideogram's text-to-image model, released with open weights that you can download, fine-tune and run yourself.<br>
+  Mentioned in: 2.3x Faster Ideogram 4 in ComfyUI with INT8 and SageAttention (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2068287222152036529">X</a> · <a href="../notes/09-llmops/2026-06-20-2-3x-faster-ideogram-4-in-comfyui-with-int8-and.html">notes</a>), Ideogram 4.0 Released as an Open-Weights Image Model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2064613303951765768">X</a> · <a href="../notes/16-trends/2026-06-10-ideogram-4-0-released-as-an-open-weights-image-model.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/melvindave/qwen3.5-2b-melvin-posts-v1-GGUF">melvindave/qwen3.5-2b-melvin-posts-v1-GGUF</a></strong> · tool · huggingface.co · free<br>
+  Hugging Face model repo with the GGUF version of the Qwen3.5-2B model post-trained to write X posts in Melvin's style.<br>
+  Mentioned in: Post-training Qwen3.5-2B on your own X posts with Unsloth Studio (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099679217839677724">X</a> · <a href="../notes/10-fine-tuning/2026-09-15-post-training-qwen3-5-2b-on-your-own-x-posts-with-unsloth.html">notes</a>), Fine-Tuned Qwen3.5-2B LoRA Model That Writes X Posts in Your Style (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099510090613272921">X</a> · <a href="../notes/10-fine-tuning/2026-09-14-fine-tuned-qwen3-5-2b-lora-model-that-writes-x-posts-in.html">notes</a>)</li>
+<li><strong><a href="https://github.com/huggingface/trl">TRL (Hugging Face)</a></strong> · tool · github.com · free<br>
+  Hugging Face's open-source library for post-training LLMs with SFT, DPO, GRPO and more.<br>
+  Mentioned in: Fine-Tune LFM2.5-350M with GRPO in TRL for Structured Outputs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2095897615141577108">X</a> · <a href="../notes/10-fine-tuning/2026-09-04-fine-tune-lfm2-5-350m-with-grpo-in-trl-for-structured.html">notes</a>), Liquid AI Cookbook: Fine-Tuning LFMs with CPT, SFT, DPO and GRPO (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2086998197264945489">X</a> · <a href="../notes/10-fine-tuning/2026-08-11-liquid-ai-cookbook-fine-tuning-lfms-with-cpt-sft-dpo-and.html">notes</a>)</li>
+<li><strong><a href="https://unsloth.ai/docs/models/muse-glimmer">Unsloth Documentation: Muse Glimmer guide</a></strong> · docs · unsloth.ai · free<br>
+  Unsloth's guide and free notebooks for fine-tuning and GRPO-training Muse Glimmer 30B.<br>
+  Mentioned in: Fine-Tune Muse Glimmer 30B for Free with Unsloth (incl. GRPO) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2088254682074628561">X</a> · <a href="../notes/10-fine-tuning/2026-08-14-fine-tune-muse-glimmer-30b-for-free-with-unsloth-incl-grpo.html">notes</a>), Muse Glimmer 30B: Unsloth GGUF Release and Run Guide (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2086784123885248876">X</a> · <a href="../notes/03-llm-fundamentals/2026-08-10-muse-glimmer-30b-unsloth-gguf-release-and-run-guide.html">notes</a>)</li>
+<li><strong><a href="https://aws.amazon.com/sagemaker/">Amazon SageMaker</a></strong> · tool · aws.amazon.com · paid<br>
+  AWS's managed platform for training and deploying ML models.<br>
+  Mentioned in: Looking for a Low-Cost Replacement for Hugging Face AutoTrain (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2037360695063478749">X</a> · <a href="../notes/10-fine-tuning/2026-03-27-looking-for-a-low-cost-replacement-for-hugging-face.html">notes</a>)</li>
+<li><strong><a href="https://x.com/ben_burtenshaw">Ben Burtenshaw</a></strong> · person · x.com · free<br>
+  Hugging Face engineer who presents the agent fine-tuning tutorial.<br>
+  Mentioned in: Fine-Tune a Model on Your Own Coding Agent Traces (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2093954206478774398">X</a> · <a href="../notes/10-fine-tuning/2026-08-30-fine-tune-a-model-on-your-own-coding-agent-traces.html">notes</a>)</li>
+<li><strong><a href="https://prismml.com/news/bonsai-image-4b">Bonsai Image 4B (1-bit)</a></strong> · tool · prismml.com · free<br>
+  1-bit quantized 4B diffusion transformer image model that is only 0.93GB.<br>
+  Mentioned in: 1-bit Bonsai Image 4B: A Diffusion Model Under 1GB (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2059469899253285092">X</a> · <a href="../notes/10-fine-tuning/2026-05-27-1-bit-bonsai-image-4b-a-diffusion-model-under-1gb.html">notes</a>)</li>
+<li><strong><a href="https://www.donvitocodes.com/embed?url=https%3A%2F%2Farxiv.org%2Fpdf%2F2606.17053">Context-Aware RL for Agentic and Multimodal LLMs (arXiv 2606.17053)</a></strong> · paper · donvitocodes.com · free<br>
+  An arXiv research paper on context-aware reinforcement learning for training agentic and multimodal LLMs.<br>
+  Mentioned in: Paper: Context-Aware RL for Agentic and Multimodal LLMs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2066996047877193731">X</a> · <a href="../notes/10-fine-tuning/2026-06-17-paper-context-aware-rl-for-agentic-and-multimodal-llms.html">notes</a>)</li>
+<li><strong><a href="https://fastino.ai/">Fastino</a></strong> · tool · fastino.ai · free<br>
+  Company that made the finance and healthcare Nemotron models with NVIDIA.<br>
+  Mentioned in: Open-weight Nemotron models for finance and healthcare (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2095009260224876793">X</a> · <a href="../notes/03-llm-fundamentals/2026-09-02-open-weight-nemotron-models-for-finance-and-healthcare.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/blog/grpo-with-trl-ifstruct">Fine-tuning LFM2.5-350M for structured outputs with GRPO (Hugging Face blog)</a></strong> · article · huggingface.co · free<br>
+  Tutorial showing how to fine-tune LFM2.5-350M in 100 GRPO steps with TRL for better structured outputs.<br>
+  Mentioned in: Fine-Tune LFM2.5-350M with GRPO in TRL for Structured Outputs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2095897615141577108">X</a> · <a href="../notes/10-fine-tuning/2026-09-04-fine-tune-lfm2-5-350m-with-grpo-in-trl-for-structured.html">notes</a>)</li>
+<li><strong><a href="https://docs.fireworks.ai/fine-tuning/training-api/dedicated">Fireworks AI Dedicated Training API</a></strong> · tool · docs.fireworks.ai · paid<br>
+  Fireworks API for LoRA and full-parameter fine-tuning of open models.<br>
+  Mentioned in: Fine-Tune Muse Glimmer 30B with LoRA or Full-Parameter on Fireworks (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2090016561109278957">X</a> · <a href="../notes/10-fine-tuning/2026-08-19-fine-tune-muse-glimmer-30b-with-lora-or-full-parameter-on.html">notes</a>)</li>
+<li><strong><a href="https://github.com/Dao-AILab/flash-attention">FlashAttention-2</a></strong> · tool · github.com · free<br>
+  Optimized attention kernel, used here as the baseline for Unsloth's speed and memory claims.<br>
+  Mentioned in: Fine-Tune Muse Glimmer 30B for Free with Unsloth (incl. GRPO) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2088254682074628561">X</a> · <a href="../notes/10-fine-tuning/2026-08-14-fine-tune-muse-glimmer-30b-for-free-with-unsloth-incl-grpo.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/google/gemma-3-1b-it">Gemma 3 1B</a></strong> · tool · huggingface.co · free<br>
+  A small open Gemma 3 model that is practical to fine-tune.<br>
+  Mentioned in: Google Colab CLI and Agent Skills: Cloud GPUs From Your Terminal (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2064310591246782875">X</a> · <a href="../notes/13-ai-tools/2026-06-09-google-colab-cli-and-agent-skills-cloud-gpus-from-your.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/google/gemma-3-270m">Gemma 3 270M</a></strong> · tool · huggingface.co · free<br>
+  Google's 270M-parameter open model, designed to be fine-tuned for specific tasks.<br>
+  Mentioned in: Fine-tuning Gemma 3 270M with Unsloth for Work Tasks (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2040132113018872043">X</a> · <a href="../notes/10-fine-tuning/2026-04-04-fine-tuning-gemma-3-270m-with-unsloth-for-work-tasks.html">notes</a>)</li>
+<li><strong><a href="https://docs.cloud.google.com/vertex-ai/docs/training/automl-training-overview">Google AutoML</a></strong> · tool · docs.cloud.google.com · paid<br>
+  Google Cloud's managed automated model training service.<br>
+  Mentioned in: Looking for a Low-Cost Replacement for Hugging Face AutoTrain (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2037360695063478749">X</a> · <a href="../notes/10-fine-tuning/2026-03-27-looking-for-a-low-cost-replacement-for-hugging-face.html">notes</a>)</li>
+<li><strong><a href="https://github.com/whitecircle/halo">Halo</a></strong> · tool · github.com · check price<br>
+  A new fine-tuning framework that has recipes for MoE models like Liquid AI's LFM2 family.<br>
+  Mentioned in: Fine-tuning Liquid AI LFM2/LFM2.5 MoE models with the new Halo framework (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103367260568224039">X</a> · <a href="../notes/10-fine-tuning/2026-09-25-fine-tuning-liquid-ai-lfm2-lfm2-5-moe-models-with-the-new.html">notes</a>)</li>
+<li><strong><a href="https://github.com/whitecircle/halo/blob/main/human-docs/cookbooks/halo-lfm2-moe-cookbook.md">Halo LFM2 MoE cookbook (LFM2-24B-A2B)</a></strong> · docs · github.com · free<br>
+  Halo cookbook explaining how to fine-tune the LFM2-24B-A2B MoE model.<br>
+  Mentioned in: Fine-tuning Liquid AI LFM2/LFM2.5 MoE models with the new Halo framework (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103367260568224039">X</a> · <a href="../notes/10-fine-tuning/2026-09-25-fine-tuning-liquid-ai-lfm2-lfm2-5-moe-models-with-the-new.html">notes</a>)</li>
+<li><strong><a href="https://github.com/huggingface/autotrain-advanced">Hugging Face AutoTrain (autotrain-advanced)</a></strong> · tool · github.com · free<br>
+  Hugging Face's open-source no-code/low-code tool for training and fine-tuning models.<br>
+  Mentioned in: Hugging Face AutoTrain: a no-code fine-tuning tool (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101130571158298990">X</a> · <a href="../notes/10-fine-tuning/2026-09-19-hugging-face-autotrain-a-no-code-fine-tuning-tool.html">notes</a>)</li>
+<li><strong><a href="https://github.com/jaredpalmer/kev">jaredpalmer/kev (GitHub)</a></strong> · repo · github.com · free<br>
+  Family of Jev-like decision models built on Qwen that you can train and run yourself.<br>
+  Mentioned in: Kev-0.5B: A Tiny Open-Source Decision Model to Train on a MacBook (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101110094868165108">X</a> · <a href="../notes/10-fine-tuning/2026-09-19-kev-0-5b-a-tiny-open-source-decision-model-to-train-on-a.html">notes</a>)</li>
+<li><strong><a href="https://www.krea.ai/krea-2">Krea 2</a></strong> · tool · krea.ai · check price<br>
+  Krea's image-generation model, named as the newest base for image LoRAs.<br>
+  Mentioned in: Evolution of Image LoRAs: Stable Diffusion → Flux → Krea 2 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2082851656916767004">X</a> · <a href="../notes/10-fine-tuning/2026-07-30-evolution-of-image-loras-stable-diffusion-flux-krea-2.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/krea/Krea-2-Raw">Krea 2 Raw</a></strong> · tool · huggingface.co · free<br>
+  An undistilled open-weights image generation checkpoint from mid-training, meant to be fine-tuned.<br>
+  Mentioned in: Krea 2 Open Weights: Raw (Undistilled) vs Turbo (Distilled) Image Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2069471532196458521">X</a> · <a href="../notes/10-fine-tuning/2026-06-23-krea-2-open-weights-raw-undistilled-vs-turbo-distilled.html">notes</a>)</li>
+<li><strong><a href="https://www.liquid.ai/blog/qad">Liquid AI 4-bit QAD checkpoints</a></strong> · tool · liquid.ai · free<br>
+  4-bit GGUF model checkpoints from Liquid AI, trained with Quantization-Aware Distillation to recover accuracy lost to quantization.<br>
+  Mentioned in: Quantization-Aware Distillation (QAD) for Better 4-bit GGUF Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2090245874576490839">X</a> · <a href="../notes/10-fine-tuning/2026-08-20-quantization-aware-distillation-qad-for-better-4-bit-gguf.html">notes</a>)</li>
+<li><strong><a href="https://github.com/Liquid4All/cookbook">Liquid AI Cookbook</a></strong> · repo · github.com · free<br>
+  Liquid AI's collection of fine-tuning examples for LFM models across modalities and training methods.<br>
+  Mentioned in: Liquid AI Cookbook: Fine-Tuning LFMs with CPT, SFT, DPO and GRPO (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2086998197264945489">X</a> · <a href="../notes/10-fine-tuning/2026-08-11-liquid-ai-cookbook-fine-tuning-lfms-with-cpt-sft-dpo-and.html">notes</a>)</li>
+<li><strong><a href="https://www.liquid.ai/models">Liquid Foundation Models (LFM)</a></strong> · tool · liquid.ai · free<br>
+  Liquid AI's family of efficient foundation models that can be fine-tuned.<br>
+  Mentioned in: Smoke-Testing LFM Fine-tuning with Codex and Liquid AI's LEAP (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2087135593822294020">X</a> · <a href="../notes/10-fine-tuning/2026-08-11-smoke-testing-lfm-fine-tuning-with-codex-and-liquid-ai-s.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/melvindave">melvindave (Melvin Vivas) on Hugging Face</a></strong> · website · huggingface.co · free<br>
+  The creator's Hugging Face profile with his published models.<br>
+  Mentioned in: Melvin Vivas's Hugging Face Profile (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099516694758916332">X</a> · <a href="../notes/10-fine-tuning/2026-09-14-melvin-vivas-s-hugging-face-profile.html">notes</a>)</li>
+<li><strong><a href="https://github.com/XiaomiMiMo/MiMo-V2-Flash">MiMo-V2-Flash</a></strong> · tool · github.com · free<br>
+  Xiaomi's MiMo model, cited as using multi-teacher on-policy distillation.<br>
+  Mentioned in: Multi-Teacher On-Policy Distillation (MOPD) in 2026 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2095322105172885931">X</a> · <a href="../notes/10-fine-tuning/2026-09-03-multi-teacher-on-policy-distillation-mopd-in-2026.html">notes</a>)</li>
+<li><strong><a href="https://github.com/donvito/notebooks/blob/main/colab/ModernBERT_train_classify.ipynb">ModernBERT_train_classify.ipynb (donvito/notebooks)</a></strong> · repo · github.com · free<br>
+  Colab notebook that fine-tunes ModernBERT to classify prompts, used here to build a model router.<br>
+  Mentioned in: Train Your Own LLM Model Router by Fine-Tuning ModernBERT as a Classifier (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103467817156886893">X</a> · <a href="../notes/10-fine-tuning/2026-09-25-train-your-own-llm-model-router-by-fine-tuning-modernbert.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/numind/NuExtract3">NuExtract3</a></strong> · tool · huggingface.co · free<br>
+  Open-source 4B reasoning VLM for OCR to Markdown and schema-based JSON extraction.<br>
+  Mentioned in: NuExtract3: Open 4B VLM for OCR and Structured JSON Extraction (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2095045886984556547">X</a> · <a href="../notes/10-fine-tuning/2026-09-02-nuextract3-open-4b-vlm-for-ocr-and-structured-json.html">notes</a>)</li>
+<li><strong><a href="https://developer.nvidia.com/blog/introducing-nvfp4-for-efficient-and-accurate-low-precision-inference/">NVFP4</a></strong> · other · developer.nvidia.com · free<br>
+  NVIDIA's 4-bit floating-point format for low-precision training and inference.<br>
+  Mentioned in: Jensen Huang on NVIDIA's Long-Term Commitment to Open Nemotron Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2034093172129984515">X</a> · <a href="../notes/16-trends/2026-03-18-jensen-huang-on-nvidia-s-long-term-commitment-to-open.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/melvindave/qwe">qwen3.5-2b-melvin-posts-v1-GGUF (Hugging Face model)</a></strong> · repo · huggingface.co · free · open in a browser to verify<br>
+  The creator's LoRA fine-tune of Qwen3.5-2B in GGUF format, which writes X posts in his style.<br>
+  Mentioned in: LoRA Fine-Tune Qwen3.5-2B on Your Tweets with Unsloth Studio (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101111328714993970">X</a> · <a href="../notes/10-fine-tuning/2026-09-19-lora-fine-tune-qwen3-5-2b-on-your-tweets-with-unsloth-studio.html">notes</a>)</li>
+<li><strong><a href="https://arxiv.org/abs/2603.06507">Self-Flow (research paper)</a></strong> · paper · arxiv.org · free<br>
+  Open research paper on a self-supervised approach to training multimodal generative models that combines representation learning and generation, with no external encoder.<br>
+  Mentioned in: Self-Flow: Training Multimodal Generative Models Without an External Encoder (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2053897572536975846">X</a> · <a href="../notes/16-trends/2026-05-11-self-flow-training-multimodal-generative-models-without-an.html">notes</a>)</li>
+<li><strong><a href="https://github.com/Liquid4All/cookbook/blob/main/finetuning/notebooks/sft_moe_with_halo.ipynb">SFT MoE with Halo notebook (LFM2.5-8B-A1B) - Liquid4All cookbook</a></strong> · repo · github.com · free<br>
+  Notebook showing supervised fine-tuning of the LFM2.5-8B-A1B MoE model with Halo.<br>
+  Mentioned in: Fine-tuning Liquid AI LFM2/LFM2.5 MoE models with the new Halo framework (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103367260568224039">X</a> · <a href="../notes/10-fine-tuning/2026-09-25-fine-tuning-liquid-ai-lfm2-lfm2-5-moe-models-with-the-new.html">notes</a>)</li>
+<li><strong><a href="https://stability.ai/stable-image">Stable Diffusion</a></strong> · tool · stability.ai · free<br>
+  Open image-generation model family that was the first popular base for image LoRAs.<br>
+  Mentioned in: Evolution of Image LoRAs: Stable Diffusion → Flux → Krea 2 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2082851656916767004">X</a> · <a href="../notes/10-fine-tuning/2026-07-30-evolution-of-image-loras-stable-diffusion-flux-krea-2.html">notes</a>)</li>
+<li><strong><a href="https://docs.together.ai/docs/fine-tuning/overview">Together AI Fine-tuning Overview (docs)</a></strong> · docs · docs.together.ai · free<br>
+  Together AI's guide to fine-tuning models on your own data and deploying them.<br>
+  Mentioned in: Fine-tune and Deploy Qwen3.8 27B on Together AI (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2092511327352930654">X</a> · <a href="../notes/10-fine-tuning/2026-08-26-fine-tune-and-deploy-qwen3-8-27b-on-together-ai.html">notes</a>)</li>
+<li><strong><a href="https://unsloth.ai/docs/get-started/install/docker">Unsloth Docker installation guide</a></strong> · docs · unsloth.ai · free<br>
+  Unsloth's official guide to installing and using its Docker image for local model training.<br>
+  Mentioned in: Train models locally with the Unsloth Docker image (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100639500527677521">X</a> · <a href="../notes/10-fine-tuning/2026-09-18-train-models-locally-with-the-unsloth-docker-image.html">notes</a>)</li>
+<li><strong><a href="https://unsloth.ai/docs/models/gemma-4">Unsloth Documentation - Gemma 4 guide</a></strong> · docs · unsloth.ai · free<br>
+  Unsloth's guide to running and fine-tuning Gemma 4 models.<br>
+  Mentioned in: Run Gemma 4 12B on 8GB RAM with Unsloth Dynamic GGUFs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2062487479618253275">X</a> · <a href="../notes/03-llm-fundamentals/2026-06-04-run-gemma-4-12b-on-8gb-ram-with-unsloth-dynamic-ggufs.html">notes</a>)</li>
+<li><strong><a href="https://unsloth.ai/blog/pytorch">Unsloth Joins the PyTorch Ecosystem</a></strong> · article · unsloth.ai · free<br>
+  Unsloth's blog post announcing that it has joined the PyTorch Ecosystem.<br>
+  Mentioned in: Unsloth joins the PyTorch Ecosystem (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2053842852330053768">X</a> · <a href="../notes/10-fine-tuning/2026-05-11-unsloth-joins-the-pytorch-ecosystem.html">notes</a>)</li>
+</ul>
+<p><strong>Build</strong></p>
+<ul>
+<li>Fine-tune an open-source TTS model on your own voice, with an agent that starts a Hugging Face GPU and runs the training. (from <a href="../notes/10-fine-tuning/2026-10-02-using-an-ml-agent-to-train-an-open-source-tts-model-on-your.html">Using an ML agent to train an open-source TTS model on your voice</a>)</li>
+<li>Run inference with a small open-weight model on Colab's free T4, then fine-tune it with one of the creator's notebooks. (from <a href="../notes/10-fine-tuning/2026-09-25-run-local-models-on-a-free-gpu-with-google-colab-t4.html">Run Local Models on a Free GPU with Google Colab (T4)</a>)</li>
+<li>Build a custom LLM router that sends minor tasks (e.g., doc cleanup, spelling fixes) to a cheaper model and harder tasks to a stronger model, using a fine-tuned ModernBERT classifier trained on your own traces. (from <a href="../notes/10-fine-tuning/2026-09-25-train-your-own-llm-model-router-by-fine-tuning-modernbert.html">Train Your Own LLM Model Router by Fine-Tuning ModernBERT as a Classifier</a>)</li>
+<li>Train or fine-tune your own small model by following the Hugging Face LLM Course. (from <a href="../notes/10-fine-tuning/2026-09-22-hugging-face-llm-course-chapter-7-3-for-training-your-own.html">Hugging Face LLM Course: Chapter 7.3 for Training Your Own Model</a>)</li>
+<li>Train a custom prompt router that picks between models (e.g. Astra, Luna) from your own prompt history, and compare its cost and time against a single model (from <a href="../notes/10-fine-tuning/2026-09-21-model-routing-fine-tune-your-own-router-on-your-prompts.html">Model Routing: Fine-Tune Your Own Router on Your Prompts</a>)</li>
+<li>Fine-tune a small model to act as a router that picks a cheap or a strong model for each task. (from <a href="../notes/10-fine-tuning/2026-09-20-base-vs-fine-tuned-gemma-4-e2b-as-a-model-router.html">Base vs fine-tuned Gemma 4 E2B as a model router</a>)</li>
+<li>Build a cost-saving model router: a fine-tuned small model that sends each coding task to a cheap or a strong model, connected to Codex. (from <a href="../notes/10-fine-tuning/2026-09-20-qlora-fine-tune-gemma-4-e2b-with-unsloth-as-a-model-router.html">QLoRA fine-tune Gemma 4 E2B with Unsloth as a model router</a>)</li>
+<li>Fine-tune a ModernBERT classifier to route tasks between two models or agents. (from <a href="../notes/10-fine-tuning/2026-09-20-free-colab-notebooks-modernbert-gemma-qlora-gliner.html">Free Colab Notebooks: ModernBERT, Gemma QLoRA, GLiNER &amp; Guardrails</a>)</li>
+<li>QLoRA fine-tune Gemma 4 E2B on your own posts so it writes in your style. (from <a href="../notes/10-fine-tuning/2026-09-20-free-colab-notebooks-modernbert-gemma-qlora-gliner.html">Free Colab Notebooks: ModernBERT, Gemma QLoRA, GLiNER &amp; Guardrails</a>)</li>
+<li>Add local prompt and response guardrails with a small moderation model. (from <a href="../notes/10-fine-tuning/2026-09-20-free-colab-notebooks-modernbert-gemma-qlora-gliner.html">Free Colab Notebooks: ModernBERT, Gemma QLoRA, GLiNER &amp; Guardrails</a>)</li>
+<li>Build a knowledge graph from text with zero-shot GLiNER extraction. (from <a href="../notes/10-fine-tuning/2026-09-20-free-colab-notebooks-modernbert-gemma-qlora-gliner.html">Free Colab Notebooks: ModernBERT, Gemma QLoRA, GLiNER &amp; Guardrails</a>)</li>
+<li>Fine-tune a small open model (e.g. Gemma4-E2B) with Unsloth on your own tweets or posts so it writes in your style. (from <a href="../notes/10-fine-tuning/2026-09-19-fine-tuning-gemma4-e2b-on-your-own-tweet-style-with-unsloth.html">Fine-tuning Gemma4-E2B on your own tweet style with Unsloth</a>)</li>
+<li>Fine-tune a small model (e.g. Qwen3.5-2B) with LoRA on your own posts so it writes in your voice. (from <a href="../notes/10-fine-tuning/2026-09-19-lora-fine-tune-qwen3-5-2b-on-your-tweets-with-unsloth-studio.html">LoRA Fine-Tune Qwen3.5-2B on Your Tweets with Unsloth Studio</a>)</li>
+<li>Fine-tune ModernBERT-base as a router that sends tasks to different agents. (from <a href="../notes/10-fine-tuning/2026-09-19-fine-tune-modernbert-base-as-a-task-routing-classifier.html">Fine-Tune ModernBERT-base as a Task-Routing Classifier</a>)</li>
+<li>Train and run a tiny decision model locally on a MacBook. (from <a href="../notes/10-fine-tuning/2026-09-19-kev-0-5b-a-tiny-open-source-decision-model-to-train-on-a.html">Kev-0.5B: A Tiny Open-Source Decision Model to Train on a MacBook</a>)</li>
+<li>Build a cost-saving LLM router: fine-tune ModernBERT to send each prompt to a cheap or a strong model, then measure cost savings and quality. (from <a href="../notes/10-fine-tuning/2026-09-18-train-modernbert-as-a-prompt-router-between-two-models.html">Train ModernBERT as a Prompt Router Between Two Models (Colab Notebook)</a>)</li>
+<li>Fine-tune ModernBERT-base to classify tasks and route each one to one of two models or agents. (from <a href="../notes/10-fine-tuning/2026-09-18-fine-tuning-modernbert-base-as-a-task-router-quote-post.html">Fine-tuning ModernBERT-base as a task router (quote post)</a>)</li>
+<li>Build a task router: fine-tune ModernBERT-base on labeled tasks to choose which of two models or agents handles each one. (from <a href="../notes/10-fine-tuning/2026-09-18-fine-tuning-modernbert-base-to-route-tasks-between-two.html">Fine-tuning ModernBERT-base to route tasks between two models</a>)</li>
+<li>Post-train a small model on your own social posts so it writes in your style. (from <a href="../notes/10-fine-tuning/2026-09-15-post-training-qwen3-5-2b-on-your-own-x-posts-with-unsloth.html">Post-training Qwen3.5-2B on your own X posts with Unsloth Studio</a>)</li>
+<li>Build a tool that turns a topic or brief into a post written in your voice. (from <a href="../notes/10-fine-tuning/2026-09-15-post-training-qwen3-5-2b-on-your-own-x-posts-with-unsloth.html">Post-training Qwen3.5-2B on your own X posts with Unsloth Studio</a>)</li>
+<li>Fine-tune a small model (for example Qwen3.5-2B) with LoRA on your own posts so it writes in your style. (from <a href="../notes/10-fine-tuning/2026-09-14-fine-tuned-qwen3-5-2b-lora-model-that-writes-x-posts-in.html">Fine-Tuned Qwen3.5-2B LoRA Model That Writes X Posts in Your Style</a>)</li>
+<li>Fine-tune a small model on your tweets to copy your writing style. (from <a href="../notes/10-fine-tuning/2026-09-14-first-lora-run-on-qwen3-5-2b-with-codex-as-training.html">First LoRA Run on Qwen3.5-2B with Codex as Training Companion</a>)</li>
+<li>Fine-tune a small Qwen2.5 model on synthetic task-specific training pairs generated by a coding agent. (from <a href="../notes/10-fine-tuning/2026-09-14-using-codex-to-generate-synthetic-training-pairs-for-fine.html">Using Codex to Generate Synthetic Training Pairs for Fine-tuning Qwen2.5</a>)</li>
+<li>Fine-tune a small model on your most popular social posts so it writes in your style. (from <a href="../notes/10-fine-tuning/2026-09-14-training-a-small-model-on-your-own-popular-tweets.html">Training a Small Model on Your Own Popular Tweets</a>)</li>
+<li>Distill a large model into a small task-specific model by fine-tuning it on teacher-generated examples. (from <a href="../notes/10-fine-tuning/2026-09-14-model-distillation-explained-a-teacher-model-trains-a.html">Model Distillation Explained: A Teacher Model Trains a Smaller Student</a>)</li>
+<li>Fine-tune a small model on your own successful social posts to generate content in your writing style, then open-source it. (from <a href="../notes/10-fine-tuning/2026-09-13-idea-fine-tune-a-small-model-on-your-best-tweets.html">Idea: Fine-Tune a Small Model on Your Best Tweets</a>)</li>
+<li>Fine-tune a small (~350M) model with GRPO in TRL so it reliably outputs JSON matching your own schema, then compare valid-output rates before and after. (from <a href="../notes/10-fine-tuning/2026-09-04-fine-tune-lfm2-5-350m-with-grpo-in-trl-for-structured.html">Fine-Tune LFM2.5-350M with GRPO in TRL for Structured Outputs</a>)</li>
+<li>Use a coding agent inside the GPU container to run a fine-tuning job (from <a href="../notes/10-fine-tuning/2026-09-02-ready-made-docker-image-for-running-coding-agents-on-ml.html">Ready-made Docker image for running coding agents on ML/fine-tuning jobs</a>)</li>
+<li>Build a receipt/document parser that uses NuExtract3 to output Markdown or schema-based JSON. (from <a href="../notes/10-fine-tuning/2026-09-02-nuextract3-open-4b-vlm-for-ocr-and-structured-json.html">NuExtract3: Open 4B VLM for OCR and Structured JSON Extraction</a>)</li>
+<li>Collect your own coding agent traces and fine-tune a small model on them. (from <a href="../notes/10-fine-tuning/2026-08-30-fine-tune-a-model-on-your-own-coding-agent-traces.html">Fine-Tune a Model on Your Own Coding Agent Traces</a>)</li>
+<li>Fine-tune LFM2.5 Encoder on your own agent traces to build a personalized model router. (from <a href="../notes/10-fine-tuning/2026-08-27-model-routing-fine-tuned-on-your-agent-harness-traces.html">Model Routing Fine-Tuned on Your Agent Harness Traces</a>)</li>
+<li>Fine-tune Qwen3.8 27B on your own dataset and deploy it to a dedicated endpoint. (from <a href="../notes/10-fine-tuning/2026-08-26-fine-tune-and-deploy-qwen3-8-27b-on-together-ai.html">Fine-tune and Deploy Qwen3.8 27B on Together AI</a>)</li>
+<li>Compare a regular Q4 GGUF quantization with a QAD 4-bit checkpoint on the same eval set. (from <a href="../notes/10-fine-tuning/2026-08-20-quantization-aware-distillation-qad-for-better-4-bit-gguf.html">Quantization-Aware Distillation (QAD) for Better 4-bit GGUF Models</a>)</li>
+<li>Fine-tune Muse Glimmer 30B locally on a 24GB GPU for your own task with Unsloth. (from <a href="../notes/10-fine-tuning/2026-08-14-fine-tune-muse-glimmer-30b-for-free-with-unsloth-incl-grpo.html">Fine-Tune Muse Glimmer 30B for Free with Unsloth (incl. GRPO)</a>)</li>
+<li>Fine-tune a small Liquid AI LFM model on a custom dataset using LEAP, with a coding agent writing the training scripts. (from <a href="../notes/10-fine-tuning/2026-08-11-smoke-testing-lfm-fine-tuning-with-codex-and-liquid-ai-s.html">Smoke-Testing LFM Fine-tuning with Codex and Liquid AI's LEAP</a>)</li>
+<li>Fine-tune a small LFM model with SFT and then DPO using Unsloth or TRL, following the cookbook. (from <a href="../notes/10-fine-tuning/2026-08-11-liquid-ai-cookbook-fine-tuning-lfms-with-cpt-sft-dpo-and.html">Liquid AI Cookbook: Fine-Tuning LFMs with CPT, SFT, DPO and GRPO</a>)</li>
+<li>Fine-tune a small Liquid AI model with LEAP for one specific use case and run it locally or on a phone. (from <a href="../notes/10-fine-tuning/2026-08-09-small-local-models-fine-tuning-instead-of-more-compute.html">Small Local Models + Fine-Tuning Instead of More Compute (Liquid AI, LEAP)</a>)</li>
+<li>Build your own dev tool (like a JSONL dataset viewer/editor) with an AI coding assistant when existing tools fall short. (from <a href="../notes/10-fine-tuning/2026-06-27-open-source-jsonl-viewer-for-fine-tuning-datasets.html">Open-Source JSONL Viewer for Fine-Tuning Datasets</a>)</li>
+<li>Post-train a small model through chat using ML Intern. (from <a href="../notes/10-fine-tuning/2026-04-23-ml-intern-post-train-a-model-by-chatting-hugging-face.html">ML Intern: Post-Train a Model by Chatting (Hugging Face)</a>)</li>
+<li>Fine-tune a small open model on a Hugging Face dataset and record how it differs from the base model. (from <a href="../notes/10-fine-tuning/2026-04-15-fine-tuning-models-with-unsloth-studio.html">Fine-Tuning Models with Unsloth Studio</a>)</li>
+<li>Fine-tune a small Gemma model with Unsloth for a specific work task. (from <a href="../notes/10-fine-tuning/2026-04-04-fine-tuning-gemma-3-270m-with-unsloth-for-work-tasks.html">Fine-tuning Gemma 3 270M with Unsloth for Work Tasks</a>)</li>
+</ul><nav class="pager" aria-label="Topics"><a rel="prev" href="llmops.html">&larr; LLMOps, Deployment &amp; Monitoring</a><a rel="next" href="safety.html">AI Safety, Security &amp; Guardrails &rarr;</a></nav>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../license.html">License</a> &middot; <a href="../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

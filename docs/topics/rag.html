@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retrieval-Augmented Generation (RAG): free resources and study plan…</title>
+<meta name="description" content="Chunking, retrieval, reranking, hybrid/graph RAG and grounding answers in your data. 52 summarised reels and posts and 48 linked resources (13 free to watch)…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/topics/rag.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Retrieval-Augmented Generation (RAG): free resources and study plan…">
+<meta property="og:description" content="Chunking, retrieval, reranking, hybrid/graph RAG and grounding answers in your data. 52 summarised reels and posts and 48 linked resources (13 free to watch)…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/topics/rag.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://ralmodiel.github.io/ai-study-library/topics/rag.html","name":"Retrieval-Augmented Generation (RAG)","url":"https://ralmodiel.github.io/ai-study-library/topics/rag.html","description":"Chunking, retrieval, reranking, hybrid/graph RAG and grounding answers in your data.","about":{"@type":"Thing","name":"Retrieval-Augmented Generation (RAG)"},"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"inLanguage":"en"},{"@type":"WebSite","@id":"https://ralmodiel.github.io/ai-study-library/#website","name":"AI Engineer Study Library","url":"https://ralmodiel.github.io/ai-study-library/","inLanguage":"en","publisher":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"}},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"Retrieval-Augmented Generation (RAG)"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../learning-path.html">Learning path</a><a href="../free-watch-list.html">Free to watch</a><a href="../resources.html">All resources</a><a href="../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../">Library</a> &rsaquo; <a href="../learning-path.html">Learning path</a> &rsaquo; <span aria-current="page">Retrieval-Augmented Generation (RAG)</span></nav><p class="step">Topic 6 of 16 in the <a href="../learning-path.html">learning path</a></p><h1>Retrieval-Augmented Generation (RAG)</h1>
+<p><em>Chunking, retrieval, reranking, hybrid/graph RAG and grounding answers in your data.</em></p>
+<p><strong>Reels and posts (29)</strong></p>
+<ul>
+<li><a href="../notes/06-rag/2026-10-01-basic-rag-pipeline-in-60-seconds-from-documents-to-grounded.html">Basic RAG Pipeline in 60 Seconds: From Documents to Grounded Answers</a> · Bashiri Smith, Facebook · 0:55: A quick walkthrough of a basic Retrieval-Augmented Generation (RAG) pipeline that lets an LLM answer questions using private data.</li>
+<li><a href="../notes/06-rag/2026-10-01-using-jev-as-a-reranker-to-augment-rag-retrieval.html">Using Jev as a Reranker to Augment RAG Retrieval</a> · Melvin Vivas, X: The creator shares a quoted post from Rox.</li>
+<li><a href="../notes/06-rag/2026-09-30-how-to-evaluate-a-rag-pipeline-retrieval-vs-generation.html">How to Evaluate a RAG Pipeline: Retrieval vs. Generation (Interview Answer)</a> · Bashiri Smith, Facebook · 2:23: The video walks through a standard RAG pipeline: ingest documents, split them into chunks, create embeddings, store them in a vector database, run similarity search on the user's q</li>
+<li><a href="../notes/06-rag/2026-09-29-langchain-vs-langgraph-explained-with-one-rag-chatbot.html">LangChain vs. LangGraph Explained with One RAG Chatbot</a> · Bashiri Smith, Facebook · 1:13: The video uses one RAG chatbot to show how LangChain and LangGraph differ.</li>
+<li><a href="../notes/06-rag/2026-09-27-rag-pre-deployment-checklist-evals-grounding-latency-cost.html">RAG Pre-Deployment Checklist: Evals, Grounding, Latency, Cost &amp; Monitoring</a> · Bashiri Smith, Facebook · 0:54: A short dialogue covering what to check before shipping a RAG app to production.</li>
+<li><a href="../notes/06-rag/2026-09-27-wannabe-vs-200k-ai-engineer-rag-agents-context-and-fine.html">Wannabe vs $200K+ AI Engineer: RAG, Agents, Context and Fine-Tuning Mistakes</a> · Bashiri Smith, Facebook · 0:51: A quick comparison of how a beginner and a senior AI engineer approach the same tasks.</li>
+<li><a href="../notes/06-rag/2026-09-26-how-rag-works-chunking-embedding-vector-storage-and.html">How RAG Works: Chunking, Embedding, Vector Storage, and Retrieval</a> · Bashiri Smith, Facebook · 1:12: Bashiri Smith calls RAG one of the most important skills for AI engineers right now.</li>
+<li><a href="../notes/06-rag/2026-09-25-using-jev-for-rag-as-a-similarity-metric-and-reranker.html">Using Jev for RAG as a Similarity Metric and Reranker</a> · Melvin Vivas, X: The post quotes a claim that Jev's semantic matching is more reliable than plain dot-product similarity for RAG.</li>
+<li><a href="../notes/06-rag/2026-09-18-jina-ocr-v1-turning-pdfs-scans-and-tables-into-markdown.html">jina-ocr-v1: Turning PDFs, Scans and Tables into Markdown</a> · Melvin Vivas, X: Jina AI released jina-ocr-v1, a visual document parser post-trained on DeepSeek.</li>
+<li><a href="../notes/06-rag/2026-09-17-common-ai-engineer-mistakes-debugging-rag-overbuilt-agents.html">Common AI Engineer Mistakes: Debugging RAG, Overbuilt Agents and Weak Evals</a> · Bashiri Smith, Facebook · 1:02: The video compares "wannabe" habits with how experienced AI engineers work.</li>
+<li><a href="../notes/06-rag/2026-09-16-fixing-rag-ranking-problems-with-a-cross-encoder-re-ranker.html">Fixing RAG Ranking Problems with a Cross-Encoder Re-ranker</a> · Bashiri Smith, Facebook · 1:10: This short is set up as a mock interview question: how do you fix a RAG app when the right chunk ranks below irrelevant ones?</li>
+<li><a href="../notes/06-rag/2026-09-15-3-resume-ready-rag-projects-hybrid-search-multi-modal-docs.html">3 Resume-Ready RAG Projects: Hybrid Search, Multi-Modal Docs and Agentic RAG</a> · Bashiri Smith, Facebook · 0:05: The video suggests three RAG portfolio projects you can build in a few hours, each with a resume bullet you can adapt.</li>
+<li><a href="../notes/06-rag/2026-09-15-how-amazon-s-shopping-assistant-uses-rag-query-planning.html">How Amazon's Shopping Assistant Uses RAG: Query Planning, Retrieval, Generation</a> · Bashiri Smith, Facebook · 1:06: A real-world case study of how Amazon's shopping assistant answers product questions like "Are these shoes good for hiking in the rain?" using retrieval-augmented generation.</li>
+<li><a href="../notes/06-rag/2026-09-13-how-rag-works-under-the-hood-chunking-embedding-storage.html">How RAG Works Under the Hood: Chunking, Embedding, Storage, Retrieval</a> · Bashiri Smith, Facebook · 1:12: The creator calls RAG one of the most important AI engineering skills right now.</li>
+<li><a href="../notes/06-rag/2026-09-12-taking-a-rag-app-to-production-evals-guardrails-cost-and.html">Taking a RAG App to Production: Evals, Guardrails, Cost and Tracing</a> · Bashiri Smith, Facebook · 1:10: A working RAG demo is only step one.</li>
+<li><a href="../notes/06-rag/2026-09-04-rag-chunking-balancing-chunk-size-for-precision-and-context.html">RAG Chunking: Balancing Chunk Size for Precision and Context</a> · Bashiri Smith, Facebook · 0:29: The video explains how bad chunking can break a RAG pipeline.</li>
+<li><a href="../notes/06-rag/2026-09-03-why-blind-top-k-retrieval-hurts-rag-and-what-to-use-instead.html">Why Blind Top-K Retrieval Hurts RAG, and What to Use Instead</a> · Bashiri Smith, Facebook · 1:11: The video explains that fixed Top-K retrieval always sends K chunks to the LLM, even when the lower-ranked chunks are weak, outdated or off-topic.</li>
+<li><a href="../notes/06-rag/2026-09-02-wannabe-vs-200k-ai-engineer-fixing-rag-agent-tools-and.html">Wannabe vs $200K AI Engineer: Fixing RAG, Agent Tools and Model Choice</a> · Bashiri Smith, Facebook · 1:00: A short skit comparing a beginner's habits with a senior AI engineer's habits in three areas of production AI.</li>
+<li><a href="../notes/06-rag/2026-09-02-wannabe-vs-senior-ai-engineer-fixing-rag-agent-tools-and.html">Wannabe vs. Senior AI Engineer: Fixing RAG, Agent Tools and Model Choice Mistakes</a> · Bashiri Smith, Facebook · 1:00: A quick skit that compares three beginner mistakes in production AI with how experienced AI engineers handle them.</li>
+<li><a href="../notes/06-rag/2026-09-01-3-reasons-a-correct-rag-pipeline-still-fails-in-production.html">3 Reasons a "Correct" RAG Pipeline Still Fails in Production</a> · Bashiri Smith, Facebook · 1:03: A RAG pipeline can retrieve perfectly and still give wrong answers.</li>
+<li><a href="../notes/06-rag/2026-09-01-3-reasons-a-correct-rag-pipeline-still-fails-in-production-2.html">3 Reasons a "Correct" RAG Pipeline Still Fails in Production</a> · Bashiri Smith, Facebook · 1:03: A RAG pipeline can retrieve well and still give bad answers.</li>
+<li><a href="../notes/06-rag/2026-09-01-choosing-a-knowledge-strategy-rag-vs-graph-vs-fine-tuning.html">Choosing a Knowledge Strategy: RAG vs Graph vs Fine-Tuning vs CAG vs Long Context</a> · Bashiri Smith, Facebook · 0:23: This short video covers five ways to give an LLM knowledge or change how it behaves, and matches each one to the problem it fits best: RAG, GraphRAG/knowledge graphs, fine-tuning,</li>
+<li><a href="../notes/06-rag/2026-08-29-production-rag-interview-debugging-retrieval-latency-and.html">Production RAG Interview: Debugging Retrieval, Latency and Cost Like an Engineer</a> · Bashiri Smith, Facebook · 1:47: This skit shows two candidates answering the same RAG system-design interview questions.</li>
+<li><a href="../notes/06-rag/2026-08-29-rag-vs-cag-retrieval-vs-cache-augmented-generation-explained.html">RAG vs CAG: Retrieval vs Cache Augmented Generation Explained</a> · Bashiri Smith, Facebook · 1:31: The video compares two ways to ground an LLM in your own documents.</li>
+<li><a href="../notes/06-rag/2026-08-27-7-ai-engineering-concept-pairs-rag-vs-fine-tuning-agents-vs.html">7 AI Engineering Concept Pairs: RAG vs Fine-Tuning, Agents vs Workflows &amp; More</a> · Bashiri Smith, Facebook · 1:47: A quick comparison of seven pairs of AI engineering concepts that people often mix up.</li>
+<li><a href="../notes/06-rag/2026-08-25-ai-engineer-interview-q-a-graph-rag-agent-memory.html">AI Engineer Interview Q&amp;A: Graph RAG, Agent Memory, Observability, Guardrails</a> · Bashiri Smith, Facebook · 1:32: A mock AI engineering interview with four questions and short model answers.</li>
+<li><a href="../notes/06-rag/2026-06-24-mistral-ocr-4-launch-and-the-missing-qwen-vl-comparison.html">Mistral OCR 4 launch, and the missing Qwen VL comparison</a> · Melvin Vivas, X: Shares the launch of Mistral OCR 4, which outputs structured documents with bounding boxes, block classification and inline confidence scores across 170 languages.</li>
+<li><a href="../notes/06-rag/2026-04-23-cocoindex-v1-incremental-data-pipelines-for-ai-and-agents.html">CocoIndex v1: Incremental Data Pipelines for AI and Agents</a> · Melvin Vivas, X: CocoIndex has reached v1, a redesign of its framework for building incremental data pipelines.</li>
+<li><a href="../notes/06-rag/2023-04-08-q-a-over-your-own-pdfs-with-llamaindex-openai-and-python.html">Q&amp;A Over Your Own PDFs with LlamaIndex, OpenAI and Python (2023)</a> · Melvin Vivas, melvinvivas.com: Melvin Vivas introduces generative text AI, the OpenAI API, LangChain and LlamaIndex (formerly GPT Index).</li>
+</ul>
+<p><strong>Watch, free (12)</strong></p>
+<ul>
+<li><strong><a href="https://www.youtube.com/watch?v=sVcwVQRHIc8">RAG from Scratch (freeCodeCamp)</a></strong> · video · youtube.com · free<br>
+  A freeCodeCamp video about two and a half hours long on building basic RAG (the exact title isn't shown).<br>
+  Mentioned in: 6 Free Videos to Move from Software Engineer to AI Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1615291686990735">Facebook</a> · <a href="../notes/01-roadmap/2026-09-28-6-free-videos-to-move-from-software-engineer-to-ai-engineer.html">notes</a>), How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="../notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+<li><strong><a href="https://github.com/langchain-ai/rag-from-scratch">RAG From Scratch (LangChain)</a></strong> · video · github.com · free<br>
+  LangChain's free video series and notebooks that build retrieval-augmented generation step by step, from indexing through retrieval and generation.<br>
+  Mentioned in: AI Engineer Roadmap Before 2027: Fundamentals, RAG, Agents, Ops, Evals (Bashiri Smith on <a href="https://www.facebook.com/reel/943434268837194">Facebook</a> · <a href="../notes/01-roadmap/2026-09-19-ai-engineer-roadmap-before-2027-fundamentals-rag-agents-ops.html">notes</a>), AI Engineer Roadmap: Fundamentals, RAG, Agents, Books &amp; Your First AI Service (Bashiri Smith on <a href="https://www.facebook.com/reel/2012814779367142">Facebook</a> · <a href="../notes/01-roadmap/2026-08-28-ai-engineer-roadmap-fundamentals-rag-agents-books-your.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=8OJC21T2SL4">5 Levels of Text Splitting for Retrieval (Greg Kamradt)</a></strong> · video · youtube.com · free<br>
+  A video by Greg Kamradt that walks through chunking and text-splitting strategies for RAG, from simple to advanced.<br>
+  Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="../notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+<li><strong><a href="https://www.deeplearning.ai/short-courses/advanced-retrieval-for-ai/">Advanced Retrieval for AI with Chroma (DeepLearning.AI)</a></strong> · course · deeplearning.ai · free<br>
+  A DeepLearning.AI short course on advanced retrieval techniques that improve RAG results.<br>
+  Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="../notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=YNcoFoRwoc8">Build Production-Ready Retrieval RAG Pipeline in LangChain | Hybrid Search (BM25), Re-ranking &amp; HyDE (Venelin Valkov)</a></strong> · video · youtube.com · free<br>
+  A 15-minute video by Venelin Valkov on hybrid retrieval and advanced retrieval tactics.<br>
+  Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="../notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=vT-DpLvf29Q">Complete RAG tutorial 2026, with free labs</a></strong> · video · youtube.com · free<br>
+  A full code-along crash course that goes from setup to a working RAG system.<br>
+  In a shared PDF: <a href="https://drive.google.com/file/d/1Thj1wcILRDxniC231RaDx0wyuc81f2M5/view">How to become an expert in RAG (BASWE AI Engineer Field Guide)</a> - shared in <a href="https://www.facebook.com/reel/1639527170837316">this reel on Facebook</a>, <a href="https://www.facebook.com/reel/28850952981168407">this reel on Facebook</a></li>
+<li><strong><a href="https://learn.deeplearning.ai/courses/retrieval-augmented-generation/information">DeepLearning.AI: Retrieval Augmented Generation</a></strong> · course · learn.deeplearning.ai · free<br>
+  Course taught by Zain Hasan with five hands-on modules, free to audit; the same site hosts free short courses on agentic, knowledge-graph and multimodal RAG.<br>
+  In a shared PDF: <a href="https://drive.google.com/file/d/1Thj1wcILRDxniC231RaDx0wyuc81f2M5/view">How to become an expert in RAG (BASWE AI Engineer Field Guide)</a> - shared in <a href="https://www.facebook.com/reel/1639527170837316">this reel on Facebook</a>, <a href="https://www.facebook.com/reel/28850952981168407">this reel on Facebook</a></li>
+<li><strong><a href="https://www.deeplearning.ai/short-courses/langchain-chat-with-your-data/">LangChain Chat with Your Data</a></strong> · course · deeplearning.ai · free<br>
+  A DeepLearning.AI course on building RAG with LangChain.<br>
+  Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="../notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/playlist?list=PLfaIDFEXuae2LXbO1_PKyVJiQ23ZztA0x">LangChain: RAG From Scratch (YouTube playlist)</a></strong> · video · youtube.com · free<br>
+  Short-video series by Lance Martin that goes from indexing basics up to advanced routing and reranking; the guide calls it the gold standard.<br>
+  In a shared PDF: <a href="https://drive.google.com/file/d/1Thj1wcILRDxniC231RaDx0wyuc81f2M5/view">How to become an expert in RAG (BASWE AI Engineer Field Guide)</a> - shared in <a href="https://www.facebook.com/reel/1639527170837316">this reel on Facebook</a>, <a href="https://www.facebook.com/reel/28850952981168407">this reel on Facebook</a></li>
+<li><strong><a href="https://www.deeplearning.ai/courses/preprocessing-unstructured-data-for-llm-applications">Preprocessing Unstructured Data for LLM Applications</a></strong> · course · deeplearning.ai · free<br>
+  A DeepLearning.AI course on document processing and chunking.<br>
+  Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="../notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=RosLeHGBLoY">RAG explained in 20 minutes</a></strong> · video · youtube.com · free<br>
+  A fast, clear intro with a hands-on project; the quickest way to see the full RAG loop in action.<br>
+  In a shared PDF: <a href="https://drive.google.com/file/d/1Thj1wcILRDxniC231RaDx0wyuc81f2M5/view">How to become an expert in RAG (BASWE AI Engineer Field Guide)</a> - shared in <a href="https://www.facebook.com/reel/1639527170837316">this reel on Facebook</a>, <a href="https://www.facebook.com/reel/28850952981168407">this reel on Facebook</a></li>
+<li><strong><a href="https://wandb.ai/site/courses/rag/">RAG++: From POC to Production (Weights &amp; Biases)</a></strong> · course · wandb.ai · free<br>
+  RAG course from Weights &amp; Biases named in the Class Central roundup of the best RAG courses.<br>
+  In a shared PDF: <a href="https://drive.google.com/file/d/1Thj1wcILRDxniC231RaDx0wyuc81f2M5/view">How to become an expert in RAG (BASWE AI Engineer Field Guide)</a> - shared in <a href="https://www.facebook.com/reel/1639527170837316">this reel on Facebook</a>, <a href="https://www.facebook.com/reel/28850952981168407">this reel on Facebook</a></li>
+</ul>
+<p><strong>Read and use (20)</strong></p>
+<ul>
+<li><strong><a href="https://github.com/hwchase17/langchain">LangChain</a></strong> · tool · github.com · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Open-source framework with ready-made integrations and common interfaces for connecting LLMs, embedding models, vector stores and tools.<br>
+  Mentioned in: Basic RAG Pipeline in 60 Seconds: From Documents to Grounded Answers (Bashiri Smith on <a href="https://www.facebook.com/reel/1893190305357331">Facebook</a> · <a href="../notes/06-rag/2026-10-01-basic-rag-pipeline-in-60-seconds-from-documents-to-grounded.html">notes</a>), Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="../notes/01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), LangChain vs. LangGraph Explained with One RAG Chatbot (Bashiri Smith on <a href="https://www.facebook.com/reel/1394445942341422">Facebook</a> · <a href="../notes/06-rag/2026-09-29-langchain-vs-langgraph-explained-with-one-rag-chatbot.html">notes</a>), How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="../notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>) and 3 more</li>
+<li><strong><a href="https://drive.google.com/file/d/1Thj1wcILRDxniC231RaDx0wyuc81f2M5/view">How to become an expert in RAG (BASWE AI Engineer Field Guide)</a></strong> · pdf · drive.google.com · free<br>
+  A one-page field guide from BASWE that lays out a 5-stage path to mastering retrieval-augmented generation.<br>
+  Mentioned in: How RAG Works: Chunking, Embedding, Vector Storage, and Retrieval (Bashiri Smith on <a href="https://www.facebook.com/reel/1639527170837316">Facebook</a> · <a href="../notes/06-rag/2026-09-26-how-rag-works-chunking-embedding-vector-storage-and.html">notes</a>), 3 Resume-Ready RAG Projects: Hybrid Search, Multi-Modal Docs and Agentic RAG (Bashiri Smith on <a href="https://www.facebook.com/reel/2361560687584584">Facebook</a> · <a href="../notes/06-rag/2026-09-15-3-resume-ready-rag-projects-hybrid-search-multi-modal-docs.html">notes</a>), How RAG Works Under the Hood: Chunking, Embedding, Storage, Retrieval (Bashiri Smith on <a href="https://www.facebook.com/reel/28850952981168407">Facebook</a> · <a href="../notes/06-rag/2026-09-13-how-rag-works-under-the-hood-chunking-embedding-storage.html">notes</a>)</li>
+<li><strong><a href="https://www.amazon.science/blog/the-technology-behind-amazons-genai-powered-shopping-assistant-rufus">Amazon Rufus (AI shopping assistant)</a></strong> · tool · amazon.science · free<br>
+  Amazon Science's write-up of how Rufus, Amazon's AI shopping assistant, uses RAG over the catalog, reviews and community Q&amp;A - a real-world RAG case study.<br>
+  Mentioned in: How Amazon's Shopping Assistant Uses RAG: Query Planning, Retrieval, Generation (Bashiri Smith on <a href="https://www.facebook.com/reel/1057039177213138">Facebook</a> · <a href="../notes/06-rag/2026-09-15-how-amazon-s-shopping-assistant-uses-rag-query-planning.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/datasets/secemp9/arxiv-complete">arxiv-complete (Hugging Face dataset)</a></strong> · dataset · huggingface.co · free<br>
+  The full arXiv archive (3.1M papers, every version, in LaTeX, PDF, PS and HTML, 16 TB) hosted on Hugging Face.<br>
+  Mentioned in: The complete arXiv corpus as a Hugging Face dataset (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101546732119265499">X</a> · <a href="../notes/07-agents/2026-09-20-the-complete-arxiv-corpus-as-a-hugging-face-dataset.html">notes</a>)</li>
+<li><strong><a href="https://www.classcentral.com/report/best-rag-courses/">Class Central: 12 best RAG courses</a></strong> · article · classcentral.com · free<br>
+  Ranked and tested list of RAG courses; the fastest way to find the Boot.dev, Weights &amp; Biases RAG++, Duke and Google Cloud picks.<br>
+  In a shared PDF: <a href="https://drive.google.com/file/d/1Thj1wcILRDxniC231RaDx0wyuc81f2M5/view">How to become an expert in RAG (BASWE AI Engineer Field Guide)</a> - shared in <a href="https://www.facebook.com/reel/1639527170837316">this reel on Facebook</a>, <a href="https://www.facebook.com/reel/28850952981168407">this reel on Facebook</a></li>
+<li><strong><a href="https://cocoindex.io">CocoIndex</a></strong> · tool · cocoindex.io · free<br>
+  Open-source framework for building incremental data transformation and indexing pipelines for AI and agents.<br>
+  Mentioned in: CocoIndex v1: Incremental Data Pipelines for AI and Agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2047005088972247283">X</a> · <a href="../notes/06-rag/2026-04-23-cocoindex-v1-incremental-data-pipelines-for-ai-and-agents.html">notes</a>)</li>
+<li><strong><a href="https://arxiv.org/pdf/2004.12832">ColBERT</a></strong> · paper · arxiv.org · free<br>
+  Late-interaction retrieval model that scores documents by matching their token embeddings against the query's token embeddings.<br>
+  Mentioned in: Sentence Transformers v6: ColBERT-Style Multi-Vector Models Fully Supported (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2090291993402597855">X</a> · <a href="../notes/05-embeddings-vectordb/2026-08-20-sentence-transformers-v6-colbert-style-multi-vector-models.html">notes</a>)</li>
+<li><strong><a href="https://www.google.com/drive/">Google Drive</a></strong> · tool · google.com · free<br>
+  A cloud file storage service, used as a knowledge-base connector.<br>
+  Mentioned in: Building a Nano Banana 2 Image-Gen App with Memex Managed AI Connectors (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2028132338249634105">X</a> · <a href="../notes/13-ai-tools/2026-03-01-building-a-nano-banana-2-image-gen-app-with-memex-managed.html">notes</a>)</li>
+<li><strong><a href="https://jina.ai/reader/">Jina Reader</a></strong> · tool · jina.ai · free<br>
+  Jina AI's API that converts URLs and documents to LLM-friendly text; it exposes jina-ocr-v1 via `x-respond-with`.<br>
+  Mentioned in: jina-ocr-v1: Turning PDFs, Scans and Tables into Markdown (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100627054849065081">X</a> · <a href="../notes/06-rag/2026-09-18-jina-ocr-v1-turning-pdfs-scans-and-tables-into-markdown.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/jinaai/jina-ocr-v1">jina-ocr-v1</a></strong> · tool · huggingface.co · free<br>
+  Jina AI's visual document parser that turns PDFs, scans, tables, charts and invoices into markdown.<br>
+  Mentioned in: jina-ocr-v1: Turning PDFs, Scans and Tables into Markdown (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100627054849065081">X</a> · <a href="../notes/06-rag/2026-09-18-jina-ocr-v1-turning-pdfs-scans-and-tables-into-markdown.html">notes</a>)</li>
+<li><strong><a href="https://www.boot.dev/courses/learn-retrieval-augmented-generation">Learn Retrieval Augmented Generation (Boot.dev)</a></strong> · course · boot.dev · paid<br>
+  Boot.dev's RAG course (one of Class Central's picks): lessons are free to read, interactive exercises and certificates need a paid membership.<br>
+  In a shared PDF: <a href="https://drive.google.com/file/d/1Thj1wcILRDxniC231RaDx0wyuc81f2M5/view">How to become an expert in RAG (BASWE AI Engineer Field Guide)</a> - shared in <a href="https://www.facebook.com/reel/1639527170837316">this reel on Facebook</a>, <a href="https://www.facebook.com/reel/28850952981168407">this reel on Facebook</a></li>
+<li><strong><a href="https://gist.github.com/donvito/bf3575f7d8d87d39e15301da9ee3e9eb">llama_index.ipynb (Colab notebook gist)</a></strong> · repo · gist.github.com · free<br>
+  The author's full Colab notebook source for the LlamaIndex + gpt-3.5-turbo example.<br>
+  Mentioned in: Q&amp;A Over Your Own PDFs with LlamaIndex, OpenAI and Python (2023) (Melvin Vivas on <a href="https://www.melvinvivas.com/chatgpt-openai-langchain-llama-index-generative-text-ai">melvinvivas.com</a> · <a href="../notes/06-rag/2023-04-08-q-a-over-your-own-pdfs-with-llamaindex-openai-and-python.html">notes</a>)</li>
+<li><strong><a href="https://github.com/jerryjliu/llama_index">LlamaIndex (llama_index)</a></strong> · repo · github.com · free<br>
+  Open-source data framework that connects LLMs to external data for indexing and question answering.<br>
+  Mentioned in: Q&amp;A Over Your Own PDFs with LlamaIndex, OpenAI and Python (2023) (Melvin Vivas on <a href="https://www.melvinvivas.com/chatgpt-openai-langchain-llama-index-generative-text-ai">melvinvivas.com</a> · <a href="../notes/06-rag/2023-04-08-q-a-over-your-own-pdfs-with-llamaindex-openai-and-python.html">notes</a>)</li>
+<li><strong><a href="https://github.com/jerryjliu/llama_index/blob/main/docs/how_to/customization/custom_llms.md">LlamaIndex Custom LLMs guide</a></strong> · docs · github.com · free · open in a browser to verify<br>
+  LlamaIndex how-to on customizing the LLMPredictor/LLM; the link now appears broken.<br>
+  Mentioned in: Q&amp;A Over Your Own PDFs with LlamaIndex, OpenAI and Python (2023) (Melvin Vivas on <a href="https://www.melvinvivas.com/chatgpt-openai-langchain-llama-index-generative-text-ai">melvinvivas.com</a> · <a href="../notes/06-rag/2023-04-08-q-a-over-your-own-pdfs-with-llamaindex-openai-and-python.html">notes</a>)</li>
+<li><strong><a href="https://mistral.ai/news/ocr-4/">Mistral OCR 4</a></strong> · tool · mistral.ai · paid<br>
+  Mistral's OCR model that produces structured document output with bounding boxes, block types and confidence scores.<br>
+  Mentioned in: Mistral OCR 4 launch, and the missing Qwen VL comparison (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2069768583245332750">X</a> · <a href="../notes/06-rag/2026-06-24-mistral-ocr-4-launch-and-the-missing-qwen-vl-comparison.html">notes</a>)</li>
+<li><strong><a href="https://sausheong.com/prompt-engineering-with-llamaindex-and-openai-gpt-3-f52114aba8b7">Prompt Engineering with LlamaIndex and OpenAI GPT-3</a></strong> · article · sausheong.com · free · open in a browser to verify<br>
+  Sau Sheong's article on using LlamaIndex with GPT-3 to query your own documents.<br>
+  Mentioned in: Q&amp;A Over Your Own PDFs with LlamaIndex, OpenAI and Python (2023) (Melvin Vivas on <a href="https://www.melvinvivas.com/chatgpt-openai-langchain-llama-index-generative-text-ai">melvinvivas.com</a> · <a href="../notes/06-rag/2023-04-08-q-a-over-your-own-pdfs-with-llamaindex-openai-and-python.html">notes</a>)</li>
+<li><strong><a href="https://drive.google.com/file/d/1Thj1wcILRDxniC231RaDx0wyuc81f2M5/view?usp=drivesdk">RAG-Expert-Guide-BASWE (RAG cheat sheet)</a></strong> · pdf · drive.google.com · free<br>
+  The creator's full RAG cheat sheet, shared as a Google Drive document.<br>
+  Mentioned in: Basic RAG Pipeline in 60 Seconds: From Documents to Grounded Answers (Bashiri Smith on <a href="https://www.facebook.com/reel/1893190305357331">Facebook</a> · <a href="../notes/06-rag/2026-10-01-basic-rag-pipeline-in-60-seconds-from-documents-to-grounded.html">notes</a>)</li>
+<li><strong><a href="https://sausheong.com/">Sau Sheong</a></strong> · person · sausheong.com · free · open in a browser to verify<br>
+  Engineer and writer who blogs about LLMs and software engineering.<br>
+  Mentioned in: Q&amp;A Over Your Own PDFs with LlamaIndex, OpenAI and Python (2023) (Melvin Vivas on <a href="https://www.melvinvivas.com/chatgpt-openai-langchain-llama-index-generative-text-ai">melvinvivas.com</a> · <a href="../notes/06-rag/2023-04-08-q-a-over-your-own-pdfs-with-llamaindex-openai-and-python.html">notes</a>)</li>
+<li><strong><a href="https://www.turingpost.com/p/7-free-courses-to-master-rag">Turing Post: 10 RAG Courses in 2026 (Free, Trial, and Paid Options)</a></strong> · article · turingpost.com · free<br>
+  Agentic, multimodal and knowledge-graph RAG learning paths gathered in one place.<br>
+  In a shared PDF: <a href="https://drive.google.com/file/d/1Thj1wcILRDxniC231RaDx0wyuc81f2M5/view">How to become an expert in RAG (BASWE AI Engineer Field Guide)</a> - shared in <a href="https://www.facebook.com/reel/1639527170837316">this reel on Facebook</a>, <a href="https://www.facebook.com/reel/28850952981168407">this reel on Facebook</a></li>
+<li><strong><a href="https://unstructured.io">Unstructured</a></strong> · tool · unstructured.io · free<br>
+  Open-source library and platform that extracts and cleans text from PDFs and other documents for LLM pipelines.<br>
+  Mentioned in: Basic RAG Pipeline in 60 Seconds: From Documents to Grounded Answers (Bashiri Smith on <a href="https://www.facebook.com/reel/1893190305357331">Facebook</a> · <a href="../notes/06-rag/2026-10-01-basic-rag-pipeline-in-60-seconds-from-documents-to-grounded.html">notes</a>)</li>
+</ul>
+<p><strong>Build</strong></p>
+<ul>
+<li>Build a basic RAG system over your own PDFs or company documents: Unstructured for extraction, LangChain text splitters for chunking, Cohere for embeddings, Pinecone or Weaviate for storage, then an LLM to generate answers. (from <a href="../notes/06-rag/2026-10-01-basic-rag-pipeline-in-60-seconds-from-documents-to-grounded.html">Basic RAG Pipeline in 60 Seconds: From Documents to Grounded Answers</a>)</li>
+<li>Benchmark LLM-based retrieval against a dedicated reranker in your own RAG pipeline on latency, cost and accuracy. (from <a href="../notes/06-rag/2026-10-01-using-jev-as-a-reranker-to-augment-rag-retrieval.html">Using Jev as a Reranker to Augment RAG Retrieval</a>)</li>
+<li>Build a RAG evaluation harness that scores retrieval precision and recall plus answer faithfulness, relevance and correctness against a test set with verified answers, then compare fixes such as adding a reranker, changing top-K, or using hybrid search. (from <a href="../notes/06-rag/2026-09-30-how-to-evaluate-a-rag-pipeline-retrieval-vs-generation.html">How to Evaluate a RAG Pipeline: Retrieval vs. Generation (Interview Answer)</a>)</li>
+<li>Build a RAG chatbot with LangChain (embedding model, vector DB and LLM), then add a LangGraph workflow. It should check retrieval quality, answer if results are good, rewrite the question and search again if they are bad, and pause for human input after too many failed attempts. (from <a href="../notes/06-rag/2026-09-29-langchain-vs-langgraph-explained-with-one-rag-chatbot.html">LangChain vs. LangGraph Explained with One RAG Chatbot</a>)</li>
+<li>Upgrade a basic RAG app to production quality with hybrid search, re-ranking, query rewriting and retrieval-quality evals. (from <a href="../notes/06-rag/2026-09-27-wannabe-vs-200k-ai-engineer-rag-agents-context-and-fine.html">Wannabe vs $200K+ AI Engineer: RAG, Agents, Context and Fine-Tuning Mistakes</a>)</li>
+<li>Build a LangGraph agent with narrowly scoped tools and deterministic steps instead of an open-ended LLM loop. (from <a href="../notes/06-rag/2026-09-27-wannabe-vs-200k-ai-engineer-rag-agents-context-and-fine.html">Wannabe vs $200K+ AI Engineer: RAG, Agents, Context and Fine-Tuning Mistakes</a>)</li>
+<li>Benchmark retrieval quality of dot-product similarity vs. Jev reranking on a small RAG dataset. (from <a href="../notes/06-rag/2026-09-25-using-jev-for-rag-as-a-similarity-metric-and-reranker.html">Using Jev for RAG as a Similarity Metric and Reranker</a>)</li>
+<li>Use jina-ocr-v1 to convert invoices or scanned PDFs to markdown as the ingestion step of a RAG pipeline (from <a href="../notes/06-rag/2026-09-18-jina-ocr-v1-turning-pdfs-scans-and-tables-into-markdown.html">jina-ocr-v1: Turning PDFs, Scans and Tables into Markdown</a>)</li>
+<li>Build an evaluation harness for a RAG app that scores retrieval (whether the right chunks were found) and generation (whether the answer is grounded) separately. (from <a href="../notes/06-rag/2026-09-17-common-ai-engineer-mistakes-debugging-rag-overbuilt-agents.html">Common AI Engineer Mistakes: Debugging RAG, Overbuilt Agents and Weak Evals</a>)</li>
+<li>Compare a simple workflow with a multi-agent researcher, writer and checker setup on accuracy, cost and latency. (from <a href="../notes/06-rag/2026-09-17-common-ai-engineer-mistakes-debugging-rag-overbuilt-agents.html">Common AI Engineer Mistakes: Debugging RAG, Overbuilt Agents and Weak Evals</a>)</li>
+<li>Hybrid-search RAG combining dense vectors and BM25, with cross-encoder reranking and a pass that checks each citation supports its claim. (from <a href="../notes/06-rag/2026-09-15-3-resume-ready-rag-projects-hybrid-search-multi-modal-docs.html">3 Resume-Ready RAG Projects: Hybrid Search, Multi-Modal Docs and Agentic RAG</a>)</li>
+<li>Multi-modal document RAG: OCR plus LLM extraction from PDFs, tables and scanned documents, with a validation layer and a confidence-gated human review queue. (from <a href="../notes/06-rag/2026-09-15-3-resume-ready-rag-projects-hybrid-search-multi-modal-docs.html">3 Resume-Ready RAG Projects: Hybrid Search, Multi-Modal Docs and Agentic RAG</a>)</li>
+<li>Agentic RAG with a retrieval router that decides what to fetch, rewrites weak queries and retries when results are thin before answering. (from <a href="../notes/06-rag/2026-09-15-3-resume-ready-rag-projects-hybrid-search-multi-modal-docs.html">3 Resume-Ready RAG Projects: Hybrid Search, Multi-Modal Docs and Agentic RAG</a>)</li>
+<li>Build a product Q&amp;A assistant that uses query planning, then retrieves from product specs, customer reviews and community Q&amp;A before generating an answer. (from <a href="../notes/06-rag/2026-09-15-how-amazon-s-shopping-assistant-uses-rag-query-planning.html">How Amazon's Shopping Assistant Uses RAG: Query Planning, Retrieval, Generation</a>)</li>
+<li>Upgrade an existing RAG app into a production-level portfolio project, adding a Ragas eval suite, permission-aware retrieval, agent/token limits, prompt caching, model routing to smaller models, and Langfuse tracing. (from <a href="../notes/06-rag/2026-09-12-taking-a-rag-app-to-production-evals-guardrails-cost-and.html">Taking a RAG App to Production: Evals, Guardrails, Cost and Tracing</a>)</li>
+<li>Build an HR policy Q&amp;A RAG bot (for example, answering PTO questions) and compare answer quality between fixed Top-5 retrieval and a pipeline that uses reranking, a relevance threshold, dynamic K and metadata filtering. (from <a href="../notes/06-rag/2026-09-03-why-blind-top-k-retrieval-hurts-rag-and-what-to-use-instead.html">Why Blind Top-K Retrieval Hurts RAG, and What to Use Instead</a>)</li>
+<li>Upgrade a basic RAG app with retrieval-quality metrics and a reranker. Compare answer quality against simply retrieving more chunks. (from <a href="../notes/06-rag/2026-09-02-wannabe-vs-senior-ai-engineer-fixing-rag-agent-tools-and.html">Wannabe vs. Senior AI Engineer: Fixing RAG, Agent Tools and Model Choice Mistakes</a>)</li>
+<li>Build a model router that sends simple requests to a small model and harder ones to a large model, then measure the savings in cost and latency. (from <a href="../notes/06-rag/2026-09-02-wannabe-vs-senior-ai-engineer-fixing-rag-agent-tools-and.html">Wannabe vs. Senior AI Engineer: Fixing RAG, Agent Tools and Model Choice Mistakes</a>)</li>
+<li>Build a policy-QA RAG system with document lifecycle management (versioning, expiry, approval state) and automatic exclusion of superseded documents. (from <a href="../notes/06-rag/2026-09-01-3-reasons-a-correct-rag-pipeline-still-fails-in-production.html">3 Reasons a "Correct" RAG Pipeline Still Fails in Production</a>)</li>
+<li>Build a RAG app with a pre-retrieval clarification loop that detects low-intent queries and asks the user to clarify them. (from <a href="../notes/06-rag/2026-09-01-3-reasons-a-correct-rag-pipeline-still-fails-in-production.html">3 Reasons a "Correct" RAG Pipeline Still Fails in Production</a>)</li>
+<li>Build a multi-jurisdiction RAG assistant (federal, state and company policy) that uses metadata filtering to pick the applicable source. (from <a href="../notes/06-rag/2026-09-01-3-reasons-a-correct-rag-pipeline-still-fails-in-production.html">3 Reasons a "Correct" RAG Pipeline Still Fails in Production</a>)</li>
+<li>Build a policy Q&amp;A RAG system that handles document versions and expiration, and filters by jurisdiction metadata (federal, state or company), with a clarification step for vague queries. (from <a href="../notes/06-rag/2026-09-01-3-reasons-a-correct-rag-pipeline-still-fails-in-production-2.html">3 Reasons a "Correct" RAG Pipeline Still Fails in Production</a>)</li>
+<li>Build a production-style RAG pipeline with modular ingestion, chunking, embedding, indexing, retrieval, re-ranking, generation and evaluation components, then show it from a repo in interviews. (from <a href="../notes/06-rag/2026-08-29-production-rag-interview-debugging-retrieval-latency-and.html">Production RAG Interview: Debugging Retrieval, Latency and Cost Like an Engineer</a>)</li>
+<li>Add hybrid search, query rewriting, metadata filters and re-ranking to a RAG system, and measure how much each one improves retrieval. (from <a href="../notes/06-rag/2026-08-29-production-rag-interview-debugging-retrieval-latency-and.html">Production RAG Interview: Debugging Retrieval, Latency and Cost Like an Engineer</a>)</li>
+<li>Optimize a RAG app for scale using caching, batched embeddings, parallel retrieval and routing requests to models by cost. (from <a href="../notes/06-rag/2026-08-29-production-rag-interview-debugging-retrieval-latency-and.html">Production RAG Interview: Debugging Retrieval, Latency and Cost Like an Engineer</a>)</li>
+<li>Ask questions about your own resume: index your LinkedIn resume PDF and ask things like 'What is X's current role?' (from <a href="../notes/06-rag/2023-04-08-q-a-over-your-own-pdfs-with-llamaindex-openai-and-python.html">Q&amp;A Over Your Own PDFs with LlamaIndex, OpenAI and Python (2023)</a>)</li>
+<li>A customer Q&amp;A bot that answers questions about a company's services and products from its own documents (from <a href="../notes/06-rag/2023-04-08-q-a-over-your-own-pdfs-with-llamaindex-openai-and-python.html">Q&amp;A Over Your Own PDFs with LlamaIndex, OpenAI and Python (2023)</a>)</li>
+<li>Natural-language querying over a company's unstructured data for customers and prospects (from <a href="../notes/06-rag/2023-04-08-q-a-over-your-own-pdfs-with-llamaindex-openai-and-python.html">Q&amp;A Over Your Own PDFs with LlamaIndex, OpenAI and Python (2023)</a>)</li>
+</ul><nav class="pager" aria-label="Topics"><a rel="prev" href="embeddings-vectordb.html">&larr; Embeddings &amp; Vector Databases</a><a rel="next" href="agents.html">AI Agents, Tool Use &amp; MCP &rarr;</a></nav>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../license.html">License</a> &middot; <a href="../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

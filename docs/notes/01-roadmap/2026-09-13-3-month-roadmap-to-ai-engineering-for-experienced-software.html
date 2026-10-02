@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3-Month Roadmap to AI Engineering for Experienced Software Engineers…</title>
+<meta name="description" content="A 12-week plan for software engineers who already build APIs, work with databases and ship software, and can spend 10–15 hours a week on it. Month 1 is about…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/01-roadmap/2026-09-13-3-month-roadmap-to-ai-engineering-for-experienced-software.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="3-Month Roadmap to AI Engineering for Experienced Software Engineers…">
+<meta property="og:description" content="A 12-week plan for software engineers who already build APIs, work with databases and ship software, and can spend 10–15 hours a week on it. Month 1 is about…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/01-roadmap/2026-09-13-3-month-roadmap-to-ai-engineering-for-experienced-software.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/01-roadmap/2026-09-13-3-month-roadmap-to-ai-engineering-for-experienced-software.html#note","headline":"3-Month Roadmap to AI Engineering for Experienced Software Engineers","description":"A 12-week plan for software engineers who already build APIs, work with databases and ship software, and can spend 10–15 hours a week on it. Month 1 is about building one useful LLM app with RAG and evaluating it. Month 2 makes it reliable with hybrid search, reranking, safe tool use, error…","url":"https://ralmodiel.github.io/ai-study-library/notes/01-roadmap/2026-09-13-3-month-roadmap-to-ai-engineering-for-experienced-software.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"Start Here: Roadmaps & Strategy"},{"@type":"Thing","name":"Retrieval-Augmented Generation (RAG)"},{"@type":"Thing","name":"Evaluation (Evals) & Testing"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"VideoObject","url":"https://www.facebook.com/reel/28280516228224450","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#bashiri-smith"},"datePublished":"2026-09-13"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/01-roadmap/2026-09-13-3-month-roadmap-to-ai-engineering-for-experienced-software.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#bashiri-smith","name":"Bashiri Smith","url":"https://baswe.ai/","sameAs":["https://www.facebook.com/basweai","https://www.youtube.com/@BashiFuirkashi","https://www.instagram.com/bashi_fuirkashi/","https://www.tiktok.com/@bashifuirkashi","https://www.linkedin.com/in/bashiri-smith/","https://x.com/bashifuirkashi","https://www.skool.com/baswe-ai"],"description":"Helps aspiring and working software engineers move into AI engineering roles.","brand":{"@type":"Brand","name":"BASWE.Ai"}},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"Start Here: Roadmaps & Strategy","item":"https://ralmodiel.github.io/ai-study-library/topics/roadmap.html"},{"@type":"ListItem","position":4,"name":"3-Month Roadmap to AI Engineering for Experienced Software Engineers"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/roadmap.html">Start Here: Roadmaps &amp; Strategy</a> &rsaquo; <span aria-current="page">3-Month Roadmap to AI Engineering for Experienced Software Engineers</span></nav><h1>3-Month Roadmap to AI Engineering for Experienced Software Engineers</h1>
+<aside class="source"><p>This note summarises <a href="https://www.facebook.com/reel/28280516228224450">a reel by Bashiri Smith on Facebook</a>, posted 13 September 2026. The original belongs to Bashiri Smith.</p><p>Follow Bashiri Smith: <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p></aside>
+<p>Bashiri Smith · Facebook reel · 2026-09-13 · 0:07 · 10,662 views · <a href="https://www.facebook.com/reel/28280516228224450">Open on Facebook</a></p>
+<p><strong>Topics:</strong> Start Here: Roadmaps &amp; Strategy, Retrieval-Augmented Generation (RAG), Evaluation (Evals) &amp; Testing · <strong>Level:</strong> intermediate</p>
+<h2>Summary</h2>
+<p>A 12-week plan for software engineers who already build APIs, work with databases and ship software, and can spend 10–15 hours a week on it. Month 1 is about building one useful LLM app with RAG and evaluating it. Month 2 makes it reliable with hybrid search, reranking, safe tool use, error handling and security testing. Month 3 covers deploying, monitoring, measuring quality, latency and cost, and turning the work into a case study for the job search. The creator warns that 3 months is only realistic if you already have software engineering experience, and a job is not guaranteed.</p>
+<h2>Key points</h2>
+<ul>
+<li>Before you start: you already build APIs, work with databases and ship software, and you can commit 10–15 hours a week. Becoming an AI engineer in 3 months is very hard and does not guarantee a job.</li>
+<li>Month 1, build one useful LLM app. Week 1: learn tokens, context windows, structured outputs and tool calling, and connect an LLM to your backend. Week 2: pick a focused use case with real data and write 30–50 test cases.</li>
+<li>Month 1, continued. Week 3: build RAG with chunking, embeddings, vector search and metadata filters. Week 4: evaluate retrieval quality and answer quality separately, and find where it fails.</li>
+<li>Month 2, make it reliable. Week 5: compare hybrid search and reranking against your baseline. Week 6: add a useful tool, validate its inputs and enforce permissions.</li>
+<li>Month 2, continued. Week 7: handle retries, timeouts and invalid outputs, and limit tool calls. Week 8: test for prompt injection and unauthorized access, and turn every failure into a regression test.</li>
+<li>Month 3, ship it. Week 9: deploy and add tracing for retrieval, model calls and tools. Week 10: measure quality, latency and cost, and test different models and caching.</li>
+<li>Month 3, prove your skills. Week 11: get user feedback, fix failures and write down the tradeoffs. Week 12: publish a case study, update your resume, practice interviews and apply.</li>
+<li>Even if you don't have the job title after 90 days, you will have stronger skills and proof that you can build.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://www.skool.com/baswe-ai/about">BASWE.Ai Engineer (Skool community)</a></strong> · community · skool.com · paid<br>
+  The creator's paid community and program, with an AI learning roadmap (including the full ops and evaluation track), daily calls with engineers and recruiters, resume and portfolio help, and a job-search pipeline.<br>
+  Also in: Basic RAG Pipeline in 60 Seconds: From Documents to Grounded Answers (Bashiri Smith on <a href="https://www.facebook.com/reel/1893190305357331">Facebook</a> · <a href="../06-rag/2026-10-01-basic-rag-pipeline-in-60-seconds-from-documents-to-grounded.html">notes</a>), Pointer to Bashiri Smith's Complete AI Engineer Roadmap for 2026 (Bashiri Smith on <a href="https://www.facebook.com/reel/1771577477300003">Facebook</a> · <a href="2026-10-01-pointer-to-bashiri-smith-s-complete-ai-engineer-roadmap-for.html">notes</a>), Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), How to Evaluate a RAG Pipeline: Retrieval vs. Generation (Interview Answer) (Bashiri Smith on <a href="https://www.facebook.com/reel/915452468082856">Facebook</a> · <a href="../06-rag/2026-09-30-how-to-evaluate-a-rag-pipeline-retrieval-vs-generation.html">notes</a>) and 76 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Commit 10–15 hours a week for 12 weeks.</li>
+<li>Learn tokens, context windows, structured outputs and tool calling, then connect an LLM to your backend.</li>
+<li>Pick a focused use case with real data and write 30–50 test cases.</li>
+<li>Build RAG with chunking, embeddings, vector search and metadata filters.</li>
+<li>Evaluate retrieval quality and answer quality separately, and find the failures.</li>
+<li>Compare hybrid search and reranking against your baseline.</li>
+<li>Add a tool that validates inputs and enforces permissions.</li>
+<li>Handle retries, timeouts and invalid outputs, and limit tool calls.</li>
+<li>Test for prompt injection and unauthorized access, and turn failures into regression tests.</li>
+<li>Deploy with tracing for retrieval, model calls and tools.</li>
+<li>Measure quality, latency and cost, and test different models and caching.</li>
+<li>Get user feedback, fix failures and document the tradeoffs.</li>
+<li>Publish a case study, update your resume, practice interviews and apply for jobs.</li>
+<li>Comment "LEVEL UP" to join the creator's community.</li>
+<li>One production-grade LLM app with RAG for a focused use case using real data. It should include 30–50 evaluation test cases, hybrid search with reranking, a permissioned tool, regression tests for prompt injection and unauthorized access, tracing, and tracking of quality, latency and cost. Write it up as a public case study.</li>
+</ul><section class="more"><h2>More in Start Here: Roadmaps &amp; Strategy</h2><ul><li><a href="2026-09-19-8-week-roadmap-to-a-200k-ai-engineering-role.html">8-Week Roadmap to a $200K+ AI Engineering Role</a> <span class="meta">Bashiri Smith, 2026-09-19</span></li><li><a href="2026-09-18-ai-engineer-roadmap-5-skill-areas-a-24-week-study-order.html">AI Engineer Roadmap: 5 Skill Areas, a 24-Week Study Order &amp; Interview Strategy</a> <span class="meta">Bashiri Smith, 2026-09-18</span></li><li><a href="2026-09-14-andrew-ng-says-keep-learning-to-code-but-learn-the-modern.html">Andrew Ng Says Keep Learning to Code, but Learn the Modern Way</a> <span class="meta">Bashiri Smith, 2026-09-14</span></li><li><a href="2026-09-12-ai-engineer-mistakes-pt-3-don-t-grind-math-first-choose.html">AI Engineer Mistakes Pt. 3: Don&#x27;t Grind Math First, Choose Embeddings Carefully</a> <span class="meta">Bashiri Smith, 2026-09-12</span></li><li><a href="2026-09-11-ai-engineer-roadmap-for-2026-in-60-seconds.html">AI Engineer Roadmap for 2026 in 60 Seconds</a> <span class="meta">Bashiri Smith, 2026-09-11</span></li><li><a href="2026-09-10-6-ai-engineering-career-paths-pick-your-target-role-first.html">6 AI Engineering Career Paths: Pick Your Target Role First</a> <span class="meta">Bashiri Smith, 2026-09-10</span></li></ul><p><a href="../../topics/roadmap.html">All of Start Here: Roadmaps &amp; Strategy</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

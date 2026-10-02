@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comfy MCP: Controlling ComfyUI Workflows from AI Agents via MCP | AI…</title>
+<meta name="description" content="Melvin Vivas shares a quoted launch post for Comfy MCP, now in public beta. The launch calls it the first MCP server built for production pipelines. It…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-06-29-comfy-mcp-controlling-comfyui-workflows-from-ai-agents-via.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Comfy MCP: Controlling ComfyUI Workflows from AI Agents via MCP | AI…">
+<meta property="og:description" content="Melvin Vivas shares a quoted launch post for Comfy MCP, now in public beta. The launch calls it the first MCP server built for production pipelines. It…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-06-29-comfy-mcp-controlling-comfyui-workflows-from-ai-agents-via.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-06-29-comfy-mcp-controlling-comfyui-workflows-from-ai-agents-via.html#note","headline":"Comfy MCP: Controlling ComfyUI Workflows from AI Agents via MCP","description":"Melvin Vivas shares a quoted launch post for Comfy MCP, now in public beta. The launch calls it the first MCP server built for production pipelines. It connects AI agents and coding assistants such as Claude, Codex, Cursor and Hermes to the ComfyUI ecosystem. That lets you run image and media…","url":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-06-29-comfy-mcp-controlling-comfyui-workflows-from-ai-agents-via.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"AI Agents, Tool Use & MCP"},{"@type":"Thing","name":"AI Dev Tools & Productivity"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2071653463487107207","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-06-29"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-06-29-comfy-mcp-controlling-comfyui-workflows-from-ai-agents-via.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"AI Agents, Tool Use & MCP","item":"https://ralmodiel.github.io/ai-study-library/topics/agents.html"},{"@type":"ListItem","position":4,"name":"Comfy MCP: Controlling ComfyUI Workflows from AI Agents via MCP"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/agents.html">AI Agents, Tool Use &amp; MCP</a> &rsaquo; <span aria-current="page">Comfy MCP: Controlling ComfyUI Workflows from AI Agents via MCP</span></nav><h1>Comfy MCP: Controlling ComfyUI Workflows from AI Agents via MCP</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2071653463487107207">a video post by Melvin Vivas on X</a>, posted 29 June 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X video post · 2026-06-29 · 0:33 · 1,443 views · <a href="https://x.com/melvindvivas/status/2071653463487107207">Open on X</a></p>
+<p><strong>Topics:</strong> AI Agents, Tool Use &amp; MCP, AI Dev Tools &amp; Productivity · <strong>Level:</strong> intermediate</p>
+<h2>Summary</h2>
+<p>Melvin Vivas shares a quoted launch post for Comfy MCP, now in public beta. The launch calls it the first MCP server built for production pipelines. It connects AI agents and coding assistants such as Claude, Codex, Cursor and Hermes to the ComfyUI ecosystem. That lets you run image and media generation workflows with natural-language prompts. The video has no spoken content, so everything here comes from the post text.</p>
+<h2>Key points</h2>
+<ul>
+<li>Comfy MCP is an official Model Context Protocol (MCP) server for ComfyUI, launched in public beta.</li>
+<li>It is billed as the first MCP built for production pipelines, not just local experiments.</li>
+<li>Supported clients named in the post: Claude, Codex, Cursor and Hermes.</li>
+<li>You can run any ComfyUI workflow by describing it in natural language to your agent.</li>
+<li>You can search ComfyUI models, nodes and templates from inside the agent.</li>
+<li>You can share a workflow URL with the agent (the post text is cut off at this point).</li>
+<li>Takeaway: MCP lets general-purpose agents drive specialised tools like node-based diffusion pipelines without custom glue code.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://github.com/Comfy-Org/comfy-mcp">Comfy MCP</a></strong> · tool · github.com · free<br>
+  A local, open-source MCP server that gives AI agents access to your Comfy install (nodes, custom nodes and models) so they can fetch files, start the instance and run workflows.<br>
+  Also in: Comfy MCP Goes Local and Open-Source: Agents That See Your Install (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2089788705129333136">X</a> · <a href="2026-08-18-comfy-mcp-goes-local-and-open-source-agents-that-see-your.html">notes</a>)</li>
+<li><strong><a href="https://x.com/ComfyUI">ComfyUI</a></strong> · tool · x.com · free<br>
+  The official X account for ComfyUI, the node-based tool for generative AI workflows, which announces things like ComfyUI Agent.<br>
+  Also in: ComfyUI Agent: early access announcement (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104054198065414166">X</a> · <a href="../13-ai-tools/2026-09-27-comfyui-agent-early-access-announcement.html">notes</a>), Comfy Router: One API for Image, Video, 3D and Audio Model Providers (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102847542648254650">X</a> · <a href="../09-llmops/2026-09-24-comfy-router-one-api-for-image-video-3d-and-audio-model.html">notes</a>), Generating AI Video Locally with MiniMax H3 in ComfyUI on an RTX 3090 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2085553403846078669">X</a> · <a href="../13-ai-tools/2026-08-07-generating-ai-video-locally-with-minimax-h3-in-comfyui-on.html">notes</a>), Running MiniMax M3 Locally in ComfyUI on an RTX 3090 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2085423372423614896">X</a> · <a href="../13-ai-tools/2026-08-07-running-minimax-m3-locally-in-comfyui-on-an-rtx-3090.html">notes</a>) and 23 more</li>
+<li><strong><a href="https://claude.ai">Claude Opus 5.5</a></strong> · tool · claude.ai · paid · open in a browser to verify · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Anthropic's AI assistant, used throughout the guide to tailor resumes, add live roles to the tracker, match connections to target companies and find hiring managers.<br>
+  Also in: Generating a Repo Promo Video with a Claude Skill on Sonnet 5.5 vs Opus 5.5 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105947598104449202">X</a> · <a href="../13-ai-tools/2026-10-02-generating-a-repo-promo-video-with-a-claude-skill-on-sonnet.html">notes</a>), Comparing Coding Models on the Same Task in Devin iOS (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105882889653248435">X</a> · <a href="../13-ai-tools/2026-10-02-comparing-coding-models-on-the-same-task-in-devin-ios.html">notes</a>), Customizing Your Coding Setup with Pi Coding Agent Extensions (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105871612591714651">X</a> · <a href="../13-ai-tools/2026-10-02-customizing-your-coding-setup-with-pi-coding-agent.html">notes</a>), LLM Council Agent in Pi Using Codex and Claude Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105623208875761959">X</a> · <a href="2026-10-01-llm-council-agent-in-pi-using-codex-and-claude-models.html">notes</a>) and 52 more</li>
+<li><strong><a href="https://openai.com/codex">OpenAI Codex</a></strong> · tool · openai.com · paid<br>
+  OpenAI's coding agent. In the diagram it writes code, fixes review findings and drives the build loop. The creator also used it to make this video.<br>
+  Also in: An agent bot that installs and drives Codex on its own (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105963336097837160">X</a> · <a href="2026-10-02-an-agent-bot-that-installs-and-drives-codex-on-its-own.html">notes</a>), Asking a Coder bot to install Codex (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105961766471754199">X</a> · <a href="2026-10-02-asking-a-coder-bot-to-install-codex.html">notes</a>), Sign in with ChatGPT: Setting Usage Limits for Each App (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105933855802929153">X</a> · <a href="../13-ai-tools/2026-10-02-sign-in-with-chatgpt-setting-usage-limits-for-each-app.html">notes</a>), Codex Cloud Environments Must Be Saved &amp; Published Before Use (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105908190697472042">X</a> · <a href="../13-ai-tools/2026-10-02-codex-cloud-environments-must-be-saved-published-before-use.html">notes</a>) and 240 more</li>
+<li><strong><a href="https://x.com/cursor_ai">Cursor</a></strong> · tool · x.com · free<br>
+  Cursor's official X account, which posts product announcements such as cloud agents running in configured dev environments.<br>
+  Also in: GLM 5.3 and GLM 5.3 Flash now in Cursor (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105952116930163074">X</a> · <a href="../13-ai-tools/2026-10-02-glm-5-3-and-glm-5-3-flash-now-in-cursor.html">notes</a>), Grok Bot Can Now Hand Off Coding Tasks to Cursor (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105468023352279408">X</a> · <a href="../13-ai-tools/2026-10-01-grok-bot-can-now-hand-off-coding-tasks-to-cursor.html">notes</a>), Why Plan Mode Still Matters in AI Coding Assistants (Codex, Claude, Cursor) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104239715520250187">X</a> · <a href="../13-ai-tools/2026-09-28-why-plan-mode-still-matters-in-ai-coding-assistants-codex.html">notes</a>), Why Plan Mode Still Matters in AI Coding Agents (Codex, Claude, Cursor) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104223654678839637">X</a> · <a href="../13-ai-tools/2026-09-27-why-plan-mode-still-matters-in-ai-coding-agents-codex.html">notes</a>) and 121 more</li>
+<li><strong><a href="https://hermes-agent.nousresearch.com/">Hermes</a></strong> · tool · hermes-agent.nousresearch.com · free<br>
+  The AI agent the creator uses to automate making explainer videos. It is probably Nous Research's Hermes Agent, but the post does not say so.<br>
+  Also in: OpenAI DevDay recap: Dots, GPT-6.1 Sol, Codex Cloud, Agents API (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105018489794879836">X</a> · <a href="../16-trends/2026-09-30-openai-devday-recap-dots-gpt-6-1-sol-codex-cloud-agents-api.html">notes</a>), Coworker: free open-source desktop AI coworker app (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103533091117736005">X</a> · <a href="../13-ai-tools/2026-09-26-coworker-free-open-source-desktop-ai-coworker-app.html">notes</a>), Agent Monitor: see traces, tokens and costs of your coding agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100681194585432373">X</a> · <a href="../09-llmops/2026-09-18-agent-monitor-see-traces-tokens-and-costs-of-your-coding.html">notes</a>), Coworker: An Open-Source Desktop Agent App for Local and Cloud Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099551050130936120">X</a> · <a href="2026-09-15-coworker-an-open-source-desktop-agent-app-for-local-and.html">notes</a>) and 13 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Try connecting Comfy MCP to an MCP client such as Claude, Codex or Cursor.</li>
+<li>Run a ComfyUI workflow with a natural-language prompt through your agent.</li>
+<li>Use the agent to search ComfyUI models, nodes and templates.</li>
+</ul><section class="more"><h2>More in AI Agents, Tool Use &amp; MCP</h2><ul><li><a href="2026-07-01-connecting-the-x-twitter-mcp-server-to-cursor-via-an-oauth.html">Connecting the X (Twitter) MCP Server to Cursor via an OAuth 2.0 App</a> <span class="meta">Melvin Vivas, 2026-07-01</span></li><li><a href="2026-06-30-x-launches-an-mcp-server-x-mcp.html">X Launches an MCP Server (X MCP)</a> <span class="meta">Melvin Vivas, 2026-06-30</span></li><li><a href="2026-06-30-devin-fusion-a-hybrid-model-harness-for-agentic-coding.html">Devin Fusion: A Hybrid-Model Harness for Agentic Coding</a> <span class="meta">Melvin Vivas, 2026-06-30</span></li><li><a href="2026-06-26-where-to-get-help-with-openclaw-stability-issues.html">Where to get help with OpenClaw stability issues</a> <span class="meta">Melvin Vivas, 2026-06-26</span></li><li><a href="2026-06-26-ceo-ai-brain-agents-answer-business-questions-with-charts.html">CEO AI Brain: agents answer business questions with charts</a> <span class="meta">Melvin Vivas, 2026-06-26</span></li><li><a href="2026-06-25-openrouter-mcp-pick-price-and-test-llms-from-inside-your.html">OpenRouter MCP: Pick, Price, and Test LLMs from Inside Your Coding Agent</a> <span class="meta">Melvin Vivas, 2026-06-25</span></li></ul><p><a href="../../topics/agents.html">All of AI Agents, Tool Use &amp; MCP</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

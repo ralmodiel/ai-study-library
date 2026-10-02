@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio Projects: free resources and study plan | AI Engineer…</title>
+<meta name="description" content="Project ideas and how to build a portfolio that gets interviews. 86 summarised reels and posts and 40 linked resources (5 free to watch), from Bashiri Smith…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/topics/projects.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Portfolio Projects: free resources and study plan | AI Engineer…">
+<meta property="og:description" content="Project ideas and how to build a portfolio that gets interviews. 86 summarised reels and posts and 40 linked resources (5 free to watch), from Bashiri Smith…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/topics/projects.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://ralmodiel.github.io/ai-study-library/topics/projects.html","name":"Portfolio Projects","url":"https://ralmodiel.github.io/ai-study-library/topics/projects.html","description":"Project ideas and how to build a portfolio that gets interviews.","about":{"@type":"Thing","name":"Portfolio Projects"},"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"inLanguage":"en"},{"@type":"WebSite","@id":"https://ralmodiel.github.io/ai-study-library/#website","name":"AI Engineer Study Library","url":"https://ralmodiel.github.io/ai-study-library/","inLanguage":"en","publisher":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"}},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"Portfolio Projects"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../learning-path.html">Learning path</a><a href="../free-watch-list.html">Free to watch</a><a href="../resources.html">All resources</a><a href="../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../">Library</a> &rsaquo; <a href="../learning-path.html">Learning path</a> &rsaquo; <span aria-current="page">Portfolio Projects</span></nav><p class="step">Topic 14 of 16 in the <a href="../learning-path.html">learning path</a></p><h1>Portfolio Projects</h1>
+<p><em>Project ideas and how to build a portfolio that gets interviews.</em></p>
+<p><strong>Reels and posts (21)</strong></p>
+<ul>
+<li><a href="../notes/14-projects/2026-10-01-melvin-vivas-s-github-profile-of-ai-projects.html">Melvin Vivas's GitHub Profile of AI Projects</a> · Melvin Vivas, X: The creator updated his GitHub profile (donvito) to list the projects he's working on.</li>
+<li><a href="../notes/14-projects/2026-09-28-build-side-projects-with-real-users-to-stand-out-to.html">Build Side Projects With Real Users to Stand Out to Employers</a> · Bashiri Smith, Facebook · 0:59: Bashiri Smith builds on advice from an unnamed tech influencer.</li>
+<li><a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a> · Bashiri Smith, Facebook · 0:08: This 8-second reel has no speech.</li>
+<li><a href="../notes/14-projects/2026-09-25-be-the-glue-build-ai-projects-that-solve-real-problems-to.html">Be the "Glue": Build AI Projects That Solve Real Problems to Get Hired</a> · Bashiri Smith, Facebook · 1:21: Bashiri Smith starts from a quote by Microsoft's CEO: even with heavy automation, humans do the "glue work," and new glue work will keep appearing.</li>
+<li><a href="../notes/14-projects/2026-09-25-six-ai-engineering-skills-six-portfolio-projects-to.html">Six AI Engineering Skills, Six Portfolio Projects to Practice Them</a> · Bashiri Smith, Facebook · 0:19: A quick list that pairs six core AI engineering skills (RAG, agents, LLMOps, evals, fine-tuning, safety) with one hands-on project for each.</li>
+<li><a href="../notes/14-projects/2026-09-24-6-steps-to-build-a-resume-project-that-lands-an-ai.html">6 Steps to Build a Resume Project That Lands an AI Engineering Job</a> · Bashiri Smith, Facebook · 2:47: Bashiri Smith lays out a six-step framework for building portfolio projects that get you hired as an engineer in 2026.</li>
+<li><a href="../notes/14-projects/2026-09-23-6-step-framework-for-building-ai-projects-target-companies.html">6-Step Framework for Building AI Projects Target Companies Care About</a> · Bashiri Smith, Facebook · 0:08: This short reel (no speech, caption only) gives a six-step process for picking and building a portfolio project.</li>
+<li><a href="../notes/14-projects/2026-09-23-stop-writing-ai-keyword-soup-build-projects-that-solve-real.html">Stop Writing AI Keyword Soup: Build Projects That Solve Real Problems</a> · Bashiri Smith, Facebook · 1:05: Bashiri Smith argues that listing RAG, agents, LLMs and evals on your resume isn't enough to get hired.</li>
+<li><a href="../notes/14-projects/2026-09-22-beat-the-hiring-trust-recession-with-public-proof-of-skill.html">Beat the Hiring "Trust Recession" With Public Proof-of-Skill Projects</a> · Bashiri Smith, Facebook · 1:06: The creator says candidates aren't getting interviews because companies no longer trust résumés and credentials.</li>
+<li><a href="../notes/14-projects/2026-09-22-generate-job-worthy-ai-project-ideas-from-recent-research.html">Generate Job-Worthy AI Project Ideas from Recent Research Papers + ChatGPT</a> · Bashiri Smith, Facebook · 0:43: The video shows a quick way to find portfolio project ideas that show real-world skill.</li>
+<li><a href="../notes/14-projects/2026-09-22-3-ai-portfolio-projects-that-get-past-the-6-second-resume.html">3 AI Portfolio Projects That Get Past the 6-Second Resume Scan</a> · Bashiri Smith, Facebook · 0:12: Most AI projects on resumes get skipped because they're basic demos like a chatbot over a single PDF.</li>
+<li><a href="../notes/14-projects/2026-09-16-15-production-grade-ai-projects-to-go-from-software.html">15 Production-Grade AI Projects to Go from Software Engineer to AI Engineer</a> · Bashiri Smith, Facebook · 0:07: A short reel listing 15 portfolio projects for software engineers moving into AI engineering.</li>
+<li><a href="../notes/14-projects/2026-09-14-5-weekend-ai-engineering-projects-cost-routing-caching.html">5 Weekend AI Engineering Projects: Cost Routing, Caching, Evals &amp; Observability</a> · Bashiri Smith, Facebook · 1:28: Bashiri Smith suggests five AI projects you could build in a weekend.</li>
+<li><a href="../notes/14-projects/2026-09-11-6-job-realistic-ai-engineering-projects-reranking-to.html">6 Job-Realistic AI Engineering Projects: Reranking to Exfiltration Guardrails</a> · Bashiri Smith, Facebook · 0:36: This short video links six AI engineering skills to six portfolio projects.</li>
+<li><a href="../notes/14-projects/2026-09-09-learn-ai-engineering-by-building-one-project-per-skill.html">Learn AI Engineering by Building One Project per Skill</a> · Bashiri Smith, Facebook · 0:22: Bashiri Smith says you should stop learning AI concepts without building anything with them.</li>
+<li><a href="../notes/14-projects/2026-09-09-comment-to-dm-offer-claude-prompt-27-ai-engineering.html">Comment-to-DM Offer: Claude Prompt, 27 AI Engineering Projects &amp; BASWE.AI</a> · Bashiri Smith, Facebook · 0:08: This is an 8-second reel with no speech, so there is no lesson in it.</li>
+<li><a href="../notes/14-projects/2026-09-05-gpt-6-astra-hackathon-in-singapore-13-sep.html">GPT-6 Astra Hackathon in Singapore (13 Sep)</a> · Melvin Vivas, X: The creator shares a free hackathon in Singapore on 13 September for building with GPT-6 Astra.</li>
+<li><a href="../notes/14-projects/2026-08-25-portfolio-projects-to-get-hired-as-a-100k-200k-ai-engineer.html">Portfolio Projects to Get Hired as a $100k–$200k+ AI Engineer (Teaser)</a> · Bashiri Smith, Facebook · 0:11: This 11-second reel is a teaser for a list of portfolio projects that Bashiri Smith says can help you get hired as an AI engineer earning $100k–$200k+.</li>
+<li><a href="../notes/14-projects/2026-07-01-x-developer-exhibit-showcase-your-x-apps.html">X Developer Exhibit: Showcase Your X Apps</a> · Melvin Vivas, X: X announced the Developer Exhibit, a place where builders can list their X apps to get traffic and revenue.</li>
+<li><a href="../notes/14-projects/2026-03-26-real-time-tennis-computer-vision-project-at-30-fps.html">Real-Time Tennis Computer Vision Project at 30+ FPS</a> · Melvin Vivas, X: A computer vision portfolio project for tennis that detects the player, ball and racquet and estimates player poses.</li>
+<li><a href="../notes/14-projects/2026-03-18-local-image-generation-pipeline-built-with-claude-code.html">Local Image Generation Pipeline Built with Claude Code</a> · Melvin Vivas, X: The creator used Claude Code to build a local image-generation pipeline that needs no external APIs.</li>
+</ul>
+<p><strong>Watch, free (3)</strong></p>
+<ul>
+<li><strong><a href="https://www.youtube.com/watch?v=vKEK6VpPNV8">How to Build a Coding Project That Will Get You Hired in 2026 [FULL BLUEPRINT]</a></strong> · video · youtube.com · free<br>
+  Bashiri Smith's full YouTube tutorial on planning and building portfolio projects that solve real problems and show employers you can do useful work.<br>
+  Mentioned in: Build Side Projects With Real Users to Stand Out to Employers (Bashiri Smith on <a href="https://www.facebook.com/reel/1842614773572053">Facebook</a> · <a href="../notes/14-projects/2026-09-28-build-side-projects-with-real-users-to-stand-out-to.html">notes</a>), Be the "Glue": Build AI Projects That Solve Real Problems to Get Hired (Bashiri Smith on <a href="https://www.facebook.com/reel/1783926396271901">Facebook</a> · <a href="../notes/14-projects/2026-09-25-be-the-glue-build-ai-projects-that-solve-real-problems-to.html">notes</a>), Stop Writing AI Keyword Soup: Build Projects That Solve Real Problems (Bashiri Smith on <a href="https://www.facebook.com/reel/1056777847150929">Facebook</a> · <a href="../notes/14-projects/2026-09-23-stop-writing-ai-keyword-soup-build-projects-that-solve-real.html">notes</a>), Beat the Hiring "Trust Recession" With Public Proof-of-Skill Projects (Bashiri Smith on <a href="https://www.facebook.com/reel/1677345863825116">Facebook</a> · <a href="../notes/14-projects/2026-09-22-beat-the-hiring-trust-recession-with-public-proof-of-skill.html">notes</a>) and 3 more</li>
+<li><strong><a href="https://www.youtube.com/watch?v=6RADVVSDZK8">27 AI Engineering Projects to Get Hired - The Ultimate Guide</a></strong> · video · youtube.com · free<br>
+  A longer walkthrough of all 27 projects: what to build, which tools you need, how long to spend building and how to find real users.<br>
+  Mentioned in: Software Engineer to AI Engineer Before 2027: A 5-Step Career Plan (Bashiri Smith on <a href="https://www.facebook.com/reel/1433622515329300">Facebook</a> · <a href="../notes/01-roadmap/2026-09-30-software-engineer-to-ai-engineer-before-2027-a-5-step.html">notes</a>), 27 Portfolio Projects to Move from Software Engineer to AI Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1618042190000498">Facebook</a> · <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=6x5I2SjSf9w">[Full livestream] Build a React Native ChatGPT app using Cursor, OpenAI, and Expo</a></strong> · video · youtube.com · free<br>
+  A full livestream building an iOS ChatGPT app with React Native, Expo, the OpenAI API and Cursor.<br>
+  Mentioned in: Livestream: Building a React Native ChatGPT App with Cursor and OpenAI (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099388668909850812">X</a> · <a href="../notes/13-ai-tools/2026-09-14-livestream-building-a-react-native-chatgpt-app-with-cursor.html">notes</a>)</li>
+</ul>
+<p><strong>Read and use (13)</strong></p>
+<ul>
+<li><strong><a href="https://drive.google.com/drive/folders/1juyW1jEWgVNw12la8twx53PhwMhkrnK3">Bashiri Smith's AI Projects Guide</a></strong> · pdf · drive.google.com · free<br>
+  The creator's guide to 27 AI projects, with full architecture, build steps phase by phase, interview talking points, and the stack for each project.<br>
+  Mentioned in: 6-Step Framework for Building AI Projects Target Companies Care About (Bashiri Smith on <a href="https://www.facebook.com/reel/4074702829504077">Facebook</a> · <a href="../notes/14-projects/2026-09-23-6-step-framework-for-building-ai-projects-target-companies.html">notes</a>), Generate Job-Worthy AI Project Ideas from Recent Research Papers + ChatGPT (Bashiri Smith on <a href="https://www.facebook.com/reel/1972990223365519">Facebook</a> · <a href="../notes/14-projects/2026-09-22-generate-job-worthy-ai-project-ideas-from-recent-research.html">notes</a>), 3 AI Portfolio Projects That Get Past the 6-Second Resume Scan (Bashiri Smith on <a href="https://www.facebook.com/reel/1396616845322191">Facebook</a> · <a href="../notes/14-projects/2026-09-22-3-ai-portfolio-projects-that-get-past-the-6-second-resume.html">notes</a>), 15 Production-Grade AI Projects to Go from Software Engineer to AI Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1722750759026422">Facebook</a> · <a href="../notes/14-projects/2026-09-16-15-production-grade-ai-projects-to-go-from-software.html">notes</a>) and 4 more</li>
+<li><strong><a href="https://x.com/threejs">Three.js</a></strong> · tool · x.com · free<br>
+  JavaScript 3D graphics library whose browser-rendered scenes can become video frames.<br>
+  Mentioned in: Building a 3D Flight Scene with Sonnet in Cursor, three.js and 3D Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2096641826015027485">X</a> · <a href="../notes/13-ai-tools/2026-09-07-building-a-3d-flight-scene-with-sonnet-in-cursor-three-js.html">notes</a>), Vibe-Coding a 3D Human Anatomy App with Three.js and GPT 5.6 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2083936762351735263">X</a> · <a href="../notes/13-ai-tools/2026-08-02-vibe-coding-a-3d-human-anatomy-app-with-three-js-and-gpt-5-6.html">notes</a>), Building a Three.js Scene with Claude Opus 5 in Claude Desktop (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2083837258520813929">X</a> · <a href="../notes/13-ai-tools/2026-08-02-building-a-three-js-scene-with-claude-opus-5-in-claude.html">notes</a>), HyperFrames: Let Coding Agents Turn HTML into MP4 Videos (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2044973138887532613">X</a> · <a href="../notes/13-ai-tools/2026-04-17-hyperframes-let-coding-agents-turn-html-into-mp4-videos.html">notes</a>) and 1 more</li>
+<li><strong><a href="https://github.com/donvito">donvito (GitHub)</a></strong> · repo · github.com · free<br>
+  Melvin Vivas's GitHub profile listing the AI projects he is working on.<br>
+  Mentioned in: Melvin Vivas's GitHub Profile of AI Projects (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105330769996726404">X</a> · <a href="../notes/14-projects/2026-10-01-melvin-vivas-s-github-profile-of-ai-projects.html">notes</a>), Natural Language to API Calls with LangChain APIChain and OpenAI (Melvin Vivas on <a href="https://www.melvinvivas.com/chatgpt-openai-natural-language-to-api-call">melvinvivas.com</a> · <a href="../notes/07-agents/2023-04-15-natural-language-to-api-calls-with-langchain-apichain-and.html">notes</a>), Q&amp;A Over Your Own PDFs with LlamaIndex, OpenAI and Python (2023) (Melvin Vivas on <a href="https://www.melvinvivas.com/chatgpt-openai-langchain-llama-index-generative-text-ai">melvinvivas.com</a> · <a href="../notes/06-rag/2023-04-08-q-a-over-your-own-pdfs-with-llamaindex-openai-and-python.html">notes</a>)</li>
+<li><strong><a href="https://github.com/patchy631/ai-engineering-hub">AI Engineering Hub (patchy631/ai-engineering-hub)</a></strong> · repo · github.com · free<br>
+  GitHub repo with in-depth tutorials and projects on LLMs, RAG and real-world AI agent applications, at beginner to advanced levels.<br>
+  Mentioned in: Two Free Resources to Learn AI Engineering: AI Engineering Hub &amp; AI Safety Book (Bashiri Smith on <a href="https://www.facebook.com/reel/2506160296564290">Facebook</a> · <a href="../notes/01-roadmap/2026-08-21-two-free-resources-to-learn-ai-engineering-ai-engineering.html">notes</a>)</li>
+<li><strong><a href="https://drive.google.com/drive/u/1/folders/1juyW1jEWgVNw12la8twx53PhwMhkrnK3">AI Projects (Google Drive guide)</a></strong> · pdf · drive.google.com · free<br>
+  The creator's Google Drive folder with a guide to 27 AI engineering portfolio projects, organized by skill.<br>
+  Mentioned in: Learn AI Engineering by Building One Project per Skill (Bashiri Smith on <a href="https://www.facebook.com/reel/4556411901289622">Facebook</a> · <a href="../notes/14-projects/2026-09-09-learn-ai-engineering-by-building-one-project-per-skill.html">notes</a>)</li>
+<li><strong>Bashiri Smith's AI Engineer Projects Breakdown</strong> · pdf · check price<br>
+  The creator's step-by-step guide to building the six projects in the video, plus about 20 more project ideas.<br>
+<strong>DM only:</strong> comment <strong>SKILLS</strong> on <a href="https://www.facebook.com/reel/1354136596554305">this reel on Facebook</a> and you get it by DM.<br>
+  Mentioned in: Six AI Engineering Skills, Six Portfolio Projects to Practice Them (Bashiri Smith on <a href="https://www.facebook.com/reel/1354136596554305">Facebook</a> · <a href="../notes/14-projects/2026-09-25-six-ai-engineering-skills-six-portfolio-projects-to.html">notes</a>)</li>
+<li><strong><a href="https://github.com/excalidraw/excalidraw">Excalidraw</a></strong> · repo · github.com · free<br>
+  Popular open-source virtual whiteboard, used here as the demo codebase (the transcript mishears it as 'Excalibur').<br>
+  Mentioned in: Cursor Cloud Agents: Onboarding, Self-Testing on a Remote Desktop, Video Demos (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2054439149982408826">X</a> · <a href="../notes/13-ai-tools/2026-05-13-cursor-cloud-agents-onboarding-self-testing-on-a-remote.html">notes</a>)</li>
+<li><strong><a href="https://flappy-bird-arcade.donvitocodes.chatgpt.site/">Flappy Bird — Pocket Arcade</a></strong> · website · flappy-bird-arcade.donvitocodes.chatgpt.site · free<br>
+  The creator's live Flappy Bird clone, built by GPT-6 Astra in Codex and hosted on ChatGPT sites.<br>
+  Mentioned in: Building and Deploying a Flappy Bird Clone with GPT-6 Astra in Codex (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2096533273329684778">X</a> · <a href="../notes/13-ai-tools/2026-09-06-building-and-deploying-a-flappy-bird-clone-with-gpt-6-astra.html">notes</a>)</li>
+<li><strong><a href="https://astra-hackathon-singapore.openai.chatgpt.site/">GPT-6 Astra Hackathon: Singapore</a></strong> · other · astra-hackathon-singapore.openai.chatgpt.site · free<br>
+  An in-person hackathon in Singapore for building projects with GPT-6 Astra.<br>
+  Mentioned in: GPT-6 Astra Hackathon in Singapore (13 Sep) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2096185810592895476">X</a> · <a href="../notes/14-projects/2026-09-05-gpt-6-astra-hackathon-in-singapore-13-sep.html">notes</a>)</li>
+<li><strong><a href="https://medium.com">Medium</a></strong> · website · medium.com · free · open in a browser to verify<br>
+  Blogging platform for writing up your project story and architecture decisions.<br>
+  Mentioned in: 6 Steps to Build a Resume Project That Lands an AI Engineering Job (Bashiri Smith on <a href="https://www.facebook.com/reel/961750610321136">Facebook</a> · <a href="../notes/14-projects/2026-09-24-6-steps-to-build-a-resume-project-that-lands-an-ai.html">notes</a>)</li>
+<li><strong><a href="https://www.reddit.com">Reddit</a></strong> · community · reddit.com · free<br>
+  Online forums where you can share your finished project.<br>
+  Mentioned in: 6 Steps to Build a Resume Project That Lands an AI Engineering Job (Bashiri Smith on <a href="https://www.facebook.com/reel/961750610321136">Facebook</a> · <a href="../notes/14-projects/2026-09-24-6-steps-to-build-a-resume-project-that-lands-an-ai.html">notes</a>)</li>
+<li><strong><a href="https://github.com/donvito/streamer-suite">Streamer Suite (donvito/streamer-suite)</a></strong> · repo · github.com · free<br>
+  Open-source app for managing livestream widgets and overlays, such as CPU/RAM/GPU monitors, as OBS browser sources.<br>
+  Mentioned in: Streamer Suite: livestream overlay app built live with Claude Code (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103333215859875935">X</a> · <a href="../notes/13-ai-tools/2026-09-25-streamer-suite-livestream-overlay-app-built-live-with.html">notes</a>)</li>
+<li><strong><a href="https://developer.x.com/exhibit">X Developer Exhibit</a></strong> · website · developer.x.com · free<br>
+  X's showcase platform where developers list and promote apps built on the X API.<br>
+  Mentioned in: X Developer Exhibit: Showcase Your X Apps (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2072161212767355370">X</a> · <a href="../notes/14-projects/2026-07-01-x-developer-exhibit-showcase-your-x-apps.html">notes</a>)</li>
+</ul>
+<p><strong>Build</strong></p>
+<ul>
+<li>A small, shareable side project with real users that deals with production-level problems. (from <a href="../notes/14-projects/2026-09-28-build-side-projects-with-real-users-to-stand-out-to.html">Build Side Projects With Real Users to Stand Out to Employers</a>)</li>
+<li>Model regression detection system (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>LLM cost autopilot (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>Failure forensics tool for AI pipelines (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>Self-healing documentation bot (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>LLM output arbitration system (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>RAG pipeline with hybrid search (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>Semantic caching layer (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>Text-to-SQL with guardrails (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>Prompt versioning + A/B testing platform (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>Fine-tuning pipeline with LoRA (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>LLM gateway with rate limiting + fallback routing (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>AI feature flag system (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>Automated eval dataset generator (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>Multimodal document processor (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>Agent orchestration system (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>Multimodal RAG assistant for HVAC technicians (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>Multi-agent insurance claims reviewer (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>E-commerce support caching system (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>Legal research retrieval evaluation system (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>LoRA fine-tuning for freight invoice extraction (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>Prompt injection defense for recruiting assistants (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>Knowledge graph RAG for enterprise data (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>Multi-agent research assistant (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>Self-healing LLM gateway (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>LLM-as-a-judge with human calibration (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>Model distillation pipeline (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>Automated AI red-teaming harness (from <a href="../notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">27 Portfolio Projects to Move from Software Engineer to AI Engineer</a>)</li>
+<li>Pick a real problem that real users have, build a solution for it, put it in their hands, and record the impact so you can show it in interviews. (from <a href="../notes/14-projects/2026-09-25-be-the-glue-build-ai-projects-that-solve-real-problems-to.html">Be the "Glue": Build AI Projects That Solve Real Problems to Get Hired</a>)</li>
+<li>RAG: a hybrid knowledge graph + vector retrieval system that handles multi-hop questions. (from <a href="../notes/14-projects/2026-09-25-six-ai-engineering-skills-six-portfolio-projects-to.html">Six AI Engineering Skills, Six Portfolio Projects to Practice Them</a>)</li>
+<li>Agents: a multi-agent research assistant with a supervisor agent and durable state. (from <a href="../notes/14-projects/2026-09-25-six-ai-engineering-skills-six-portfolio-projects-to.html">Six AI Engineering Skills, Six Portfolio Projects to Practice Them</a>)</li>
+<li>LLMOps: a self-healing LLM gateway that fails over when a provider goes down. (from <a href="../notes/14-projects/2026-09-25-six-ai-engineering-skills-six-portfolio-projects-to.html">Six AI Engineering Skills, Six Portfolio Projects to Practice Them</a>)</li>
+<li>Evals: an LLM-as-judge evaluator calibrated against real human labels. (from <a href="../notes/14-projects/2026-09-25-six-ai-engineering-skills-six-portfolio-projects-to.html">Six AI Engineering Skills, Six Portfolio Projects to Practice Them</a>)</li>
+<li>Fine-tuning: distill a frontier model's task performance into an 8B model at a fraction of the cost. (from <a href="../notes/14-projects/2026-09-25-six-ai-engineering-skills-six-portfolio-projects-to.html">Six AI Engineering Skills, Six Portfolio Projects to Practice Them</a>)</li>
+<li>Safety: an automated red-team harness that runs on every deploy. (from <a href="../notes/14-projects/2026-09-25-six-ai-engineering-skills-six-portfolio-projects-to.html">Six AI Engineering Skills, Six Portfolio Projects to Practice Them</a>)</li>
+<li>Build a 1–2 month project that solves one real problem shared across many of your target companies, chosen from their job postings, engineering blogs and conversations with their engineers. (from <a href="../notes/14-projects/2026-09-24-6-steps-to-build-a-resume-project-that-lands-an-ai.html">6 Steps to Build a Resume Project That Lands an AI Engineering Job</a>)</li>
+<li>Build a project that solves a problem that keeps showing up in your target companies' job descriptions and engineering blogs, sized to finish in 1–2 months. (from <a href="../notes/14-projects/2026-09-23-6-step-framework-for-building-ai-projects-target-companies.html">6-Step Framework for Building AI Projects Target Companies Care About</a>)</li>
+<li>Find a real problem that a specific person or group has, build an AI solution for it (using RAG, agents, etc. only where they help), and document how you know it worked. (from <a href="../notes/14-projects/2026-09-23-stop-writing-ai-keyword-soup-build-projects-that-solve-real.html">Stop Writing AI Keyword Soup: Build Projects That Solve Real Problems</a>)</li>
+<li>A 'signal project': an ongoing public project that solves a real problem companies care about, run like a mini startup with regular public progress updates. (from <a href="../notes/14-projects/2026-09-22-beat-the-hiring-trust-recession-with-public-proof-of-skill.html">Beat the Hiring "Trust Recession" With Public Proof-of-Skill Projects</a>)</li>
+<li>Build a coding project based on a recent arXiv paper in AI, ML, or Computational Engineering/Finance/Science, using ChatGPT's step-by-step plan. (from <a href="../notes/14-projects/2026-09-22-generate-job-worthy-ai-project-ideas-from-recent-research.html">Generate Job-Worthy AI Project Ideas from Recent Research Papers + ChatGPT</a>)</li>
+<li>RAG pipeline with hybrid search: dense vectors + BM25 + reranking + verified citations (from <a href="../notes/14-projects/2026-09-22-3-ai-portfolio-projects-that-get-past-the-6-second-resume.html">3 AI Portfolio Projects That Get Past the 6-Second Resume Scan</a>)</li>
+<li>Agent orchestration system: supervisor agent, tool use, persistent memory, handing off to a human when needed (from <a href="../notes/14-projects/2026-09-22-3-ai-portfolio-projects-that-get-past-the-6-second-resume.html">3 AI Portfolio Projects That Get Past the 6-Second Resume Scan</a>)</li>
+<li>LLM gateway with fallback routing: per-team budgets, rate limits, circuit breakers, switching providers on failure (from <a href="../notes/14-projects/2026-09-22-3-ai-portfolio-projects-that-get-past-the-6-second-resume.html">3 AI Portfolio Projects That Get Past the 6-Second Resume Scan</a>)</li>
+<li>Model regression detection system (from <a href="../notes/14-projects/2026-09-16-15-production-grade-ai-projects-to-go-from-software.html">15 Production-Grade AI Projects to Go from Software Engineer to AI Engineer</a>)</li>
+<li>LLM cost autopilot (from <a href="../notes/14-projects/2026-09-16-15-production-grade-ai-projects-to-go-from-software.html">15 Production-Grade AI Projects to Go from Software Engineer to AI Engineer</a>)</li>
+<li>Failure forensics tool for AI pipelines (from <a href="../notes/14-projects/2026-09-16-15-production-grade-ai-projects-to-go-from-software.html">15 Production-Grade AI Projects to Go from Software Engineer to AI Engineer</a>)</li>
+<li>Self-healing documentation bot (from <a href="../notes/14-projects/2026-09-16-15-production-grade-ai-projects-to-go-from-software.html">15 Production-Grade AI Projects to Go from Software Engineer to AI Engineer</a>)</li>
+<li>LLM output arbitration system (from <a href="../notes/14-projects/2026-09-16-15-production-grade-ai-projects-to-go-from-software.html">15 Production-Grade AI Projects to Go from Software Engineer to AI Engineer</a>)</li>
+<li>RAG pipeline with hybrid search (from <a href="../notes/14-projects/2026-09-16-15-production-grade-ai-projects-to-go-from-software.html">15 Production-Grade AI Projects to Go from Software Engineer to AI Engineer</a>)</li>
+<li>Semantic caching layer (from <a href="../notes/14-projects/2026-09-16-15-production-grade-ai-projects-to-go-from-software.html">15 Production-Grade AI Projects to Go from Software Engineer to AI Engineer</a>)</li>
+<li>Text-to-SQL with guardrails (from <a href="../notes/14-projects/2026-09-16-15-production-grade-ai-projects-to-go-from-software.html">15 Production-Grade AI Projects to Go from Software Engineer to AI Engineer</a>)</li>
+<li>Prompt versioning + A/B testing platform (from <a href="../notes/14-projects/2026-09-16-15-production-grade-ai-projects-to-go-from-software.html">15 Production-Grade AI Projects to Go from Software Engineer to AI Engineer</a>)</li>
+<li>Fine-tuning pipeline with LoRA (from <a href="../notes/14-projects/2026-09-16-15-production-grade-ai-projects-to-go-from-software.html">15 Production-Grade AI Projects to Go from Software Engineer to AI Engineer</a>)</li>
+<li>LLM gateway with rate limiting + fallback routing (from <a href="../notes/14-projects/2026-09-16-15-production-grade-ai-projects-to-go-from-software.html">15 Production-Grade AI Projects to Go from Software Engineer to AI Engineer</a>)</li>
+<li>AI feature flag system (from <a href="../notes/14-projects/2026-09-16-15-production-grade-ai-projects-to-go-from-software.html">15 Production-Grade AI Projects to Go from Software Engineer to AI Engineer</a>)</li>
+<li>Automated eval dataset generator (from <a href="../notes/14-projects/2026-09-16-15-production-grade-ai-projects-to-go-from-software.html">15 Production-Grade AI Projects to Go from Software Engineer to AI Engineer</a>)</li>
+<li>Multi-modal document processor (from <a href="../notes/14-projects/2026-09-16-15-production-grade-ai-projects-to-go-from-software.html">15 Production-Grade AI Projects to Go from Software Engineer to AI Engineer</a>)</li>
+<li>Agent orchestration system (from <a href="../notes/14-projects/2026-09-16-15-production-grade-ai-projects-to-go-from-software.html">15 Production-Grade AI Projects to Go from Software Engineer to AI Engineer</a>)</li>
+<li>LLM cost autopilot: a router that scores query complexity and sends each query to the cheapest model that can still answer well (from <a href="../notes/14-projects/2026-09-14-5-weekend-ai-engineering-projects-cost-routing-caching.html">5 Weekend AI Engineering Projects: Cost Routing, Caching, Evals &amp; Observability</a>)</li>
+<li>Semantic caching middleware for LLM APIs that serves semantically similar requests from a cache (from <a href="../notes/14-projects/2026-09-14-5-weekend-ai-engineering-projects-cost-routing-caching.html">5 Weekend AI Engineering Projects: Cost Routing, Caching, Evals &amp; Observability</a>)</li>
+<li>Model regression detector: a CI/CD pipeline that tests LLM outputs against a golden dataset and sends Slack alerts (from <a href="../notes/14-projects/2026-09-14-5-weekend-ai-engineering-projects-cost-routing-caching.html">5 Weekend AI Engineering Projects: Cost Routing, Caching, Evals &amp; Observability</a>)</li>
+<li>Failure forensics / observability tool that traces multi-step AI pipelines and finds where failures start (from <a href="../notes/14-projects/2026-09-14-5-weekend-ai-engineering-projects-cost-routing-caching.html">5 Weekend AI Engineering Projects: Cost Routing, Caching, Evals &amp; Observability</a>)</li>
+<li>Self-healing technical docs: a GitHub Action that finds outdated docs after code changes and updates them (from <a href="../notes/14-projects/2026-09-14-5-weekend-ai-engineering-projects-cost-routing-caching.html">5 Weekend AI Engineering Projects: Cost Routing, Caching, Evals &amp; Observability</a>)</li>
+<li>RAG pipeline with reranking (retrieval reranking) (from <a href="../notes/14-projects/2026-09-11-6-job-realistic-ai-engineering-projects-reranking-to.html">6 Job-Realistic AI Engineering Projects: Reranking to Exfiltration Guardrails</a>)</li>
+<li>Human approval agent (human-in-the-loop control) (from <a href="../notes/14-projects/2026-09-11-6-job-realistic-ai-engineering-projects-reranking-to.html">6 Job-Realistic AI Engineering Projects: Reranking to Exfiltration Guardrails</a>)</li>
+<li>LLM request batching layer (inference optimization) (from <a href="../notes/14-projects/2026-09-11-6-job-realistic-ai-engineering-projects-reranking-to.html">6 Job-Realistic AI Engineering Projects: Reranking to Exfiltration Guardrails</a>)</li>
+<li>LLM-as-a-judge eval harness (automated evaluation) (from <a href="../notes/14-projects/2026-09-11-6-job-realistic-ai-engineering-projects-reranking-to.html">6 Job-Realistic AI Engineering Projects: Reranking to Exfiltration Guardrails</a>)</li>
+<li>QLoRA fine-tuning pipeline (efficient fine-tuning) (from <a href="../notes/14-projects/2026-09-11-6-job-realistic-ai-engineering-projects-reranking-to.html">6 Job-Realistic AI Engineering Projects: Reranking to Exfiltration Guardrails</a>)</li>
+<li>Data exfiltration guardrails (data loss prevention) (from <a href="../notes/14-projects/2026-09-11-6-job-realistic-ai-engineering-projects-reranking-to.html">6 Job-Realistic AI Engineering Projects: Reranking to Exfiltration Guardrails</a>)</li>
+<li>RAG pipeline with hybrid search (retrieval-augmented generation) (from <a href="../notes/14-projects/2026-09-09-learn-ai-engineering-by-building-one-project-per-skill.html">Learn AI Engineering by Building One Project per Skill</a>)</li>
+<li>Multi-agent orchestration system (from <a href="../notes/14-projects/2026-09-09-learn-ai-engineering-by-building-one-project-per-skill.html">Learn AI Engineering by Building One Project per Skill</a>)</li>
+<li>Eval set generator built from production logs (LLM evaluation) (from <a href="../notes/14-projects/2026-09-09-learn-ai-engineering-by-building-one-project-per-skill.html">Learn AI Engineering by Building One Project per Skill</a>)</li>
+<li>Semantic caching layer (LLMOps) (from <a href="../notes/14-projects/2026-09-09-learn-ai-engineering-by-building-one-project-per-skill.html">Learn AI Engineering by Building One Project per Skill</a>)</li>
+<li>SQL guardrail layer that blocks destructive queries (AI security and guardrails) (from <a href="../notes/14-projects/2026-09-09-learn-ai-engineering-by-building-one-project-per-skill.html">Learn AI Engineering by Building One Project per Skill</a>)</li>
+<li>Fine-tuning pipeline with LoRA (ML foundations) (from <a href="../notes/14-projects/2026-09-09-learn-ai-engineering-by-building-one-project-per-skill.html">Learn AI Engineering by Building One Project per Skill</a>)</li>
+<li>Build an app on the X API and list it on the Developer Exhibit. (from <a href="../notes/14-projects/2026-07-01-x-developer-exhibit-showcase-your-x-apps.html">X Developer Exhibit: Showcase Your X Apps</a>)</li>
+<li>Build a sports-analytics CV pipeline: object detection, pose estimation, exclusion zones and smoothed ball tracking running in real time. (from <a href="../notes/14-projects/2026-03-26-real-time-tennis-computer-vision-project-at-30-fps.html">Real-Time Tennis Computer Vision Project at 30+ FPS</a>)</li>
+<li>Build an automated local stock-photo production pipeline with ComfyUI, Z-Image-Turbo and FLUX.2 dev, using Claude Code to write the automation. (from <a href="../notes/14-projects/2026-03-18-local-image-generation-pipeline-built-with-claude-code.html">Local Image Generation Pipeline Built with Claude Code</a>)</li>
+</ul><nav class="pager" aria-label="Topics"><a rel="prev" href="ai-tools.html">&larr; AI Dev Tools &amp; Productivity</a><a rel="next" href="career.html">Resume, Job Search &amp; Interviews &rarr;</a></nav>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../license.html">License</a> &middot; <a href="../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

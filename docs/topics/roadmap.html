@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start Here: Roadmaps &amp; Strategy: free resources and study plan | AI…</title>
+<meta name="description" content="What an AI engineer does, what to learn first, and how to plan your study. 48 summarised reels and posts and 14 linked resources (1 free to watch), from…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/topics/roadmap.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Start Here: Roadmaps &amp; Strategy: free resources and study plan | AI…">
+<meta property="og:description" content="What an AI engineer does, what to learn first, and how to plan your study. 48 summarised reels and posts and 14 linked resources (1 free to watch), from…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/topics/roadmap.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://ralmodiel.github.io/ai-study-library/topics/roadmap.html","name":"Start Here: Roadmaps & Strategy","url":"https://ralmodiel.github.io/ai-study-library/topics/roadmap.html","description":"What an AI engineer does, what to learn first, and how to plan your study.","about":{"@type":"Thing","name":"Start Here: Roadmaps & Strategy"},"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"inLanguage":"en"},{"@type":"WebSite","@id":"https://ralmodiel.github.io/ai-study-library/#website","name":"AI Engineer Study Library","url":"https://ralmodiel.github.io/ai-study-library/","inLanguage":"en","publisher":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"}},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"Start Here: Roadmaps & Strategy"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../learning-path.html">Learning path</a><a href="../free-watch-list.html">Free to watch</a><a href="../resources.html">All resources</a><a href="../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../">Library</a> &rsaquo; <a href="../learning-path.html">Learning path</a> &rsaquo; <span aria-current="page">Start Here: Roadmaps &amp; Strategy</span></nav><p class="step">Topic 1 of 16 in the <a href="../learning-path.html">learning path</a></p><h1>Start Here: Roadmaps &amp; Strategy</h1>
+<p><em>What an AI engineer does, what to learn first, and how to plan your study.</em></p>
+<p><strong>Reels and posts (30)</strong></p>
+<ul>
+<li><a href="../notes/01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">Step-by-Step Roadmap to a $200K+ AI Engineering Role</a> · Bashiri Smith, Facebook · 0:49: This is a quick roadmap for landing a well-paid AI engineering job.</li>
+<li><a href="../notes/01-roadmap/2026-10-01-pointer-to-bashiri-smith-s-complete-ai-engineer-roadmap-for.html">Pointer to Bashiri Smith's Complete AI Engineer Roadmap for 2026</a> · Bashiri Smith, Facebook · 0:08: This 8-second reel teaches almost nothing by itself.</li>
+<li><a href="../notes/01-roadmap/2026-09-30-software-engineer-to-ai-engineer-before-2027-a-5-step.html">Software Engineer to AI Engineer Before 2027: A 5-Step Career Plan</a> · Bashiri Smith, Facebook · 1:17: Bashiri Smith lays out a plan for software engineers to move into AI engineering.</li>
+<li><a href="../notes/01-roadmap/2026-09-28-6-free-videos-to-move-from-software-engineer-to-ai-engineer.html">6 Free Videos to Move from Software Engineer to AI Engineer</a> · Bashiri Smith, Facebook · 0:55: Bashiri Smith suggests watching six free videos in a set order instead of TV after work.</li>
+<li><a href="../notes/01-roadmap/2026-09-25-7-habits-to-become-an-ai-engineer-books-tooling-research.html">7 Habits to Become an AI Engineer: Books, Tooling, Research &amp; Shipping</a> · Bashiri Smith, Facebook · 0:07: This short reel has no speech.</li>
+<li><a href="../notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources</a> · Bashiri Smith, Facebook · 1:54: Bashiri Smith lays out the order he would follow to relearn LLMs and RAG and become an AI engineer in 2026.</li>
+<li><a href="../notes/01-roadmap/2026-09-19-8-week-roadmap-to-a-200k-ai-engineering-role.html">8-Week Roadmap to a $200K+ AI Engineering Role</a> · Bashiri Smith, Facebook · 0:06: The creator lays out an 8-week, self-directed plan for becoming a hireable AI engineer without a bootcamp.</li>
+<li><a href="../notes/01-roadmap/2026-09-19-ai-engineer-roadmap-before-2027-fundamentals-rag-agents-ops.html">AI Engineer Roadmap Before 2027: Fundamentals, RAG, Agents, Ops, Evals</a> · Bashiri Smith, Facebook · 1:09: This is a quick roadmap for becoming an AI engineer.</li>
+<li><a href="../notes/01-roadmap/2026-09-18-ai-engineer-roadmap-5-skill-areas-a-24-week-study-order.html">AI Engineer Roadmap: 5 Skill Areas, a 24-Week Study Order &amp; Interview Strategy</a> · Bashiri Smith, Facebook · 2:29: Bashiri Smith answers three questions people ask about becoming an AI engineer: what to study, in what order and for how long, and how to get and pass interviews.</li>
+<li><a href="../notes/01-roadmap/2026-09-14-andrew-ng-says-keep-learning-to-code-but-learn-the-modern.html">Andrew Ng Says Keep Learning to Code, but Learn the Modern Way</a> · Bashiri Smith, Facebook · 0:50: The video starts with Andrew Ng's comment that telling people to stop learning to code because AI will automate it may be some of the worst career advice ever given.</li>
+<li><a href="../notes/01-roadmap/2026-09-13-3-month-roadmap-to-ai-engineering-for-experienced-software.html">3-Month Roadmap to AI Engineering for Experienced Software Engineers</a> · Bashiri Smith, Facebook · 0:07: A 12-week plan for software engineers who already build APIs, work with databases and ship software, and can spend 10–15 hours a week on it.</li>
+<li><a href="../notes/01-roadmap/2026-09-12-ai-engineer-mistakes-pt-3-don-t-grind-math-first-choose.html">AI Engineer Mistakes Pt. 3: Don't Grind Math First, Choose Embeddings Carefully</a> · Bashiri Smith, Facebook · 0:31: This short video contrasts a "wannabe" with a $200K+ AI engineer across two common mistakes.</li>
+<li><a href="../notes/01-roadmap/2026-09-11-ai-engineer-roadmap-for-2026-in-60-seconds.html">AI Engineer Roadmap for 2026 in 60 Seconds</a> · Bashiri Smith, Facebook · 0:55: Bashiri Smith gives a quick five-stage roadmap for becoming an AI engineer in 2026.</li>
+<li><a href="../notes/01-roadmap/2026-09-10-6-ai-engineering-career-paths-pick-your-target-role-first.html">6 AI Engineering Career Paths: Pick Your Target Role First</a> · Bashiri Smith, Facebook · 0:09: This short reel lists six different AI engineering roles and gives a one-line description of each.</li>
+<li><a href="../notes/01-roadmap/2026-09-07-software-engineer-to-ai-engineer-the-four-pillars-and-five.html">Software Engineer to AI Engineer: The Four Pillars and Five Topics to Learn</a> · Bashiri Smith, Facebook · 0:37: The video argues that software engineers already cover most of what AI engineering requires.</li>
+<li><a href="../notes/01-roadmap/2026-09-05-the-3-levels-of-ai-engineering-llm-apps-production-agentic.html">The 3 Levels of AI Engineering: LLM Apps → Production → Agentic Systems</a> · Bashiri Smith, Facebook · 1:13: Bashiri Smith splits AI engineering into three levels.</li>
+<li><a href="../notes/01-roadmap/2026-09-04-matching-your-interests-to-5-ai-engineering-job-roles.html">Matching Your Interests to 5 AI Engineering Job Roles</a> · Bashiri Smith, Facebook · 0:32: A quick guide that matches what you enjoy doing to an AI career path.</li>
+<li><a href="../notes/01-roadmap/2026-08-30-why-rag-alone-won-t-make-you-a-lasting-ai-engineer.html">Why RAG Alone Won't Make You a Lasting AI Engineer</a> · Bashiri Smith, Facebook · 1:15: Bashiri Smith says many aspiring AI engineers only learn the basic RAG pipeline: chunk a PDF, embed it, store it in a vector database and put a chatbot on top.</li>
+<li><a href="../notes/01-roadmap/2026-08-30-90-day-plan-to-land-an-ai-engineering-job-benchmark-learn.html">90-Day Plan to Land an AI Engineering Job: Benchmark, Learn, Build</a> · Bashiri Smith, Facebook · 1:02: The creator lays out a 90-day plan for getting an AI engineering job.</li>
+<li><a href="../notes/01-roadmap/2026-08-28-promo-bashiri-smith-s-ai-engineer-career-community-150k-goal.html">Promo: Bashiri Smith's AI Engineer Career Community ($150K+ Goal)</a> · Bashiri Smith, Facebook · 0:11: This 11-second reel advertises Bashiri Smith's AI engineering career community.</li>
+<li><a href="../notes/01-roadmap/2026-08-28-ai-engineer-roadmap-fundamentals-rag-agents-books-your.html">AI Engineer Roadmap: Fundamentals, RAG, Agents, Books &amp; Your First AI Service</a> · Bashiri Smith, Facebook · 1:15: Bashiri Smith lays out a short roadmap for becoming an AI engineer before 2027.</li>
+<li><a href="../notes/01-roadmap/2026-08-27-ai-engineering-roadmap-16-topics-to-learn-from-llms-to-ai.html">AI Engineering Roadmap: 16 Topics to Learn, from LLMs to AI Safety</a> · Bashiri Smith, Facebook · 0:15: This is a 15-second reel that reads out a list of AI engineering topics as a study roadmap.</li>
+<li><a href="../notes/01-roadmap/2026-08-25-five-core-ai-engineering-topic-areas-a-study-roadmap.html">Five Core AI Engineering Topic Areas: A Study Roadmap Checklist</a> · Bashiri Smith, Facebook · 0:27: This short reel splits AI engineering study into five areas: LLMs &amp; RAG, Agents &amp; Orchestration, Ops &amp; Evaluation, Safety &amp; Ethics, and ML Foundations.</li>
+<li><a href="../notes/01-roadmap/2026-08-24-the-5-core-ai-engineering-skill-categories-to-focus-on.html">The 5 Core AI Engineering Skill Categories to Focus On</a> · Bashiri Smith, Facebook · 0:12: This short reel says you don't need to learn every AI topic you see online.</li>
+<li><a href="../notes/01-roadmap/2026-08-24-promo-bashiri-smith-s-free-ai-engineering-guide-and.html">Promo: Bashiri Smith's Free AI Engineering Guide and Community</a> · Bashiri Smith, Facebook · 0:08: This 8-second reel teaches nothing.</li>
+<li><a href="../notes/01-roadmap/2026-08-23-andrew-ng-s-ai-engineering-skills-map.html">Andrew Ng's AI Engineering Skills Map</a> · Melvin Vivas, X: The creator shares Andrew Ng's article 'AI Engineering Skills Map: Building and Deploying AI Applications'.</li>
+<li><a href="../notes/01-roadmap/2026-08-23-andrew-ng-on-how-anyone-can-become-an-ai-engineer.html">Andrew Ng on how anyone can become an AI Engineer</a> · Melvin Vivas, X: The creator points out that Andrew Ng published a guide on how anyone can become an AI engineer.</li>
+<li><a href="../notes/01-roadmap/2026-08-22-17-step-ai-engineer-roadmap-from-basic-rag-to-agents-evals.html">17-Step AI Engineer Roadmap: From Basic RAG to Agents, Evals, LLMOps &amp; Governance</a> · Bashiri Smith, Facebook · 0:11: Bashiri Smith says building a basic RAG chatbot isn't enough to become a serious AI engineer, and lays out a 17-step learning path.</li>
+<li><a href="../notes/01-roadmap/2026-08-22-ai-engineering-skills-map-the-5-core-categories-to-master.html">AI Engineering Skills Map: The 5 Core Categories to Master</a> · Bashiri Smith, Facebook · 1:06: The creator talks about an AI engineering skills map published by an unnamed "top AI expert." That map splits the field into six areas: LLM foundations, grounding models with data,</li>
+<li><a href="../notes/01-roadmap/2026-08-21-two-free-resources-to-learn-ai-engineering-ai-engineering.html">Two Free Resources to Learn AI Engineering: AI Engineering Hub &amp; AI Safety Book</a> · Bashiri Smith, Facebook · 0:29: Bashiri Smith recommends two free websites for learning AI engineering from scratch.</li>
+</ul>
+<p><strong>Watch, free (1)</strong></p>
+<ul>
+<li><strong><a href="https://www.youtube.com/watch?v=ZSOecQCdea4">The Complete AI Engineer Roadmap for 2026 (Exact Courses + Step-by-Step)</a></strong> · video · youtube.com · free<br>
+  Bashiri Smith's free YouTube training on upgrading your skills and becoming competitive for AI engineering roles, with specific courses listed step by step.<br>
+  Mentioned in: Pointer to Bashiri Smith's Complete AI Engineer Roadmap for 2026 (Bashiri Smith on <a href="https://www.facebook.com/reel/1771577477300003">Facebook</a> · <a href="../notes/01-roadmap/2026-10-01-pointer-to-bashiri-smith-s-complete-ai-engineer-roadmap-for.html">notes</a>), Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="../notes/01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), Software Engineer to AI Engineer Before 2027: A 5-Step Career Plan (Bashiri Smith on <a href="https://www.facebook.com/reel/1433622515329300">Facebook</a> · <a href="../notes/01-roadmap/2026-09-30-software-engineer-to-ai-engineer-before-2027-a-5-step.html">notes</a>), 6 Free Videos to Move from Software Engineer to AI Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1615291686990735">Facebook</a> · <a href="../notes/01-roadmap/2026-09-28-6-free-videos-to-move-from-software-engineer-to-ai-engineer.html">notes</a>) and 19 more</li>
+</ul>
+<p><strong>Read and use (7)</strong></p>
+<ul>
+<li><strong><a href="https://x.com/AndrewYNg">Andrew Ng</a></strong> · person · x.com · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  A leading AI researcher and educator whose view is that more people should learn to code as AI tools improve.<br>
+  Mentioned in: Andrew Ng Says Keep Learning to Code, but Learn the Modern Way (Bashiri Smith on <a href="https://www.facebook.com/reel/1753855412528762">Facebook</a> · <a href="../notes/01-roadmap/2026-09-14-andrew-ng-says-keep-learning-to-code-but-learn-the-modern.html">notes</a>), Building Adaptive AI Agents: Skills from Traces and Code Knowledge Graphs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2092968683140489349">X</a> · <a href="../notes/07-agents/2026-08-27-building-adaptive-ai-agents-skills-from-traces-and-code.html">notes</a>), Andrew Ng's AI Engineering Skills Map (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2091396934225592476">X</a> · <a href="../notes/01-roadmap/2026-08-23-andrew-ng-s-ai-engineering-skills-map.html">notes</a>), Andrew Ng on how anyone can become an AI Engineer (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2091396929771204880">X</a> · <a href="../notes/01-roadmap/2026-08-23-andrew-ng-on-how-anyone-can-become-an-ai-engineer.html">notes</a>)</li>
+<li><strong><a href="https://x.com/AndrewYNg/article/2090840747738374568">AI Engineering Skills Map: Building and Deploying AI Applications</a></strong> · article · x.com · free<br>
+  Andrew Ng's article mapping the skills needed to build and deploy AI applications as an AI engineer.<br>
+  Mentioned in: Andrew Ng's AI Engineering Skills Map (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2091396934225592476">X</a> · <a href="../notes/01-roadmap/2026-08-23-andrew-ng-s-ai-engineering-skills-map.html">notes</a>), Andrew Ng on how anyone can become an AI Engineer (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2091396929771204880">X</a> · <a href="../notes/01-roadmap/2026-08-23-andrew-ng-on-how-anyone-can-become-an-ai-engineer.html">notes</a>)</li>
+<li><strong><a href="https://docs.google.com/document/d/1yIw_P6KCcDnz1KqZ1JZo4Sx-js9zpKxv2NnoTpN0DYw/edit?usp=sharing">5 books to upgrade from software engineer into Ai/ML engineer</a></strong> · pdf · docs.google.com · free<br>
+  A one-page reading list of five books for software engineers moving into AI or ML engineering.<br>
+  Mentioned in: 5 Books to Move from Software Engineer to AI/ML Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1462121052468374">Facebook</a> · <a href="../notes/02-foundations/2026-09-20-5-books-to-move-from-software-engineer-to-ai-ml-engineer.html">notes</a>)</li>
+<li><strong>Bashiri Smith's '200k' full roadmap breakdown</strong> · pdf · free<br>
+  The creator's detailed version of the 8-week AI engineer roadmap, sent to viewers who comment on the post.<br>
+<strong>DM only:</strong> comment <strong>200k</strong> on <a href="https://www.facebook.com/reel/1758231042116375">this reel on Facebook</a> and you get it by DM.<br>
+  Mentioned in: 8-Week Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1758231042116375">Facebook</a> · <a href="../notes/01-roadmap/2026-09-19-8-week-roadmap-to-a-200k-ai-engineering-role.html">notes</a>)</li>
+<li><strong>Bashiri Smith's AI Engineer Roadmap (free resource guide)</strong> · pdf · free<br>
+  The creator's free guide of resources for becoming an AI engineer, sent to viewers who comment "ROADMAP".<br>
+<strong>DM only:</strong> comment <strong>ROADMAP</strong> on <a href="https://www.facebook.com/reel/2004161560366201">this reel on Facebook</a> and you get it by DM.<br>
+  Mentioned in: AI Engineer Mistakes Pt. 3: Don't Grind Math First, Choose Embeddings Carefully (Bashiri Smith on <a href="https://www.facebook.com/reel/2004161560366201">Facebook</a> · <a href="../notes/01-roadmap/2026-09-12-ai-engineer-mistakes-pt-3-don-t-grind-math-first-choose.html">notes</a>)</li>
+<li><strong><a href="https://www.skool.com/baswe-breakthrough-coder/about">Bashiri Smith's AI engineering coaching group (roadmap + daily calls)</a></strong> · community · skool.com · paid<br>
+  The creator's program: a group of AI engineers offering a learning roadmap, a personalized learning plan, coaching calls and job-search help.<br>
+  Mentioned in: Wannabe vs. Hired AI Engineer: Beyond RAG, FDE Roles and Degrees (Bashiri Smith on <a href="https://www.facebook.com/reel/2200492394139899">Facebook</a> · <a href="../notes/15-career/2026-08-26-wannabe-vs-hired-ai-engineer-beyond-rag-fde-roles-and.html">notes</a>)</li>
+<li><strong>Bashiri Smith's Free AI Engineering Guide</strong> · pdf · free<br>
+  The creator's free AI engineering guide, sent to people who comment "PLAN".<br>
+<strong>DM only:</strong> comment <strong>PLAN</strong> on <a href="https://www.facebook.com/reel/2033711990674125">this reel on Facebook</a> and you get it by DM.<br>
+  Mentioned in: Promo: Bashiri Smith's Free AI Engineering Guide and Community (Bashiri Smith on <a href="https://www.facebook.com/reel/2033711990674125">Facebook</a> · <a href="../notes/01-roadmap/2026-08-24-promo-bashiri-smith-s-free-ai-engineering-guide-and.html">notes</a>)</li>
+</ul>
+<p><strong>Build</strong></p>
+<ul>
+<li>A portfolio project chosen from an AI-assisted market gap analysis of what your target companies are hiring for. (from <a href="../notes/01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">Step-by-Step Roadmap to a $200K+ AI Engineering Role</a>)</li>
+<li>Build a production-style LLM app that solves a real problem: LangGraph orchestration, LiteLLM model gateway, pgvector retrieval, Langfuse tracing, all containerized with Docker. (from <a href="../notes/01-roadmap/2026-09-25-7-habits-to-become-an-ai-engineer-books-tooling-research.html">7 Habits to Become an AI Engineer: Books, Tooling, Research &amp; Shipping</a>)</li>
+<li>Add a RAG pipeline with reranking and evals, deploy it to Vercel or AWS, and monitor it with OpenTelemetry, Grafana or LangSmith. (from <a href="../notes/01-roadmap/2026-09-25-7-habits-to-become-an-ai-engineer-books-tooling-research.html">7 Habits to Become an AI Engineer: Books, Tooling, Research &amp; Shipping</a>)</li>
+<li>Publish the project on GitHub with an architecture diagram and a technical write-up on LinkedIn. (from <a href="../notes/01-roadmap/2026-09-25-7-habits-to-become-an-ai-engineer-books-tooling-research.html">7 Habits to Become an AI Engineer: Books, Tooling, Research &amp; Shipping</a>)</li>
+<li>A checkpoint project: an end-to-end RAG app where you choose the models, build the retrieval pipeline (embeddings, vector database, chunking, hybrid retrieval), and explain why you made each choice. (from <a href="../notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources</a>)</li>
+<li>Build a RAG pipeline from scratch. (from <a href="../notes/01-roadmap/2026-09-19-8-week-roadmap-to-a-200k-ai-engineering-role.html">8-Week Roadmap to a $200K+ AI Engineering Role</a>)</li>
+<li>Build an AI agent system orchestrated with LangGraph or CrewAI. (from <a href="../notes/01-roadmap/2026-09-19-8-week-roadmap-to-a-200k-ai-engineering-role.html">8-Week Roadmap to a $200K+ AI Engineering Role</a>)</li>
+<li>Containerize an AI app with Docker, serve it with FastAPI, and add evals and monitoring. (from <a href="../notes/01-roadmap/2026-09-19-8-week-roadmap-to-a-200k-ai-engineering-role.html">8-Week Roadmap to a $200K+ AI Engineering Role</a>)</li>
+<li>A basic to-do app built without AI, as a check of your software fundamentals (from <a href="../notes/01-roadmap/2026-09-19-ai-engineer-roadmap-before-2027-fundamentals-rag-agents-ops.html">AI Engineer Roadmap Before 2027: Fundamentals, RAG, Agents, Ops, Evals</a>)</li>
+<li>A RAG pipeline built from scratch (from <a href="../notes/01-roadmap/2026-09-19-ai-engineer-roadmap-before-2027-fundamentals-rag-agents-ops.html">AI Engineer Roadmap Before 2027: Fundamentals, RAG, Agents, Ops, Evals</a>)</li>
+<li>Your own personal AI project after doing the practice projects (from <a href="../notes/01-roadmap/2026-09-19-ai-engineer-roadmap-before-2027-fundamentals-rag-agents-ops.html">AI Engineer Roadmap Before 2027: Fundamentals, RAG, Agents, Ops, Evals</a>)</li>
+<li>One production-grade LLM app with RAG for a focused use case using real data. It should include 30–50 evaluation test cases, hybrid search with reranking, a permissioned tool, regression tests for prompt injection and unauthorized access, tracing, and tracking of quality, latency and cost. Write it up as a public case study. (from <a href="../notes/01-roadmap/2026-09-13-3-month-roadmap-to-ai-engineering-for-experienced-software.html">3-Month Roadmap to AI Engineering for Experienced Software Engineers</a>)</li>
+<li>A RAG app deployed with FastAPI and Docker, with evaluations, logging and failure handling, that tracks answer accuracy, latency and cost. (from <a href="../notes/01-roadmap/2026-09-11-ai-engineer-roadmap-for-2026-in-60-seconds.html">AI Engineer Roadmap for 2026 in 60 Seconds</a>)</li>
+<li>An AI agent project with a test suite and failure handling. (from <a href="../notes/01-roadmap/2026-09-11-ai-engineer-roadmap-for-2026-in-60-seconds.html">AI Engineer Roadmap for 2026 in 60 Seconds</a>)</li>
+<li>A benchmark coding project, built without AI help, to test whether you have the basic AI engineering skills (the video shows it but doesn't name it). (from <a href="../notes/01-roadmap/2026-08-30-90-day-plan-to-land-an-ai-engineering-job-benchmark-learn.html">90-Day Plan to Land an AI Engineering Job: Benchmark, Learn, Build</a>)</li>
+<li>An MVP that solves a real problem a team at one of your target companies has, based on their job postings. (from <a href="../notes/01-roadmap/2026-08-30-90-day-plan-to-land-an-ai-engineering-job-benchmark-learn.html">90-Day Plan to Land an AI Engineering Job: Benchmark, Learn, Build</a>)</li>
+<li>Your first AI service: build it with FastAPI, containerize it with Docker and serve it behind a real API. (from <a href="../notes/01-roadmap/2026-08-28-ai-engineer-roadmap-fundamentals-rag-agents-books-your.html">AI Engineer Roadmap: Fundamentals, RAG, Agents, Books &amp; Your First AI Service</a>)</li>
+<li>LLMs &amp; RAG checkpoint project: a RAG app that covers chunking, embeddings, a vector database and advanced retrieval. (from <a href="../notes/01-roadmap/2026-08-25-five-core-ai-engineering-topic-areas-a-study-roadmap.html">Five Core AI Engineering Topic Areas: A Study Roadmap Checklist</a>)</li>
+<li>Agents checkpoint project: a LangGraph agent or multi-agent system with tool calling, memory and MCP. (from <a href="../notes/01-roadmap/2026-08-25-five-core-ai-engineering-topic-areas-a-study-roadmap.html">Five Core AI Engineering Topic Areas: A Study Roadmap Checklist</a>)</li>
+<li>Ops &amp; Evaluation checkpoint project: deploy an LLM app with observability and CI/CD, and evaluate it with LLM-as-a-judge. (from <a href="../notes/01-roadmap/2026-08-25-five-core-ai-engineering-topic-areas-a-study-roadmap.html">Five Core AI Engineering Topic Areas: A Study Roadmap Checklist</a>)</li>
+<li>Safety &amp; Ethics checkpoint project: add guardrails and security risk checks to an LLM application. (from <a href="../notes/01-roadmap/2026-08-25-five-core-ai-engineering-topic-areas-a-study-roadmap.html">Five Core AI Engineering Topic Areas: A Study Roadmap Checklist</a>)</li>
+<li>ML Foundations checkpoint project: a scikit-learn pipeline with MLflow tracking, DVC data versioning, deployment and monitoring. (from <a href="../notes/01-roadmap/2026-08-25-five-core-ai-engineering-topic-areas-a-study-roadmap.html">Five Core AI Engineering Topic Areas: A Study Roadmap Checklist</a>)</li>
+<li>Build the beginner, intermediate and advanced LLM, RAG and agent projects from the AI Engineering Hub repo. (from <a href="../notes/01-roadmap/2026-08-21-two-free-resources-to-learn-ai-engineering-ai-engineering.html">Two Free Resources to Learn AI Engineering: AI Engineering Hub &amp; AI Safety Book</a>)</li>
+</ul><nav class="pager" aria-label="Topics"><a rel="next" href="foundations.html">Programming &amp; ML Foundations &rarr;</a></nav>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../license.html">License</a> &middot; <a href="../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Q&amp;A Over Your Own PDFs with LlamaIndex, OpenAI and Python (2023) |…</title>
+<meta name="description" content="Melvin Vivas introduces generative text AI, the OpenAI API, LangChain and LlamaIndex (formerly GPT Index). He then walks through a basic Python RAG example in…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/06-rag/2023-04-08-q-a-over-your-own-pdfs-with-llamaindex-openai-and-python.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Q&amp;A Over Your Own PDFs with LlamaIndex, OpenAI and Python (2023) |…">
+<meta property="og:description" content="Melvin Vivas introduces generative text AI, the OpenAI API, LangChain and LlamaIndex (formerly GPT Index). He then walks through a basic Python RAG example in…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/06-rag/2023-04-08-q-a-over-your-own-pdfs-with-llamaindex-openai-and-python.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/06-rag/2023-04-08-q-a-over-your-own-pdfs-with-llamaindex-openai-and-python.html#note","headline":"Q&A Over Your Own PDFs with LlamaIndex, OpenAI and Python (2023)","description":"Melvin Vivas introduces generative text AI, the OpenAI API, LangChain and LlamaIndex (formerly GPT Index). He then walks through a basic Python RAG example in Google Colab. It indexes PDFs (his LinkedIn resume) from a /data folder, saves the vector index to disk and queries it in natural language…","url":"https://ralmodiel.github.io/ai-study-library/notes/06-rag/2023-04-08-q-a-over-your-own-pdfs-with-llamaindex-openai-and-python.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"Retrieval-Augmented Generation (RAG)"},{"@type":"Thing","name":"Embeddings & Vector Databases"},{"@type":"Thing","name":"LLM Fundamentals"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"BlogPosting","url":"https://www.melvinvivas.com/chatgpt-openai-langchain-llama-index-generative-text-ai","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2023-04-08"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/06-rag/2023-04-08-q-a-over-your-own-pdfs-with-llamaindex-openai-and-python.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"Retrieval-Augmented Generation (RAG)","item":"https://ralmodiel.github.io/ai-study-library/topics/rag.html"},{"@type":"ListItem","position":4,"name":"Q&A Over Your Own PDFs with LlamaIndex, OpenAI and Python (2023)"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/rag.html">Retrieval-Augmented Generation (RAG)</a> &rsaquo; <span aria-current="page">Q&amp;A Over Your Own PDFs with LlamaIndex, OpenAI and Python (2023)</span></nav><h1>Q&amp;A Over Your Own PDFs with LlamaIndex, OpenAI and Python (2023)</h1>
+<aside class="source"><p>This note summarises <a href="https://www.melvinvivas.com/chatgpt-openai-langchain-llama-index-generative-text-ai">an article by Melvin Vivas on melvinvivas.com</a>, posted 8 April 2023. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · melvinvivas.com article · 2023-04-08 · <a href="https://www.melvinvivas.com/chatgpt-openai-langchain-llama-index-generative-text-ai">Open on melvinvivas.com</a></p>
+<p><strong>Topics:</strong> Retrieval-Augmented Generation (RAG), Embeddings &amp; Vector Databases, LLM Fundamentals · <strong>Level:</strong> beginner</p>
+<h2>Summary</h2>
+<p>Melvin Vivas introduces generative text AI, the OpenAI API, LangChain and LlamaIndex (formerly GPT Index). He then walks through a basic Python RAG example in Google Colab. It indexes PDFs (his LinkedIn resume) from a /data folder, saves the vector index to disk and queries it in natural language. It also shows how to swap the default text-davinci-003 for the cheaper gpt-3.5-turbo. The code uses the early 2023 llama_index API (GPTSimpleVectorIndex, LLMPredictor), which has since been removed, so treat it as a lesson in concepts rather than code to copy.</p>
+<h2>Key points</h2>
+<ul>
+<li>LlamaIndex (formerly GPT Index) is a simple interface that connects LLMs to your own external data. It used LangChain internally at the time.</li>
+<li>Basic flow: set OPENAI_API_KEY → SimpleDirectoryReader('data').load_data() → GPTSimpleVectorIndex.from_documents() → save_to_disk('index.json') → load_from_disk → index.query('Question?').</li>
+<li>The defaults were text-davinci-003 as the LLM and OpenAI Ada for embeddings. The embedding model could not be swapped for a cheaper one at the time.</li>
+<li>To cut costs, wrap ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0, max_tokens=256) in an LLMPredictor and pass it through ServiceContext.from_defaults. The author says this is about 10x cheaper than davinci.</li>
+<li>PromptHelper settings: max_input_size=4096, num_output=256, max_chunk_overlap=20. Temperature 0 gives more conservative answers; higher values give more creative ones.</li>
+<li>Build the index once and reload it from disk so you don't pay for embedding API calls again. Only rebuild when your documents change.</li>
+<li>llm_predictor.last_token_usage prints the tokens used by a query, which helps you track cost.</li>
+<li>This code uses the deprecated 2023 llama_index API. Current LlamaIndex uses VectorStoreIndex and Settings instead, so check today's docs before running it.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://openai.com/blog/openai-api">OpenAI API (announcement)</a></strong> · article · openai.com · free<br>
+  OpenAI's blog post introducing public API access to its models.</li>
+<li><strong><a href="https://platform.openai.com/">OpenAI API</a></strong> · tool · platform.openai.com · paid · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  OpenAI's developer platform for calling models like GPT Image 2 from your own apps.<br>
+  Also in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="../01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>), Livestream: Building a React Native ChatGPT App with Cursor and OpenAI (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099388668909850812">X</a> · <a href="../13-ai-tools/2026-09-14-livestream-building-a-react-native-chatgpt-app-with-cursor.html">notes</a>), GPT-Live-1: OpenAI's Full-Duplex Voice Model for Voice Agents in the API (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098299004706820418">X</a> · <a href="../07-agents/2026-09-11-gpt-live-1-openai-s-full-duplex-voice-model-for-voice.html">notes</a>), The 3 Levels of AI Engineering: LLM Apps → Production → Agentic Systems (Bashiri Smith on <a href="https://www.facebook.com/reel/2164893074437351">Facebook</a> · <a href="../01-roadmap/2026-09-05-the-3-levels-of-ai-engineering-llm-apps-production-agentic.html">notes</a>) and 4 more</li>
+<li><strong><a href="https://openai.com/blog/gpt-3-apps">GPT-3 powers the next generation of apps</a></strong> · article · openai.com · free<br>
+  OpenAI blog post showcasing products built on GPT-3.</li>
+<li><strong><a href="https://developers.openai.com/api/docs/models/all">OpenAI GPT-3 Models (docs)</a></strong> · docs · developers.openai.com · free<br>
+  OpenAI docs page on the GPT-3 model family; the link now appears broken.</li>
+<li><strong><a href="https://platform.openai.com/docs/models">OpenAI Models (docs)</a></strong> · docs · platform.openai.com · free<br>
+  OpenAI documentation listing the available models and what they can do.</li>
+<li><strong><a href="https://openai.com/pricing/">OpenAI Pricing</a></strong> · website · openai.com · free<br>
+  OpenAI model pricing page (now redirects to ChatGPT pricing).</li>
+<li><strong><a href="https://github.com/hwchase17/langchain">LangChain</a></strong> · tool · github.com · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Open-source framework with ready-made integrations and common interfaces for connecting LLMs, embedding models, vector stores and tools.<br>
+  Also in: Basic RAG Pipeline in 60 Seconds: From Documents to Grounded Answers (Bashiri Smith on <a href="https://www.facebook.com/reel/1893190305357331">Facebook</a> · <a href="2026-10-01-basic-rag-pipeline-in-60-seconds-from-documents-to-grounded.html">notes</a>), Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="../01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), LangChain vs. LangGraph Explained with One RAG Chatbot (Bashiri Smith on <a href="https://www.facebook.com/reel/1394445942341422">Facebook</a> · <a href="2026-09-29-langchain-vs-langgraph-explained-with-one-rag-chatbot.html">notes</a>), How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="../01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>) and 2 more</li>
+<li><strong><a href="https://github.com/jerryjliu/llama_index">LlamaIndex (llama_index)</a></strong> · repo · github.com · free<br>
+  Open-source data framework that connects LLMs to external data for indexing and question answering.</li>
+<li><strong><a href="https://github.com/jerryjliu/llama_index/blob/main/docs/how_to/customization/custom_llms.md">LlamaIndex Custom LLMs guide</a></strong> · docs · github.com · free · open in a browser to verify<br>
+  LlamaIndex how-to on customizing the LLMPredictor/LLM; the link now appears broken.</li>
+<li><strong><a href="https://sausheong.com/prompt-engineering-with-llamaindex-and-openai-gpt-3-f52114aba8b7">Prompt Engineering with LlamaIndex and OpenAI GPT-3</a></strong> · article · sausheong.com · free · open in a browser to verify<br>
+  Sau Sheong's article on using LlamaIndex with GPT-3 to query your own documents.</li>
+<li><strong><a href="https://sausheong.com/">Sau Sheong</a></strong> · person · sausheong.com · free · open in a browser to verify<br>
+  Engineer and writer who blogs about LLMs and software engineering.</li>
+<li><strong><a href="https://gist.github.com/donvito/bf3575f7d8d87d39e15301da9ee3e9eb">llama_index.ipynb (Colab notebook gist)</a></strong> · repo · gist.github.com · free<br>
+  The author's full Colab notebook source for the LlamaIndex + gpt-3.5-turbo example.</li>
+<li><strong><a href="https://chatgpt.com/">ChatGPT</a></strong> · tool · chatgpt.com · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  OpenAI's AI assistant (web, desktop and mobile apps), used for chat, coding, writing and image generation.<br>
+  Also in: Sign in with ChatGPT: Setting Usage Limits for Each App (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105933855802929153">X</a> · <a href="../13-ai-tools/2026-10-02-sign-in-with-chatgpt-setting-usage-limits-for-each-app.html">notes</a>), Dots Demo: A Voice AI Agent Handling Travel Booking and Feedback Triage (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105717848928866390">X</a> · <a href="../07-agents/2026-10-01-dots-demo-a-voice-ai-agent-handling-travel-booking-and.html">notes</a>), ChatGPT Can Commit Code Directly to Your GitHub Repo (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105329595725791357">X</a> · <a href="../13-ai-tools/2026-10-01-chatgpt-can-commit-code-directly-to-your-github-repo.html">notes</a>), OpenAI Dots: Agents Inside ChatGPT That Debug, Fix, and Open PRs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105232287231324526">X</a> · <a href="../07-agents/2026-09-30-openai-dots-agents-inside-chatgpt-that-debug-fix-and-open.html">notes</a>) and 23 more</li>
+<li><strong><a href="https://platform.openai.com/docs/models/gpt-3.5-turbo">gpt-3.5-turbo</a></strong> · tool · platform.openai.com · paid<br>
+  OpenAI chat model; a cheaper alternative to text-davinci-003.<br>
+  Also in: Natural Language to API Calls with LangChain APIChain and OpenAI (Melvin Vivas on <a href="https://www.melvinvivas.com/chatgpt-openai-natural-language-to-api-call">melvinvivas.com</a> · <a href="../07-agents/2023-04-15-natural-language-to-api-calls-with-langchain-apichain-and.html">notes</a>)</li>
+<li><strong><a href="https://platform.openai.com/docs/deprecations">text-davinci-003</a></strong> · tool · platform.openai.com · paid<br>
+  OpenAI GPT-3 completion model; the default LLM in llama_index at the time (now deprecated).</li>
+<li><strong><a href="https://platform.openai.com/docs/models/text-embedding-ada-002">OpenAI Ada embeddings</a></strong> · tool · platform.openai.com · paid<br>
+  OpenAI embedding model used by llama_index by default.</li>
+<li><strong><a href="https://colab.research.google.com/">Google Colab</a></strong> · tool · colab.research.google.com · free<br>
+  Browser-based Jupyter notebook service from Google with free GPU access (T4) for running ML notebooks.<br>
+  Also in: Run Notebooks on a Free GPU with Google Colab (T4, 15GB VRAM) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104526931538616773">X</a> · <a href="../02-foundations/2026-09-28-run-notebooks-on-a-free-gpu-with-google-colab-t4-15gb-vram.html">notes</a>), Run Local Models on a Free GPU with Google Colab (T4) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103502126865658236">X</a> · <a href="../10-fine-tuning/2026-09-25-run-local-models-on-a-free-gpu-with-google-colab-t4.html">notes</a>), Free Colab Notebooks for Local Model Fine-Tuning and Inference (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103489519815442882">X</a> · <a href="../10-fine-tuning/2026-09-25-free-colab-notebooks-for-local-model-fine-tuning-and.html">notes</a>), Intent classification for support using GLiNER2.5-Decide notebook (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103372920605331589">X</a> · <a href="../03-llm-fundamentals/2026-09-25-intent-classification-for-support-using-gliner2-5-decide.html">notes</a>) and 12 more</li>
+<li><strong><a href="https://jupyter.org/">Jupyter Notebook</a></strong> · tool · jupyter.org · free<br>
+  An interactive notebook format (.ipynb) that mixes code and output. Colab can open these files.<br>
+  Also in: AI DevBox v1.3.0: a GPU-ready Docker image with coding-agent CLIs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103720219491619025">X</a> · <a href="../13-ai-tools/2026-09-26-ai-devbox-v1-3-0-a-gpu-ready-docker-image-with-coding-agent.html">notes</a>), Run Local Models on a Free GPU with Google Colab (T4) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103502126865658236">X</a> · <a href="../10-fine-tuning/2026-09-25-run-local-models-on-a-free-gpu-with-google-colab-t4.html">notes</a>)</li>
+<li><strong><a href="https://github.com/donvito">donvito (GitHub)</a></strong> · repo · github.com · free<br>
+  Melvin Vivas's GitHub profile listing the AI projects he is working on.<br>
+  Also in: Melvin Vivas's GitHub Profile of AI Projects (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105330769996726404">X</a> · <a href="../14-projects/2026-10-01-melvin-vivas-s-github-profile-of-ai-projects.html">notes</a>), Natural Language to API Calls with LangChain APIChain and OpenAI (Melvin Vivas on <a href="https://www.melvinvivas.com/chatgpt-openai-natural-language-to-api-call">melvinvivas.com</a> · <a href="../07-agents/2023-04-15-natural-language-to-api-calls-with-langchain-apichain-and.html">notes</a>)</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Get an OpenAI API key from the OpenAI Platform and set it as the OPENAI_API_KEY environment variable.</li>
+<li>Run the example in Google Colab, a Jupyter Notebook, or as a local Python script.</li>
+<li>Upload the PDFs you want to search into a /data folder.</li>
+<li>Build the index once, save it to disk, and reload it so you don't pay for embedding calls again.</li>
+<li>Use gpt-3.5-turbo instead of text-davinci-003 to cut costs, and check OpenAI's pricing page.</li>
+<li>Print last_token_usage to keep track of token cost per query.</li>
+<li>Open the author's Colab notebook gist to see the full code.</li>
+<li>Ask questions about your own resume: index your LinkedIn resume PDF and ask things like 'What is X's current role?'</li>
+<li>A customer Q&amp;A bot that answers questions about a company's services and products from its own documents</li>
+<li>Natural-language querying over a company's unstructured data for customers and prospects</li>
+</ul><section class="more"><h2>More in Retrieval-Augmented Generation (RAG)</h2><ul><li><a href="2026-08-25-ai-engineer-interview-q-a-graph-rag-agent-memory.html">AI Engineer Interview Q&amp;A: Graph RAG, Agent Memory, Observability, Guardrails</a> <span class="meta">Bashiri Smith, 2026-08-25</span></li><li><a href="2026-06-24-mistral-ocr-4-launch-and-the-missing-qwen-vl-comparison.html">Mistral OCR 4 launch, and the missing Qwen VL comparison</a> <span class="meta">Melvin Vivas, 2026-06-24</span></li><li><a href="2026-04-23-cocoindex-v1-incremental-data-pipelines-for-ai-and-agents.html">CocoIndex v1: Incremental Data Pipelines for AI and Agents</a> <span class="meta">Melvin Vivas, 2026-04-23</span></li></ul><p><a href="../../topics/rag.html">All of Retrieval-Augmented Generation (RAG)</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

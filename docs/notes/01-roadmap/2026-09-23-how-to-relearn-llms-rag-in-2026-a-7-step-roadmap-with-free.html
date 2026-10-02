@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free…</title>
+<meta name="description" content="Bashiri Smith lays out the order he would follow to relearn LLMs and RAG and become an AI engineer in 2026. There are seven steps: LLM fundamentals, prompt…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free…">
+<meta property="og:description" content="Bashiri Smith lays out the order he would follow to relearn LLMs and RAG and become an AI engineer in 2026. There are seven steps: LLM fundamentals, prompt…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html#note","headline":"How to Relearn LLMs & RAG in 2026: A 7-Step Roadmap with Free Resources","description":"Bashiri Smith lays out the order he would follow to relearn LLMs and RAG and become an AI engineer in 2026. There are seven steps: LLM fundamentals, prompt engineering, LLM APIs, embeddings and semantic search, vector databases, basic RAG, document processing and chunking, and advanced or hybrid…","url":"https://ralmodiel.github.io/ai-study-library/notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"Start Here: Roadmaps & Strategy"},{"@type":"Thing","name":"Retrieval-Augmented Generation (RAG)"},{"@type":"Thing","name":"Embeddings & Vector Databases"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"VideoObject","url":"https://www.facebook.com/reel/2217704205474341","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#bashiri-smith"},"datePublished":"2026-09-23"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#bashiri-smith","name":"Bashiri Smith","url":"https://baswe.ai/","sameAs":["https://www.facebook.com/basweai","https://www.youtube.com/@BashiFuirkashi","https://www.instagram.com/bashi_fuirkashi/","https://www.tiktok.com/@bashifuirkashi","https://www.linkedin.com/in/bashiri-smith/","https://x.com/bashifuirkashi","https://www.skool.com/baswe-ai"],"description":"Helps aspiring and working software engineers move into AI engineering roles.","brand":{"@type":"Brand","name":"BASWE.Ai"}},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"Start Here: Roadmaps & Strategy","item":"https://ralmodiel.github.io/ai-study-library/topics/roadmap.html"},{"@type":"ListItem","position":4,"name":"How to Relearn LLMs & RAG in 2026: A 7-Step Roadmap with Free Resources"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/roadmap.html">Start Here: Roadmaps &amp; Strategy</a> &rsaquo; <span aria-current="page">How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources</span></nav><h1>How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources</h1>
+<aside class="source"><p>This note summarises <a href="https://www.facebook.com/reel/2217704205474341">a reel by Bashiri Smith on Facebook</a>, posted 23 September 2026. The original belongs to Bashiri Smith.</p><p>Follow Bashiri Smith: <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p></aside>
+<p>Bashiri Smith · Facebook reel · 2026-09-23 · 1:54 · 7,126 views · <a href="https://www.facebook.com/reel/2217704205474341">Open on Facebook</a></p>
+<p><strong>Topics:</strong> Start Here: Roadmaps &amp; Strategy, Retrieval-Augmented Generation (RAG), Embeddings &amp; Vector Databases · <strong>Level:</strong> beginner</p>
+<h2>Summary</h2>
+<p>Bashiri Smith lays out the order he would follow to relearn LLMs and RAG and become an AI engineer in 2026. There are seven steps: LLM fundamentals, prompt engineering, LLM APIs, embeddings and semantic search, vector databases, basic RAG, document processing and chunking, and advanced or hybrid retrieval. For each step he names a free video plus a course, often from DeepLearning.AI. He finishes with a checkpoint project and a pitch for his Skool community.</p>
+<h2>Key points</h2>
+<ul>
+<li>Step 1, LLM fundamentals: watch Andrej Karpathy's LLM video, then take the Hugging Face LLM Course.</li>
+<li>Step 2, prompt engineering: 'prompt engineering is dead', but you still need to know how to talk to LLMs. Watch the Tech With Tim video, then take a DeepLearning.AI course.</li>
+<li>Start working with LLM APIs right away: watch an OpenAI API video, take a DeepLearning.AI course, and use a reference guide for other providers.</li>
+<li>Step 3, embeddings and semantic search: watch StatQuest's word embeddings video, then take a DeepLearning.AI course.</li>
+<li>Step 4, vector databases: watch IBM's intro video, then take DeepLearning.AI's 'Vector Databases: from Embeddings to Applications'.</li>
+<li>Step 5, basic RAG: watch freeCodeCamp's 2.5-hour RAG video, then take a DeepLearning.AI LangChain course.</li>
+<li>Step 6, document processing and chunking: watch Greg Kamradt's '5 Levels of Text Splitting for Retrieval', then take a DeepLearning.AI course. Step 7, advanced retrieval: watch Venelin's 15-minute hybrid retrieval video, then take 'Advanced Retrieval for AI'.</li>
+<li>Finish with a checkpoint project that covers LLM fundamentals, choosing a model provider, prompting, embeddings and RAG architecture. You should be able to explain why you made each design choice.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://www.youtube.com/watch?v=zjkBMFhNj_g">[1hr Talk] Intro to Large Language Models (Andrej Karpathy)</a></strong> · video · youtube.com · free<br>
+  A video by Andrej Karpathy that introduces how large language models work.<br>
+  Also in: 6 Free Videos to Move from Software Engineer to AI Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1615291686990735">Facebook</a> · <a href="2026-09-28-6-free-videos-to-move-from-software-engineer-to-ai-engineer.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/learn/llm-course">Hugging Face LLM Course</a></strong> · course · huggingface.co · free<br>
+  A free course from Hugging Face on how large language models work, including tokenization, transformers and inference.<br>
+  Also in: AI Engineer Roadmap for 2026 in 60 Seconds (Bashiri Smith on <a href="https://www.facebook.com/reel/1601172415086808">Facebook</a> · <a href="2026-09-11-ai-engineer-roadmap-for-2026-in-60-seconds.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=2BpCk4d2Cc0">Prompt Engineering Full Course (Tech With Tim)</a></strong> · video · youtube.com · free<br>
+  A Tech With Tim video on how to prompt LLMs well.</li>
+<li><strong><a href="https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers">ChatGPT Prompt Engineering for Developers</a></strong> · course · deeplearning.ai · free<br>
+  A DeepLearning.AI short course on prompt engineering.</li>
+<li><strong><a href="https://www.youtube.com/watch?v=-A7njXsJl5M">OpenAI with Python: A Step-by-Step Guide for Beginners (George Shakan)</a></strong> · video · youtube.com · free<br>
+  A video tutorial on starting to build with the OpenAI API (creator and title not shown).</li>
+<li><strong><a href="https://platform.openai.com/">OpenAI API</a></strong> · tool · platform.openai.com · paid · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  OpenAI's developer platform for calling models like GPT Image 2 from your own apps.<br>
+  Also in: Livestream: Building a React Native ChatGPT App with Cursor and OpenAI (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099388668909850812">X</a> · <a href="../13-ai-tools/2026-09-14-livestream-building-a-react-native-chatgpt-app-with-cursor.html">notes</a>), GPT-Live-1: OpenAI's Full-Duplex Voice Model for Voice Agents in the API (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098299004706820418">X</a> · <a href="../07-agents/2026-09-11-gpt-live-1-openai-s-full-duplex-voice-model-for-voice.html">notes</a>), The 3 Levels of AI Engineering: LLM Apps → Production → Agentic Systems (Bashiri Smith on <a href="https://www.facebook.com/reel/2164893074437351">Facebook</a> · <a href="2026-09-05-the-3-levels-of-ai-engineering-llm-apps-production-agentic.html">notes</a>), GPT Image 2 Adds Transparent Background Support in the OpenAI API (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2090712735600562200">X</a> · <a href="../03-llm-fundamentals/2026-08-21-gpt-image-2-adds-transparent-background-support-in-the.html">notes</a>) and 4 more</li>
+<li><strong><a href="https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/">Building Systems with the ChatGPT API</a></strong> · course · deeplearning.ai · free<br>
+  A DeepLearning.AI course on building with LLM APIs.</li>
+<li><strong><a href="https://machinelearningplus.com/gen-ai/llm-api-call-openai-claude-gemini/">OpenAI, Claude &amp; Gemini API Tutorial in Python (Machine Learning Plus)</a></strong> · article · machinelearningplus.com · free<br>
+  A reference guide for working with LLM APIs from providers other than OpenAI (the exact source isn't shown).</li>
+<li><strong><a href="https://www.youtube.com/watch?v=viZrOnJclY0">Word Embedding and Word2Vec, Clearly Explained!!! (StatQuest with Josh Starmer)</a></strong> · video · youtube.com · free<br>
+  StatQuest's visual explanation of word embeddings and how Word2Vec learns them.<br>
+  Also in: 6 Free Videos to Move from Software Engineer to AI Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1615291686990735">Facebook</a> · <a href="2026-09-28-6-free-videos-to-move-from-software-engineer-to-ai-engineer.html">notes</a>)</li>
+<li><strong><a href="https://www.deeplearning.ai/courses/google-cloud-vertex-ai">Understanding and Applying Text Embeddings (DeepLearning.AI)</a></strong> · course · deeplearning.ai · free<br>
+  A DeepLearning.AI course on embeddings and semantic search.</li>
+<li><strong><a href="https://www.youtube.com/watch?v=gl1r1XV0SLw">What is a Vector Database? Powering Semantic Search &amp; AI Applications (IBM Technology)</a></strong> · video · youtube.com · free<br>
+  An IBM video introducing vector databases.</li>
+<li><strong><a href="https://www.deeplearning.ai/short-courses/vector-databases-embeddings-applications/">Vector Databases: from Embeddings to Applications (DeepLearning.AI)</a></strong> · course · deeplearning.ai · free<br>
+  A DeepLearning.AI short course on how vector databases work and how to build applications with them.</li>
+<li><strong><a href="https://www.youtube.com/watch?v=sVcwVQRHIc8">RAG from Scratch (freeCodeCamp)</a></strong> · video · youtube.com · free<br>
+  A freeCodeCamp video about two and a half hours long on building basic RAG (the exact title isn't shown).<br>
+  Also in: 6 Free Videos to Move from Software Engineer to AI Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1615291686990735">Facebook</a> · <a href="2026-09-28-6-free-videos-to-move-from-software-engineer-to-ai-engineer.html">notes</a>)</li>
+<li><strong><a href="https://www.deeplearning.ai/short-courses/langchain-chat-with-your-data/">LangChain Chat with Your Data</a></strong> · course · deeplearning.ai · free<br>
+  A DeepLearning.AI course on building RAG with LangChain.</li>
+<li><strong><a href="https://github.com/hwchase17/langchain">LangChain</a></strong> · tool · github.com · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Open-source framework with ready-made integrations and common interfaces for connecting LLMs, embedding models, vector stores and tools.<br>
+  Also in: Basic RAG Pipeline in 60 Seconds: From Documents to Grounded Answers (Bashiri Smith on <a href="https://www.facebook.com/reel/1893190305357331">Facebook</a> · <a href="../06-rag/2026-10-01-basic-rag-pipeline-in-60-seconds-from-documents-to-grounded.html">notes</a>), Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), LangChain vs. LangGraph Explained with One RAG Chatbot (Bashiri Smith on <a href="https://www.facebook.com/reel/1394445942341422">Facebook</a> · <a href="../06-rag/2026-09-29-langchain-vs-langgraph-explained-with-one-rag-chatbot.html">notes</a>), Software Engineer to AI Engineer: Job Boards, Stack, Projects and Learning Sites (Bashiri Smith on <a href="https://www.facebook.com/reel/1650742066760603">Facebook</a> · <a href="../15-career/2026-09-14-software-engineer-to-ai-engineer-job-boards-stack-projects.html">notes</a>) and 2 more</li>
+<li><strong><a href="https://www.youtube.com/watch?v=8OJC21T2SL4">5 Levels of Text Splitting for Retrieval (Greg Kamradt)</a></strong> · video · youtube.com · free<br>
+  A video by Greg Kamradt that walks through chunking and text-splitting strategies for RAG, from simple to advanced.</li>
+<li><strong><a href="https://www.deeplearning.ai/courses/preprocessing-unstructured-data-for-llm-applications">Preprocessing Unstructured Data for LLM Applications</a></strong> · course · deeplearning.ai · free<br>
+  A DeepLearning.AI course on document processing and chunking.</li>
+<li><strong><a href="https://www.youtube.com/watch?v=YNcoFoRwoc8">Build Production-Ready Retrieval RAG Pipeline in LangChain | Hybrid Search (BM25), Re-ranking &amp; HyDE (Venelin Valkov)</a></strong> · video · youtube.com · free<br>
+  A 15-minute video by Venelin Valkov on hybrid retrieval and advanced retrieval tactics.</li>
+<li><strong><a href="https://www.deeplearning.ai/short-courses/advanced-retrieval-for-ai/">Advanced Retrieval for AI with Chroma (DeepLearning.AI)</a></strong> · course · deeplearning.ai · free<br>
+  A DeepLearning.AI short course on advanced retrieval techniques that improve RAG results.</li>
+<li><strong><a href="https://DeepLearning.AI">DeepLearning.AI</a></strong> · website · deeplearning.ai · free<br>
+  An AI education platform with short courses and specializations. The video points to one of its courses but doesn't say which.<br>
+  Also in: Software Engineer to AI Engineer: Job Boards, Stack, Projects and Learning Sites (Bashiri Smith on <a href="https://www.facebook.com/reel/1650742066760603">Facebook</a> · <a href="../15-career/2026-09-14-software-engineer-to-ai-engineer-job-boards-stack-projects.html">notes</a>), 90-Day Plan to Land an AI Engineering Job: Benchmark, Learn, Build (Bashiri Smith on <a href="https://www.facebook.com/reel/2561883080928087">Facebook</a> · <a href="2026-08-30-90-day-plan-to-land-an-ai-engineering-job-benchmark-learn.html">notes</a>)</li>
+<li><strong><a href="https://www.skool.com/baswe-ai/about">BASWE.Ai Engineer (Skool community)</a></strong> · community · skool.com · paid<br>
+  The creator's paid community and program, with an AI learning roadmap (including the full ops and evaluation track), daily calls with engineers and recruiters, resume and portfolio help, and a job-search pipeline.<br>
+  Also in: Basic RAG Pipeline in 60 Seconds: From Documents to Grounded Answers (Bashiri Smith on <a href="https://www.facebook.com/reel/1893190305357331">Facebook</a> · <a href="../06-rag/2026-10-01-basic-rag-pipeline-in-60-seconds-from-documents-to-grounded.html">notes</a>), Pointer to Bashiri Smith's Complete AI Engineer Roadmap for 2026 (Bashiri Smith on <a href="https://www.facebook.com/reel/1771577477300003">Facebook</a> · <a href="2026-10-01-pointer-to-bashiri-smith-s-complete-ai-engineer-roadmap-for.html">notes</a>), Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), How to Evaluate a RAG Pipeline: Retrieval vs. Generation (Interview Answer) (Bashiri Smith on <a href="https://www.facebook.com/reel/915452468082856">Facebook</a> · <a href="../06-rag/2026-09-30-how-to-evaluate-a-rag-pipeline-retrieval-vs-generation.html">notes</a>) and 76 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Work through the topics in order: LLM fundamentals, prompt engineering, LLM APIs, embeddings and semantic search, vector databases, basic RAG, chunking, then advanced or hybrid retrieval.</li>
+<li>For each topic, watch the recommended video first, then take the matching course.</li>
+<li>Start working with LLM APIs early, beginning with the OpenAI API, then try other providers.</li>
+<li>Build a checkpoint project once you've covered every topic.</li>
+<li>Be ready to explain why you chose your models and your retrieval pipeline design.</li>
+<li>A checkpoint project: an end-to-end RAG app where you choose the models, build the retrieval pipeline (embeddings, vector database, chunking, hybrid retrieval), and explain why you made each choice.</li>
+</ul><section class="more"><h2>More in Start Here: Roadmaps &amp; Strategy</h2><ul><li><a href="2026-09-30-software-engineer-to-ai-engineer-before-2027-a-5-step.html">Software Engineer to AI Engineer Before 2027: A 5-Step Career Plan</a> <span class="meta">Bashiri Smith, 2026-09-30</span></li><li><a href="2026-09-28-6-free-videos-to-move-from-software-engineer-to-ai-engineer.html">6 Free Videos to Move from Software Engineer to AI Engineer</a> <span class="meta">Bashiri Smith, 2026-09-28</span></li><li><a href="2026-09-25-7-habits-to-become-an-ai-engineer-books-tooling-research.html">7 Habits to Become an AI Engineer: Books, Tooling, Research &amp; Shipping</a> <span class="meta">Bashiri Smith, 2026-09-25</span></li><li><a href="2026-09-19-ai-engineer-roadmap-before-2027-fundamentals-rag-agents-ops.html">AI Engineer Roadmap Before 2027: Fundamentals, RAG, Agents, Ops, Evals</a> <span class="meta">Bashiri Smith, 2026-09-19</span></li><li><a href="2026-09-19-8-week-roadmap-to-a-200k-ai-engineering-role.html">8-Week Roadmap to a $200K+ AI Engineering Role</a> <span class="meta">Bashiri Smith, 2026-09-19</span></li><li><a href="2026-09-18-ai-engineer-roadmap-5-skill-areas-a-24-week-study-order.html">AI Engineer Roadmap: 5 Skill Areas, a 24-Week Study Order &amp; Interview Strategy</a> <span class="meta">Bashiri Smith, 2026-09-18</span></li></ul><p><a href="../../topics/roadmap.html">All of Start Here: Roadmaps &amp; Strategy</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

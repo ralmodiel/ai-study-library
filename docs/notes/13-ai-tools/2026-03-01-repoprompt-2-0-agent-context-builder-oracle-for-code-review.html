@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RepoPrompt 2.0 Agent: Context Builder + Oracle for Code Review and…</title>
+<meta name="description" content="Melvin Vivas shares a demo of RepoPrompt 2.0, an agent with RepoPrompt&#x27;s MCP tools built in. In the demo, the Review workflow checks uncommitted changes. A…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-03-01-repoprompt-2-0-agent-context-builder-oracle-for-code-review.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="RepoPrompt 2.0 Agent: Context Builder + Oracle for Code Review and…">
+<meta property="og:description" content="Melvin Vivas shares a demo of RepoPrompt 2.0, an agent with RepoPrompt&#x27;s MCP tools built in. In the demo, the Review workflow checks uncommitted changes. A…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-03-01-repoprompt-2-0-agent-context-builder-oracle-for-code-review.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-03-01-repoprompt-2-0-agent-context-builder-oracle-for-code-review.html#note","headline":"RepoPrompt 2.0 Agent: Context Builder + Oracle for Code Review and Planning","description":"Melvin Vivas shares a demo of RepoPrompt 2.0, an agent with RepoPrompt's MCP tools built in. In the demo, the Review workflow checks uncommitted changes. A \"context builder\" collects the relevant files and diffs (12 files, about 50k tokens) into one prompt. An \"oracle\" model then reviews that…","url":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-03-01-repoprompt-2-0-agent-context-builder-oracle-for-code-review.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"AI Dev Tools & Productivity"},{"@type":"Thing","name":"Prompt & Context Engineering"},{"@type":"Thing","name":"AI Agents, Tool Use & MCP"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2028082935371558974","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-03-01"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-03-01-repoprompt-2-0-agent-context-builder-oracle-for-code-review.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"AI Dev Tools & Productivity","item":"https://ralmodiel.github.io/ai-study-library/topics/ai-tools.html"},{"@type":"ListItem","position":4,"name":"RepoPrompt 2.0 Agent: Context Builder + Oracle for Code Review and Planning"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/ai-tools.html">AI Dev Tools &amp; Productivity</a> &rsaquo; <span aria-current="page">RepoPrompt 2.0 Agent: Context Builder + Oracle for Code Review and Planning</span></nav><h1>RepoPrompt 2.0 Agent: Context Builder + Oracle for Code Review and Planning</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2028082935371558974">a video post by Melvin Vivas on X</a>, posted 1 March 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X video post · 2026-03-01 · 4:35 · 210 views · <a href="https://x.com/melvindvivas/status/2028082935371558974">Open on X</a></p>
+<p><strong>Topics:</strong> AI Dev Tools &amp; Productivity, Prompt &amp; Context Engineering, AI Agents, Tool Use &amp; MCP · <strong>Level:</strong> intermediate</p>
+<h2>Summary</h2>
+<p>Melvin Vivas shares a demo of RepoPrompt 2.0, an agent with RepoPrompt's MCP tools built in. In the demo, the Review workflow checks uncommitted changes. A "context builder" collects the relevant files and diffs (12 files, about 50k tokens) into one prompt. An "oracle" model then reviews that prompt and writes a plan for the agent to carry out. The video's main lesson is context engineering: give a stuck agent a clean, well-chosen context and a second opinion so it stops going in circles.</p>
+<h2>Key points</h2>
+<ul>
+<li>RepoPrompt 2.0 has built-in workflows: Plan &amp; Build, Review, Refactor and Investigate.</li>
+<li>Review workflow: the model first confirms the review scope (here, only uncommitted changes), then runs the context builder.</li>
+<li>The context builder searches the repo, picks the relevant files and diffs, and packs them into one context prompt. In the demo that was 12 files and about 50k tokens, sent to the review model.</li>
+<li>The oracle's answer gives prioritized findings (P0/P1) and concrete suggestions. It also gives a compact map of the context it used, so the agent knows which files to open.</li>
+<li>You can mix models. A chat agent (Codex, Claude or Gemini) can call the context builder and oracle, which can run on GPT models: one model to talk to, a stronger one to reason.</li>
+<li>When an agent is deep in a chat or going in circles, asking the oracle for a second opinion with fresh context gives it a bird's-eye view of the problem.</li>
+<li>RepoPrompt runs the agent CLIs already installed on your machine with your existing subscriptions. The creator says this avoids OAuth-token tricks that break terms of service. For Codex it uses the Codex app server.</li>
+<li>Typical loop: review, then ask the oracle for a plan that covers all review recommendations, then tell the agent to 'get to work'.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://repoprompt.com">RepoPrompt</a></strong> · tool · repoprompt.com · check price<br>
+  Context-engineering app for coding agents. It has MCP tools, a context builder, an oracle, and Review/Plan/Refactor/Investigate workflows.</li>
+<li><strong><a href="https://openai.com/codex">OpenAI Codex</a></strong> · tool · openai.com · paid<br>
+  OpenAI's coding agent. In the diagram it writes code, fixes review findings and drives the build loop. The creator also used it to make this video.<br>
+  Also in: An agent bot that installs and drives Codex on its own (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105963336097837160">X</a> · <a href="../07-agents/2026-10-02-an-agent-bot-that-installs-and-drives-codex-on-its-own.html">notes</a>), Asking a Coder bot to install Codex (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105961766471754199">X</a> · <a href="../07-agents/2026-10-02-asking-a-coder-bot-to-install-codex.html">notes</a>), Sign in with ChatGPT: Setting Usage Limits for Each App (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105933855802929153">X</a> · <a href="2026-10-02-sign-in-with-chatgpt-setting-usage-limits-for-each-app.html">notes</a>), Codex Cloud Environments Must Be Saved &amp; Published Before Use (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105908190697472042">X</a> · <a href="2026-10-02-codex-cloud-environments-must-be-saved-published-before-use.html">notes</a>) and 240 more</li>
+<li><strong><a href="https://github.com/anthropics/claude-code">Claude Code</a></strong> · tool · github.com · paid · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Anthropic's agentic coding tool that edits files and runs commands in your terminal; it now has an 'auto mode' for permission decisions.<br>
+  Also in: Create Claude Code Plugins with /plugin-authoring (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105911321875411254">X</a> · <a href="2026-10-02-create-claude-code-plugins-with-plugin-authoring.html">notes</a>), Claude Code mods: customize behavior and UI with plugins (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105872553818611759">X</a> · <a href="2026-10-02-claude-code-mods-customize-behavior-and-ui-with-plugins.html">notes</a>), SkillsBento: Free Plugin Marketplace for Codex and Claude Code (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105560043395707354">X</a> · <a href="2026-10-01-skillsbento-free-plugin-marketplace-for-codex-and-claude.html">notes</a>), Countering AI Sycophancy with a Devil's Advocate Plugin for Codex &amp; Claude (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105534628715270332">X</a> · <a href="2026-10-01-countering-ai-sycophancy-with-a-devil-s-advocate-plugin-for.html">notes</a>) and 100 more</li>
+<li><strong><a href="https://github.com/google-gemini/gemini-cli">Gemini CLI</a></strong> · tool · github.com · free<br>
+  Google's open-source terminal AI agent, which the creator says has been discontinued.<br>
+  Also in: Google Retires Gemini CLI, Launches Antigravity CLI (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2072791133323948329">X</a> · <a href="2026-07-03-google-retires-gemini-cli-launches-antigravity-cli.html">notes</a>), Google Shuts Down Gemini CLI and Firebase Studio (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2069100263231885595">X</a> · <a href="../16-trends/2026-06-23-google-shuts-down-gemini-cli-and-firebase-studio.html">notes</a>), Gemini CLI sunset for individual tiers: migrate to Antigravity CLI (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2067700189163651507">X</a> · <a href="2026-06-19-gemini-cli-sunset-for-individual-tiers-migrate-to.html">notes</a>), Gemini CLI Adds Subagents with Separate Context Windows (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2044753853158248552">X</a> · <a href="../07-agents/2026-04-16-gemini-cli-adds-subagents-with-separate-context-windows.html">notes</a>)</li>
+<li><strong><a href="https://developers.openai.com/codex/app-server">Codex app server</a></strong> · tool · developers.openai.com · free<br>
+  Part of OpenAI Codex that lets you build your own UI or client on top of the Codex agent.</li>
+<li><strong><a href="https://modelcontextprotocol.io">Model Context Protocol (MCP)</a></strong> · docs · modelcontextprotocol.io · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  An open standard for connecting LLM apps and agents to tools and data sources. The official docs explain how it works and how to build servers and clients.<br>
+  Also in: Grok Bot Templates: Sharing, Publishing and Safely Installing Bots (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103697947640918283">X</a> · <a href="../07-agents/2026-09-26-grok-bot-templates-sharing-publishing-and-safely-installing.html">notes</a>), 8-Week Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1758231042116375">Facebook</a> · <a href="../01-roadmap/2026-09-19-8-week-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), Paste Documentation URLs into Codex Instead of Using MCP (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099439011534368806">X</a> · <a href="2026-09-14-paste-documentation-urls-into-codex-instead-of-using-mcp.html">notes</a>), OpenAI Agents API: Hosted Codex Harness for Long-Running Cloud Agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098352790745838067">X</a> · <a href="../07-agents/2026-09-11-openai-agents-api-hosted-codex-harness-for-long-running.html">notes</a>) and 7 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Try RepoPrompt with the coding agent CLI you already use (Codex, Claude or Gemini).</li>
+<li>Before trusting a complex AI-generated change, run a Review limited to uncommitted changes.</li>
+<li>When your agent goes in circles, ask an oracle or stronger model for a plan using a fresh, curated context.</li>
+<li>Build your own UI or client on top of the Codex app server.</li>
+</ul><section class="more"><h2>More in AI Dev Tools &amp; Productivity</h2><ul><li><a href="2026-03-01-importing-your-memory-from-other-ai-assistants-into-claude.html">Importing Your Memory from Other AI Assistants into Claude</a> <span class="meta">Melvin Vivas, 2026-03-01</span></li><li><a href="2026-03-01-building-and-deploying-a-full-app-with-the-codex-app-mcp.html">Building and Deploying a Full App with the Codex App, MCP Servers and Skills</a> <span class="meta">Melvin Vivas, 2026-03-01</span></li><li><a href="2026-03-01-t3-code-adds-a-claude-code-integration.html">T3 Code Adds a Claude Code Integration</a> <span class="meta">Melvin Vivas, 2026-03-01</span></li></ul><p><a href="../../topics/ai-tools.html">All of AI Dev Tools &amp; Productivity</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Engineer Roadmap: Fundamentals, RAG, Agents, Books &amp; Your First…</title>
+<meta name="description" content="Bashiri Smith lays out a short roadmap for becoming an AI engineer before 2027. Start with how models work, using Karpathy&#x27;s Zero to Hero and 3Blue1Brown&#x27;s…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/01-roadmap/2026-08-28-ai-engineer-roadmap-fundamentals-rag-agents-books-your.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="AI Engineer Roadmap: Fundamentals, RAG, Agents, Books &amp; Your First…">
+<meta property="og:description" content="Bashiri Smith lays out a short roadmap for becoming an AI engineer before 2027. Start with how models work, using Karpathy&#x27;s Zero to Hero and 3Blue1Brown&#x27;s…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/01-roadmap/2026-08-28-ai-engineer-roadmap-fundamentals-rag-agents-books-your.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/01-roadmap/2026-08-28-ai-engineer-roadmap-fundamentals-rag-agents-books-your.html#note","headline":"AI Engineer Roadmap: Fundamentals, RAG, Agents, Books & Your First AI Service","description":"Bashiri Smith lays out a short roadmap for becoming an AI engineer before 2027. Start with how models work, using Karpathy's Zero to Hero and 3Blue1Brown's neural network series. Then learn the core of the job, RAG and agents, through LangChain's RAG From Scratch, LangGraph and the Hugging Face…","url":"https://ralmodiel.github.io/ai-study-library/notes/01-roadmap/2026-08-28-ai-engineer-roadmap-fundamentals-rag-agents-books-your.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"Start Here: Roadmaps & Strategy"},{"@type":"Thing","name":"Retrieval-Augmented Generation (RAG)"},{"@type":"Thing","name":"AI Agents, Tool Use & MCP"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"VideoObject","url":"https://www.facebook.com/reel/2012814779367142","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#bashiri-smith"},"datePublished":"2026-08-28"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/01-roadmap/2026-08-28-ai-engineer-roadmap-fundamentals-rag-agents-books-your.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#bashiri-smith","name":"Bashiri Smith","url":"https://baswe.ai/","sameAs":["https://www.facebook.com/basweai","https://www.youtube.com/@BashiFuirkashi","https://www.instagram.com/bashi_fuirkashi/","https://www.tiktok.com/@bashifuirkashi","https://www.linkedin.com/in/bashiri-smith/","https://x.com/bashifuirkashi","https://www.skool.com/baswe-ai"],"description":"Helps aspiring and working software engineers move into AI engineering roles.","brand":{"@type":"Brand","name":"BASWE.Ai"}},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"Start Here: Roadmaps & Strategy","item":"https://ralmodiel.github.io/ai-study-library/topics/roadmap.html"},{"@type":"ListItem","position":4,"name":"AI Engineer Roadmap: Fundamentals, RAG, Agents, Books & Your First AI Service"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/roadmap.html">Start Here: Roadmaps &amp; Strategy</a> &rsaquo; <span aria-current="page">AI Engineer Roadmap: Fundamentals, RAG, Agents, Books &amp; Your First AI Service</span></nav><h1>AI Engineer Roadmap: Fundamentals, RAG, Agents, Books &amp; Your First AI Service</h1>
+<aside class="source"><p>This note summarises <a href="https://www.facebook.com/reel/2012814779367142">a reel by Bashiri Smith on Facebook</a>, posted 28 August 2026. The original belongs to Bashiri Smith.</p><p>Follow Bashiri Smith: <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p></aside>
+<p>Bashiri Smith · Facebook reel · 2026-08-28 · 1:15 · 93,460 views · <a href="https://www.facebook.com/reel/2012814779367142">Open on Facebook</a></p>
+<p><strong>Topics:</strong> Start Here: Roadmaps &amp; Strategy, Retrieval-Augmented Generation (RAG), AI Agents, Tool Use &amp; MCP · <strong>Level:</strong> beginner</p>
+<h2>Summary</h2>
+<p>Bashiri Smith lays out a short roadmap for becoming an AI engineer before 2027. Start with how models work, using Karpathy's Zero to Hero and 3Blue1Brown's neural network series. Then learn the core of the job, RAG and agents, through LangChain's RAG From Scratch, LangGraph and the Hugging Face Agents Course, and back it up with two books. Finish by shipping a real AI service with FastAPI and Docker.</p>
+<h2>Key points</h2>
+<ul>
+<li>Learn fundamentals first. Tools change every few months, but engineers who understand what happens inside the model keep their edge.</li>
+<li>Step 1: Watch Andrej Karpathy's Neural Networks: Zero to Hero alongside 3Blue1Brown's Neural Networks series.</li>
+<li>Step 2: RAG and agents are the core of the job right now.</li>
+<li>For RAG, LangChain's RAG From Scratch series covers embeddings, vector databases, retrieval and how to run RAG in production.</li>
+<li>For agents, pick one orchestration framework and go deep. The creator picks LangGraph and pairs it with the Hugging Face Agents Course on multi-step, tool-using systems.</li>
+<li>Back this up with Chip Huyen's 'AI Engineering' and Michael Albada's 'Building Applications with AI Agents'.</li>
+<li>Take the production skills you already have and point them at AI. AI engineering is basically software engineering that ships AI.</li>
+<li>Step 3: Build an AI service with FastAPI, containerize it with Docker and put it behind a real API.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://karpathy.ai/zero-to-hero.html">Neural Networks: Zero to Hero (Andrej Karpathy)</a></strong> · course · karpathy.ai · free<br>
+  Free YouTube series by Andrej Karpathy that builds neural networks and GPT-style language models from scratch in code.<br>
+  Also in: AI Engineer Roadmap Before 2027: Fundamentals, RAG, Agents, Ops, Evals (Bashiri Smith on <a href="https://www.facebook.com/reel/943434268837194">Facebook</a> · <a href="2026-09-19-ai-engineer-roadmap-before-2027-fundamentals-rag-agents-ops.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi">3Blue1Brown Neural Networks series</a></strong> · video · youtube.com · free<br>
+  A visual series by 3Blue1Brown explaining neural networks, backpropagation and transformers.</li>
+<li><strong><a href="https://github.com/langchain-ai/rag-from-scratch">RAG From Scratch (LangChain)</a></strong> · video · github.com · free<br>
+  LangChain's free video series and notebooks that build retrieval-augmented generation step by step, from indexing through retrieval and generation.<br>
+  Also in: AI Engineer Roadmap Before 2027: Fundamentals, RAG, Agents, Ops, Evals (Bashiri Smith on <a href="https://www.facebook.com/reel/943434268837194">Facebook</a> · <a href="2026-09-19-ai-engineer-roadmap-before-2027-fundamentals-rag-agents-ops.html">notes</a>)</li>
+<li><strong><a href="https://www.langchain.com/langgraph">LangGraph</a></strong> · tool · langchain.com · free<br>
+  Open-source library for building stateful LLM workflows as graphs, with branching, loops and human-in-the-loop pauses.<br>
+  Also in: Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), LangChain vs. LangGraph Explained with One RAG Chatbot (Bashiri Smith on <a href="https://www.facebook.com/reel/1394445942341422">Facebook</a> · <a href="../06-rag/2026-09-29-langchain-vs-langgraph-explained-with-one-rag-chatbot.html">notes</a>), Wannabe vs $200K+ AI Engineer: RAG, Agents, Context and Fine-Tuning Mistakes (Bashiri Smith on <a href="https://www.facebook.com/reel/28509399318713823">Facebook</a> · <a href="../06-rag/2026-09-27-wannabe-vs-200k-ai-engineer-rag-agents-context-and-fine.html">notes</a>), 7 Habits to Become an AI Engineer: Books, Tooling, Research &amp; Shipping (Bashiri Smith on <a href="https://www.facebook.com/reel/1081423530962902">Facebook</a> · <a href="2026-09-25-7-habits-to-become-an-ai-engineer-books-tooling-research.html">notes</a>) and 2 more</li>
+<li><strong><a href="https://huggingface.co/learn/agents-course">Hugging Face Agents Course</a></strong> · course · huggingface.co · free<br>
+  Hugging Face's free course on building AI agents that use tools and work through multiple steps.<br>
+  Also in: AI Engineer Roadmap Before 2027: Fundamentals, RAG, Agents, Ops, Evals (Bashiri Smith on <a href="https://www.facebook.com/reel/943434268837194">Facebook</a> · <a href="2026-09-19-ai-engineer-roadmap-before-2027-fundamentals-rag-agents-ops.html">notes</a>)</li>
+<li><strong><a href="https://github.com/chiphuyen/aie-book?tab=readme-ov-file">AI Engineering: Building Applications with Foundation Models (Chip Huyen)</a></strong> · book · github.com · paid<br>
+  Essential for AI engineers, even if some topics may not cover the newest tools. Good to know for ML engineers who want to build products with their models.<br>
+  Also in: 5 Books to Move from Software Engineer to AI/ML Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1462121052468374">Facebook</a> · <a href="../02-foundations/2026-09-20-5-books-to-move-from-software-engineer-to-ai-ml-engineer.html">notes</a>), AI Engineer Roadmap Before 2027: Fundamentals, RAG, Agents, Ops, Evals (Bashiri Smith on <a href="https://www.facebook.com/reel/943434268837194">Facebook</a> · <a href="2026-09-19-ai-engineer-roadmap-before-2027-fundamentals-rag-agents-ops.html">notes</a>)</li>
+<li><strong><a href="https://www.oreilly.com/library/view/building-applications-with/9781098176495/">Building Applications with AI Agents (Michael Albada)</a></strong> · book · oreilly.com · paid · open in a browser to verify<br>
+  Michael Albada's O'Reilly book on designing and building agent-based applications.<br>
+  Also in: AI Engineer Roadmap Before 2027: Fundamentals, RAG, Agents, Ops, Evals (Bashiri Smith on <a href="https://www.facebook.com/reel/943434268837194">Facebook</a> · <a href="2026-09-19-ai-engineer-roadmap-before-2027-fundamentals-rag-agents-ops.html">notes</a>)</li>
+<li><strong><a href="https://fastapi.tiangolo.com">FastAPI</a></strong> · tool · fastapi.tiangolo.com · free<br>
+  Python web framework for building and serving APIs, often used to deploy AI services.<br>
+  Also in: Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), 8-Week Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1758231042116375">Facebook</a> · <a href="2026-09-19-8-week-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), Software Engineer to AI Engineer: Job Boards, Stack, Projects and Learning Sites (Bashiri Smith on <a href="https://www.facebook.com/reel/1650742066760603">Facebook</a> · <a href="../15-career/2026-09-14-software-engineer-to-ai-engineer-job-boards-stack-projects.html">notes</a>), AI Engineer Roadmap for 2026 in 60 Seconds (Bashiri Smith on <a href="https://www.facebook.com/reel/1601172415086808">Facebook</a> · <a href="2026-09-11-ai-engineer-roadmap-for-2026-in-60-seconds.html">notes</a>)</li>
+<li><strong><a href="https://www.docker.com">Docker</a></strong> · tool · docker.com · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  A container platform for packaging an application and its dependencies so it can be deployed reproducibly.<br>
+  Also in: Deploying AI workflow integrations with Apache Camel in Docker (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104111742288879627">X</a> · <a href="../09-llmops/2026-09-27-deploying-ai-workflow-integrations-with-apache-camel-in.html">notes</a>), Devin's cloud Ubuntu sandbox ships with Docker pre-installed (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103521578600599928">X</a> · <a href="../13-ai-tools/2026-09-26-devin-s-cloud-ubuntu-sandbox-ships-with-docker-pre-installed.html">notes</a>), 7 Habits to Become an AI Engineer: Books, Tooling, Research &amp; Shipping (Bashiri Smith on <a href="https://www.facebook.com/reel/1081423530962902">Facebook</a> · <a href="2026-09-25-7-habits-to-become-an-ai-engineer-books-tooling-research.html">notes</a>), 8-Week Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1758231042116375">Facebook</a> · <a href="2026-09-19-8-week-roadmap-to-a-200k-ai-engineering-role.html">notes</a>) and 5 more</li>
+<li><strong><a href="https://www.youtube.com/watch?v=ZSOecQCdea4">The Complete AI Engineer Roadmap for 2026 (Exact Courses + Step-by-Step)</a></strong> · video · youtube.com · free<br>
+  Bashiri Smith's free YouTube training on upgrading your skills and becoming competitive for AI engineering roles, with specific courses listed step by step.<br>
+  Also in: Pointer to Bashiri Smith's Complete AI Engineer Roadmap for 2026 (Bashiri Smith on <a href="https://www.facebook.com/reel/1771577477300003">Facebook</a> · <a href="2026-10-01-pointer-to-bashiri-smith-s-complete-ai-engineer-roadmap-for.html">notes</a>), Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), Software Engineer to AI Engineer Before 2027: A 5-Step Career Plan (Bashiri Smith on <a href="https://www.facebook.com/reel/1433622515329300">Facebook</a> · <a href="2026-09-30-software-engineer-to-ai-engineer-before-2027-a-5-step.html">notes</a>), 6 Free Videos to Move from Software Engineer to AI Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1615291686990735">Facebook</a> · <a href="2026-09-28-6-free-videos-to-move-from-software-engineer-to-ai-engineer.html">notes</a>) and 18 more</li>
+<li><strong><a href="https://www.skool.com/baswe-ai/about">BASWE.Ai Engineer (Skool community)</a></strong> · community · skool.com · paid<br>
+  The creator's paid community and program, with an AI learning roadmap (including the full ops and evaluation track), daily calls with engineers and recruiters, resume and portfolio help, and a job-search pipeline.<br>
+  Also in: Basic RAG Pipeline in 60 Seconds: From Documents to Grounded Answers (Bashiri Smith on <a href="https://www.facebook.com/reel/1893190305357331">Facebook</a> · <a href="../06-rag/2026-10-01-basic-rag-pipeline-in-60-seconds-from-documents-to-grounded.html">notes</a>), Pointer to Bashiri Smith's Complete AI Engineer Roadmap for 2026 (Bashiri Smith on <a href="https://www.facebook.com/reel/1771577477300003">Facebook</a> · <a href="2026-10-01-pointer-to-bashiri-smith-s-complete-ai-engineer-roadmap-for.html">notes</a>), Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), How to Evaluate a RAG Pipeline: Retrieval vs. Generation (Interview Answer) (Bashiri Smith on <a href="https://www.facebook.com/reel/915452468082856">Facebook</a> · <a href="../06-rag/2026-09-30-how-to-evaluate-a-rag-pipeline-retrieval-vs-generation.html">notes</a>) and 76 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Watch Karpathy's Neural Networks: Zero to Hero alongside 3Blue1Brown's Neural Networks series.</li>
+<li>Work through LangChain's RAG From Scratch series to learn embeddings, vector databases and retrieval.</li>
+<li>Pick one agent orchestration framework (the creator suggests LangGraph) and go deep on it.</li>
+<li>Take the Hugging Face Agents Course.</li>
+<li>Read 'AI Engineering' by Chip Huyen and 'Building Applications with AI Agents' by Michael Albada.</li>
+<li>Build an AI service with FastAPI, containerize it with Docker and deploy it behind a real API.</li>
+<li>Comment 'AI' on the video to get the creator's free roadmap with resources.</li>
+<li>Your first AI service: build it with FastAPI, containerize it with Docker and serve it behind a real API.</li>
+</ul><section class="more"><h2>More in Start Here: Roadmaps &amp; Strategy</h2><ul><li><a href="2026-09-04-matching-your-interests-to-5-ai-engineering-job-roles.html">Matching Your Interests to 5 AI Engineering Job Roles</a> <span class="meta">Bashiri Smith, 2026-09-04</span></li><li><a href="2026-08-30-90-day-plan-to-land-an-ai-engineering-job-benchmark-learn.html">90-Day Plan to Land an AI Engineering Job: Benchmark, Learn, Build</a> <span class="meta">Bashiri Smith, 2026-08-30</span></li><li><a href="2026-08-30-why-rag-alone-won-t-make-you-a-lasting-ai-engineer.html">Why RAG Alone Won&#x27;t Make You a Lasting AI Engineer</a> <span class="meta">Bashiri Smith, 2026-08-30</span></li><li><a href="2026-08-28-promo-bashiri-smith-s-ai-engineer-career-community-150k-goal.html">Promo: Bashiri Smith&#x27;s AI Engineer Career Community ($150K+ Goal)</a> <span class="meta">Bashiri Smith, 2026-08-28</span></li><li><a href="2026-08-27-ai-engineering-roadmap-16-topics-to-learn-from-llms-to-ai.html">AI Engineering Roadmap: 16 Topics to Learn, from LLMs to AI Safety</a> <span class="meta">Bashiri Smith, 2026-08-27</span></li><li><a href="2026-08-25-five-core-ai-engineering-topic-areas-a-study-roadmap.html">Five Core AI Engineering Topic Areas: A Study Roadmap Checklist</a> <span class="meta">Bashiri Smith, 2026-08-25</span></li></ul><p><a href="../../topics/roadmap.html">All of Start Here: Roadmaps &amp; Strategy</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

@@ -3,161 +3,221 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Privacy policy - AI Engineer Study Library</title>
-<meta name="robots" content="noindex">
+<title>Privacy policy | AI Engineer Study Library</title>
+<meta name="description" content="What the AI Engineer Study Library collects (nothing without your consent), why, and your rights: local storage, GitHub Pages hosting and optional Google…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/privacy.html">
+<meta name="robots" content="noindex, follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Privacy policy | AI Engineer Study Library">
+<meta property="og:description" content="What the AI Engineer Study Library collects (nothing without your consent), why, and your rights: local storage, GitHub Pages hosting and optional Google…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/privacy.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="assets/pages.css">
 <style>
 #consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
-  background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 12px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, .18); padding: 16px 18px; font: var(--s-md)/1.45 var(--body); }
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
 #consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
 #consent p { margin: 0 0 12px; }
-#consent a { color: var(--accent); }
-#consent .row { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
-#consent button { font: 600 var(--s-md) var(--body); border-radius: 8px; padding: 8px 18px; cursor: pointer;
-  border: 1px solid var(--line); background: var(--surface); color: var(--ink); min-width: 7rem; }
-#consent button.yes { background: var(--accent); border-color: var(--accent); color: var(--surface); }
-#consent button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
 </style>
 <script>
 (() => {
-  const ID = "G-CSFCML3KMM", KEY = "cookie-consent";
-  const saved = () => { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
-  const save = v => { try { localStorage.setItem(KEY, v); } catch (e) { /* private mode: ask again next visit */ } };
-  let loaded = false, box = null;
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
   const load = () => {  // Google's script only ever loads from here, after "Accept"
     if (loaded) return;
     loaded = true;
+    window["ga-disable-" + ID] = false;
     window.dataLayer = window.dataLayer || [];
     window.gtag = function () { dataLayer.push(arguments); };
     gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
     gtag("js", new Date());
-    // No ad features; cookies last at most 13 months (CNIL guidance) instead of Google's default 2 years.
-    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false, cookie_expires: 33696000 });
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
     const s = document.createElement("script");
     s.async = true;
     s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
     document.head.appendChild(s);
   };
-  const forget = () => {  // declined after accepting: stop measuring and remove GA's cookies
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
     if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
     window.gtag = undefined;
     for (const c of document.cookie.split(";")) {
       const name = c.split("=")[0].trim();
       if (!/^_ga/.test(name)) continue;
-      for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
-        document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/" + d;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
     }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
   };
   const choose = v => {
     save(v);
     box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
     if (v === "granted") load(); else forget();
   };
   const show = () => {
+    before = document.activeElement;
     if (!box) {
       box = document.createElement("div");
       box.id = "consent";
       box.setAttribute("role", "dialog");
       box.setAttribute("aria-label", "Cookie consent");
-      box.innerHTML = '<p>Can this site use Google Analytics cookies to count visits and see which tabs and searches are used? '
-        + 'Nothing is tracked unless you accept. <a href="privacy.html">Privacy policy</a></p>'
-        + '<div class="row"><button type="button" class="no">Decline</button><button type="button" class="yes">Accept</button></div>';
-      box.querySelector(".no").addEventListener("click", () => choose("denied"));
-      box.querySelector(".yes").addEventListener("click", () => choose("granted"));
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
       document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
     }
     box.hidden = false;
-    box.querySelector(".yes").focus({ preventScroll: true });
+    pad(true);
+    box.focus({ preventScroll: true });
   };
   window.cookieConsent = { open: show };
   document.addEventListener("click", e => {
     if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
   });
-  if (saved() === "granted") load();
-  else if (!saved()) document.addEventListener("DOMContentLoaded", show);
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
 })();
 </script>
-<style>
-:root { --bg: #f1f4f1; --surface: #fff; --ink: #16201b; --muted: #56635d; --line: #d6ded9; --accent: #2344bd;
-  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif; --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif; }
-@media (prefers-color-scheme: dark) { :root { --bg: #0e1311; --surface: #151c19; --ink: #e3eae6; --muted: #98a59f;
-  --line: #28322e; --accent: #9cb0ff; color-scheme: dark; } }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 1rem/1.6 var(--body); }
-main { max-width: 46rem; margin: 0 auto; padding: 32px 16px 64px; }
-h1 { font: 750 2rem/1.1 var(--display); margin: 0 0 4px; }
-h2 { font: 600 1.15rem/1.3 var(--display); margin: 32px 0 8px; }
-a { color: var(--accent); }
-.meta { color: var(--muted); font-size: .875rem; margin-bottom: 24px; }
-code { font-size: .9em; }
-</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://ralmodiel.github.io/ai-study-library/#website","name":"AI Engineer Study Library","url":"https://ralmodiel.github.io/ai-study-library/","inLanguage":"en","publisher":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"}}]}</script>
 </head>
 <body>
-<main>
-<p class="meta"><a href="index.html">&larr; Back to the library</a></p>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="./">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="learning-path.html">Learning path</a><a href="free-watch-list.html">Free to watch</a><a href="resources.html">All resources</a><a href="credits.html">Credits</a></nav></header>
+<main id="main">
 <h1>Privacy policy</h1>
 <p class="meta">Last updated 2026-10-02</p>
 
 <p>This page explains what happens to your data when you use the AI Engineer Study Library at
 <a href="https://ralmodiel.github.io/ai-study-library/">ralmodiel.github.io/ai-study-library</a>. The site is run by Roque Almodiel, a private
-individual, as a free study resource. It has no accounts, no ads and no sign-up, and it sells nothing.</p>
+individual, as a free, unofficial study resource. It has no accounts, no ads and no sign-up, and it sells nothing.</p>
 
-<h2>Who to contact</h2>
-<p>Roque Almodiel is responsible for this site. Contact them by opening an issue at <a href="https://github.com/ralmodiel/ai-study-library/issues">github.com/ralmodiel/ai-study-library/issues</a> (issues are public, so do not include personal details there; ask for a private channel instead).</p>
+<h2>Who is responsible, and how to reach them</h2>
+<p>Roque Almodiel is responsible for this site (the "controller"). Until a private email address is listed here, open an issue at <a href="https://github.com/ralmodiel/ai-study-library/issues">github.com/ralmodiel/ai-study-library/issues</a>. Issues are public, so do not put personal details (or the value of your <code>_ga</code> cookie) in it; ask for a private channel in the issue instead.</p>
 
 <h2>What stays on your device</h2>
-<p>Your ticked checkboxes, the tab you were on, and your cookie choice are saved in your browser's local storage.
-They never leave your device, and you can clear them by clearing this site's data in your browser.</p>
+<p>Your ticked checkboxes, the tab you were on, whether done items are hidden, and your cookie choice are saved in
+your browser's local storage. They are needed for the features you use, never leave your device, and stay until you
+clear this site's data in your browser.</p>
 
 <h2>Hosting</h2>
 <p>The site is hosted on GitHub Pages (GitHub, Inc., United States). Like any web server, GitHub receives your IP
-address when you load the page and logs it for security purposes. See the
+address when you load a page and logs it for security purposes. <b>Legal basis:</b> legitimate interests in
+delivering and protecting the site (Article 6(1)(f) GDPR). GitHub, Inc. is certified under the EU-U.S. Data Privacy
+Framework and decides how long it keeps these logs; see the
 <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub General
-Privacy Statement</a>. The fonts are served from this site too, so loading the page does not contact Google.</p>
+Privacy Statement</a>. The fonts are served from this site too, so loading a page does not contact Google.</p>
 
 <h2>Google Analytics (only if you accept)</h2>
 <p>When you first visit, a banner asks whether this site may use Google Analytics. Until you click <b>Accept</b>,
-Google's script is not loaded and nothing is sent to Google. If you accept, Google Analytics 4 (Google Ireland
-Limited / Google LLC) receives:</p>
+Google's script is not loaded and nothing is sent to Google. If you accept, Google Analytics 4 (provided by Google
+LLC, USA, which processes the data for this site under Google's data processing terms) receives:</p>
 <ul>
-<li>the pages and tabs you open and how long you stay,</li>
-<li>what you type in the search box (searches that look like an email address or phone number are never sent),</li>
+<li>the pages and tabs you open, the links you click to leave the site, how far you scroll and how long you stay,</li>
+<li>what you type in the search box, once you stop typing (searches that look like an email address or phone
+number are filtered out first, but please don't type personal details there),</li>
 <li>the site that referred you, your browser, device type, screen size and language,</li>
-<li>your approximate location (country and city), which Google derives from your IP address. Google Analytics 4
-does not log or store IP addresses.</li>
+<li>your approximate location (country and city), which Google derives from your IP address. Google states that
+Google Analytics 4 does not log or store IP addresses.</li>
 </ul>
-<p>It sets the cookies <code>_ga</code> and <code>_ga_CSFCML3KMM</code>, which keep a random ID so
-repeat visits can be counted. They expire after at most 13 months. Google signals and ad personalisation are
-switched off: the data is not used for advertising and is not linked to your Google account.</p>
-<p><b>Legal basis:</b> your consent (Article 6(1)(a) GDPR and the cookie consent rules of the ePrivacy
-Directive). <b>Purpose:</b> to see how many people use the library and which parts are useful.
-<b>Retention:</b> event data is kept in Google Analytics for 2 months, then deleted.</p>
-<p><b>Changing your mind:</b> use <a href="#" data-cookie-settings>Cookie settings</a> (here or at the bottom of the
-library) at any time. Declining after accepting stops measurement and deletes the cookies.</p>
-<p>Google may process this data in the United States. Google LLC is certified under the EU-U.S. Data Privacy
+<p>It sets the cookies <code>_ga</code> and <code>_ga_CSFCML3KMM</code>, which hold a random ID so
+repeat visits can be counted. They are limited to this site's pages and expire 13 months after they are set
+(visits do not extend them); if you decline later they are deleted straight away. Google signals and ad
+personalisation are switched off, and Google is not allowed to use this site's analytics data for its own products,
+so it is not used for advertising and is not linked to your Google account.</p>
+<p><b>Legal basis:</b> your consent (Article 6(1)(a) GDPR and the cookie consent rules of the ePrivacy Directive).
+<b>Purpose:</b> to see how many people use the library and which parts are useful. <b>Retention:</b> Google
+Analytics deletes event and user-level data 2 months after it is collected; aggregated statistics that identify no
+one (for example daily visit counts) are kept longer.</p>
+<p><b>Changing your mind:</b> use <a href="#" data-cookie-settings>Cookie settings</a> (here, or at the top and
+bottom of the library) at any time. Declining after accepting switches the analytics off, deletes its cookies and
+reloads the page without it. Your choice is asked again after about six months.</p>
+<p>Google may process this data in the United States; Google LLC is certified under the EU-U.S. Data Privacy
 Framework. See <a href="https://policies.google.com/privacy">Google's privacy policy</a> and
 <a href="https://policies.google.com/technologies/partner-sites">how Google uses data from sites that use its
 services</a>.</p>
 <h2>Your rights</h2>
-<p>Depending on where you live (for example under the GDPR in the EU and UK, or the Data Privacy Act in the
-Philippines) you can ask for access to, correction of, or deletion of your data, object to its use, and withdraw
-your consent at any time without affecting what happened before. Because the analytics data has no name or
-account attached, it usually cannot be matched to you, but you can always decline or withdraw consent so none is
-collected. You also have the right to complain to the data protection authority where you live.</p>
+<p>Depending on where you live (for example the GDPR in the EU/EEA, the UK GDPR, or the Philippine Data Privacy Act
+of 2012), you can ask for access to your data or a copy of it, its correction or deletion, to restrict or object to
+its use, and you can withdraw consent at any time without affecting what happened before. The analytics data has no
+name attached; to let the maintainer find yours, share the value of your <code>_ga</code> cookie through
+a private channel (ask for one in an issue). Requests are answered within one month. You can also complain to a data protection authority: in the
+Philippines the National Privacy Commission (<a href="https://privacy.gov.ph/">privacy.gov.ph</a>), in the EU/EEA or
+the UK the authority where you live or work. No automated decisions or profiling are made about you, and declining
+analytics does not change how the site works. The site is not aimed at children under 16.</p>
+
+<h2>Messages you send</h2>
+<p>If you open an issue or contact the maintainer, what you send is used only to answer and act on your request, and
+deleted within 12 months after the matter is closed. Public issues stay visible on GitHub unless you delete them.</p>
 
 <h2>Links to other sites</h2>
 <p>The library links to many other sites (Facebook, X, YouTube, course providers and more). Their own privacy
 policies apply once you follow a link.</p>
 
 <h2>The creators' content</h2>
-<p>This is an unofficial study index of public posts by Bashiri Smith and Melvin Vivas and Melvin Vivas. It is not affiliated with or endorsed by them.
-It holds summaries, key points and short quotes with credit and a link to every original; the videos, posts,
-articles and guides themselves belong to their creators and are not copied here. If you are one of the creators,
-or you hold rights in something referenced here, and want an entry corrected or removed, get in touch as above and
-it will be handled promptly.</p>
+<p>This is an unofficial study index of public posts by Bashiri Smith and Melvin Vivas. It is not affiliated with or endorsed by them.
+It holds AI-assisted summaries and key points written in its own words, with a link to every original; the videos,
+posts, articles and guides belong to their creators and are not reproduced here. To have an entry corrected or
+removed, get in touch as described above; removal requests are normally handled within 7 days.</p>
 
 <h2>Changes</h2>
 <p>If this policy changes, the date at the top changes too.</p>
 </main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="license.html">License</a> &middot; <a href="privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
 </body>
 </html>

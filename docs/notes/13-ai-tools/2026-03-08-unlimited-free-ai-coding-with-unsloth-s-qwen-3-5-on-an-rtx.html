@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unlimited Free AI Coding with Unsloth&#x27;s Qwen 3.5 on an RTX 3090 | AI…</title>
+<meta name="description" content="The creator does unlimited, free AI coding with Unsloth&#x27;s build of Qwen 3.5 running on one RTX 3090. It shows that local coding models are practical on…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-03-08-unlimited-free-ai-coding-with-unsloth-s-qwen-3-5-on-an-rtx.html">
+<meta name="robots" content="noindex, follow">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Unlimited Free AI Coding with Unsloth&#x27;s Qwen 3.5 on an RTX 3090 | AI…">
+<meta property="og:description" content="The creator does unlimited, free AI coding with Unsloth&#x27;s build of Qwen 3.5 running on one RTX 3090. It shows that local coding models are practical on…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-03-08-unlimited-free-ai-coding-with-unsloth-s-qwen-3-5-on-an-rtx.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-03-08-unlimited-free-ai-coding-with-unsloth-s-qwen-3-5-on-an-rtx.html#note","headline":"Unlimited Free AI Coding with Unsloth's Qwen 3.5 on an RTX 3090","description":"The creator does unlimited, free AI coding with Unsloth's build of Qwen 3.5 running on one RTX 3090. It shows that local coding models are practical on consumer GPUs.","url":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-03-08-unlimited-free-ai-coding-with-unsloth-s-qwen-3-5-on-an-rtx.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"AI Dev Tools & Productivity"},{"@type":"Thing","name":"LLM Fundamentals"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2030341038972522821","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-03-08"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-03-08-unlimited-free-ai-coding-with-unsloth-s-qwen-3-5-on-an-rtx.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"AI Dev Tools & Productivity","item":"https://ralmodiel.github.io/ai-study-library/topics/ai-tools.html"},{"@type":"ListItem","position":4,"name":"Unlimited Free AI Coding with Unsloth's Qwen 3.5 on an RTX 3090"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/ai-tools.html">AI Dev Tools &amp; Productivity</a> &rsaquo; <span aria-current="page">Unlimited Free AI Coding with Unsloth&#x27;s Qwen 3.5 on an RTX 3090</span></nav><h1>Unlimited Free AI Coding with Unsloth's Qwen 3.5 on an RTX 3090</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2030341038972522821">a post by Melvin Vivas on X</a>, posted 8 March 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X post · 2026-03-08 · <a href="https://x.com/melvindvivas/status/2030341038972522821">Open on X</a></p>
+<p><strong>Topics:</strong> AI Dev Tools &amp; Productivity, LLM Fundamentals · <strong>Level:</strong> intermediate</p>
+<h2>Summary</h2>
+<p>The creator does unlimited, free AI coding with Unsloth's build of Qwen 3.5 running on one RTX 3090. It shows that local coding models are practical on consumer GPUs.</p>
+<h2>Key points</h2>
+<ul>
+<li>Unsloth publishes quantized builds of Qwen 3.5 that run on consumer GPUs.</li>
+<li>One RTX 3090 (24 GB) is enough for local AI coding.</li>
+<li>Running locally means no usage limits or API bills.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://x.com/UnslothAI">Unsloth</a></strong> · tool · x.com · free<br>
+  Open-source web UI from Unsloth for fine-tuning and running LLMs (text, vision, audio, embedding, GGUF) locally, with dataset creation from documents.<br>
+  Also in: Run Laya Decision models locally with Unsloth on 4GB RAM (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104744976089579549">X</a> · <a href="../09-llmops/2026-09-29-run-laya-decision-models-locally-with-unsloth-on-4gb-ram.html">notes</a>), Unsloth passes 500M model downloads on Hugging Face (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102849447885734173">X</a> · <a href="../16-trends/2026-09-24-unsloth-passes-500m-model-downloads-on-hugging-face.html">notes</a>), Run Qwen-Image-2.1 locally on 12GB VRAM with Unsloth GGUFs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102440958164115529">X</a> · <a href="../09-llmops/2026-09-23-run-qwen-image-2-1-locally-on-12gb-vram-with-unsloth-ggufs.html">notes</a>), Base vs fine-tuned Gemma 4 E2B as a model router (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101538253929406562">X</a> · <a href="../10-fine-tuning/2026-09-20-base-vs-fine-tuned-gemma-4-e2b-as-a-model-router.html">notes</a>) and 29 more</li>
+<li><strong><a href="https://qwen.ai/blog?id=qwen3.5">Qwen 3.5</a></strong> · tool · qwen.ai · free<br>
+  Alibaba Qwen open model family with small on-device variants and toggleable reasoning.<br>
+  Also in: Workshop AI: Building Apps with Cloud and Local Agents (GLM 5, Qwen 3.5) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2037540661747142980">X</a> · <a href="2026-03-27-workshop-ai-building-apps-with-cloud-and-local-agents-glm-5.html">notes</a>), Qwen3.5 0.8B Does Real-Time Local Video Captioning (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2037107865597731226">X</a> · <a href="../03-llm-fundamentals/2026-03-26-qwen3-5-0-8b-does-real-time-local-video-captioning.html">notes</a>), Qwen3.5 0.8B Real-Time Video Captioning on Mac Studio (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2037050598735176057">X</a> · <a href="../03-llm-fundamentals/2026-03-26-qwen3-5-0-8b-real-time-video-captioning-on-mac-studio.html">notes</a>), Qwen 3.5 Is the Local Model That Holds Up in Claude Code (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2030349085488886020">X</a> · <a href="2026-03-08-qwen-3-5-is-the-local-model-that-holds-up-in-claude-code.html">notes</a>) and 7 more</li>
+</ul><section class="more"><h2>More in AI Dev Tools &amp; Productivity</h2><ul><li><a href="2026-03-08-running-the-ltx-2-3-video-model-locally-in-comfyui-on-an.html">Running the LTX 2.3 Video Model Locally in ComfyUI on an RTX 3090</a> <span class="meta">Melvin Vivas, 2026-03-08</span></li><li><a href="2026-03-08-qwen-3-5-is-the-local-model-that-holds-up-in-claude-code.html">Qwen 3.5 Is the Local Model That Holds Up in Claude Code</a> <span class="meta">Melvin Vivas, 2026-03-08</span></li><li><a href="2026-03-08-local-qwen-3-5-adds-an-express-api-and-sqlite-to-make-an.html">Local Qwen 3.5 Adds an Express API and SQLite to Make an App Full-Stack</a> <span class="meta">Melvin Vivas, 2026-03-08</span></li><li><a href="2026-03-08-run-qwen3-5-27b-gguf-with-llama-server-for-claude-code-on.html">Run Qwen3.5-27B GGUF with llama-server for Claude Code on an RTX 3090</a> <span class="meta">Melvin Vivas, 2026-03-08</span></li><li><a href="2026-03-07-running-the-ltx-2-3-video-model-locally-on-an-rtx-3090-with.html">Running the LTX 2.3 Video Model Locally on an RTX 3090 with ComfyUI</a> <span class="meta">Melvin Vivas, 2026-03-07</span></li><li><a href="2026-03-07-gpt-5-4-now-available-in-windsurf-plus-arena-mode.html">GPT-5.4 Now Available in Windsurf (Plus Arena Mode)</a> <span class="meta">Melvin Vivas, 2026-03-07</span></li></ul><p><a href="../../topics/ai-tools.html">All of AI Dev Tools &amp; Productivity</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

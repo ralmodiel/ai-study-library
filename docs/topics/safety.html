@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Safety, Security &amp; Guardrails: free resources and study plan | AI…</title>
+<meta name="description" content="Prompt injection, red-teaming, guardrails, privacy and responsible AI. 62 summarised reels and posts and 39 linked resources (3 free to watch), from Bashiri…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/topics/safety.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="AI Safety, Security &amp; Guardrails: free resources and study plan | AI…">
+<meta property="og:description" content="Prompt injection, red-teaming, guardrails, privacy and responsible AI. 62 summarised reels and posts and 39 linked resources (3 free to watch), from Bashiri…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/topics/safety.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://ralmodiel.github.io/ai-study-library/topics/safety.html","name":"AI Safety, Security & Guardrails","url":"https://ralmodiel.github.io/ai-study-library/topics/safety.html","description":"Prompt injection, red-teaming, guardrails, privacy and responsible AI.","about":{"@type":"Thing","name":"AI Safety, Security & Guardrails"},"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"inLanguage":"en"},{"@type":"WebSite","@id":"https://ralmodiel.github.io/ai-study-library/#website","name":"AI Engineer Study Library","url":"https://ralmodiel.github.io/ai-study-library/","inLanguage":"en","publisher":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"}},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"AI Safety, Security & Guardrails"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../learning-path.html">Learning path</a><a href="../free-watch-list.html">Free to watch</a><a href="../resources.html">All resources</a><a href="../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../">Library</a> &rsaquo; <a href="../learning-path.html">Learning path</a> &rsaquo; <span aria-current="page">AI Safety, Security &amp; Guardrails</span></nav><p class="step">Topic 11 of 16 in the <a href="../learning-path.html">learning path</a></p><h1>AI Safety, Security &amp; Guardrails</h1>
+<p><em>Prompt injection, red-teaming, guardrails, privacy and responsible AI.</em></p>
+<p><strong>Reels and posts (28)</strong></p>
+<ul>
+<li><a href="../notes/11-safety/2026-09-12-abliterated-local-models-from-dealignai-on-hugging-face.html">Abliterated Local Models from DealignAI on Hugging Face</a> · Melvin Vivas, X: The creator points to DealignAI's Hugging Face page, which has many abliterated models you can run locally.</li>
+<li><a href="../notes/11-safety/2026-09-09-run-an-abliterated-qwen3-8-27b-gguf-locally-with-llama.html">Run an abliterated Qwen3.8-27B GGUF locally with llama-server</a> · Melvin Vivas, X: The creator shares an uncensored (abliterated) GGUF build of Qwen3.8-27B on Hugging Face and says to use it only for education or red teaming.</li>
+<li><a href="../notes/11-safety/2026-09-04-abliteration-ai-hosted-abliterated-uncensored-models.html">Abliteration.ai: Hosted Abliterated (Uncensored) Models</a> · Melvin Vivas, X: The creator points to Abliteration.ai, which hosts 'abliterated' models if you need them.</li>
+<li><a href="../notes/11-safety/2026-09-02-openai-astra-more-capable-cyber-model-than-sol.html">OpenAI Astra: More Capable Cyber Model Than Sol</a> · Melvin Vivas, X: The creator says OpenAI's Astra is far ahead of Sol.</li>
+<li><a href="../notes/11-safety/2026-08-26-teaching-teens-ai-safety-chatgpt-for-teens-in-singapore.html">Teaching Teens AI Safety: ChatGPT for Teens in Singapore</a> · Melvin Vivas, X: The creator, who sits on a parent support group committee at a Singapore secondary school, asks for an OpenAI contact in Singapore to run a student talk on AI safety and awareness.</li>
+<li><a href="../notes/11-safety/2026-08-25-screening-llm-prompts-and-responses-on-cpu-with-aibackends.html">Screening LLM Prompts and Responses on CPU with AIBackends + GliGuard</a> · Melvin Vivas, X: AIBackends v0.5.0, the creator's open-source Python library, adds support for Fastino's GliGuard 300M, a small guardrail model that runs on CPU.</li>
+<li><a href="../notes/11-safety/2026-08-19-codex-safeguards-against-accidental-destructive-actions.html">Codex safeguards against accidental destructive actions</a> · Melvin Vivas, X: The creator shares an update from Tibo at OpenAI about changes that lower the risk of Codex doing destructive things, like accidental deletions, while it works.</li>
+<li><a href="../notes/11-safety/2026-08-14-liquid-ai-s-multilingual-pii-detection-works-on-japanese.html">Liquid AI's Multilingual PII Detection Works on Japanese</a> · Melvin Vivas, X · 0:12: A short X post with a 12-second video and no speech.</li>
+<li><a href="../notes/11-safety/2026-08-06-use-a-local-model-for-confidential-data-with-your-agent.html">Use a Local Model for Confidential Data with Your Agent</a> · Melvin Vivas, X: If you give your Hermes agent confidential data such as bank statements, switch it to a local model so the data stays on your machine.</li>
+<li><a href="../notes/11-safety/2026-07-30-don-t-let-coding-agents-run-database-migrations-unsupervised.html">Don't Let Coding Agents Run Database Migrations Unsupervised</a> · Melvin Vivas, X: A warning against letting an AI agent run Prisma migrations automatically, because it can break your database.</li>
+<li><a href="../notes/11-safety/2026-07-23-forbes-did-chinese-open-ai-save-hugging-face-after-the.html">Forbes: Did Chinese Open AI Save Hugging Face After the OpenAI Hack?</a> · Melvin Vivas, X: This post links a Forbes article (July 22, 2026) about the Hugging Face cyberattack incident involving an OpenAI model.</li>
+<li><a href="../notes/11-safety/2026-07-17-openai-on-why-teens-deserve-access-to-safe-ai.html">OpenAI on Why Teens Deserve Access to Safe AI</a> · Melvin Vivas, X: The creator shares and supports OpenAI's article 'Why teens deserve access to safe AI', about giving teenagers access to AI with safety protections.</li>
+<li><a href="../notes/11-safety/2026-07-16-codex-file-deletions-why-sandboxing-matters-for-coding.html">Codex file deletions: why sandboxing matters for coding agents</a> · Melvin Vivas, X: Shares OpenAI's root-cause finding on reports that GPT-5.6 in Codex unexpectedly deleted files.</li>
+<li><a href="../notes/11-safety/2026-07-14-keep-production-env-files-out-of-your-coding-agent-workspace.html">Keep Production .env Files Out of Your Coding-Agent Workspace</a> · Melvin Vivas, X: Melvin reacts to a report that GPT-5.6 Sol deleted a user's production database.</li>
+<li><a href="../notes/11-safety/2026-07-14-switching-agent-backends-over-zero-data-retention-zdr.html">Switching Agent Backends Over Zero Data Retention (ZDR) Concerns</a> · Melvin Vivas, X: The creator moved his Hermes agent from Grok (via OAuth) to Codex.</li>
+<li><a href="../notes/11-safety/2026-07-14-grok-build-uploaded-whole-codebases-privacy-fix-and-privacy.html">Grok Build uploaded whole codebases: privacy fix and /privacy</a> · Melvin Vivas, X: The creator quotes an xAI response about Grok Build's coding CLI.</li>
+<li><a href="../notes/11-safety/2026-07-14-turn-off-grok-build-s-default-data-sharing-with-privacy.html">Turn off Grok Build's default data sharing with /privacy</a> · Melvin Vivas, X: A quick warning that Grok Build shares your data by default.</li>
+<li><a href="../notes/11-safety/2026-07-11-coding-agent-risk-gpt-5-6-sol-deleted-a-mac-user-directory.html">Coding Agent Risk: GPT 5.6 Sol Deleted a Mac User Directory</a> · Melvin Vivas, X: Melvin Vivas shares Matt Shumer's report that GPT-5.6-Sol, running as a coding agent in Codex, accidentally deleted almost all the files on his Mac.</li>
+<li><a href="../notes/11-safety/2026-06-20-dario-amodei-s-essay-the-adolescence-of-technology.html">Dario Amodei's Essay 'The Adolescence of Technology'</a> · Melvin Vivas, X: The creator shares Anthropic CEO Dario Amodei's essay 'The Adolescence of Technology', subtitled 'Confronting and Overcoming the Risks of Powerful AI'.</li>
+<li><a href="../notes/11-safety/2026-06-19-devin-security-review-from-cognition.html">Devin Security Review from Cognition</a> · Melvin Vivas, X: The creator points to Cognition's announcement of Devin Security Review, an AI-assisted security review feature.</li>
+<li><a href="../notes/11-safety/2026-04-29-local-pii-redaction-on-cpu-with-the-aibackends-python.html">Local PII Redaction on CPU with the AIBackends Python Package</a> · Melvin Vivas, X · 0:14: A 14-second X post from Melvin Vivas showing AIBackends, a Python package for removing personally identifiable information (PII) from text.</li>
+<li><a href="../notes/11-safety/2026-04-23-openai-privacy-filter-an-open-weights-pii-detection-model.html">OpenAI Privacy Filter: An Open-Weights PII Detection Model</a> · Melvin Vivas, X: OpenAI released Privacy Filter, an open-weights model for detecting personally identifiable information (PII).</li>
+<li><a href="../notes/11-safety/2026-04-23-openai-privacy-filter-for-local-pii-detection-and-redaction.html">OpenAI Privacy Filter for Local PII Detection and Redaction</a> · Melvin Vivas, X: OpenAI released Privacy Filter, a small open-weight model that detects and redacts personally identifiable information (PII).</li>
+<li><a href="../notes/11-safety/2026-04-22-keep-a-human-in-the-loop-question-and-steer-ai-output.html">Keep a human in the loop: question and steer AI output</a> · Melvin Vivas, X: Advice to slow down and review AI output carefully instead of accepting it as-is.</li>
+<li><a href="../notes/11-safety/2026-04-15-detect-pii-and-phi-with-nvidia-s-gliner-pii-model.html">Detect PII and PHI with NVIDIA's GLiNER-PII Model</a> · Melvin Vivas, X: Melvin shares NVIDIA's GLiNER-PII model on Hugging Face.</li>
+<li><a href="../notes/11-safety/2026-04-08-claude-mythos-model-card-anthropic-s-limited-preview-for.html">Claude Mythos Model Card: Anthropic's Limited Preview for Cyber Defenders</a> · Melvin Vivas, X: Shares the model card for Claude Mythos, Anthropic's new frontier model.</li>
+<li><a href="../notes/11-safety/2026-03-07-cautionary-tale-claude-code-wiped-a-production-database-via.html">Cautionary Tale: Claude Code Wiped a Production Database via Terraform</a> · Melvin Vivas, X: A quoted post from DataTalksClub reports that Claude Code ran a Terraform command that deleted their production database.</li>
+<li><a href="../notes/11-safety/2026-03-02-x-paid-partnerships-policy-and-ai-content-disclosure.html">X Paid Partnerships Policy and AI-Content Disclosure</a> · Melvin Vivas, X: The creator points to X's paid partnerships policy, which goes with X's new option to label posts as paid partnerships or made with AI.</li>
+</ul>
+<p><strong>Watch, free (1)</strong></p>
+<ul>
+<li><strong><a href="https://x.com/DonvitoAI/status/2049604820848595190">DonvitoAI post on X (AIBackends PII redaction demo)</a></strong> · video · x.com · free<br>
+  The original X post with the short video demo of AIBackends redacting PII locally.<br>
+  Mentioned in: Local PII Redaction on CPU with the AIBackends Python Package (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2049604820848595190">X</a> · <a href="../notes/11-safety/2026-04-29-local-pii-redaction-on-cpu-with-the-aibackends-python.html">notes</a>)</li>
+</ul>
+<p><strong>Read and use (25)</strong></p>
+<ul>
+<li><strong><a href="https://www.docker.com/products/docker-sandboxes/">Docker Sandboxes</a></strong> · tool · docker.com · free<br>
+  Local microVM-isolated sandboxes for safely running AI coding agents on your laptop.<br>
+  Mentioned in: Docker Sandboxes for Running Coding Agents Locally (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105612765323055169">X</a> · <a href="../notes/07-agents/2026-10-01-docker-sandboxes-for-running-coding-agents-locally.html">notes</a>), Docker Cloud Sandboxes: Run AI Agents in Local or Cloud microVMs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103310977878073835">X</a> · <a href="../notes/07-agents/2026-09-25-docker-cloud-sandboxes-run-ai-agents-in-local-or-cloud.html">notes</a>), Docker Sandboxes (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2093363509405044767">X</a> · <a href="../notes/13-ai-tools/2026-08-28-docker-sandboxes.html">notes</a>), Docker Sandboxes Include an Interactive Dashboard (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2093337808656339425">X</a> · <a href="../notes/13-ai-tools/2026-08-28-docker-sandboxes-include-an-interactive-dashboard.html">notes</a>) and 2 more</li>
+<li><strong><a href="https://learn.chatgpt.com/docs/security">Codex Security Cloud</a></strong> · tool · learn.chatgpt.com · paid<br>
+  A new Codex product that runs in cloud environments and helps defenders harden their infrastructure.<br>
+  Mentioned in: OpenAI DevDay 2026 Recap: Dots, Agents API, Codex Cloud &amp; Marketplace (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105173002740695356">X</a> · <a href="../notes/16-trends/2026-09-30-openai-devday-2026-recap-dots-agents-api-codex-cloud.html">notes</a>), OpenAI DevDay recap: Dots, GPT-6.1 Sol, Codex Cloud, Agents API (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105018489794879836">X</a> · <a href="../notes/16-trends/2026-09-30-openai-devday-recap-dots-gpt-6-1-sol-codex-cloud-agents-api.html">notes</a>), OpenAI DevDay 2026 Replay: Timestamped Guide to the Announcements (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105015301180182833">X</a> · <a href="../notes/16-trends/2026-09-30-openai-devday-2026-replay-timestamped-guide-to-the.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/nvidia/gliner-PII">GLiNER-PII</a></strong> · tool · huggingface.co · free<br>
+  NVIDIA's GLiNER-based model that finds personal data (PII) in text, so it can be redacted locally.<br>
+  Mentioned in: aibackends 0.3.0: Model Caching Speeds Up PII and OCR Inference (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2078472621386248356">X</a> · <a href="../notes/09-llmops/2026-07-18-aibackends-0-3-0-model-caching-speeds-up-pii-and-ocr.html">notes</a>), Running AI Locally: Rebuilding AIBackends as a Python Library with Open Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2048445624148992148">X</a> · <a href="../notes/09-llmops/2026-04-26-running-ai-locally-rebuilding-aibackends-as-a-python.html">notes</a>), Detect PII and PHI with NVIDIA's GLiNER-PII Model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2044428898763764219">X</a> · <a href="../notes/11-safety/2026-04-15-detect-pii-and-phi-with-nvidia-s-gliner-pii-model.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/fastino/gliguard-LLMGuardrails-300M">GliGuard 300M</a></strong> · tool · huggingface.co · free<br>
+  Fastino Labs' small guardrail model that runs on CPU and classifies prompts and responses for safety, toxicity, jailbreaks and refusals.<br>
+  Mentioned in: Free Colab Notebooks: ModernBERT, Gemma QLoRA, GLiNER &amp; Guardrails (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101342034481312250">X</a> · <a href="../notes/10-fine-tuning/2026-09-20-free-colab-notebooks-modernbert-gemma-qlora-gliner.html">notes</a>), Screening LLM Prompts and Responses on CPU with AIBackends + GliGuard (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2091958588193603624">X</a> · <a href="../notes/11-safety/2026-08-25-screening-llm-prompts-and-responses-on-cpu-with-aibackends.html">notes</a>)</li>
+<li><strong><a href="https://openai.com/index/introducing-openai-privacy-filter/">OpenAI Privacy Filter</a></strong> · tool · openai.com · free<br>
+  Small open-weight OpenAI model for context-aware PII detection and redaction.<br>
+  Mentioned in: OpenAI Privacy Filter: An Open-Weights PII Detection Model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2046985434522390539">X</a> · <a href="../notes/11-safety/2026-04-23-openai-privacy-filter-an-open-weights-pii-detection-model.html">notes</a>), OpenAI Privacy Filter for Local PII Detection and Redaction (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2046984234016149885">X</a> · <a href="../notes/11-safety/2026-04-23-openai-privacy-filter-for-local-pii-detection-and-redaction.html">notes</a>)</li>
+<li><strong><a href="https://x.com/abliteration_ai">Abliteration.ai</a></strong> · tool · x.com · check price<br>
+  Service that hosts abliterated (refusal-removed) language models.<br>
+  Mentioned in: Abliteration.ai: Hosted Abliterated (Uncensored) Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2095860880110166457">X</a> · <a href="../notes/11-safety/2026-09-04-abliteration-ai-hosted-abliterated-uncensored-models.html">notes</a>)</li>
+<li><strong><a href="https://www.aisafetybook.com/">AI Safety, Ethics, and Society Textbook (AI Safety Book)</a></strong> · book · aisafetybook.com · free<br>
+  Free online textbook covering the concepts of AI safety, ethics and societal impact.<br>
+  Mentioned in: Two Free Resources to Learn AI Engineering: AI Engineering Hub &amp; AI Safety Book (Bashiri Smith on <a href="https://www.facebook.com/reel/2506160296564290">Facebook</a> · <a href="../notes/01-roadmap/2026-08-21-two-free-resources-to-learn-ai-engineering-ai-engineering.html">notes</a>)</li>
+<li><strong><a href="https://pypi.org/project/aibackends/0.5.0/">aibackends 0.5.0 on PyPI</a></strong> · docs · pypi.org · free<br>
+  The PyPI package page for aibackends version 0.5.0.<br>
+  Mentioned in: Screening LLM Prompts and Responses on CPU with AIBackends + GliGuard (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2091958588193603624">X</a> · <a href="../notes/11-safety/2026-08-25-screening-llm-prompts-and-responses-on-cpu-with-aibackends.html">notes</a>)</li>
+<li><strong><a href="https://www-cdn.anthropic.com/53566bf5440a10affd749724787c8913a2ae0841.pdf">Claude Mythos Model Card</a></strong> · pdf · www-cdn.anthropic.com · free<br>
+  Anthropic's official model card for Claude Mythos, covering its capabilities, evaluations and safety approach.<br>
+  Mentioned in: Claude Mythos Model Card: Anthropic's Limited Preview for Cyber Defenders (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2041699399475351875">X</a> · <a href="../notes/11-safety/2026-04-08-claude-mythos-model-card-anthropic-s-limited-preview-for.html">notes</a>)</li>
+<li><strong><a href="https://x.com/DarioAmodei">Dario Amodei (@DarioAmodei) on X</a></strong> · person · x.com · free<br>
+  Anthropic CEO who writes about AI safety and the future of AI.<br>
+  Mentioned in: Dario Amodei's Essay 'The Adolescence of Technology' (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2068232049740378390">X</a> · <a href="../notes/11-safety/2026-06-20-dario-amodei-s-essay-the-adolescence-of-technology.html">notes</a>)</li>
+<li><strong><a href="https://darioamodei.com/essay/the-adolescence-of-technology">Dario Amodei — The Adolescence of Technology</a></strong> · article · darioamodei.com · free<br>
+  Dario Amodei's essay on confronting and overcoming the risks of powerful AI.<br>
+  Mentioned in: Dario Amodei's Essay 'The Adolescence of Technology' (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2068232049740378390">X</a> · <a href="../notes/11-safety/2026-06-20-dario-amodei-s-essay-the-adolescence-of-technology.html">notes</a>)</li>
+<li><strong><a href="https://x.com/cognition/status/2067649690921820212">Devin Security Review (Cognition announcement)</a></strong> · article · x.com · free · open in a browser to verify<br>
+  Cognition's X post announcing Devin Security Review; the link now returns a 404 error.<br>
+  Mentioned in: Devin Security Review from Cognition (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2067676053653651641">X</a> · <a href="../notes/11-safety/2026-06-19-devin-security-review-from-cognition.html">notes</a>)</li>
+<li><strong><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng">EU AI Act</a></strong> · pdf · eur-lex.europa.eu · free<br>
+  The European Union's law regulating AI systems by risk level.<br>
+  Mentioned in: 17-Step AI Engineer Roadmap: From Basic RAG to Agents, Evals, LLMOps &amp; Governance (Bashiri Smith on <a href="https://www.facebook.com/reel/1137452818806022">Facebook</a> · <a href="../notes/01-roadmap/2026-08-22-17-step-ai-engineer-roadmap-from-basic-rag-to-agents-evals.html">notes</a>)</li>
+<li><strong><a href="https://colab.research.google.com/github/donvito/aibackends/blob/main/examples/notebooks/gliguard_moderation_colab.ipynb">GliGuard Moderation Colab Notebook</a></strong> · pdf · colab.research.google.com · free<br>
+  A Google Colab notebook showing GliGuard moderation of prompts and responses with AIBackends.<br>
+  Mentioned in: Screening LLM Prompts and Responses on CPU with AIBackends + GliGuard (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2091958588193603624">X</a> · <a href="../notes/11-safety/2026-08-25-screening-llm-prompts-and-responses-on-cpu-with-aibackends.html">notes</a>)</li>
+<li><strong><a href="https://github.com/guardrails-ai/guardrails">Guardrails AI</a></strong> · tool · github.com · free<br>
+  Listed under guardrails tools for enforcing quality and safety on every request at runtime.<br>
+  In a shared PDF: <a href="https://drive.google.com/file/d/1BQwIzI5tWC4Rd6jmloCQMueQnwAYuM1M/view?usp=sharing">Evaluation Field Guide (baswe.ai engineer accelerator – Ops and Evaluation module)</a> - shared in <a href="https://www.facebook.com/reel/2589891101436330">this reel on Facebook</a>, <a href="https://www.facebook.com/reel/1752298882486280">this reel on Facebook</a></li>
+<li><strong><a href="https://huggingface.co/huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF">huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF</a></strong> · other · huggingface.co · free<br>
+  An abliterated (uncensored) GGUF build of Qwen3.8-27B on Hugging Face that runs locally with llama.cpp.<br>
+  Mentioned in: Run an abliterated Qwen3.8-27B GGUF locally with llama-server (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2097667937624871381">X</a> · <a href="../notes/11-safety/2026-09-09-run-an-abliterated-qwen3-8-27b-gguf-locally-with-llama.html">notes</a>)</li>
+<li><strong><a href="https://openai.com/index/chatgpt-for-teens/">Introducing ChatGPT for Teens: Built for learning, backed by protections</a></strong> · article · openai.com · free<br>
+  OpenAI's announcement of a teen-focused ChatGPT with safety protections for learning.<br>
+  Mentioned in: Teaching Teens AI Safety: ChatGPT for Teens in Singapore (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2092594969408393322">X</a> · <a href="../notes/11-safety/2026-08-26-teaching-teens-ai-safety-chatgpt-for-teens-in-singapore.html">notes</a>)</li>
+<li><strong><a href="https://lawzero.org/en/research">LawZero Scientist AI</a></strong> · other · lawzero.org · free · open in a browser to verify<br>
+  AI safety research on 'Scientist AI' from LawZero, the organization led by Yoshua Bengio.<br>
+  Mentioned in: AI News Roundup: Claude Fable 5, Scientist AI, ZCode, NVIDIA RL (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2072785831606304801">X</a> · <a href="../notes/16-trends/2026-07-03-ai-news-roundup-claude-fable-5-scientist-ai-zcode-nvidia-rl.html">notes</a>)</li>
+<li><strong><a href="https://github.com/NVIDIA-NeMo/Guardrails">NeMo Guardrails</a></strong> · tool · github.com · free<br>
+  Listed under guardrails tools for enforcing quality and safety on every request at runtime.<br>
+  In a shared PDF: <a href="https://drive.google.com/file/d/1BQwIzI5tWC4Rd6jmloCQMueQnwAYuM1M/view?usp=sharing">Evaluation Field Guide (baswe.ai engineer accelerator – Ops and Evaluation module)</a> - shared in <a href="https://www.facebook.com/reel/2589891101436330">this reel on Facebook</a>, <a href="https://www.facebook.com/reel/1752298882486280">this reel on Facebook</a></li>
+<li><strong><a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI Risk Management Framework (AI RMF)</a></strong> · pdf · nist.gov · free<br>
+  US NIST framework for identifying and managing risks of AI systems.<br>
+  Mentioned in: 17-Step AI Engineer Roadmap: From Basic RAG to Agents, Evals, LLMOps &amp; Governance (Bashiri Smith on <a href="https://www.facebook.com/reel/1137452818806022">Facebook</a> · <a href="../notes/01-roadmap/2026-08-22-17-step-ai-engineer-roadmap-from-basic-rag-to-agents-evals.html">notes</a>)</li>
+<li><strong><a href="https://openai.com/index/path-to-astra/">OpenAI Astra</a></strong> · tool · openai.com · paid<br>
+  Upcoming OpenAI model with advanced cybersecurity capabilities.<br>
+  Mentioned in: OpenAI Astra: More Capable Cyber Model Than Sol (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2095021594007703708">X</a> · <a href="../notes/11-safety/2026-09-02-openai-astra-more-capable-cyber-model-than-sol.html">notes</a>)</li>
+<li><strong><a href="https://openai.com/form/private-intelligence-interest/">OpenAI private intelligence</a></strong> · tool · openai.com · paid<br>
+  An OpenAI offering, in preview, for stronger data controls, with zero data retention (ZDR) and private safety processing.<br>
+  Mentioned in: OpenAI DevDay 2026 Recap: Dots, Agents API, Codex Cloud &amp; Marketplace (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105173002740695356">X</a> · <a href="../notes/16-trends/2026-09-30-openai-devday-2026-recap-dots-agents-api-codex-cloud.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/spaces/narasimha-m/pii-guardian">PII Guardian (Hugging Face Space)</a></strong> · website · huggingface.co · free<br>
+  A Hugging Face Space where you can try the GLiNER-PII model in your browser.<br>
+  Mentioned in: Detect PII and PHI with NVIDIA's GLiNER-PII Model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2044428898763764219">X</a> · <a href="../notes/11-safety/2026-04-15-detect-pii-and-phi-with-nvidia-s-gliner-pii-model.html">notes</a>)</li>
+<li><strong><a href="https://openai.com/index/why-teens-deserve-access-safe-ai/">Why teens deserve access to safe AI</a></strong> · article · openai.com · free<br>
+  OpenAI's article on giving teenagers access to AI with safety protections.<br>
+  Mentioned in: OpenAI on Why Teens Deserve Access to Safe AI (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2078093171855401255">X</a> · <a href="../notes/11-safety/2026-07-17-openai-on-why-teens-deserve-access-to-safe-ai.html">notes</a>)</li>
+<li><strong><a href="https://help.x.com/en/rules-and-policies/paid-partnerships-policy">X Paid Partnerships Policy</a></strong> · docs · help.x.com · free · open in a browser to verify<br>
+  X's official rules for disclosing paid partnerships, with country-specific requirements.<br>
+  Mentioned in: X Paid Partnerships Policy and AI-Content Disclosure (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2028183178444485062">X</a> · <a href="../notes/11-safety/2026-03-02-x-paid-partnerships-policy-and-ai-content-disclosure.html">notes</a>)</li>
+</ul>
+<p><strong>Build</strong></p>
+<ul>
+<li>Use the abliterated model for local red-teaming experiments and compare its refusals with the original Qwen model. (from <a href="../notes/11-safety/2026-09-09-run-an-abliterated-qwen3-8-27b-gguf-locally-with-llama.html">Run an abliterated Qwen3.8-27B GGUF locally with llama-server</a>)</li>
+<li>Add a CPU-based guardrail step that screens user prompts and model responses in your LLM app (from <a href="../notes/11-safety/2026-08-25-screening-llm-prompts-and-responses-on-cpu-with-aibackends.html">Screening LLM Prompts and Responses on CPU with AIBackends + GliGuard</a>)</li>
+<li>Add a local PII-redaction step with AIBackends ahead of an LLM chatbot or RAG ingestion pipeline, so personal data never reaches the model or the logs. (from <a href="../notes/11-safety/2026-04-29-local-pii-redaction-on-cpu-with-the-aibackends-python.html">Local PII Redaction on CPU with the AIBackends Python Package</a>)</li>
+<li>Add a local PII-redaction step with Privacy Filter before sending user data to an LLM. (from <a href="../notes/11-safety/2026-04-23-openai-privacy-filter-for-local-pii-detection-and-redaction.html">OpenAI Privacy Filter for Local PII Detection and Redaction</a>)</li>
+<li>Build a PII/PHI redaction guardrail that cleans user input before it reaches an LLM. (from <a href="../notes/11-safety/2026-04-15-detect-pii-and-phi-with-nvidia-s-gliner-pii-model.html">Detect PII and PHI with NVIDIA's GLiNER-PII Model</a>)</li>
+</ul><nav class="pager" aria-label="Topics"><a rel="prev" href="fine-tuning.html">&larr; Fine-tuning &amp; Model Customization</a><a rel="next" href="system-design.html">AI System Design &amp; Architecture &rarr;</a></nav>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../license.html">License</a> &middot; <a href="../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

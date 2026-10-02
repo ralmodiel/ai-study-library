@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>First Look at Grok Build CLI: Closer to opencode than Claude Code |…</title>
+<meta name="description" content="First impressions of xAI&#x27;s Grok Build CLI coding agent. Melvin says it feels more like opencode than Claude Code or Codex. Paired with Cursor&#x27;s Composer 2.5…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-06-23-first-look-at-grok-build-cli-closer-to-opencode-than-claude.html">
+<meta name="robots" content="noindex, follow">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="First Look at Grok Build CLI: Closer to opencode than Claude Code |…">
+<meta property="og:description" content="First impressions of xAI&#x27;s Grok Build CLI coding agent. Melvin says it feels more like opencode than Claude Code or Codex. Paired with Cursor&#x27;s Composer 2.5…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-06-23-first-look-at-grok-build-cli-closer-to-opencode-than-claude.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-06-23-first-look-at-grok-build-cli-closer-to-opencode-than-claude.html#note","headline":"First Look at Grok Build CLI: Closer to opencode than Claude Code","description":"First impressions of xAI's Grok Build CLI coding agent. Melvin says it feels more like opencode than Claude Code or Codex. Paired with Cursor's Composer 2.5 model, it gave pretty decent output.","url":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-06-23-first-look-at-grok-build-cli-closer-to-opencode-than-claude.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"AI Dev Tools & Productivity"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2069145764815880228","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-06-23"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-06-23-first-look-at-grok-build-cli-closer-to-opencode-than-claude.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"AI Dev Tools & Productivity","item":"https://ralmodiel.github.io/ai-study-library/topics/ai-tools.html"},{"@type":"ListItem","position":4,"name":"First Look at Grok Build CLI: Closer to opencode than Claude Code"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/ai-tools.html">AI Dev Tools &amp; Productivity</a> &rsaquo; <span aria-current="page">First Look at Grok Build CLI: Closer to opencode than Claude Code</span></nav><h1>First Look at Grok Build CLI: Closer to opencode than Claude Code</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2069145764815880228">a post by Melvin Vivas on X</a>, posted 23 June 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X post · 2026-06-23 · <a href="https://x.com/melvindvivas/status/2069145764815880228">Open on X</a></p>
+<p><strong>Topics:</strong> AI Dev Tools &amp; Productivity · <strong>Level:</strong> beginner</p>
+<h2>Summary</h2>
+<p>First impressions of xAI's Grok Build CLI coding agent. Melvin says it feels more like opencode than Claude Code or Codex. Paired with Cursor's Composer 2.5 model, it gave pretty decent output.</p>
+<h2>Key points</h2>
+<ul>
+<li>Grok Build CLI is a terminal coding agent.</li>
+<li>Its interface and feel are closer to opencode than to Claude Code or OpenAI Codex.</li>
+<li>You can run it with Cursor's Composer 2.5 model, which gave decent results.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://x.ai/build">Grok Build</a></strong> · tool · x.ai · free<br>
+  xAI's agentic coding CLI; data sharing is on by default and can be turned off with /privacy.<br>
+  Also in: Setting up Grok Bot for coding with Grok Build and Cursor CLI (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2095164316286947349">X</a> · <a href="2026-09-02-setting-up-grok-bot-for-coding-with-grok-build-and-cursor.html">notes</a>), Reusable GPU devbox: PyTorch/CUDA plus six coding agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2095138320481390772">X</a> · <a href="2026-09-02-reusable-gpu-devbox-pytorch-cuda-plus-six-coding-agents.html">notes</a>), Handing off an unfinished Codex session to Grok Build (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2088975804789375279">X</a> · <a href="2026-08-16-handing-off-an-unfinished-codex-session-to-grok-build.html">notes</a>), Grok Build finishes a task Codex left hanging (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2088971452880163221">X</a> · <a href="2026-08-16-grok-build-finishes-a-task-codex-left-hanging.html">notes</a>) and 10 more</li>
+<li><strong><a href="https://x.com/opencode">OpenCode</a></strong> · tool · x.com · free<br>
+  Open-source terminal coding agent that can be configured with different model providers, including open models.<br>
+  Also in: T3Code: a better interface for terminal coding agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099695364345639176">X</a> · <a href="2026-09-15-t3code-a-better-interface-for-terminal-coding-agents.html">notes</a>), OpenCode Go: Open Coding Models (DeepSeek, Qwen, Kimi, GLM) for $10/mo (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099099181327814984">X</a> · <a href="2026-09-13-opencode-go-open-coding-models-deepseek-qwen-kimi-glm-for.html">notes</a>), Trying OpenCode Go After Upgrading OpenCode (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098595863111332145">X</a> · <a href="2026-09-12-trying-opencode-go-after-upgrading-opencode.html">notes</a>), Orchestrator + Subagents in opencode with Open Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098410568680177970">X</a> · <a href="../07-agents/2026-09-11-orchestrator-subagents-in-opencode-with-open-models.html">notes</a>) and 10 more</li>
+<li><strong><a href="https://github.com/anthropics/claude-code">Claude Code</a></strong> · tool · github.com · paid · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Anthropic's agentic coding tool that edits files and runs commands in your terminal; it now has an 'auto mode' for permission decisions.<br>
+  Also in: Create Claude Code Plugins with /plugin-authoring (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105911321875411254">X</a> · <a href="2026-10-02-create-claude-code-plugins-with-plugin-authoring.html">notes</a>), Claude Code mods: customize behavior and UI with plugins (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105872553818611759">X</a> · <a href="2026-10-02-claude-code-mods-customize-behavior-and-ui-with-plugins.html">notes</a>), SkillsBento: Free Plugin Marketplace for Codex and Claude Code (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105560043395707354">X</a> · <a href="2026-10-01-skillsbento-free-plugin-marketplace-for-codex-and-claude.html">notes</a>), Countering AI Sycophancy with a Devil's Advocate Plugin for Codex &amp; Claude (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105534628715270332">X</a> · <a href="2026-10-01-countering-ai-sycophancy-with-a-devil-s-advocate-plugin-for.html">notes</a>) and 100 more</li>
+<li><strong><a href="https://openai.com/codex">OpenAI Codex</a></strong> · tool · openai.com · paid<br>
+  OpenAI's coding agent. In the diagram it writes code, fixes review findings and drives the build loop. The creator also used it to make this video.<br>
+  Also in: An agent bot that installs and drives Codex on its own (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105963336097837160">X</a> · <a href="../07-agents/2026-10-02-an-agent-bot-that-installs-and-drives-codex-on-its-own.html">notes</a>), Asking a Coder bot to install Codex (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105961766471754199">X</a> · <a href="../07-agents/2026-10-02-asking-a-coder-bot-to-install-codex.html">notes</a>), Sign in with ChatGPT: Setting Usage Limits for Each App (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105933855802929153">X</a> · <a href="2026-10-02-sign-in-with-chatgpt-setting-usage-limits-for-each-app.html">notes</a>), Codex Cloud Environments Must Be Saved &amp; Published Before Use (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105908190697472042">X</a> · <a href="2026-10-02-codex-cloud-environments-must-be-saved-published-before-use.html">notes</a>) and 240 more</li>
+<li><strong><a href="https://cursor.com/docs/models/cursor-composer-2-5">Composer 2.5</a></strong> · tool · cursor.com · paid<br>
+  Cursor's in-house coding model, focused on speed and low cost.<br>
+  Also in: One-Shot CRM App with Grok Build + Composer 2.5 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2069141295784923206">X</a> · <a href="2026-06-23-one-shot-crm-app-with-grok-build-composer-2-5.html">notes</a>), Sharing Canvases and Design Mode Edits in Cursor (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2059886717679874095">X</a> · <a href="2026-05-28-sharing-canvases-and-design-mode-edits-in-cursor.html">notes</a>), Composer 2.5 as the Default Coding Model in Cursor (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2056633730996060252">X</a> · <a href="2026-05-19-composer-2-5-as-the-default-coding-model-in-cursor.html">notes</a>), Cursor Launches Composer 2.5 with Doubled Usage for a Week (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2056419184574341459">X</a> · <a href="../16-trends/2026-05-19-cursor-launches-composer-2-5-with-doubled-usage-for-a-week.html">notes</a>) and 1 more</li>
+</ul><section class="more"><h2>More in AI Dev Tools &amp; Productivity</h2><ul><li><a href="2026-06-23-using-claude-cowork-for-brainstorming-planning-and-documents.html">Using Claude Cowork for Brainstorming, Planning and Documents</a> <span class="meta">Melvin Vivas, 2026-06-23</span></li><li><a href="2026-06-23-reviewing-cursor-agent-work-on-ios-with-video-recordings.html">Reviewing Cursor Agent Work on iOS with Video Recordings and Screenshots</a> <span class="meta">Melvin Vivas, 2026-06-23</span></li><li><a href="2026-06-23-open-source-markdown-editor-with-local-and-api-ai-editing.html">Open-Source Markdown Editor with Local and API AI Editing</a> <span class="meta">Melvin Vivas, 2026-06-23</span></li><li><a href="2026-06-23-grok-build-cli-managing-background-tasks-with-the-mouse.html">Grok Build CLI: Managing Background Tasks with the Mouse</a> <span class="meta">Melvin Vivas, 2026-06-23</span></li><li><a href="2026-06-23-one-shot-crm-app-with-grok-build-composer-2-5.html">One-Shot CRM App with Grok Build + Composer 2.5</a> <span class="meta">Melvin Vivas, 2026-06-23</span></li><li><a href="2026-06-23-devin-by-cognition-now-has-a-20-month-plan.html">Devin by Cognition now has a $20/month plan</a> <span class="meta">Melvin Vivas, 2026-06-23</span></li></ul><p><a href="../../topics/ai-tools.html">All of AI Dev Tools &amp; Productivity</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grok Bot Templates: How to Share, Publish, Install and Check Bot…</title>
+<meta name="description" content="This walkthrough explains Templates in Grok Bot. A template is a blueprint that another user&#x27;s bot uses to rebuild its own copy of your bot. It is not an…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-08-29-grok-bot-templates-how-to-share-publish-install-and-check.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Grok Bot Templates: How to Share, Publish, Install and Check Bot…">
+<meta property="og:description" content="This walkthrough explains Templates in Grok Bot. A template is a blueprint that another user&#x27;s bot uses to rebuild its own copy of your bot. It is not an…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-08-29-grok-bot-templates-how-to-share-publish-install-and-check.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-08-29-grok-bot-templates-how-to-share-publish-install-and-check.html#note","headline":"Grok Bot Templates: How to Share, Publish, Install and Check Bot Blueprints","description":"This walkthrough explains Templates in Grok Bot. A template is a blueprint that another user's bot uses to rebuild its own copy of your bot. It is not an exact clone. The video covers sharing a bot as a template, publishing it to the public or to your team only, and installing one from a link. It…","url":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-08-29-grok-bot-templates-how-to-share-publish-install-and-check.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"AI Agents, Tool Use & MCP"},{"@type":"Thing","name":"AI Dev Tools & Productivity"},{"@type":"Thing","name":"AI Safety, Security & Guardrails"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2093514063955558664","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-08-29"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-08-29-grok-bot-templates-how-to-share-publish-install-and-check.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"AI Agents, Tool Use & MCP","item":"https://ralmodiel.github.io/ai-study-library/topics/agents.html"},{"@type":"ListItem","position":4,"name":"Grok Bot Templates: How to Share, Publish, Install and Check Bot Blueprints"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/agents.html">AI Agents, Tool Use &amp; MCP</a> &rsaquo; <span aria-current="page">Grok Bot Templates: How to Share, Publish, Install and Check Bot Blueprints</span></nav><h1>Grok Bot Templates: How to Share, Publish, Install and Check Bot Blueprints</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2093514063955558664">a video post by Melvin Vivas on X</a>, posted 29 August 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X video post · 2026-08-29 · 7:27 · 574 views · <a href="https://x.com/melvindvivas/status/2093514063955558664">Open on X</a></p>
+<p><strong>Topics:</strong> AI Agents, Tool Use &amp; MCP, AI Dev Tools &amp; Productivity, AI Safety, Security &amp; Guardrails · <strong>Level:</strong> beginner</p>
+<h2>Summary</h2>
+<p>This walkthrough explains Templates in Grok Bot. A template is a blueprint that another user's bot uses to rebuild its own copy of your bot. It is not an exact clone. The video covers sharing a bot as a template, publishing it to the public or to your team only, and installing one from a link. It also covers setup for complex templates that need MCP servers or API keys, and why you should check a template before installing it.</p>
+<h2>Key points</h2>
+<ul>
+<li>A template is like a recipe, not a shared meal. The receiving bot builds its own independent version, which may come out slightly different from the original.</li>
+<li>Templates include instructions, relevant memories, skills and first-party plugins or connectors. They leave out secrets, personal or private memories, custom code and scripts, and custom MCP servers.</li>
+<li>To share, open the bot's settings and click 'Share as template'. Nothing goes live at this step. The bot packages itself and decides on its own what to keep, leaving out personal or internal memories.</li>
+<li>Click 'View details' to see what the template contains: context, memories and integrations. Then publish it to the public or to your team only, and copy the link it gives you.</li>
+<li>To install, open the link and click 'Add to GrokBot'. Review the context and integrations, then click 'Add to bot'. The new bot sets itself up, but you may need to reinstall plugins.</li>
+<li>Non-standard parts such as MCP servers, scripts and custom code must be rebuilt or carried over by hand.</li>
+<li>For complex templates, ask the original bot to include all setup and configuration instructions, so it thinks through what a user needs to copy your workflow. This matters most for bots that need API keys or MCP servers.</li>
+<li>Check templates the way you would check skills or software: read the context and integrations before installing, because you are adding them to your bot.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://x.ai/bot">Grok Bot</a></strong> · tool · x.ai · paid<br>
+  An early-beta AI agent product from the Grok family that runs in its own computer and browser instance and does tasks in your tools.<br>
+  Also in: An agent bot that installs and drives Codex on its own (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105963336097837160">X</a> · <a href="2026-10-02-an-agent-bot-that-installs-and-drives-codex-on-its-own.html">notes</a>), Asking a Coder bot to install Codex (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105961766471754199">X</a> · <a href="2026-10-02-asking-a-coder-bot-to-install-codex.html">notes</a>), Using an ML agent to train an open-source TTS model on your voice (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105946723692707961">X</a> · <a href="../10-fine-tuning/2026-10-02-using-an-ml-agent-to-train-an-open-source-tts-model-on-your.html">notes</a>), Organizing Grok Bot Lead Collection in One Google Sheet (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105928546699092061">X</a> · <a href="2026-10-02-organizing-grok-bot-lead-collection-in-one-google-sheet.html">notes</a>) and 14 more</li>
+<li><strong><a href="https://modelcontextprotocol.io">Model Context Protocol (MCP)</a></strong> · docs · modelcontextprotocol.io · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  An open standard for connecting LLM apps and agents to tools and data sources. The official docs explain how it works and how to build servers and clients.<br>
+  Also in: Grok Bot Templates: Sharing, Publishing and Safely Installing Bots (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103697947640918283">X</a> · <a href="2026-09-26-grok-bot-templates-sharing-publishing-and-safely-installing.html">notes</a>), 8-Week Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1758231042116375">Facebook</a> · <a href="../01-roadmap/2026-09-19-8-week-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), Paste Documentation URLs into Codex Instead of Using MCP (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099439011534368806">X</a> · <a href="../13-ai-tools/2026-09-14-paste-documentation-urls-into-codex-instead-of-using-mcp.html">notes</a>), OpenAI Agents API: Hosted Codex Harness for Long-Running Cloud Agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098352790745838067">X</a> · <a href="2026-09-11-openai-agents-api-hosted-codex-harness-for-long-running.html">notes</a>) and 7 more</li>
+<li><strong><a href="https://github.com/cursor/plugins/tree/main/pstack">pstack</a></strong> · tool · github.com · free<br>
+  An integration used by the speaker's coding bot. The name comes from the machine-generated transcript and may be misspelled.<br>
+  Also in: Grok Bot Templates: Sharing, Publishing and Safely Installing Bots (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103697947640918283">X</a> · <a href="2026-09-26-grok-bot-templates-sharing-publishing-and-safely-installing.html">notes</a>)</li>
+<li><strong><a href="https://github.com">GitHub</a></strong> · tool · github.com · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Code hosting platform whose CI runs and pull requests the Cursor agents monitor and open.<br>
+  Also in: Grok Bot Can Now Hand Off Coding Tasks to Cursor (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105468023352279408">X</a> · <a href="../13-ai-tools/2026-10-01-grok-bot-can-now-hand-off-coding-tasks-to-cursor.html">notes</a>), ChatGPT Can Commit Code Directly to Your GitHub Repo (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105329595725791357">X</a> · <a href="../13-ai-tools/2026-10-01-chatgpt-can-commit-code-directly-to-your-github-repo.html">notes</a>), Grok Bot Templates: Sharing, Publishing and Safely Installing Bots (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103697947640918283">X</a> · <a href="2026-09-26-grok-bot-templates-sharing-publishing-and-safely-installing.html">notes</a>), 7 Habits to Become an AI Engineer: Books, Tooling, Research &amp; Shipping (Bashiri Smith on <a href="https://www.facebook.com/reel/1081423530962902">Facebook</a> · <a href="../01-roadmap/2026-09-25-7-habits-to-become-an-ai-engineer-books-tooling-research.html">notes</a>) and 9 more</li>
+<li><strong><a href="https://x.com/cursor_ai">Cursor</a></strong> · tool · x.com · free<br>
+  Cursor's official X account, which posts product announcements such as cloud agents running in configured dev environments.<br>
+  Also in: GLM 5.3 and GLM 5.3 Flash now in Cursor (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105952116930163074">X</a> · <a href="../13-ai-tools/2026-10-02-glm-5-3-and-glm-5-3-flash-now-in-cursor.html">notes</a>), Grok Bot Can Now Hand Off Coding Tasks to Cursor (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105468023352279408">X</a> · <a href="../13-ai-tools/2026-10-01-grok-bot-can-now-hand-off-coding-tasks-to-cursor.html">notes</a>), Why Plan Mode Still Matters in AI Coding Assistants (Codex, Claude, Cursor) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104239715520250187">X</a> · <a href="../13-ai-tools/2026-09-28-why-plan-mode-still-matters-in-ai-coding-assistants-codex.html">notes</a>), Why Plan Mode Still Matters in AI Coding Agents (Codex, Claude, Cursor) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104223654678839637">X</a> · <a href="../13-ai-tools/2026-09-27-why-plan-mode-still-matters-in-ai-coding-agents-codex.html">notes</a>) and 121 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Use 'Share as template' in your bot's settings, then click 'View details' to see what it included before you publish.</li>
+<li>Choose 'team only' for bots built for internal or company-specific work, and 'public' only for bots that work for anyone.</li>
+<li>For complex bots, ask the bot to 'include all instructions for setup and configuration in the template' and to think through what a user would need to copy your workflow.</li>
+<li>After installing a template, reinstall its plugins and set up any MCP servers, scripts or API keys by hand.</li>
+<li>Before installing someone else's template, read its context and integrations and check them as carefully as you would any software.</li>
+<li>Turn one of your own workflow bots (for example a coding assistant using GitHub and Cursor) into a template that installs itself, with clear setup instructions for MCP servers and API keys.</li>
+</ul><section class="more"><h2>More in AI Agents, Tool Use &amp; MCP</h2><ul><li><a href="2026-08-29-coworker-open-source-desktop-app-where-ai-agents-do-work.html">Coworker: open-source desktop app where AI agents do work for you</a> <span class="meta">Melvin Vivas, 2026-08-29</span></li><li><a href="2026-08-29-grok-bot-can-now-make-online-purchases-for-you.html">Grok Bot Can Now Make Online Purchases for You</a> <span class="meta">Melvin Vivas, 2026-08-29</span></li><li><a href="2026-08-29-coworker-free-local-first-desktop-app-for-running-ai-agents.html">Coworker: Free Local-First Desktop App for Running AI Agents</a> <span class="meta">Melvin Vivas, 2026-08-29</span></li><li><a href="2026-08-29-firecrawl-keyless-free-web-search-scraping-for-ai-agents-no.html">Firecrawl Keyless: Free Web Search &amp; Scraping for AI Agents, No API Key</a> <span class="meta">Melvin Vivas, 2026-08-29</span></li><li><a href="2026-08-29-herdr-see-all-your-ai-agents-in-one-view.html">herdr: See All Your AI Agents in One View</a> <span class="meta">Melvin Vivas, 2026-08-29</span></li><li><a href="2026-08-28-coworker-open-source-work-agent-that-runs-on-small-local.html">Coworker: Open-Source Work Agent That Runs on Small Local Models</a> <span class="meta">Melvin Vivas, 2026-08-28</span></li></ul><p><a href="../../topics/agents.html">All of AI Agents, Tool Use &amp; MCP</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

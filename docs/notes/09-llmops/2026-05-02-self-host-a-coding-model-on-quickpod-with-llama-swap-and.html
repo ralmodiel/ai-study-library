@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Self-Host a Coding Model on QuickPod with llama-swap and Use It in…</title>
+<meta name="description" content="This is a short demo with no narration. Melvin Vivas runs his own coding model on a rented GPU from QuickPod. He serves a Qwen 27B model distilled from Claude…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-05-02-self-host-a-coding-model-on-quickpod-with-llama-swap-and.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Self-Host a Coding Model on QuickPod with llama-swap and Use It in…">
+<meta property="og:description" content="This is a short demo with no narration. Melvin Vivas runs his own coding model on a rented GPU from QuickPod. He serves a Qwen 27B model distilled from Claude…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-05-02-self-host-a-coding-model-on-quickpod-with-llama-swap-and.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-05-02-self-host-a-coding-model-on-quickpod-with-llama-swap-and.html#note","headline":"Self-Host a Coding Model on QuickPod with llama-swap and Use It in Claude Code","description":"This is a short demo with no narration. Melvin Vivas runs his own coding model on a rented GPU from QuickPod. He serves a Qwen 27B model distilled from Claude Opus through Aivan Monceller's (@aivandroid) fork of llama-swap, which adds some extra features. He then points Claude Code at that…","url":"https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-05-02-self-host-a-coding-model-on-quickpod-with-llama-swap-and.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"LLMOps, Deployment & Monitoring"},{"@type":"Thing","name":"AI Dev Tools & Productivity"},{"@type":"Thing","name":"LLM Fundamentals"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2050556844666724354","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-05-02"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-05-02-self-host-a-coding-model-on-quickpod-with-llama-swap-and.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"LLMOps, Deployment & Monitoring","item":"https://ralmodiel.github.io/ai-study-library/topics/llmops.html"},{"@type":"ListItem","position":4,"name":"Self-Host a Coding Model on QuickPod with llama-swap and Use It in Claude Code"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/llmops.html">LLMOps, Deployment &amp; Monitoring</a> &rsaquo; <span aria-current="page">Self-Host a Coding Model on QuickPod with llama-swap and Use It in Claude Code</span></nav><h1>Self-Host a Coding Model on QuickPod with llama-swap and Use It in Claude Code</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2050556844666724354">a video post by Melvin Vivas on X</a>, posted 2 May 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X video post · 2026-05-02 · 0:24 · 457 views · <a href="https://x.com/melvindvivas/status/2050556844666724354">Open on X</a></p>
+<p><strong>Topics:</strong> LLMOps, Deployment &amp; Monitoring, AI Dev Tools &amp; Productivity, LLM Fundamentals · <strong>Level:</strong> advanced</p>
+<h2>Summary</h2>
+<p>This is a short demo with no narration. Melvin Vivas runs his own coding model on a rented GPU from QuickPod. He serves a Qwen 27B model distilled from Claude Opus through Aivan Monceller's (@aivandroid) fork of llama-swap, which adds some extra features. He then points Claude Code at that self-hosted model instead of Anthropic's hosted models.</p>
+<h2>Key points</h2>
+<ul>
+<li>llama-swap is a proxy that swaps models in and out for any local server that speaks the OpenAI or Anthropic API, such as llama.cpp or vLLM.</li>
+<li>The geocine/llama-swap fork by @aivandroid adds extra features. Because it is Anthropic-compatible, Claude Code can talk to it directly.</li>
+<li>The model in the demo is a Qwen 27B model distilled from Claude Opus, an open-weight model tuned to behave more like Opus.</li>
+<li>The model runs on a GPU pod rented from QuickPod, so you don't need a strong local GPU.</li>
+<li>Claude Code connects to the model hosted on QuickPod. This lets you keep the Claude Code agent workflow while running your own model.</li>
+<li>The video has no speech, so you need the linked repo and the QuickPod console to reproduce the setup.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://github.com/geocine/llama-swap">geocine/llama-swap (GitHub)</a></strong> · repo · github.com · free<br>
+  A fork of llama-swap that reliably swaps models for any local server compatible with the OpenAI or Anthropic API, such as llama.cpp or vLLM.</li>
+<li><strong><a href="https://console.quickpod.io/?affiliate=4a11b63f-79e6-46a7-aa63-c78fde82d70a">QuickPod</a></strong> · tool · console.quickpod.io · paid<br>
+  A cloud service for renting GPU pods to host and run your own models.<br>
+  Also in: Reusable GPU devbox: PyTorch/CUDA plus six coding agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2095138320481390772">X</a> · <a href="../13-ai-tools/2026-09-02-reusable-gpu-devbox-pytorch-cuda-plus-six-coding-agents.html">notes</a>), Docker Template Bundling Coding Agents for GPU Cloud Hosting (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2095072457174745159">X</a> · <a href="2026-09-02-docker-template-bundling-coding-agents-for-gpu-cloud-hosting.html">notes</a>)</li>
+<li><strong><a href="https://x.com/aivandroid">@aivandroid</a></strong> · person · x.com · free<br>
+  The developer who maintains the geocine/llama-swap fork.<br>
+  Also in: Serving LFM2.5-2.6B with llama-server: full command (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2086193956598210978">X</a> · <a href="2026-08-09-serving-lfm2-5-2-6b-with-llama-server-full-command.html">notes</a>)</li>
+<li><strong><a href="https://github.com/mostlygeek/llama-swap">llama-swap (original by mostlygeek)</a></strong> · repo · github.com · free<br>
+  The original open-source llama-swap proxy for swapping models on demand on local LLM servers.</li>
+<li><strong><a href="https://huggingface.co/Jackrong/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled">Qwen 27B Opus-distilled model</a></strong> · tool · huggingface.co · free<br>
+  An open-weight Qwen model of about 27B parameters, distilled from Claude Opus outputs for coding.</li>
+<li><strong><a href="https://github.com/anthropics/claude-code">Claude Code</a></strong> · tool · github.com · paid · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Anthropic's agentic coding tool that edits files and runs commands in your terminal; it now has an 'auto mode' for permission decisions.<br>
+  Also in: Create Claude Code Plugins with /plugin-authoring (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105911321875411254">X</a> · <a href="../13-ai-tools/2026-10-02-create-claude-code-plugins-with-plugin-authoring.html">notes</a>), Claude Code mods: customize behavior and UI with plugins (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105872553818611759">X</a> · <a href="../13-ai-tools/2026-10-02-claude-code-mods-customize-behavior-and-ui-with-plugins.html">notes</a>), SkillsBento: Free Plugin Marketplace for Codex and Claude Code (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105560043395707354">X</a> · <a href="../13-ai-tools/2026-10-01-skillsbento-free-plugin-marketplace-for-codex-and-claude.html">notes</a>), Countering AI Sycophancy with a Devil's Advocate Plugin for Codex &amp; Claude (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105534628715270332">X</a> · <a href="../13-ai-tools/2026-10-01-countering-ai-sycophancy-with-a-devil-s-advocate-plugin-for.html">notes</a>) and 100 more</li>
+<li><strong><a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a></strong> · repo · github.com · free<br>
+  An open-source C/C++ engine for running GGUF models locally. Its llama-server command provides an OpenAI-compatible HTTP server.<br>
+  Also in: Running LLMs Locally Without an Expensive Rig (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104363353045123168">X</a> · <a href="../03-llm-fundamentals/2026-09-28-running-llms-locally-without-an-expensive-rig.html">notes</a>), llama.cpp / Llama-macOS v0.5.0 release (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102927420282302776">X</a> · <a href="2026-09-24-llama-cpp-llama-macos-v0-5-0-release.html">notes</a>), Run llama.cpp GGUF Checkpoints in Hugging Face Transformers (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102409652449472740">X</a> · <a href="2026-09-22-run-llama-cpp-gguf-checkpoints-in-hugging-face-transformers.html">notes</a>), llama.cpp v0.4.1 release announcement (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099579358268760083">X</a> · <a href="2026-09-15-llama-cpp-v0-4-1-release-announcement.html">notes</a>) and 28 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Rent a GPU pod on QuickPod.</li>
+<li>Install the geocine/llama-swap fork on the pod and configure it to serve a coding model, such as the Qwen 27B Opus-distilled model.</li>
+<li>Point Claude Code at the Anthropic-compatible endpoint that llama-swap exposes.</li>
+<li>Self-host an open-weight coding model on a rented GPU and use it as the backend for Claude Code. Compare its quality, speed and cost with hosted models.</li>
+</ul><section class="more"><h2>More in LLMOps, Deployment &amp; Monitoring</h2><ul><li><a href="2026-05-15-lm-studio-mlx-v1-8-1-vision-model-batching-and-better.html">LM Studio MLX v1.8.1: Vision Model Batching and Better Caching</a> <span class="meta">Melvin Vivas, 2026-05-15</span></li><li><a href="2026-05-10-openrouter-pareto-code-cost-optimized-coding-router.html">OpenRouter Pareto Code: cost-optimized coding router</a> <span class="meta">Melvin Vivas, 2026-05-10</span></li><li><a href="2026-05-06-speeding-up-gemma-4-inference-mtp-3x-vs-dflash-speculative.html">Speeding Up Gemma 4 Inference: MTP (3x) vs. DFlash Speculative Decoding (6x)</a> <span class="meta">Melvin Vivas, 2026-05-06</span></li><li><a href="2026-04-30-runpod-flash-reaches-ga-deploy-ai-workloads-from-python.html">Runpod Flash Reaches GA: Deploy AI Workloads from Python</a> <span class="meta">Melvin Vivas, 2026-04-30</span></li><li><a href="2026-04-30-z-ai-s-lessons-from-serving-glm-5-for-coding-agents-at-scale.html">Z.ai&#x27;s Lessons from Serving GLM-5 for Coding Agents at Scale</a> <span class="meta">Melvin Vivas, 2026-04-30</span></li><li><a href="2026-04-26-running-ai-locally-rebuilding-aibackends-as-a-python.html">Running AI Locally: Rebuilding AIBackends as a Python Library with Open Models</a> <span class="meta">Melvin Vivas, 2026-04-26</span></li></ul><p><a href="../../topics/llmops.html">All of LLMOps, Deployment &amp; Monitoring</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

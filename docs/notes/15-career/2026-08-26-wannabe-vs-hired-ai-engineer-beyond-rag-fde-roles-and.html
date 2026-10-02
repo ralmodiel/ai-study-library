@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wannabe vs. Hired AI Engineer: Beyond RAG, FDE Roles and Degrees |…</title>
+<meta name="description" content="A short skit that answers four common misconceptions of aspiring AI engineers. Knowing how to build RAG apps and agents isn&#x27;t enough. Companies need…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/15-career/2026-08-26-wannabe-vs-hired-ai-engineer-beyond-rag-fde-roles-and.html">
+<meta name="robots" content="noindex, follow">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Wannabe vs. Hired AI Engineer: Beyond RAG, FDE Roles and Degrees |…">
+<meta property="og:description" content="A short skit that answers four common misconceptions of aspiring AI engineers. Knowing how to build RAG apps and agents isn&#x27;t enough. Companies need…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/15-career/2026-08-26-wannabe-vs-hired-ai-engineer-beyond-rag-fde-roles-and.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/15-career/2026-08-26-wannabe-vs-hired-ai-engineer-beyond-rag-fde-roles-and.html#note","headline":"Wannabe vs. Hired AI Engineer: Beyond RAG, FDE Roles and Degrees","description":"A short skit that answers four common misconceptions of aspiring AI engineers. Knowing how to build RAG apps and agents isn't enough. Companies need production skills like evals, tracing, monitoring, cost and latency control, guardrails and safety. Forward deployed engineer (FDE) roles build on AI…","url":"https://ralmodiel.github.io/ai-study-library/notes/15-career/2026-08-26-wannabe-vs-hired-ai-engineer-beyond-rag-fde-roles-and.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"Resume, Job Search & Interviews"},{"@type":"Thing","name":"LLMOps, Deployment & Monitoring"},{"@type":"Thing","name":"Evaluation (Evals) & Testing"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"VideoObject","url":"https://www.facebook.com/reel/2200492394139899","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#bashiri-smith"},"datePublished":"2026-08-26"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/15-career/2026-08-26-wannabe-vs-hired-ai-engineer-beyond-rag-fde-roles-and.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#bashiri-smith","name":"Bashiri Smith","url":"https://baswe.ai/","sameAs":["https://www.facebook.com/basweai","https://www.youtube.com/@BashiFuirkashi","https://www.instagram.com/bashi_fuirkashi/","https://www.tiktok.com/@bashifuirkashi","https://www.linkedin.com/in/bashiri-smith/","https://x.com/bashifuirkashi","https://www.skool.com/baswe-ai"],"description":"Helps aspiring and working software engineers move into AI engineering roles.","brand":{"@type":"Brand","name":"BASWE.Ai"}},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"Resume, Job Search & Interviews","item":"https://ralmodiel.github.io/ai-study-library/topics/career.html"},{"@type":"ListItem","position":4,"name":"Wannabe vs. Hired AI Engineer: Beyond RAG, FDE Roles and Degrees"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/career.html">Resume, Job Search &amp; Interviews</a> &rsaquo; <span aria-current="page">Wannabe vs. Hired AI Engineer: Beyond RAG, FDE Roles and Degrees</span></nav><h1>Wannabe vs. Hired AI Engineer: Beyond RAG, FDE Roles and Degrees</h1>
+<aside class="source"><p>This note summarises <a href="https://www.facebook.com/reel/2200492394139899">a reel by Bashiri Smith on Facebook</a>, posted 26 August 2026. The original belongs to Bashiri Smith.</p><p>Follow Bashiri Smith: <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p></aside>
+<p>Bashiri Smith · Facebook reel · 2026-08-26 · 1:22 · <a href="https://www.facebook.com/reel/2200492394139899">Open on Facebook</a></p>
+<p><strong>Topics:</strong> Resume, Job Search &amp; Interviews, LLMOps, Deployment &amp; Monitoring, Evaluation (Evals) &amp; Testing · <strong>Level:</strong> beginner</p>
+<h2>Summary</h2>
+<p>A short skit that answers four common misconceptions of aspiring AI engineers. Knowing how to build RAG apps and agents isn't enough. Companies need production skills like evals, tracing, monitoring, cost and latency control, guardrails and safety. Forward deployed engineer (FDE) roles build on AI engineering skills, and a master's or PhD matters less than building, evaluating and deploying real systems. The video ends by pitching the creator's coaching group.</p>
+<h2>Key points</h2>
+<ul>
+<li>Building RAG apps and agents is only a small part of AI engineering. Most hiring companies already have these systems built.</li>
+<li>What employers need: evaluating output, tracing failures, monitoring production systems, controlling latency and cost, adding guardrails, and thinking about safety.</li>
+<li>Forward deployed engineer (FDE) roles are mostly AI engineers whose skills are strong enough to deploy systems and work directly with customers. Learn AI engineering first.</li>
+<li>A master's or PhD takes 2-4 years and costs money. Universities don't know where AI is going and don't teach production AI engineering skills.</li>
+<li>Another degree won't change your resume much. Get better at building, evaluating and deploying real AI systems now.</li>
+<li>If the flood of online resources leaves you lost, follow a structured roadmap and get guidance instead of collecting random materials.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://www.skool.com/baswe-breakthrough-coder/about">Bashiri Smith's AI engineering coaching group (roadmap + daily calls)</a></strong> · community · skool.com · paid<br>
+  The creator's program: a group of AI engineers offering a learning roadmap, a personalized learning plan, coaching calls and job-search help.</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Look past building RAG and agents. Learn evals, tracing, production monitoring, latency and cost control, guardrails and safety.</li>
+<li>If you want to become an FDE, build strong AI engineering skills first.</li>
+<li>Focus on building, evaluating and deploying real AI systems instead of getting another degree.</li>
+<li>Follow a structured learning roadmap instead of jumping between scattered online resources.</li>
+<li>Comment 'real' on the video to get the link to the creator's program.</li>
+</ul><section class="more"><h2>More in Resume, Job Search &amp; Interviews</h2><ul><li><a href="2026-09-09-ai-engineer-vs-forward-deployed-engineer-which-role-fits-you.html">AI Engineer vs Forward Deployed Engineer: Which Role Fits You?</a> <span class="meta">Bashiri Smith, 2026-09-09</span></li><li><a href="2026-09-03-using-the-september-hiring-surge-volume-plus-quality-in.html">Using the September Hiring Surge: Volume Plus Quality in Your Job Search</a> <span class="meta">Bashiri Smith, 2026-09-03</span></li><li><a href="2026-08-30-red-flags-that-hurt-your-chances-of-landing-an-ai-era.html">Red Flags That Hurt Your Chances of Landing an AI-Era Coding Job</a> <span class="meta">Bashiri Smith, 2026-08-30</span></li><li><a href="2026-08-26-why-software-engineers-should-move-into-ai-engineering-for.html">Why Software Engineers Should Move Into AI Engineering for Job Security</a> <span class="meta">Bashiri Smith, 2026-08-26</span></li><li><a href="2026-08-20-which-current-tech-roles-map-to-which-ai-engineering-roles.html">Which Current Tech Roles Map to Which AI Engineering Roles</a> <span class="meta">Bashiri Smith, 2026-08-20</span></li><li><a href="2026-08-19-coding-agent-harness-knowledge-as-a-new-developer-job-skill.html">Coding agent harness knowledge as a new developer job skill</a> <span class="meta">Melvin Vivas, 2026-08-19</span></li></ul><p><a href="../../topics/career.html">All of Resume, Job Search &amp; Interviews</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

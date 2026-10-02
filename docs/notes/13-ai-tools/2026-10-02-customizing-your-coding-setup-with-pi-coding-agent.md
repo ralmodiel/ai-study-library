@@ -1,0 +1,57 @@
+# Customizing Your Coding Setup with Pi Coding Agent Extensions
+
+Melvin Vivas · X video post · 2026-10-02 · 0:25 · 181 views · [Open on X](https://x.com/melvindvivas/status/2105871612591714651)
+
+**Topics:** AI Dev Tools & Productivity, AI Agents, Tool Use & MCP · **Level:** intermediate
+
+## Summary
+
+Melvin Vivas recommends the Pi coding agent for developers who like to customize their coding setup. He describes Pi's Extensions API, which can read the agent's context, send messages to LLMs and show text in the UI. As an example he shows Pi Agent Council, his own extension that asks several models for advice in parallel and compares their answers side by side.
+
+## Key points
+
+- Pi is a coding agent built to be customized, and its Extensions API is flexible enough to do "pretty much anything".
+- Extensions can read the agent's context, send messages to LLMs and display text in the UI.
+- Pi works with existing Codex (ChatGPT) and Claude accounts, giving access to GPT-6.x models and Claude Opus/Sonnet 5.5.
+- To use open models, connect OpenRouter as a provider.
+- Pi Agent Council is an example extension: one /council command sends the same question to several models in parallel.
+- In the demo, Council asked Opus 5.5, GPT-6 Astra and GPT-6.1 Sol, then showed the answers side by side with points of agreement and disagreement.
+- Asking several models and comparing them is a cheap way to cross-check advice and spot where models disagree.
+
+## Resources mentioned
+
+- [ ] **[Pi](https://x.com/pidotdev)** · tool · x.com · free  
+  A customizable coding agent that can be extended through its Extensions API and connected to several model providers.  
+  Also in: Sign in with ChatGPT: Setting Usage Limits for Each App (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105933855802929153) · [notes](../../notes/13-ai-tools/2026-10-02-sign-in-with-chatgpt-setting-usage-limits-for-each-app.md)), Pi reaches v1.0 (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105873124176826551) · [notes](../../notes/13-ai-tools/2026-10-02-pi-reaches-v1-0.md)), Claude Code mods: customize behavior and UI with plugins (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105872553818611759) · [notes](../../notes/13-ai-tools/2026-10-02-claude-code-mods-customize-behavior-and-ui-with-plugins.md)), Pi Agent Council: Ask Multiple LLMs in Parallel and Compare Their Advice (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105645508186570807) · [notes](../../notes/13-ai-tools/2026-10-01-pi-agent-council-ask-multiple-llms-in-parallel-and-compare.md)) and 39 more
+- [ ] **[Pi Extensions API](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/docs/extensions.md)** · docs · github.com · free · open in a browser to verify  
+  Pi's API for building extensions that can read context, send messages to LLMs and display text in the UI.
+- [ ] **[Pi Agent Council](https://github.com/donvito/pi-agent-council)** · repo · github.com · free  
+  Open-source Pi extension that adds a /council command to ask several models in parallel and compare their advice side by side.  
+  Also in: Pi Agent Council: Ask Multiple LLMs in Parallel and Compare Their Advice (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105645508186570807) · [notes](../../notes/13-ai-tools/2026-10-01-pi-agent-council-ask-multiple-llms-in-parallel-and-compare.md))
+- [ ] **[OpenRouter](https://openrouter.ai/z-ai/glm-5-tur)** · tool · openrouter.ai · free  
+  OpenRouter is a unified API gateway that gives access to many LLMs behind one OpenAI-compatible endpoint; this link is its X account.  
+  Also in: The Jev model is now on OpenRouter (Melvin Vivas on [X](https://x.com/melvindvivas/status/2103826669324869745) · [notes](../../notes/03-llm-fundamentals/2026-09-26-the-jev-model-is-now-on-openrouter.md)), Kev-4B model, an alternative to Jev, now available on OpenRouter (Melvin Vivas on [X](https://x.com/melvindvivas/status/2103655416299466815) · [notes](../../notes/03-llm-fundamentals/2026-09-26-kev-4b-model-an-alternative-to-jev-now-available-on.md)), Space Bunny Alpha: stealth 1M-context flash model on OpenRouter (Melvin Vivas on [X](https://x.com/melvindvivas/status/2102779478737142186) · [notes](../../notes/16-trends/2026-09-23-space-bunny-alpha-stealth-1m-context-flash-model-on.md)), Adding Vercel AI Gateway as a provider in AIBackends with Devin (Melvin Vivas on [X](https://x.com/melvindvivas/status/2101160927718781084) · [notes](../../notes/09-llmops/2026-09-19-adding-vercel-ai-gateway-as-a-provider-in-aibackends-with.md)) and 42 more
+- [ ] **[OpenAI Codex](https://openai.com/codex)** · tool · openai.com · paid  
+  OpenAI's coding agent. In the diagram it writes code, fixes review findings and drives the build loop. The creator also used it to make this video.  
+  Also in: An agent bot that installs and drives Codex on its own (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105963336097837160) · [notes](../../notes/07-agents/2026-10-02-an-agent-bot-that-installs-and-drives-codex-on-its-own.md)), Asking a Coder bot to install Codex (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105961766471754199) · [notes](../../notes/07-agents/2026-10-02-asking-a-coder-bot-to-install-codex.md)), Sign in with ChatGPT: Setting Usage Limits for Each App (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105933855802929153) · [notes](../../notes/13-ai-tools/2026-10-02-sign-in-with-chatgpt-setting-usage-limits-for-each-app.md)), Codex Cloud Environments Must Be Saved & Published Before Use (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105908190697472042) · [notes](../../notes/13-ai-tools/2026-10-02-codex-cloud-environments-must-be-saved-published-before-use.md)) and 240 more
+- [ ] **[Claude Opus 5.5](https://claude.ai)** · tool · claude.ai · paid · open in a browser to verify · **recommended by both** Bashiri Smith & Melvin Vivas  
+  Anthropic's AI assistant, used throughout the guide to tailor resumes, add live roles to the tracker, match connections to target companies and find hiring managers.  
+  Also in: Generating a Repo Promo Video with a Claude Skill on Sonnet 5.5 vs Opus 5.5 (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105947598104449202) · [notes](../../notes/13-ai-tools/2026-10-02-generating-a-repo-promo-video-with-a-claude-skill-on-sonnet.md)), Comparing Coding Models on the Same Task in Devin iOS (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105882889653248435) · [notes](../../notes/13-ai-tools/2026-10-02-comparing-coding-models-on-the-same-task-in-devin-ios.md)), LLM Council Agent in Pi Using Codex and Claude Models (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105623208875761959) · [notes](../../notes/07-agents/2026-10-01-llm-council-agent-in-pi-using-codex-and-claude-models.md)), Use Sonnet 5.5 instead of Opus 5.5 for faster video-clipping tasks (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105170260903256309) · [notes](../../notes/03-llm-fundamentals/2026-09-30-use-sonnet-5-5-instead-of-opus-5-5-for-faster-video.md)) and 52 more
+- [ ] **[Claude Sonnet 5.5](https://www.anthropic.com/claude-sonnet-5-5)** · tool · anthropic.com · paid  
+  Anthropic's newly released mid-tier Claude model, reported to be strong at agentic coding.  
+  Also in: Generating a Repo Promo Video with a Claude Skill on Sonnet 5.5 vs Opus 5.5 (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105947598104449202) · [notes](../../notes/13-ai-tools/2026-10-02-generating-a-repo-promo-video-with-a-claude-skill-on-sonnet.md)), GPT-6.1 and Sonnet 5.5 Released the Same Week (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105320549127954629) · [notes](../../notes/16-trends/2026-09-30-gpt-6-1-and-sonnet-5-5-released-the-same-week.md)), Use Sonnet 5.5 instead of Opus 5.5 for faster video-clipping tasks (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105170260903256309) · [notes](../../notes/03-llm-fundamentals/2026-09-30-use-sonnet-5-5-instead-of-opus-5-5-for-faster-video.md)), Advisor/Executor setup in Claude Code: Opus 5.5 plans, Sonnet 5.5 runs (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105168803428802821) · [notes](../../notes/13-ai-tools/2026-09-30-advisor-executor-setup-in-claude-code-opus-5-5-plans-sonnet.md)) and 2 more
+- [ ] **[GPT-6 Astra](https://openai.com/index/gpt-6-astra/)** · tool · openai.com · paid  
+  The model announced in the quoted launch post, pitched as the developer's most capable model for work, coding, science and cybersecurity, and able to operate a computer.  
+  Also in: Pi Agent Council: Ask Multiple LLMs in Parallel and Compare Their Advice (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105645508186570807) · [notes](../../notes/13-ai-tools/2026-10-01-pi-agent-council-ask-multiple-llms-in-parallel-and-compare.md)), Use GPT-6.1 Sol by Default, Save Astra for Emergencies (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105295649810047401) · [notes](../../notes/03-llm-fundamentals/2026-09-30-use-gpt-6-1-sol-by-default-save-astra-for-emergencies.md)), Dots in ChatGPT: always-on AI agents that you hand responsibilities to (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105209775156076624) · [notes](../../notes/07-agents/2026-09-30-dots-in-chatgpt-always-on-ai-agents-that-you-hand.md)), OpenAI DevDay recap: Dots, GPT-6.1 Sol, Codex Cloud, Agents API (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105018489794879836) · [notes](../../notes/16-trends/2026-09-30-openai-devday-recap-dots-gpt-6-1-sol-codex-cloud-agents-api.md)) and 49 more
+- [ ] **[GPT-6.1 Sol](https://openai.com/index/introducing-gpt-6-1-sol/)** · tool · openai.com · paid  
+  A new OpenAI model announced at DevDay 2026 (name as written in the machine transcript), offered with Fast and Ultra fast speed tiers.  
+  Also in: JevDev: Open-Source UI Tool for Experimenting with Jev (Typesafe.ai) (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105945215991488696) · [notes](../../notes/13-ai-tools/2026-10-02-jevdev-open-source-ui-tool-for-experimenting-with-jev.md)), Comparing Coding Models on the Same Task in Devin iOS (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105882889653248435) · [notes](../../notes/13-ai-tools/2026-10-02-comparing-coding-models-on-the-same-task-in-devin-ios.md)), Pi Agent Council: Ask Multiple LLMs in Parallel and Compare Their Advice (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105645508186570807) · [notes](../../notes/13-ai-tools/2026-10-01-pi-agent-council-ask-multiple-llms-in-parallel-and-compare.md)), GPT-6.1 and Sonnet 5.5 Released the Same Week (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105320549127954629) · [notes](../../notes/16-trends/2026-09-30-gpt-6-1-and-sonnet-5-5-released-the-same-week.md)) and 9 more
+
+## Try this
+
+- [ ] Try the Pi coding agent if you like to customize your coding setup.
+- [ ] Study Pi's Extensions API to build your own extensions.
+- [ ] Connect your Codex and Claude accounts to Pi, and add OpenRouter for open models.
+- [ ] Try Pi Agent Council (/council) to compare advice from several models side by side.
+- [ ] Build a Pi extension that asks several LLMs the same question in parallel and highlights where they agree and disagree (like Pi Agent Council).
+- [ ] Write a custom Pi extension that uses the agent's context, sends messages to an LLM and shows the results in the UI.

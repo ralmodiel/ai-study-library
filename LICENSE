@@ -1,3 +1,8 @@
+Scope: this license covers only the page code of the site (the HTML, CSS and JavaScript in docs/,
+not the library data embedded in it). It does not cover the summaries, key points and notes in docs/
+(CC BY-NC 4.0, see docs/LICENSE.md), the fonts in docs/fonts/ (SIL Open Font License 1.1), the share
+image and promo videos, or anything the library links to.
+
 MIT No Attribution
 
 Copyright 2026 Roque Almodiel

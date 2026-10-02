@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Industry Trends &amp; Job Market: free resources and study plan | AI…</title>
+<meta name="description" content="Where the field and the job market are heading. 369 summarised reels and posts and 224 linked resources (9 free to watch), from Bashiri Smith and Melvin Vivas.">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/topics/trends.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Industry Trends &amp; Job Market: free resources and study plan | AI…">
+<meta property="og:description" content="Where the field and the job market are heading. 369 summarised reels and posts and 224 linked resources (9 free to watch), from Bashiri Smith and Melvin Vivas.">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/topics/trends.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://ralmodiel.github.io/ai-study-library/topics/trends.html","name":"Industry Trends & Job Market","url":"https://ralmodiel.github.io/ai-study-library/topics/trends.html","description":"Where the field and the job market are heading.","about":{"@type":"Thing","name":"Industry Trends & Job Market"},"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"inLanguage":"en"},{"@type":"WebSite","@id":"https://ralmodiel.github.io/ai-study-library/#website","name":"AI Engineer Study Library","url":"https://ralmodiel.github.io/ai-study-library/","inLanguage":"en","publisher":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"}},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"Industry Trends & Job Market"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../learning-path.html">Learning path</a><a href="../free-watch-list.html">Free to watch</a><a href="../resources.html">All resources</a><a href="../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../">Library</a> &rsaquo; <a href="../learning-path.html">Learning path</a> &rsaquo; <span aria-current="page">Industry Trends &amp; Job Market</span></nav><p class="step">Topic 16 of 16 in the <a href="../learning-path.html">learning path</a></p><h1>Industry Trends &amp; Job Market</h1>
+<p><em>Where the field and the job market are heading.</em></p>
+<p><strong>Reels and posts (153)</strong></p>
+<ul>
+<li><a href="../notes/16-trends/2026-10-02-glide-fastino-s-decision-model-with-adaptive-thinking.html">GLiDE: Fastino's Decision Model with Adaptive Thinking</a> · Melvin Vivas, X: Fastino Labs released GLiDE, which it calls the first decision model that thinks.</li>
+<li><a href="../notes/16-trends/2026-10-02-tavus-demo-lifelike-real-time-conversational-video-ai.html">Tavus Demo: Lifelike Real-Time Conversational Video AI</a> · Melvin Vivas, X · 1:25: Melvin Vivas reshares a Tavus demo and jokes that it looks so real his wife will be jealous.</li>
+<li><a href="../notes/16-trends/2026-10-01-gemini-4-argon-announced-google-ai-ultra-only.html">Gemini 4 Argon Announced (Google AI Ultra Only)</a> · Melvin Vivas, X: A short news post saying Google announced Gemini 4 Argon.</li>
+<li><a href="../notes/16-trends/2026-09-30-gpt-6-1-and-sonnet-5-5-released-the-same-week.html">GPT-6.1 and Sonnet 5.5 Released the Same Week</a> · Melvin Vivas, X: Industry news: GPT-6.1 and Sonnet 5.5 came out in the same week.</li>
+<li><a href="../notes/16-trends/2026-09-30-openai-devday-2026-recap-dots-agents-api-codex-cloud.html">OpenAI DevDay 2026 Recap: Dots, Agents API, Codex Cloud &amp; Marketplace</a> · Melvin Vivas, X · 5:18: Melvin Vivas cut OpenAI's DevDay 2026 keynote down to a 5-minute clip of the announcements.</li>
+<li><a href="../notes/16-trends/2026-09-30-dot-com-redirects-to-xai-s-grok-bot.html">dot.com redirects to xAI's Grok Bot</a> · Melvin Vivas, X: The creator notes that dot.com redirects to xAI's Grok Bot page, which is a jab at OpenAI's new Dots launch.</li>
+<li><a href="../notes/16-trends/2026-09-30-creator-s-favorite-openai-devday-announcements.html">Creator's favorite OpenAI DevDay announcements</a> · Melvin Vivas, X: The creator picks his favorite OpenAI DevDay announcements: Dots, Codex Cloud, GPT-6.1 Sol, the Decisions API, the Agents API, OpenAI Marketplace and the banked Codex usage reset.</li>
+<li><a href="../notes/16-trends/2026-09-30-openai-devday-recap-dots-gpt-6-1-sol-codex-cloud-agents-api.html">OpenAI DevDay recap: Dots, GPT-6.1 Sol, Codex Cloud, Agents API</a> · Melvin Vivas, X: A full list of OpenAI DevDay launches: Dots agents powered by Astra, Codex Spaces, Codex Cloud and Codex Security Cloud, GPT-6.1 Sol, Ultrafast inference, new Pro plans, the Decisi</li>
+<li><a href="../notes/16-trends/2026-09-30-openai-devday-2026-replay-timestamped-guide-to-the.html">OpenAI DevDay 2026 Replay: Timestamped Guide to the Announcements</a> · Melvin Vivas, X: Melvin Vivas shares the replay of his OpenAI DevDay 2026 livestream, with timestamps for each announcement.</li>
+<li><a href="../notes/16-trends/2026-09-29-openai-devday-keynote-livestream-watch-party.html">OpenAI DevDay keynote livestream (watch party)</a> · Melvin Vivas, X: The creator plans to livestream a watch party of the OpenAI DevDay keynote, linking to OpenAI's official livestream page.</li>
+<li><a href="../notes/16-trends/2026-09-29-elevenlabs-eleven-v4-v4-turbo-emotive-multilingual-text-to.html">ElevenLabs Eleven v4 &amp; v4 Turbo: Emotive, Multilingual Text-to-Speech Models</a> · Melvin Vivas, X · 2:36: Melvin Vivas reshares ElevenLabs' launch of Eleven v4 and Eleven v4 Turbo, which ElevenLabs calls its fastest and most emotive voice models so far.</li>
+<li><a href="../notes/16-trends/2026-09-29-claude-sonnet-5-5-release-beats-opus-5-5-on-terminal-bench.html">Claude Sonnet 5.5 release beats Opus 5.5 on Terminal-Bench</a> · Melvin Vivas, X: Anthropic released Claude Sonnet 5.5.</li>
+<li><a href="../notes/16-trends/2026-09-26-cognition-s-devin-hits-1b-run-rate-ai-coding-agents-in-the.html">Cognition's Devin Hits $1B Run Rate: AI Coding Agents in the Enterprise</a> · Melvin Vivas, X · 0:58: Melvin Vivas congratulates Cognition, the maker of the AI software-engineering agent Devin, on passing $1B in annualized revenue run rate.</li>
+<li><a href="../notes/16-trends/2026-09-24-on-device-ai-running-gemma-4-e2b-offline-on-an-iphone-with.html">On-Device AI: Running Gemma 4 E2B Offline on an iPhone with LiteRT</a> · Melvin Vivas, X · 0:44: Melvin Vivas shows an iPhone app that runs Google's open model Gemma 4 E2B entirely on the phone, with no internet connection.</li>
+<li><a href="../notes/16-trends/2026-09-24-unsloth-passes-500m-model-downloads-on-hugging-face.html">Unsloth passes 500M model downloads on Hugging Face</a> · Melvin Vivas, X: Melvin Vivas congratulates Unsloth on passing 500 million model downloads on Hugging Face.</li>
+<li><a href="../notes/16-trends/2026-09-24-chatgpt-voice-update-plugins-model-switching-and-chatgpt.html">ChatGPT Voice Update: Plugins, Model Switching and ChatGPT Work</a> · Melvin Vivas, X · 2:05: Melvin Vivas shares OpenAI's announcement that ChatGPT Voice can now use plugins (email, calendar, Slack), switch between GPT-6 Astra, Sol and Luna, and run inside ChatGPT Work on</li>
+<li><a href="../notes/16-trends/2026-09-24-gemini-3-8-flash-and-flash-lite-tts-new-text-to-speech.html">Gemini 3.8 Flash and Flash-Lite TTS: new text-to-speech models</a> · Melvin Vivas, X: Melvin Vivas shares Google's launch of the Gemini 3.8 Flash and Flash-Lite TTS text-to-speech models.</li>
+<li><a href="../notes/16-trends/2026-09-23-space-bunny-alpha-stealth-1m-context-flash-model-on.html">Space Bunny Alpha: stealth 1M-context flash model on OpenRouter</a> · Melvin Vivas, X: Melvin Vivas shares OpenRouter's stealth model Space Bunny Alpha.</li>
+<li><a href="../notes/16-trends/2026-09-23-qwen-audio-3-1-alibaba-s-five-model-audio-stack.html">Qwen-Audio-3.1: Alibaba's Five-Model Audio Stack</a> · Melvin Vivas, X: Alibaba Qwen released Qwen-Audio-3.1, which upgrades its speech recognition (ASR), text-to-speech (TTS) and Realtime models.</li>
+<li><a href="../notes/16-trends/2026-09-23-deepswe-results-gpt-6-sol-slightly-below-gpt-5-6-sol-but.html">DeepSWE results: GPT-6 Sol slightly below GPT-5.6 Sol, but cheaper</a> · Melvin Vivas, X: Shares DeepSWE benchmark results showing that GPT-6 Sol peaks slightly below its predecessor GPT-5.6 Sol on coding tasks, though it costs less.</li>
+<li><a href="../notes/16-trends/2026-09-23-openai-releases-gpt-6-sol-and-gpt-6-luna.html">OpenAI Releases GPT-6 Sol and GPT-6 Luna</a> · Melvin Vivas, X: OpenAI released GPT-6 Sol and GPT-6 Luna.</li>
+<li><a href="../notes/16-trends/2026-09-23-claude-opus-5-5-released-fable-5-1-level-performance-at-40.html">Claude Opus 5.5 Released: Fable 5.1-Level Performance at 40% Lower Cost</a> · Melvin Vivas, X · 0:20: This is a short reaction post.</li>
+<li><a href="../notes/16-trends/2026-09-20-qwen-image-2-1-announced-as-an-open-weights-image-model.html">Qwen-Image-2.1 Announced as an Open-Weights Image Model</a> · Melvin Vivas, X: The post shares news that Qwen will open-source Qwen-Image-2.1 on ModelScope, releasing both the weights and the code.</li>
+<li><a href="../notes/16-trends/2026-09-19-qwen3-8-livetranslate-real-time-simultaneous-interpretation.html">Qwen3.8-LiveTranslate: real-time simultaneous interpretation model</a> · Melvin Vivas, X: The creator shares Qwen's announcement of Qwen3.8-LiveTranslate, a model for real-time simultaneous interpretation.</li>
+<li><a href="../notes/16-trends/2026-09-19-open-models-now-dominate-token-volume-on-vercel-ai-gateway.html">Open models now dominate token volume on Vercel AI Gateway</a> · Melvin Vivas, X: The creator argues for using open models more to keep costs sustainable, and for improving agent harnesses with Skills to power workflows.</li>
+<li><a href="../notes/16-trends/2026-09-18-auk-open-source-model-for-generating-and-editing-speech.html">AuK: Open-Source Model for Generating and Editing Speech</a> · Melvin Vivas, X · 1:53: Melvin Vivas shares a demo of AuK, a new open-source foundation model that both generates and edits speech.</li>
+<li><a href="../notes/16-trends/2026-09-18-qwen3-8-omni-flash-qwen-s-agentic-omni-modal-model.html">Qwen3.8-Omni-Flash: Qwen's agentic omni-modal model</a> · Melvin Vivas, X: The creator shares Qwen's announcement of Qwen3.8-Omni-Flash, described as Qwen's first omni-modal model built around agentic capabilities.</li>
+<li><a href="../notes/16-trends/2026-09-18-typesafe-ai-s-jev-and-system-one-models-the-launch-article.html">TypeSafe AI's Jev and System One models: the launch article</a> · Melvin Vivas, X: Melvin Vivas recommends the TypeSafe AI blog post that introduces its System One models and Jev.</li>
+<li><a href="../notes/16-trends/2026-09-18-liquid-ai-s-lfm2-longevity-models-for-aging-data-analysis.html">Liquid AI's LFM2-Longevity models for aging-data analysis</a> · Melvin Vivas, X: Liquid AI released LFM2-1.2B-Longevity and LFM2-2.6B-Longevity, small models built to interpret structured aging data.</li>
+<li><a href="../notes/16-trends/2026-09-16-jev-by-typesafe-ai-a-parallel-system-1-model-for-fast.html">Jev by TypeSafe.AI: a parallel "System 1" model for fast structured decisions</a> · Melvin Vivas, X · 2:56: Melvin Vivas reshares the launch video for Jev, which TypeSafe.AI calls the first public "System 1" model.</li>
+<li><a href="../notes/16-trends/2026-09-12-melvin-vivas-reacts-to-openai-s-gpt-6-astra-announcement.html">Melvin Vivas reacts to OpenAI's "GPT-6 Astra" announcement</a> · Melvin Vivas, X · 0:16: This is a 16-second X post with no speech.</li>
+<li><a href="../notes/16-trends/2026-09-11-persimmon-a-model-built-to-simulate-human-conversation.html">Persimmon: A Model Built to Simulate Human Conversation</a> · Melvin Vivas, X · 0:42: Melvin Vivas shares a quoted announcement of Persimmon.</li>
+<li><a href="../notes/16-trends/2026-09-11-ai-engineer-salaries-at-openai-anthropic-and-the-skills.html">AI Engineer Salaries at OpenAI &amp; Anthropic and the Skills They Want</a> · Bashiri Smith, Facebook · 0:50: The video points to two Applied AI Engineer job postings, one at Anthropic ($200K–$320K) and one at OpenAI ($230K–$385K+), as evidence that companies pay well for engineers who tur</li>
+<li><a href="../notes/16-trends/2026-09-10-deepseek-v4-1-flash-released-smallest-faster-deepseek-model.html">DeepSeek-V4.1-Flash Released: Smallest, Faster DeepSeek Model</a> · Melvin Vivas, X: News that DeepSeek released DeepSeek-V4.1-Flash.</li>
+<li><a href="../notes/16-trends/2026-09-10-grok-release-cadence-about-one-new-version-per-month.html">Grok Release Cadence: About One New Version per Month</a> · Melvin Vivas, X: The post lists recent Grok releases: 4.5 (July 8), 4.6 (Aug 12) and 4.7 (Sep 12, upcoming).</li>
+<li><a href="../notes/16-trends/2026-09-10-auk-tencent-hunyuan-s-unified-audio-generation-and-editing.html">AuK: Tencent Hunyuan's Unified Audio Generation and Editing Model (TTS Demo)</a> · Melvin Vivas, X · 1:53: Melvin Vivas shares a demo of AuK, a new audio model from Tencent Hunyuan that combines text-to-speech and audio editing in one model.</li>
+<li><a href="../notes/16-trends/2026-09-09-will-smith-spaghetti-benchmark-stop-motion-with-gpt-image-2.html">Will Smith Spaghetti Benchmark: Stop Motion with GPT Image 2.5 and Astra</a> · Melvin Vivas, X · 0:17: A 17-second demo with no narration.</li>
+<li><a href="../notes/16-trends/2026-09-09-chatgpt-images-2-5-gpt-image-2-5-what-s-new-in-openai-s.html">ChatGPT Images 2.5 (GPT Image 2.5): What's New in OpenAI's Image Update</a> · Melvin Vivas, X · 0:57: This is a short reaction post.</li>
+<li><a href="../notes/16-trends/2026-09-09-meta-launches-muse-a-personal-ai-agent-and-the-manus.html">Meta Launches Muse, a Personal AI Agent (and the Manus Connection)</a> · Melvin Vivas, X · 1:22: Melvin Vivas reposts Meta's announcement of Muse, a personal AI agent that "gets things done across every part of life." He notes that it isn't available in Singapore yet and wonde</li>
+<li><a href="../notes/16-trends/2026-09-04-gpt-6-astra-announced-computer-use-coding-and-math.html">GPT-6 Astra Announced: Computer Use, Coding and Math</a> · Melvin Vivas, X: The creator quotes the announcement of GPT-6 Astra, described as the 'most intelligent and aligned model yet'.</li>
+<li><a href="../notes/16-trends/2026-09-04-gpt-6-astra-access-across-plans-vs-fable-on-claude-max.html">GPT-6 Astra Access Across Plans vs Fable on Claude Max</a> · Melvin Vivas, X: The creator notes that GPT-6 Astra will be included in every plan's normal usage allocation.</li>
+<li><a href="../notes/16-trends/2026-09-04-gpt-6-astra-demo-one-agent-juggling-many-computer-tasks.html">GPT-6 Astra Demo: One Agent Juggling Many Computer Tasks</a> · Melvin Vivas, X · 2:42: Melvin Vivas reacts to the launch video for GPT-6 Astra.</li>
+<li><a href="../notes/16-trends/2026-09-04-gpt-6-astra-coming-to-devin-benchmark-and-cost-claims.html">GPT-6 Astra Coming to Devin: Benchmark and Cost Claims</a> · Melvin Vivas, X: Shares a quoted announcement that the GPT-6 Astra model is coming to the Devin coding agent.</li>
+<li><a href="../notes/16-trends/2026-09-03-nvidia-and-hugging-face-announcement-on-open-models.html">NVIDIA and Hugging Face announcement on open models</a> · Melvin Vivas, X: The creator celebrates a quoted NVIDIA announcement about Hugging Face; the excerpt doesn't say what was announced.</li>
+<li><a href="../notes/16-trends/2026-09-02-mercury-2-5-runs-at-1-100-tokens-sec.html">Mercury 2.5 runs at 1,100 tokens/sec</a> · Melvin Vivas, X: The creator reacts to the Mercury 2.5 release.</li>
+<li><a href="../notes/16-trends/2026-09-02-muse-voice-transcribe-meta-s-real-time-speech-to-text-model.html">Muse Voice Transcribe: Meta's real-time speech-to-text model</a> · Melvin Vivas, X: The creator highlights Muse Voice Transcribe from Meta Superintelligence Labs, a real-time audio model.</li>
+<li><a href="../notes/16-trends/2026-09-02-claude-fable-5-1-runs-a-38-hour-unattended-ml-task.html">Claude Fable 5.1 Runs a 38-Hour Unattended ML Task</a> · Melvin Vivas, X: The creator points out that Claude Fable 5.1 handles long-horizon work, citing a 38-hour unattended run on an ML issue.</li>
+<li><a href="../notes/16-trends/2026-09-02-claude-fable-5-1-scores-73-4-on-cursorbench-3-2.html">Claude Fable 5.1 Scores 73.4% on CursorBench 3.2</a> · Melvin Vivas, X: The creator shares a quote saying Claude Fable 5.1 is the most capable model run on CursorBench 3.2, with 73.4% at max effort.</li>
+<li><a href="../notes/16-trends/2026-08-31-why-software-engineers-should-move-into-ai-engineering.html">Why Software Engineers Should Move Into AI Engineering</a> · Bashiri Smith, Facebook · 0:53: Bashiri Smith argues that AI is changing software engineering more than any other profession, but job openings are still going up.</li>
+<li><a href="../notes/16-trends/2026-08-31-infinite-slop-endless-ai-generated-video-site-switches-to.html">Infinite Slop: Endless AI-Generated Video Site Switches to Portrait</a> · Melvin Vivas, X: The creator shares Infinite Slop, a site by levelsio and fal.ai that streams AI-generated videos without end.</li>
+<li><a href="../notes/16-trends/2026-08-29-openai-models-leaving-cursor-after-november-12.html">OpenAI Models Leaving Cursor After November 12</a> · Melvin Vivas, X: OpenAI is ending its partnership with Cursor after Cursor's acquisition by SpaceX.</li>
+<li><a href="../notes/16-trends/2026-08-28-jevons-paradox-discounted-gpt-5-6-terra-luna-raised-token.html">Jevons Paradox: Discounted GPT 5.6 Terra/Luna Raised Token Use 13.8x</a> · Melvin Vivas, X: When OpenRouter heavily discounted GPT 5.6 Terra and Luna, token usage went up 13.8x.</li>
+<li><a href="../notes/16-trends/2026-08-27-glm-5-3-open-weights-release-delayed-for-framework-support.html">GLM 5.3 Open Weights Release Delayed for Framework Support</a> · Melvin Vivas, X: Z.ai confirms that GLM 5.3 weights will be released as open source.</li>
+<li><a href="../notes/16-trends/2026-08-27-nvidia-buying-hugging-face-what-it-could-mean-for-open.html">NVIDIA buying Hugging Face: what it could mean for open models</a> · Melvin Vivas, X: The creator reacts to news that NVIDIA is buying Hugging Face.</li>
+<li><a href="../notes/16-trends/2026-08-21-gpt-5-6-sol-api-and-credit-pricing-cut-by-over-20-for-3.html">GPT-5.6 Sol API and Credit Pricing Cut by Over 20% for 3 Months</a> · Melvin Vivas, X · 0:05: A short news post: Melvin Vivas shares a quoted announcement that API and credit pricing for GPT-5.6 Sol is dropping by more than 20% for the next three months.</li>
+<li><a href="../notes/16-trends/2026-08-20-meta-muse-spark-1-2-multimodal-model-release-announcement.html">Meta Muse Spark 1.2: Multimodal Model Release Announcement</a> · Melvin Vivas, X · 0:43: This is a short news post.</li>
+<li><a href="../notes/16-trends/2026-08-19-paperscrolling-browse-trending-ai-research-papers-like-a.html">Paperscrolling: Browse Trending AI Research Papers Like a Social Feed (alphaXiv)</a> · Melvin Vivas, X · 0:30: A 30-second demo of alphaXiv's new "Paperscrolling" feature.</li>
+<li><a href="../notes/16-trends/2026-08-19-qwen3-8-27b-trends-1-on-hugging-face.html">Qwen3.8 27B Trends #1 on Hugging Face</a> · Melvin Vivas, X: A news post: Qwen3.8 27B is the #1 trending model on Hugging Face.</li>
+<li><a href="../notes/16-trends/2026-08-19-glm-5-3-now-available-on-aws-marketplace.html">GLM-5.3 now available on AWS Marketplace</a> · Melvin Vivas, X: The GLM-5.3 model is now on AWS Marketplace.</li>
+<li><a href="../notes/16-trends/2026-08-12-grok-4-6-release-better-than-grok-4-5-at-the-same-price.html">Grok 4.6 release: better than Grok 4.5 at the same price</a> · Melvin Vivas, X: xAI announced Grok 4.6, describing it as frontier-level and a big improvement over Grok 4.5 at the same price.</li>
+<li><a href="../notes/16-trends/2026-08-10-meta-muse-glimmer-30b-open-weights-model-that-beats-qwen3-6.html">Meta Muse Glimmer-30B: Open Weights Model That Beats Qwen3.6 37B on Agentic Tasks</a> · Melvin Vivas, X: Meta released Muse Glimmer-30B as an open-weights model.</li>
+<li><a href="../notes/16-trends/2026-08-08-liquid-ai-documentation-and-the-future-of-local-ai.html">Liquid AI Documentation and the Future of Local AI</a> · Melvin Vivas, X: The creator says he is reading Liquid AI's documentation and is optimistic about local AI.</li>
+<li><a href="../notes/16-trends/2026-08-06-running-minimax-h3-locally-on-a-single-rtx-3090-demo.html">Running MiniMax H3 Locally on a Single RTX 3090 (Demo)</a> · Melvin Vivas, X · 0:15: This is a 15-second demo clip with no speech.</li>
+<li><a href="../notes/16-trends/2026-08-03-qwen3-8-27b-announced-to-run-locally-on-17gb-ram-vram.html">Qwen3.8-27B announced to run locally on 17GB RAM/VRAM</a> · Melvin Vivas, X: The creator shares the announcement that Qwen3.8-27B is coming and will run locally on setups with 17GB of RAM/VRAM.</li>
+<li><a href="../notes/16-trends/2026-08-03-qwen3-8-max-announced-with-open-weights-for-max-and-27b.html">Qwen3.8-Max announced with open weights for Max and 27B</a> · Melvin Vivas, X: The creator shares Qwen's announcement of Qwen3.8-Max, its most capable model so far, with 2.4T parameters aimed at coding and cowork.</li>
+<li><a href="../notes/16-trends/2026-08-02-grok-can-now-analyze-videos.html">Grok Can Now Analyze Videos</a> · Melvin Vivas, X: A short note that xAI's Grok can now analyze videos, linking to Elon Musk's announcement post.</li>
+<li><a href="../notes/16-trends/2026-08-01-deepseek-v4-flash-official-api-launches-in-public-beta.html">DeepSeek-V4-Flash Official API Launches in Public Beta</a> · Melvin Vivas, X: The creator shares DeepSeek's news that the official DeepSeek-V4-Flash API is live in public beta.</li>
+<li><a href="../notes/16-trends/2026-07-30-gemini-robotics-2-whole-body-humanoid-control-from-one.html">Gemini Robotics 2: Whole-Body Humanoid Control from One Prompt</a> · Melvin Vivas, X · 1:29: A short repost with a video and no speech.</li>
+<li><a href="../notes/16-trends/2026-07-30-is-indie-hacking-dead-how-ai-coding-changes-the-micro-saas.html">Is Indie Hacking Dead? How AI Coding Changes the Micro-SaaS Playbook</a> · Melvin Vivas, X · 1:32: Melvin Vivas shares a Fireship clip.</li>
+<li><a href="../notes/16-trends/2026-07-30-korean-ai-model-news-and-an-ai-news-tracker-site.html">Korean AI Model News and an AI News Tracker Site</a> · Melvin Vivas, X: A short post pointing to a new Korean AI model and linking to an AI news page that collects model releases, announcements and research.</li>
+<li><a href="../notes/16-trends/2026-07-29-seedance-2-5-video-model-up-to-50-references-and-30-second.html">Seedance 2.5 Video Model: Up to 50 References and 30-Second Clips</a> · Melvin Vivas, X: A quick reaction to the Seedance 2.5 video generation model.</li>
+<li><a href="../notes/16-trends/2026-07-25-public-industry-support-for-open-source-open-weight-ai.html">Public Industry Support for Open-Source / Open-Weight AI</a> · Melvin Vivas, X: The creator praises companies for publicly backing open source, not just signing a letter, and links to Elon Musk's post on it.</li>
+<li><a href="../notes/16-trends/2026-07-25-open-weight-model-letter-who-signed-and-who-didn-t.html">Open-Weight Model Letter: Who Signed and Who Didn't</a> · Melvin Vivas, X: A quoted post says Jensen Huang and Satya Nadella shared a joint letter, released by several companies and organizations at once, urging policymakers not to restrict open-weight mo</li>
+<li><a href="../notes/16-trends/2026-07-24-claude-opus-5-release-anthropic-s-new-model-announced.html">Claude Opus 5 Release: Anthropic's New Model Announced</a> · Melvin Vivas, X · 0:08: An 8-second post celebrating the release of Anthropic's Claude Opus 5.</li>
+<li><a href="../notes/16-trends/2026-07-23-news-chinese-ai-hugging-face-and-an-openai-hack-forbes.html">News: Chinese AI, Hugging Face and an OpenAI Hack (Forbes)</a> · Melvin Vivas, X: The creator shares a Forbes article that asks whether Chinese AI saved Hugging Face from disaster after an OpenAI hack.</li>
+<li><a href="../notes/16-trends/2026-07-22-qwen-image-3-0-released-third-gen-image-generation-model.html">Qwen-Image-3.0 Released: Third-Gen Image Generation Model</a> · Melvin Vivas, X: The creator shares the announcement of Qwen-Image-3.0, the third generation of Qwen's base image generation model.</li>
+<li><a href="../notes/16-trends/2026-07-22-open-model-glm-5-2-helped-mitigate-openai-caused-cyberattack.html">Open Model GLM 5.2 Helped Mitigate OpenAI-Caused Cyberattack</a> · Melvin Vivas, X: The creator argues the main story of the Hugging Face incident is that GLM 5.2, an open model running on Hugging Face infrastructure, helped mitigate an unintentional cyberattack b</li>
+<li><a href="../notes/16-trends/2026-07-21-heads-up-an-upcoming-2t-parameter-grok-model.html">Heads-up: an upcoming 2T-parameter Grok model</a> · Melvin Vivas, X: The creator says to watch for a 2-trillion-parameter Grok model from xAI and links Elon Musk's announcement post.</li>
+<li><a href="../notes/16-trends/2026-07-20-qwen3-8-2-4t-params-announced-as-upcoming-open-weight-model.html">Qwen3.8 (2.4T params) Announced as Upcoming Open-Weight Model</a> · Melvin Vivas, X: Melvin Vivas reacts to Qwen announcing Qwen3.8.</li>
+<li><a href="../notes/16-trends/2026-07-20-why-chinese-ai-models-are-mostly-open-source.html">Why Chinese AI Models Are Mostly Open Source</a> · Melvin Vivas, X: Melvin Vivas connects the open release of many Chinese models (GLM, Kimi, Qwen, DeepSeek) to China's stated policy of international AI cooperation.</li>
+<li><a href="../notes/16-trends/2026-07-19-qwen3-8-open-weight-launch-announcement-reaction.html">Qwen3.8 Open-Weight Launch Announcement Reaction</a> · Melvin Vivas, X: Melvin Vivas reacts to the announcement that Qwen3.8 is coming soon.</li>
+<li><a href="../notes/16-trends/2026-07-17-kimi-k3-release-2-8t-params-1m-context-native-multimodal.html">Kimi K3 release: 2.8T params, 1M context, native multimodal</a> · Melvin Vivas, X: Announces that Moonshot's Kimi K3 model has been released and lists its reported specs.</li>
+<li><a href="../notes/16-trends/2026-07-09-ai-news-roundup-grok-4-5-gpt-5-6-launch-gpt-live-voice.html">AI News Roundup: Grok 4.5, GPT-5.6 Launch, GPT-Live Voice Models</a> · Melvin Vivas, X: A news roundup that points to the creator's AI news page.</li>
+<li><a href="../notes/16-trends/2026-07-09-grok-4-5-first-impressions-opus-level-output-vs-fable.html">Grok 4.5 First Impressions: Opus-Level Output vs Fable</a> · Melvin Vivas, X: The creator compared the newly released Grok 4.5 with Fable on the same tasks and found the outputs comparable.</li>
+<li><a href="../notes/16-trends/2026-07-09-cognition-releases-swe-1-7-near-frontier-coding-model-at.html">Cognition Releases SWE-1.7: Near-Frontier Coding Model at Low Cost</a> · Melvin Vivas, X: Shares Cognition's announcement of SWE-1.7, their most capable model so far.</li>
+<li><a href="../notes/16-trends/2026-07-08-meta-s-muse-image-an-agentic-image-generation-model.html">Meta's Muse Image: An Agentic Image Generation Model</a> · Melvin Vivas, X: Quotes Meta's announcement of Muse Image, the first image generation model from Meta Superintelligence Labs (MSL).</li>
+<li><a href="../notes/16-trends/2026-07-07-news-alibaba-bans-anthropic-s-claude-after-distillation.html">News: Alibaba Bans Anthropic's Claude After 'Distillation Attack' Claim</a> · Melvin Vivas, X: Links a CNBC article reporting that Alibaba banned Anthropic's AI for its employees after an accusation of a 'distillation attack'.</li>
+<li><a href="../notes/16-trends/2026-07-03-ai-news-roundup-claude-fable-5-scientist-ai-zcode-nvidia-rl.html">AI News Roundup: Claude Fable 5, Scientist AI, ZCode, NVIDIA RL</a> · Melvin Vivas, X: The creator shares his AI news page and several headlines: Anthropic redeploys Claude Fable 5/Mythos 5, LawZero shares Bengio-led Scientist AI safety work, Z.ai launches ZCode for</li>
+<li><a href="../notes/16-trends/2026-07-01-google-releases-nano-banana-2-lite-and-gemini-omni-flash.html">Google Releases Nano Banana 2 Lite and Gemini Omni Flash</a> · Melvin Vivas, X: Google released two generative media models for developers and enterprises, both pitched on cost-performance.</li>
+<li><a href="../notes/16-trends/2026-06-30-ai-is-blurring-engineering-product-and-design-roles.html">AI Is Blurring Engineering, Product and Design Roles</a> · Melvin Vivas, X: The creator agrees with a quoted post saying engineering, product, design and data science are merging into new kinds of roles.</li>
+<li><a href="../notes/16-trends/2026-06-28-waiting-for-a-z-ai-model-to-rival-fable.html">Waiting for a Z.ai model to rival Fable</a> · Melvin Vivas, X: Melvin says he expects Z.ai (Zhipu, maker of the GLM models) to release a model that competes with Fable.</li>
+<li><a href="../notes/16-trends/2026-06-28-cloud-coding-agents-moving-code-agents-off-the-laptop.html">Cloud Coding Agents: Moving Code Agents Off the Laptop</a> · Melvin Vivas, X: A short opinion post.</li>
+<li><a href="../notes/16-trends/2026-06-26-gated-gpt-5-6-rollout-a-case-for-open-models.html">Gated GPT-5.6 rollout: a case for open models</a> · Melvin Vivas, X: A news item reports that the US government asked OpenAI to stagger the GPT-5.6 release, with access approved customer by customer.</li>
+<li><a href="../notes/16-trends/2026-06-25-gemma-4-google-s-open-models-for-on-device-offline-ai.html">Gemma 4: Google's Open Models for On-Device, Offline AI</a> · Melvin Vivas, X · 4:07: Melvin Vivas shares Google's promo video for Gemma 4 and asks whether Gemma might come to Apple devices.</li>
+<li><a href="../notes/16-trends/2026-06-24-openai-s-first-custom-ai-chip-jalapeno-built-with-broadcom.html">OpenAI's first custom AI chip: Jalapeño, built with Broadcom</a> · Melvin Vivas, X: Quotes OpenAI's announcement of Jalapeño, its first in-house AI chip, built for LLM workloads and taken to production with Broadcom.</li>
+<li><a href="../notes/16-trends/2026-06-24-hugging-face-ceo-on-the-shift-to-open-source-and-local-ai.html">Hugging Face CEO on the Shift to Open-Source and Local AI Models</a> · Melvin Vivas, X · 0:39: Melvin Vivas reshares a short clip in which Clem Delangue, co-founder and CEO of Hugging Face, says AI is moving toward open-source and local models.</li>
+<li><a href="../notes/16-trends/2026-06-24-google-workspace-cli-creator-says-google-fired-him.html">Google Workspace CLI creator says Google fired him</a> · Melvin Vivas, X: Quotes the creator of the Google Workspace CLI, who says Google fired him for building it, even though it went viral, hit #1 on Hacker News and quickly gained thousands of GitHub s</li>
+<li><a href="../notes/16-trends/2026-06-23-hugging-face-nears-3m-public-models-and-1m-datasets.html">Hugging Face Nears 3M Public Models and 1M Datasets</a> · Melvin Vivas, X: The creator boosts a post saying Hugging Face is about to pass 3 million public models and 1 million public datasets.</li>
+<li><a href="../notes/16-trends/2026-06-23-google-shuts-down-gemini-cli-and-firebase-studio.html">Google Shuts Down Gemini CLI and Firebase Studio</a> · Melvin Vivas, X: The creator reports that Google recently shut down two developer projects: Gemini CLI and Firebase Studio.</li>
+<li><a href="../notes/16-trends/2026-06-23-samsung-electronics-rolls-out-chatgpt-and-codex-to-employees.html">Samsung Electronics Rolls Out ChatGPT and Codex to Employees</a> · Melvin Vivas, X: OpenAI announced that Samsung Electronics is giving its employees ChatGPT and Codex.</li>
+<li><a href="../notes/16-trends/2026-06-20-must-watch-full-interview-with-dario-amodei-on-the.html">Must-Watch: Full Interview with Dario Amodei on the Anthropic Story</a> · Melvin Vivas, X: The creator recommends a newly released full interview with Anthropic CEO Dario Amodei as a must-watch for anyone into AI.</li>
+<li><a href="../notes/16-trends/2026-06-20-bloomberg-s-inside-anthropic-interview-with-dario-and.html">Bloomberg's 'Inside Anthropic' interview with Dario and Daniela Amodei</a> · Melvin Vivas, X: Shares Bloomberg Originals' The Circuit episode where Emily Chang interviews Anthropic co-founders Dario and Daniela Amodei.</li>
+<li><a href="../notes/16-trends/2026-06-18-glm-5-2-ranks-above-fable-5-on-design-arena.html">GLM 5.2 Ranks Above Fable 5 on Design Arena</a> · Melvin Vivas, X: The creator reports that the open model GLM 5.2 beats Anthropic's Fable 5 on the Design Arena leaderboard.</li>
+<li><a href="../notes/16-trends/2026-06-17-glm-5-2-from-z-ai-is-catching-up-with-claude-opus-4-8.html">GLM 5.2 from Z.ai is catching up with Claude Opus 4.8</a> · Melvin Vivas, X: The creator says Z.ai's GLM 5.2 model is catching up with Anthropic's Claude Opus 4.8 while people wait for 'Fable'.</li>
+<li><a href="../notes/16-trends/2026-06-17-open-source-ai-keeps-growing-github-and-hugging-face-numbers.html">Open-source AI keeps growing: GitHub and Hugging Face numbers</a> · Melvin Vivas, X: The creator shares numbers on how fast open-source AI is growing: 5.6 million AI projects on GitHub and Hugging Face uploads tripling since 2023.</li>
+<li><a href="../notes/16-trends/2026-06-17-chatgpt-s-market-share-drops-below-50-techcrunch.html">ChatGPT's market share drops below 50% (TechCrunch)</a> · Melvin Vivas, X: Shares a TechCrunch report (June 16, 2026) that ChatGPT's share of the AI assistant market has fallen below 50% for the first time.</li>
+<li><a href="../notes/16-trends/2026-06-17-stanford-ai-index-report-2026.html">Stanford AI Index Report 2026</a> · Melvin Vivas, X: Shares the PDF of the Stanford HAI AI Index Report 2026.</li>
+<li><a href="../notes/16-trends/2026-06-16-spacex-acquires-cursor.html">SpaceX acquires Cursor</a> · Melvin Vivas, X: Reports that SpaceX acquired the AI code editor Cursor.</li>
+<li><a href="../notes/16-trends/2026-06-15-dreamina-seedance-2-0-mini-faster-cheaper-ai-video.html">Dreamina Seedance 2.0 Mini: Faster, Cheaper AI Video Generation</a> · Melvin Vivas, X · 0:10: Melvin Vivas reshares the launch of Dreamina Seedance 2.0 Mini, a lower-cost, faster version of the Seedance 2.0 video generation model, adding only "faster and cheaper!!!" The quo</li>
+<li><a href="../notes/16-trends/2026-06-10-ideogram-4-0-released-as-an-open-weights-image-model.html">Ideogram 4.0 Released as an Open-Weights Image Model</a> · Melvin Vivas, X · 0:55: Melvin Vivas shares news that Ideogram has open-sourced its image model.</li>
+<li><a href="../notes/16-trends/2026-06-03-martin-scorsese-joins-black-forest-labs-storyboarding-with.html">Martin Scorsese Joins Black Forest Labs: Storyboarding with FLUX</a> · Melvin Vivas, X · 0:30: Melvin Vivas reposts Black Forest Labs' announcement that director Martin Scorsese is now an advisor to the company.</li>
+<li><a href="../notes/16-trends/2026-06-02-martin-scorsese-storyboards-a-scene-with-black-forest-labs.html">Martin Scorsese Storyboards a Scene with Black Forest Labs' FLUX</a> · Melvin Vivas, X · 0:30: Melvin Vivas reshares a Black Forest Labs announcement that director Martin Scorsese is now an advisor to the company.</li>
+<li><a href="../notes/16-trends/2026-05-29-nvidia-s-locateanything-vision-language-detection-model.html">NVIDIA's LocateAnything: Vision-Language Detection Model (CVPR 2026)</a> · Melvin Vivas, X · 0:16: This is a short repost with no narration.</li>
+<li><a href="../notes/16-trends/2026-05-20-opinion-gpt-image-2-is-the-current-sota-image-model.html">Opinion: GPT Image 2 Is the Current SOTA Image Model</a> · Melvin Vivas, X: The creator calls GPT Image 2 the current state-of-the-art image generation model.</li>
+<li><a href="../notes/16-trends/2026-05-20-opinion-seedance-2-0-still-beats-gemini-omni-for-video.html">Opinion: Seedance 2.0 Still Beats Gemini Omni for Video</a> · Melvin Vivas, X: A short comparison: the creator thinks Gemini Omni did not beat Seedance 2.0.</li>
+<li><a href="../notes/16-trends/2026-05-20-qwopus-coder-9b-small-coding-model-line-expanding.html">Qwopus Coder 9B: Small Coding Model Line Expanding</a> · Melvin Vivas, X: The creator quote-posts an update about Qwopus Coder 9B, a 9B coding model.</li>
+<li><a href="../notes/16-trends/2026-05-20-gemini-3-5-flash-released.html">Gemini 3.5 Flash Released</a> · Melvin Vivas, X: The creator shares Google's announcement of Gemini 3.5 Flash.</li>
+<li><a href="../notes/16-trends/2026-05-19-qwen-3-5-live-translate-real-time-speech-translation-demo.html">Qwen 3.5 Live Translate: Real-Time Speech Translation Demo</a> · Melvin Vivas, X · 0:57: A short demo of Qwen 3.5 Live Translate translating live conversation between English, French and Chinese.</li>
+<li><a href="../notes/16-trends/2026-05-19-qwen3-5-livetranslate-real-time-audio-visual-interpretation.html">Qwen3.5-LiveTranslate: Real-Time Audio-Visual Interpretation Model</a> · Melvin Vivas, X · 0:58: Melvin Vivas shares the launch video for Alibaba Qwen's Qwen3.5-LiveTranslate, a real-time audio-visual simultaneous interpretation model.</li>
+<li><a href="../notes/16-trends/2026-05-19-gemini-omni-google-s-any-to-video-multimodal-model-google-i.html">Gemini Omni: Google's Any-to-Video Multimodal Model (Google I/O)</a> · Melvin Vivas, X · 0:07: This is a short reaction post.</li>
+<li><a href="../notes/16-trends/2026-05-19-cursor-launches-composer-2-5-with-doubled-usage-for-a-week.html">Cursor Launches Composer 2.5 with Doubled Usage for a Week</a> · Melvin Vivas, X: A reaction to Cursor's Composer 2.5 launch, saying it puts pressure on GPT 5.5 and Opus 4.7.</li>
+<li><a href="../notes/16-trends/2026-05-19-qwen-3-7-plus-preview-ranks-16-in-the-vision-arena.html">Qwen 3.7 Plus Preview Ranks #16 in the Vision Arena</a> · Melvin Vivas, X: Alibaba released a Qwen 3.7 Plus preview only weeks after Qwen 3.6.</li>
+<li><a href="../notes/16-trends/2026-05-17-figure-f-03-livestream-humanoid-robots-working-nonstop.html">Figure F.03 Livestream: Humanoid Robots Working Nonstop</a> · Melvin Vivas, X: A link to Figure's livestream of its F.03 humanoid robots on Day 9: 191 consecutive hours and 238,000 packages handled.</li>
+<li><a href="../notes/16-trends/2026-05-17-humanoid-robots-run-a-full-8-hour-shift-with-helix-02.html">Humanoid Robots Run a Full 8-Hour Shift with Helix-02</a> · Melvin Vivas, X: Figure's humanoid robots ran a full 8-hour shift at human performance levels.</li>
+<li><a href="../notes/16-trends/2026-05-14-claude-plans-get-monthly-credit-for-agent-sdk-and-claude-p.html">Claude Plans Get Monthly Credit for Agent SDK and claude -p</a> · Melvin Vivas, X: The quoted announcement says that from June 15, paid Claude plans can claim a dedicated monthly credit for programmatic usage.</li>
+<li><a href="../notes/16-trends/2026-05-12-demo-a-real-time-vision-ai-assistant-that-coaches-your-diet.html">Demo: A Real-Time Vision AI Assistant That Coaches Your Diet</a> · Melvin Vivas, X · 1:00: A one-minute demo of a voice-and-camera AI assistant that watches what the user picks up and gives diet advice in real time.</li>
+<li><a href="../notes/16-trends/2026-05-11-self-flow-training-multimodal-generative-models-without-an.html">Self-Flow: Training Multimodal Generative Models Without an External Encoder</a> · Melvin Vivas, X · 2:12: This clip comes from a talk Stephen Batifol gave at AI Engineer.</li>
+<li><a href="../notes/16-trends/2026-05-11-veo-omni-a-10-second-teaser-clip-of-a-possible-new-google.html">"Veo Omni?": A 10-Second Teaser Clip of a Possible New Google Video Model</a> · Melvin Vivas, X · 0:10: Melvin Vivas reposts a 10-second clip from @Lentils80 with only the caption "Veo Omni?", hinting that the video may come from an unreleased or rumored Google Veo model.</li>
+<li><a href="../notes/16-trends/2026-05-11-openai-launches-the-openai-deployment-company.html">OpenAI launches the OpenAI Deployment Company</a> · Melvin Vivas, X: A link to OpenAI's announcement of the OpenAI Deployment Company, a new company meant to help businesses build around AI.</li>
+<li><a href="../notes/16-trends/2026-05-04-gemma-4-coming-to-react-native-on-device-llms-for-mobile.html">Gemma 4 Coming to React Native: On-Device LLMs for Mobile Apps</a> · Melvin Vivas, X · 0:45: Melvin Vivas reacts ("wow!!!") to an announcement, quoted in his post, that Gemma 4, Google's open model family, will soon run fully on-device inside React Native apps.</li>
+<li><a href="../notes/16-trends/2026-04-25-qwen-image-2-0-pro-released-text-to-image-model-update.html">Qwen-Image-2.0-Pro Released: Text-to-Image Model Update</a> · Melvin Vivas, X: Shares the launch of Qwen-Image-2.0-Pro, a text-to-image model with better image quality, multilingual text rendering and instruction following.</li>
+<li><a href="../notes/16-trends/2026-04-24-comfyui-raises-30m-open-source-visual-ai-pipelines-move.html">ComfyUI Raises $30M: Open-Source Visual AI Pipelines Move into Production</a> · Melvin Vivas, X · 2:32: Melvin Vivas reposts ComfyUI's funding announcement video, captioned only with "great".</li>
+<li><a href="../notes/16-trends/2026-04-23-qwen-3-6-27b-an-open-local-model-with-benchmarks-near.html">Qwen 3.6 27B: An Open Local Model with Benchmarks Near Claude Opus 4.5</a> · Melvin Vivas, X: The creator says Qwen 3.6 27B's benchmark scores come close to Claude Opus 4.5, while the model is open source and can run locally.</li>
+<li><a href="../notes/16-trends/2026-04-22-spacexai-and-cursor-partner-on-coding-ai.html">SpaceXAI and Cursor partner on coding AI</a> · Melvin Vivas, X: Industry news: SpaceXAI and Cursor are working together on AI for coding and knowledge work.</li>
+<li><a href="../notes/16-trends/2026-04-17-seedance-2-0-video-model-now-available-inside-heygen-demo.html">Seedance 2.0 Video Model Now Available Inside HeyGen (Demo Clip)</a> · Melvin Vivas, X · 0:08: An 8-second demo clip from Melvin Vivas showing video made with the Seedance 2.0 model inside HeyGen, an AI video platform.</li>
+<li><a href="../notes/16-trends/2026-04-16-claude-opus-4-7-release-more-rigor-on-long-running-tasks.html">Claude Opus 4.7 Release: More Rigor on Long-Running Tasks</a> · Melvin Vivas, X: The creator reacts to Anthropic's launch of Claude Opus 4.7 and wants his Claude Max subscription back.</li>
+<li><a href="../notes/16-trends/2026-04-16-gemini-3-1-flash-tts-controllable-speech-with-audio-tags.html">Gemini 3.1 Flash TTS: Controllable Speech with Audio Tags</a> · Melvin Vivas, X: The creator shares the release of Gemini 3.1 Flash TTS, which Google calls its most controllable text-to-speech model.</li>
+<li><a href="../notes/16-trends/2026-04-14-rumored-anthropic-app-builder-vs-bolt-new-lovable-and-v0.html">Rumored Anthropic App Builder vs bolt.new, Lovable and v0</a> · Melvin Vivas, X: Melvin reacts to a leak saying Anthropic is building a Lovable-like feature for creating full-stack apps.</li>
+<li><a href="../notes/16-trends/2026-04-08-glm-5-1-reportedly-beats-claude-opus-4-6-on-cybersecurity.html">GLM-5.1 Reportedly Beats Claude Opus 4.6 on Cybersecurity</a> · Melvin Vivas, X: A one-line claim that the open-source GLM-5.1 model beats Claude Opus 4.6 on a cybersecurity benchmark.</li>
+<li><a href="../notes/16-trends/2026-04-08-open-source-glm-5-1-beats-gpt-5-4-on-swe-bench-pro.html">Open-Source GLM-5.1 Beats GPT-5.4 on SWE-Bench Pro</a> · Melvin Vivas, X: Claims that GLM-5.1, an open-source model, scores higher than GPT-5.4 on the SWE-Bench Pro coding benchmark.</li>
+<li><a href="../notes/16-trends/2026-04-08-glm-5-1-open-source-model-for-long-running-coding-agents.html">GLM-5.1: Open-Source Model for Long-Running Coding Agents</a> · Melvin Vivas, X: Shares the GLM-5.1 launch announcement.</li>
+<li><a href="../notes/16-trends/2026-04-06-seedance-2-0-demo-multi-clip-video-with-automatic-cuts-from.html">Seedance 2.0 Demo: Multi-Clip Video with Automatic Cuts from One Generation</a> · Melvin Vivas, X · 0:15: This is a 15-second demo with no speech, shared by Melvin Vivas.</li>
+<li><a href="../notes/16-trends/2026-04-04-gemma-4-and-google-deepmind-s-open-source-push.html">Gemma 4 and Google DeepMind's Open-Source Push</a> · Melvin Vivas, X: The creator praises Google DeepMind for releasing open models and says Gemma 4 is very good.</li>
+<li><a href="../notes/16-trends/2026-04-01-glm-5v-turbo-a-vision-coding-model-for-multimodal-inputs.html">GLM-5V-Turbo: A Vision Coding Model for Multimodal Inputs</a> · Melvin Vivas, X · 1:17: This is a short post with a video and no narration.</li>
+<li><a href="../notes/16-trends/2026-03-27-cohere-transcribe-cohere-s-new-open-source-speech-to-text.html">Cohere Transcribe: Cohere's New Open-Source Speech-to-Text Model</a> · Melvin Vivas, X · 0:39: A short news post saying Cohere has released Cohere Transcribe, which it calls a new state-of-the-art open-source speech recognition (speech-to-text) model.</li>
+<li><a href="../notes/16-trends/2026-03-21-cursor-composer-2-is-built-on-open-source-kimi-k2-5.html">Cursor Composer 2 Is Built on Open-Source Kimi K2.5</a> · Melvin Vivas, X: The post says Cursor's Composer 2 coding model uses Moonshot's open-source Kimi K2.5 as its base model.</li>
+<li><a href="../notes/16-trends/2026-03-18-jensen-huang-on-nvidia-s-long-term-commitment-to-open.html">Jensen Huang on NVIDIA's Long-Term Commitment to Open Nemotron Models</a> · Melvin Vivas, X · 3:12: In this clip, Ahmad Osman, who moderates r/LocalLLaMA, asks Jensen Huang whether NVIDIA will keep releasing Nemotron models or whether recent releases only proved that NVFP4 traini</li>
+<li><a href="../notes/16-trends/2026-03-07-opinion-with-ai-coding-frameworks-are-for-humans.html">Opinion: With AI Coding, Frameworks Are for Humans</a> · Melvin Vivas, X: The creator argues that AI can write what you need in one or a few files without frameworks, because frameworks exist for human developers.</li>
+<li><a href="../notes/16-trends/2026-03-06-ltx-2-3-video-generation-model-now-available-on-replicate.html">LTX-2.3 Video Generation Model Now Available on Replicate</a> · Melvin Vivas, X · 0:39: A short announcement that LTX-2.3, the video generation model from LTX (@ltx_model), can now be run on Replicate.</li>
+<li><a href="../notes/16-trends/2026-03-06-ltx-2-3-launch-fast-native-4k-ai-video-generation-in-ltx.html">LTX-2.3 Launch: Fast Native 4K AI Video Generation in LTX Studio</a> · Melvin Vivas, X · 1:00: Melvin Vivas reshares the launch announcement for LTX-2.3, a video generation model now powering LTX Studio.</li>
+<li><a href="../notes/16-trends/2026-03-06-gpt-5-4-release-thinking-and-pro-in-chatgpt-api-and-codex.html">GPT-5.4 Release: Thinking and Pro in ChatGPT, API and Codex</a> · Melvin Vivas, X: Announcement that OpenAI's GPT-5.4 Thinking and GPT-5.4 Pro are rolling out in ChatGPT, and GPT-5.4 is also in the API and Codex.</li>
+<li><a href="../notes/16-trends/2026-03-02-the-saaspocalypse-300b-in-saas-market-value-wiped-out-by-ai.html">The 'SaaSpocalypse': $300B in SaaS Market Value Wiped Out by AI Fears</a> · Melvin Vivas, X: Melvin Vivas shares a Forbes article by Don Muir (Feb 4, 2026) saying about $300 billion in SaaS market value disappeared, which the article calls the start of a 'SaaSpocalypse'.</li>
+<li><a href="../notes/16-trends/2026-03-01-block-cuts-about-40-of-staff-citing-ai-productivity.html">Block Cuts About 40% of Staff, Citing AI Productivity</a> · Melvin Vivas, X: Block cut about 4,000 jobs (nearly 40% of staff), saying AI tools let smaller teams deliver more.</li>
+</ul>
+<p><strong>Watch, free (8)</strong></p>
+<ul>
+<li><strong><a href="https://x.com/i/broadcasts/1AxRnZyWMORxl">OpenAI DevDay livestream replay</a></strong> · video · x.com · free<br>
+  Replay of Melvin Vivas's X Live watch party covering the full OpenAI DevDay 2026 keynote.<br>
+  Mentioned in: OpenAI DevDay recap: Dots, GPT-6.1 Sol, Codex Cloud, Agents API (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105018489794879836">X</a> · <a href="../notes/16-trends/2026-09-30-openai-devday-recap-dots-gpt-6-1-sol-codex-cloud-agents-api.html">notes</a>), OpenAI DevDay 2026 Replay: Timestamped Guide to the Announcements (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105015301180182833">X</a> · <a href="../notes/16-trends/2026-09-30-openai-devday-2026-replay-timestamped-guide-to-the.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/@aiDotEngineer">AI Engineer (conference and YouTube channel)</a></strong> · channel · youtube.com · free<br>
+  AI engineering conference series that posts its talks for free on YouTube, including the full version of this talk.<br>
+  Mentioned in: Self-Flow: Training Multimodal Generative Models Without an External Encoder (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2053897572536975846">X</a> · <a href="../notes/16-trends/2026-05-11-self-flow-training-multimodal-generative-models-without-an.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=luU57hMhkak">F.03 Livestream - Day 9 | 191 consecutive hours and 238,000 packages</a></strong> · video · youtube.com · free<br>
+  Figure's livestream of F.03 humanoid robots running package handling around the clock.<br>
+  Mentioned in: Figure F.03 Livestream: Humanoid Robots Working Nonstop (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2055927328665157819">X</a> · <a href="../notes/16-trends/2026-05-17-figure-f-03-livestream-humanoid-robots-working-nonstop.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/@Fireship">Fireship</a></strong> · channel · youtube.com · free<br>
+  Developer YouTube channel with short, fast-paced videos on tech news and programming; it made the 'indie hackers going extinct' video quoted here.<br>
+  Mentioned in: Is Indie Hacking Dead? How AI Coding Changes the Micro-SaaS Playbook (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2082811111192367241">X</a> · <a href="../notes/16-trends/2026-07-30-is-indie-hacking-dead-how-ai-coding-changes-the-micro-saas.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=x2VHFgyawPE">Full interview with Dario Amodei</a></strong> · video · youtube.com · free<br>
+  Full-length YouTube interview with Anthropic CEO Dario Amodei about the Anthropic story.<br>
+  Mentioned in: Must-Watch: Full Interview with Dario Amodei on the Anthropic Story (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2068230361344290951">X</a> · <a href="../notes/16-trends/2026-06-20-must-watch-full-interview-with-dario-amodei-on-the.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=v1wZwxY3CMg">Inside Anthropic, the $965 Billion AI Juggernaut | The Circuit</a></strong> · video · youtube.com · free<br>
+  A Bloomberg Originals interview with Anthropic co-founders Dario and Daniela Amodei about the company's history, safety approach and politics.<br>
+  Mentioned in: Bloomberg's 'Inside Anthropic' interview with Dario and Daniela Amodei (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2068221036479258757">X</a> · <a href="../notes/16-trends/2026-06-20-bloomberg-s-inside-anthropic-interview-with-dario-and.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=erLE8mujQz8">President Xi pitches China as leader of new global AI order, challenging US dominance (CNA)</a></strong> · video · youtube.com · free<br>
+  CNA news video on China's pitch to lead global AI governance and cooperation.<br>
+  Mentioned in: Why Chinese AI Models Are Mostly Open Source (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2079119057413115995">X</a> · <a href="../notes/16-trends/2026-07-20-why-chinese-ai-models-are-mostly-open-source.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/@t3dotgg">Theo - t3.gg (YouTube channel)</a></strong> · channel · youtube.com · free<br>
+  Theo Browne's channel about web development and AI tools, and the main speaker in this masterclass.<br>
+  Mentioned in: Theo's YouTube Packaging Masterclass: Thumbnails, Titles and the Algorithm (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099731305567322378">X</a> · <a href="../notes/15-career/2026-09-15-theo-s-youtube-packaging-masterclass-thumbnails-titles-and.html">notes</a>)</li>
+</ul>
+<p><strong>Read and use (111)</strong></p>
+<ul>
+<li><strong><a href="https://x.com/liquidai">Liquid AI (@liquidai) on X</a></strong> · website · x.com · free<br>
+  An AI company that builds efficient foundation models. The quoted post shows its PII handling working on Japanese text.<br>
+  Mentioned in: Zero-Shot Prompt Routing with Liquid AI's LFM 2.5-Encoder-350M (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103886593413247485">X</a> · <a href="../notes/09-llmops/2026-09-27-zero-shot-prompt-routing-with-liquid-ai-s-lfm-2-5-encoder.html">notes</a>), Liquid AI LFM 2.5 Encoder: a CPU-friendly encoder model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103885808768078071">X</a> · <a href="../notes/05-embeddings-vectordb/2026-09-27-liquid-ai-lfm-2-5-encoder-a-cpu-friendly-encoder-model.html">notes</a>), Fine-tuning Liquid AI LFM2/LFM2.5 MoE models with the new Halo framework (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103367260568224039">X</a> · <a href="../notes/10-fine-tuning/2026-09-25-fine-tuning-liquid-ai-lfm2-lfm2-5-moe-models-with-the-new.html">notes</a>), Liquid AI's LFM2-Longevity models for aging-data analysis (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100626614128378309">X</a> · <a href="../notes/16-trends/2026-09-18-liquid-ai-s-lfm2-longevity-models-for-aging-data-analysis.html">notes</a>) and 20 more</li>
+<li><strong><a href="https://x.com/OpenAI">OpenAI</a></strong> · tool · x.com · free<br>
+  An AI model provider whose models can be used through managed connectors.<br>
+  Mentioned in: Creator's favorite OpenAI DevDay announcements (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105021153379275030">X</a> · <a href="../notes/16-trends/2026-09-30-creator-s-favorite-openai-devday-announcements.html">notes</a>), OpenAI Agents API with Bring Your Own Sandbox as a backend for a 'software factory' (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098729077163401577">X</a> · <a href="../notes/07-agents/2026-09-12-openai-agents-api-with-bring-your-own-sandbox-as-a-backend.html">notes</a>), Building Software Factories on the OpenAI Agents API (Codex-Powered) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098405420855660963">X</a> · <a href="../notes/07-agents/2026-09-11-building-software-factories-on-the-openai-agents-api-codex.html">notes</a>), Coworker: Free Local-First Desktop App for Running AI Agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2093548227039830065">X</a> · <a href="../notes/07-agents/2026-08-29-coworker-free-local-first-desktop-app-for-running-ai-agents.html">notes</a>) and 12 more</li>
+<li><strong><a href="https://x.com/Zai_org">Z.ai (@Zai_org) on X</a></strong> · person · x.com · free<br>
+  Official X account of Z.ai, maker of the GLM models and the GLM coding plan.<br>
+  Mentioned in: Open models now dominate token volume on Vercel AI Gateway (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101188319703134335">X</a> · <a href="../notes/16-trends/2026-09-19-open-models-now-dominate-token-volume-on-vercel-ai-gateway.html">notes</a>), GLM 5.3 Open Weights Release Delayed for Framework Support (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2092969032735735925">X</a> · <a href="../notes/16-trends/2026-08-27-glm-5-3-open-weights-release-delayed-for-framework-support.html">notes</a>), AI News Roundup: Claude Fable 5, Scientist AI, ZCode, NVIDIA RL (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2072785831606304801">X</a> · <a href="../notes/16-trends/2026-07-03-ai-news-roundup-claude-fable-5-scientist-ai-zcode-nvidia-rl.html">notes</a>), Trying ZCode by Z.ai with GLM 5.2 on a Mac (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2072757541617230199">X</a> · <a href="../notes/13-ai-tools/2026-07-03-trying-zcode-by-z-ai-with-glm-5-2-on-a-mac.html">notes</a>) and 10 more</li>
+<li><strong><a href="https://x.com/typesafeai">TypeSafe AI (@typesafeai) on X</a></strong> · person · x.com · free<br>
+  The X account of TypeSafe AI, the company that makes Jev and the System One models.<br>
+  Mentioned in: Using Jev (TypeSafe AI) as a Decision Model for Email Classification (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105248080882987131">X</a> · <a href="../notes/07-agents/2026-09-30-using-jev-typesafe-ai-as-a-decision-model-for-email.html">notes</a>), Building a Jev Session-History Tool with Codex and Astra (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104907917560521090">X</a> · <a href="../notes/13-ai-tools/2026-09-29-building-a-jev-session-history-tool-with-codex-and-astra.html">notes</a>), Not every problem needs an LLM: small fine-tuned models (Jev by TypeSafe AI) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101203821754249398">X</a> · <a href="../notes/10-fine-tuning/2026-09-19-not-every-problem-needs-an-llm-small-fine-tuned-models-jev.html">notes</a>), Jev model added to the AIBackends API via Vercel AI Gateway (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101199012615561488">X</a> · <a href="../notes/09-llmops/2026-09-19-jev-model-added-to-the-aibackends-api-via-vercel-ai-gateway.html">notes</a>) and 7 more</li>
+<li><strong><a href="https://www.donvitocodes.com/ai-news">AI News Today (donvitocodes.com)</a></strong> · website · donvitocodes.com · free<br>
+  A web page that collects the latest AI announcements, model releases and research. It is the source page for the demo video.<br>
+  Mentioned in: Hermes Agent + HyperFrames: Turning a Web Page into a Video (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2083063910400504226">X</a> · <a href="../notes/07-agents/2026-07-31-hermes-agent-hyperframes-turning-a-web-page-into-a-video.html">notes</a>), Korean AI Model News and an AI News Tracker Site (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2082511651945980104">X</a> · <a href="../notes/16-trends/2026-07-30-korean-ai-model-news-and-an-ai-news-tracker-site.html">notes</a>), OpenAI on Why Teens Deserve Access to Safe AI (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2078093171855401255">X</a> · <a href="../notes/11-safety/2026-07-17-openai-on-why-teens-deserve-access-to-safe-ai.html">notes</a>), AI News Roundup: Grok 4.5, GPT-5.6 Launch, GPT-Live Voice Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2074941646840754455">X</a> · <a href="../notes/16-trends/2026-07-09-ai-news-roundup-grok-4-5-gpt-5-6-launch-gpt-live-voice.html">notes</a>) and 5 more</li>
+<li><strong><a href="https://x.com/fastinoAI">Fastino Labs (@fastinoAI) on X</a></strong> · person · x.com · free<br>
+  The X account of Fastino Labs, which builds GLiNER decision models and shares demos.<br>
+  Mentioned in: GLiDE: Fastino's Decision Model with Adaptive Thinking (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105893635925680604">X</a> · <a href="../notes/16-trends/2026-10-02-glide-fastino-s-decision-model-with-adaptive-thinking.html">notes</a>), GLiDE by Fastino Labs: A Post-Trainable Reasoning Decision Model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105892783018135826">X</a> · <a href="../notes/03-llm-fundamentals/2026-10-02-glide-by-fastino-labs-a-post-trainable-reasoning-decision.html">notes</a>), GLiNER decision model demos from Fastino Labs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103525132899946958">X</a> · <a href="../notes/03-llm-fundamentals/2026-09-26-gliner-decision-model-demos-from-fastino-labs.html">notes</a>), AIBackends v0.8.1 adds GLiNER2.5-Decide local classification (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103391484640706571">X</a> · <a href="../notes/09-llmops/2026-09-25-aibackends-v0-8-1-adds-gliner2-5-decide-local-classification.html">notes</a>) and 5 more</li>
+<li><strong><a href="https://arXiv.org">arXiv</a></strong> · website · arxiv.org · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  A free archive of research preprints, with daily listings of new papers in fields like Artificial Intelligence, Machine Learning, and Computational Engineering, Finance, and Science.<br>
+  Mentioned in: 7 Habits to Become an AI Engineer: Books, Tooling, Research &amp; Shipping (Bashiri Smith on <a href="https://www.facebook.com/reel/1081423530962902">Facebook</a> · <a href="../notes/01-roadmap/2026-09-25-7-habits-to-become-an-ai-engineer-books-tooling-research.html">notes</a>), Generate Job-Worthy AI Project Ideas from Recent Research Papers + ChatGPT (Bashiri Smith on <a href="https://www.facebook.com/reel/1972990223365519">Facebook</a> · <a href="../notes/14-projects/2026-09-22-generate-job-worthy-ai-project-ideas-from-recent-research.html">notes</a>), The complete arXiv corpus as a Hugging Face dataset (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101546732119265499">X</a> · <a href="../notes/07-agents/2026-09-20-the-complete-arxiv-corpus-as-a-hugging-face-dataset.html">notes</a>), Software Engineer to AI Engineer: Job Boards, Stack, Projects and Learning Sites (Bashiri Smith on <a href="https://www.facebook.com/reel/1650742066760603">Facebook</a> · <a href="../notes/15-career/2026-09-14-software-engineer-to-ai-engineer-job-boards-stack-projects.html">notes</a>) and 1 more</li>
+<li><strong><a href="https://x.com/NVIDIAAI">NVIDIA AI (@NVIDIAAI) on X</a></strong> · person · x.com · free<br>
+  NVIDIA AI's official X account, which posts model releases and endpoint availability.<br>
+  Mentioned in: Using Free OpenRouter Models (Nemotron 3.5) With Coworker (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2091735879970865259">X</a> · <a href="../notes/13-ai-tools/2026-08-24-using-free-openrouter-models-nemotron-3-5-with-coworker.html">notes</a>), AI News Roundup: Claude Fable 5, Scientist AI, ZCode, NVIDIA RL (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2072785831606304801">X</a> · <a href="../notes/16-trends/2026-07-03-ai-news-roundup-claude-fable-5-scientist-ai-zcode-nvidia-rl.html">notes</a>), Running AI Locally: Rebuilding AIBackends as a Python Library with Open Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2048445624148992148">X</a> · <a href="../notes/09-llmops/2026-04-26-running-ai-locally-rebuilding-aibackends-as-a-python.html">notes</a>), Jensen Huang on NVIDIA's Long-Term Commitment to Open Nemotron Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2034093172129984515">X</a> · <a href="../notes/16-trends/2026-03-18-jensen-huang-on-nvidia-s-long-term-commitment-to-open.html">notes</a>) and 1 more</li>
+<li><strong><a href="https://x.com/Alibaba_Qwen">Qwen (@Alibaba_Qwen) on X</a></strong> · person · x.com · free<br>
+  Official X account of Alibaba's Qwen team, which posts model releases and demos.<br>
+  Mentioned in: Qwen-Audio-3.1: Alibaba's Five-Model Audio Stack (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102726628048810098">X</a> · <a href="../notes/16-trends/2026-09-23-qwen-audio-3-1-alibaba-s-five-model-audio-stack.html">notes</a>), Demo: Qwen3.8-27B Running Locally with Pi and llama.cpp (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2088292028329378131">X</a> · <a href="../notes/13-ai-tools/2026-08-14-demo-qwen3-8-27b-running-locally-with-pi-and-llama-cpp.html">notes</a>), Running AI Locally: Rebuilding AIBackends as a Python Library with Open Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2048445624148992148">X</a> · <a href="../notes/09-llmops/2026-04-26-running-ai-locally-rebuilding-aibackends-as-a-python.html">notes</a>), Audio-Visual Vibe Coding with Qwen 3.5 Omni: Spoken Specs to Web App (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2038678318787317959">X</a> · <a href="../notes/13-ai-tools/2026-03-30-audio-visual-vibe-coding-with-qwen-3-5-omni-spoken-specs-to.html">notes</a>)</li>
+<li><strong><a href="https://bfl.ai">Black Forest Labs</a></strong> · website · bfl.ai · check price<br>
+  The lab behind the FLUX image models; the speaker's team, which published Self-Flow.<br>
+  Mentioned in: Martin Scorsese Joins Black Forest Labs: Storyboarding with FLUX (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2062303526181601770">X</a> · <a href="../notes/16-trends/2026-06-03-martin-scorsese-joins-black-forest-labs-storyboarding-with.html">notes</a>), Martin Scorsese Storyboards a Scene with Black Forest Labs' FLUX (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2061928559405367528">X</a> · <a href="../notes/16-trends/2026-06-02-martin-scorsese-storyboards-a-scene-with-black-forest-labs.html">notes</a>), Self-Flow: Training Multimodal Generative Models Without an External Encoder (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2053897572536975846">X</a> · <a href="../notes/16-trends/2026-05-11-self-flow-training-multimodal-generative-models-without-an.html">notes</a>)</li>
+<li><strong><a href="https://x.com/GoogleDeepMind">Google DeepMind (@GoogleDeepMind) on X</a></strong> · person · x.com · free<br>
+  Google DeepMind's official X account, which posts research and model releases such as Gemma.<br>
+  Mentioned in: Running AI Locally: Rebuilding AIBackends as a Python Library with Open Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2048445624148992148">X</a> · <a href="../notes/09-llmops/2026-04-26-running-ai-locally-rebuilding-aibackends-as-a-python.html">notes</a>), Gemma 4 and Google DeepMind's Open-Source Push (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2040392891231817956">X</a> · <a href="../notes/16-trends/2026-04-04-gemma-4-and-google-deepmind-s-open-source-push.html">notes</a>), Gemma 4 E4B: A Local Agentic Edge Model in 6GB RAM (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2040291351615697159">X</a> · <a href="../notes/07-agents/2026-04-04-gemma-4-e4b-a-local-agentic-edge-model-in-6gb-ram.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/MiniMaxAI/MiniMax-H3">MiniMax H3</a></strong> · tool · huggingface.co · free<br>
+  MiniMax video generation model that turns a starting image and an audio track into a lip-synced video.<br>
+  Mentioned in: MiniMax H3 Image + Audio-to-Video Lip-Sync Demo (with Irodori-TTS v3) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2085587083633348892">X</a> · <a href="../notes/13-ai-tools/2026-08-07-minimax-h3-image-audio-to-video-lip-sync-demo-with-irodori.html">notes</a>), Generating AI Video Locally with MiniMax H3 in ComfyUI on an RTX 3090 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2085553403846078669">X</a> · <a href="../notes/13-ai-tools/2026-08-07-generating-ai-video-locally-with-minimax-h3-in-comfyui-on.html">notes</a>), Running MiniMax H3 Locally on a Single RTX 3090 (Demo) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2085439986699223322">X</a> · <a href="../notes/16-trends/2026-08-06-running-minimax-h3-locally-on-a-single-rtx-3090-demo.html">notes</a>)</li>
+<li><strong><a href="https://nousresearch.com">Nous Research</a></strong> · website · nousresearch.com · check price<br>
+  AI research organization that builds the Hermes models and Hermes Agent.<br>
+  Mentioned in: Hermes Desktop Adds an Agent-Controllable In-App Browser (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2085061776643883492">X</a> · <a href="../notes/07-agents/2026-08-06-hermes-desktop-adds-an-agent-controllable-in-app-browser.html">notes</a>), Hermes Agent Adds Hands-Free Voice Activation with a Wake Word (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2082515491340570807">X</a> · <a href="../notes/07-agents/2026-07-29-hermes-agent-adds-hands-free-voice-activation-with-a-wake.html">notes</a>), Hy3 (Tencent Hunyuan) Free on Nous Portal for a Limited Week (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2079646892083036312">X</a> · <a href="../notes/03-llm-fundamentals/2026-07-21-hy3-tencent-hunyuan-free-on-nous-portal-for-a-limited-week.html">notes</a>)</li>
+<li><strong><a href="https://x.com/ArtificialAnlys">Artificial Analysis (@ArtificialAnlys) on X</a></strong> · person · x.com · free<br>
+  X account of Artificial Analysis, which posts independent model and provider benchmarks.<br>
+  Mentioned in: Compare Model Outputs with Artificial Analysis MicroEvals (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2095389408728109542">X</a> · <a href="../notes/08-evals/2026-09-03-compare-model-outputs-with-artificial-analysis-microevals.html">notes</a>), Compare GLM-5.2 API Providers on Artificial Analysis (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2070742366546489736">X</a> · <a href="../notes/03-llm-fundamentals/2026-06-27-compare-glm-5-2-api-providers-on-artificial-analysis.html">notes</a>)</li>
+<li><strong><a href="https://github.com/Tencent-Hunyuan/AuK">AuK</a></strong> · tool · github.com · free<br>
+  Open-source foundation model for unified speech generation and editing (zero-shot TTS, instruction control, content editing, whisper conversion).<br>
+  Mentioned in: AuK: Open-Source Model for Generating and Editing Speech (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100886068979790202">X</a> · <a href="../notes/16-trends/2026-09-18-auk-open-source-model-for-generating-and-editing-speech.html">notes</a>), AuK: Tencent Hunyuan's Unified Audio Generation and Editing Model (TTS Demo) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2097738398937292879">X</a> · <a href="../notes/16-trends/2026-09-10-auk-tencent-hunyuan-s-unified-audio-generation-and-editing.html">notes</a>)</li>
+<li><strong><a href="https://x.com/ClementDelangue">Clem Delangue</a></strong> · person · x.com · free<br>
+  Co-founder and CEO of Hugging Face, who speaks publicly about open-source AI.<br>
+  Mentioned in: Open Model GLM 5.2 Helped Mitigate OpenAI-Caused Cyberattack (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2079789131115487624">X</a> · <a href="../notes/16-trends/2026-07-22-open-model-glm-5-2-helped-mitigate-openai-caused-cyberattack.html">notes</a>), Hugging Face CEO on the Shift to Open-Source and Local AI Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2069772737175019566">X</a> · <a href="../notes/16-trends/2026-06-24-hugging-face-ceo-on-the-shift-to-open-source-and-local-ai.html">notes</a>)</li>
+<li><strong><a href="https://www.forbes.com/sites/maryroeloffs/2026/07/22/did-chinas-ai-save-hugging-face-from-disaster-after-open-ai-hack/">Did China's AI Save Hugging Face From Disaster After OpenAI Hack? (Forbes)</a></strong> · article · forbes.com · check price · open in a browser to verify<br>
+  A Forbes news article on the Hugging Face cyberattack incident and how a Chinese AI model may have helped stop it.<br>
+  Mentioned in: Forbes: Did Chinese Open AI Save Hugging Face After the OpenAI Hack? (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2080183940342763788">X</a> · <a href="../notes/11-safety/2026-07-23-forbes-did-chinese-open-ai-save-hugging-face-after-the.html">notes</a>), News: Chinese AI, Hugging Face and an OpenAI Hack (Forbes) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2080183937520001159">X</a> · <a href="../notes/16-trends/2026-07-23-news-chinese-ai-hugging-face-and-an-openai-hack-forbes.html">notes</a>)</li>
+<li><strong><a href="https://deepmind.google/models/gemini-omni/">Gemini Omni</a></strong> · tool · deepmind.google · check price<br>
+  Google's multimodal generative model that takes combined image, audio, video, text and drawing inputs and generates high-quality video.<br>
+  Mentioned in: Opinion: Seedance 2.0 Still Beats Gemini Omni for Video (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2056827384800907560">X</a> · <a href="../notes/16-trends/2026-05-20-opinion-seedance-2-0-still-beats-gemini-omni-for-video.html">notes</a>), Gemini Omni: Google's Any-to-Video Multimodal Model (Google I/O) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2056800400138031302">X</a> · <a href="../notes/16-trends/2026-05-19-gemini-omni-google-s-any-to-video-multimodal-model-google-i.html">notes</a>)</li>
+<li><strong><a href="https://x.com/GergelyOrosz">Gergely Orosz</a></strong> · person · x.com · free<br>
+  Author of The Pragmatic Engineer newsletter. He writes about how big tech companies build software, including OpenAI's agentic workflows.<br>
+  Mentioned in: OpenAI's Agentic Software Factory: Build-Review-Deploy-Observe Loop (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100073894011134133">X</a> · <a href="../notes/07-agents/2026-09-16-openai-s-agentic-software-factory-build-review-deploy.html">notes</a>), How OpenAI's Agentic Software Factory Works (Pragmatic Engineer) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100065968869585315">X</a> · <a href="../notes/07-agents/2026-09-16-how-openai-s-agentic-software-factory-works-pragmatic.html">notes</a>)</li>
+<li><strong><a href="https://x.com/levelsio">levelsio</a></strong> · person · x.com · free<br>
+  Well-known indie hacker who builds and ships profitable solo apps in public.<br>
+  Mentioned in: Infinite Slop: Endless AI-Generated Video Site Switches to Portrait (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2094112770187026635">X</a> · <a href="../notes/16-trends/2026-08-31-infinite-slop-endless-ai-generated-video-site-switches-to.html">notes</a>), Is Indie Hacking Dead? How AI Coding Changes the Micro-SaaS Playbook (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2082811111192367241">X</a> · <a href="../notes/16-trends/2026-07-30-is-indie-hacking-dead-how-ai-coding-changes-the-micro-saas.html">notes</a>)</li>
+<li><strong><a href="https://www.linkedin.com/pulse/linkedin-jobs-rise-2026-25-fastest-growing-roles-us-linkedin-news-dlb1c">LinkedIn Jobs on the Rise</a></strong> · article · linkedin.com · free<br>
+  LinkedIn's ranking of the fastest-growing jobs in the US, which put AI engineer at #1 for 2026.<br>
+  Mentioned in: Why Software Engineers Should Move Into AI Engineering (Bashiri Smith on <a href="https://www.facebook.com/reel/1575103750228748">Facebook</a> · <a href="../notes/15-career/2026-09-17-why-software-engineers-should-move-into-ai-engineering.html">notes</a>), AI Engineer Salaries at OpenAI &amp; Anthropic and the Skills They Want (Bashiri Smith on <a href="https://www.facebook.com/reel/1963349201010032">Facebook</a> · <a href="../notes/16-trends/2026-09-11-ai-engineer-salaries-at-openai-anthropic-and-the-skills.html">notes</a>)</li>
+<li><strong><a href="https://x.com/mattshumer_">Matt Shumer</a></strong> · person · x.com · free<br>
+  An AI builder whose quoted post reported that GPT-5.6 Sol deleted his production database.<br>
+  Mentioned in: Keep Production .env Files Out of Your Coding-Agent Workspace (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2076972714448064543">X</a> · <a href="../notes/11-safety/2026-07-14-keep-production-env-files-out-of-your-coding-agent-workspace.html">notes</a>), Coding Agent Risk: GPT 5.6 Sol Deleted a Mac User Directory (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2075671161363665047">X</a> · <a href="../notes/11-safety/2026-07-11-coding-agent-risk-gpt-5-6-sol-deleted-a-mac-user-directory.html">notes</a>)</li>
+<li><strong><a href="https://x.com/ornith_">Ornith (@ornith_)</a></strong> · person · x.com · free<br>
+  The X account of Ornith, the team credited with releasing the Ornith-1.5 model.<br>
+  Mentioned in: Serving Ornith-1.5-35B-A3B at 128k Context on an RTX 3090 with llama.cpp (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2090381418136555542">X</a> · <a href="../notes/09-llmops/2026-08-20-serving-ornith-1-5-35b-a3b-at-128k-context-on-an-rtx-3090.html">notes</a>), Running Ornith-1.5-35B-A3B (Q4_K_M) at 128k Context on an RTX 3090 with llama.cpp (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2090381415557021767">X</a> · <a href="../notes/09-llmops/2026-08-20-running-ornith-1-5-35b-a3b-q4-k-m-at-128k-context-on-an-rtx.html">notes</a>)</li>
+<li><strong><a href="https://github.com/QwenLM/Qwen-Image-2.1">Qwen-Image-2.1</a></strong> · tool · github.com · free<br>
+  Qwen's open-source image-generation model, released with weights and code on ModelScope.<br>
+  Mentioned in: Run Qwen-Image-2.1 locally on 12GB VRAM with Unsloth GGUFs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102440958164115529">X</a> · <a href="../notes/09-llmops/2026-09-23-run-qwen-image-2-1-locally-on-12gb-vram-with-unsloth-ggufs.html">notes</a>), Qwen-Image-2.1 Announced as an Open-Weights Image Model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101515595275731298">X</a> · <a href="../notes/16-trends/2026-09-20-qwen-image-2-1-announced-as-an-open-weights-image-model.html">notes</a>)</li>
+<li><strong><a href="https://x.com/TencentHunyuan">Tencent Hunyuan</a></strong> · website · x.com · free<br>
+  Tencent's AI model team, which makes the Hunyuan family of models, including Hy3.<br>
+  Mentioned in: AuK: Tencent Hunyuan's Unified Audio Generation and Editing Model (TTS Demo) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2097738398937292879">X</a> · <a href="../notes/16-trends/2026-09-10-auk-tencent-hunyuan-s-unified-audio-generation-and-editing.html">notes</a>), Hy3 (Tencent Hunyuan) Free on Nous Portal for a Limited Week (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2079646892083036312">X</a> · <a href="../notes/03-llm-fundamentals/2026-07-21-hy3-tencent-hunyuan-free-on-nous-portal-for-a-limited-week.html">notes</a>)</li>
+<li><strong><a href="https://x.com/">X (Twitter)</a></strong> · website · x.com · free<br>
+  Social network where you can follow AI engineers and researchers to keep up with the field.<br>
+  Mentioned in: Software Engineer to AI Engineer: Job Boards, Stack, Projects and Learning Sites (Bashiri Smith on <a href="https://www.facebook.com/reel/1650742066760603">Facebook</a> · <a href="../notes/15-career/2026-09-14-software-engineer-to-ai-engineer-job-boards-stack-projects.html">notes</a>), Using the September Hiring Surge: Volume Plus Quality in Your Job Search (Bashiri Smith on <a href="https://www.facebook.com/reel/1819927632698021">Facebook</a> · <a href="../notes/15-career/2026-09-03-using-the-september-hiring-surge-volume-plus-quality-in.html">notes</a>)</li>
+<li><strong><a href="https://www.forbes.com/sites/donmuir/2026/02/04/300-billion-evaporated-the-saaspocalypse-has-begun/">$300 Billion Evaporated: The SaaSpocalypse Has Begun (Forbes)</a></strong> · article · forbes.com · check price · open in a browser to verify<br>
+  Forbes article by Don Muir on the roughly $300B drop in SaaS market value tied to AI disruption.<br>
+  Mentioned in: The 'SaaSpocalypse': $300B in SaaS Market Value Wiped Out by AI Fears (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2028291208892846196">X</a> · <a href="../notes/16-trends/2026-03-02-the-saaspocalypse-300b-in-saas-market-value-wiped-out-by-ai.html">notes</a>)</li>
+<li><strong><a href="https://www.agorapulse.com">Agorapulse</a></strong> · tool · agorapulse.com · paid<br>
+  Social media management platform aimed at small businesses and agencies.<br>
+  Mentioned in: How Postiz Hit $145K MRR: Agent-First Positioning and Selling Outcomes (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2073428915100717077">X</a> · <a href="../notes/07-agents/2026-07-04-how-postiz-hit-145k-mrr-agent-first-positioning-and-selling.html">notes</a>)</li>
+<li><strong><a href="https://x.com/TheAhmadOsman">Ahmad Osman (@TheAhmadOsman)</a></strong> · person · x.com · free<br>
+  Local-LLM advocate and r/LocalLLaMA moderator who asked Jensen this question.<br>
+  Mentioned in: Jensen Huang on NVIDIA's Long-Term Commitment to Open Nemotron Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2034093172129984515">X</a> · <a href="../notes/16-trends/2026-03-18-jensen-huang-on-nvidia-s-long-term-commitment-to-open.html">notes</a>)</li>
+<li><strong><a href="https://github.com/alexeygrigorev/ai-engineering-field-guide">AI Engineering Field Guide (Alexey Grigorev)</a></strong> · repo · github.com · free<br>
+  A GitHub repo that collects and analyses 4,894 real AI engineering job descriptions. The video uses it to define the five skill areas.<br>
+  Mentioned in: AI Engineer Roadmap: 5 Skill Areas, a 24-Week Study Order &amp; Interview Strategy (Bashiri Smith on <a href="https://www.facebook.com/reel/1773952177150793">Facebook</a> · <a href="../notes/01-roadmap/2026-09-18-ai-engineer-roadmap-5-skill-areas-a-24-week-study-order.html">notes</a>)</li>
+<li><strong><a href="https://www.alphaxiv.org">alphaXiv</a></strong> · website · alphaxiv.org · free<br>
+  A platform for discovering and discussing arXiv research papers, with AI-generated paper briefs.<br>
+  Mentioned in: Paperscrolling: Browse Trending AI Research Papers Like a Social Feed (alphaXiv) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2090100050982777186">X</a> · <a href="../notes/16-trends/2026-08-19-paperscrolling-browse-trending-ai-research-papers-like-a.html">notes</a>)</li>
+<li><strong>alphaXiv Briefs</strong> · tool · free<br>
+  Short AI-generated summaries of research papers covering key ideas, figures and audio explanations.<br>
+  Mentioned in: Paperscrolling: Browse Trending AI Research Papers Like a Social Feed (alphaXiv) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2090100050982777186">X</a> · <a href="../notes/16-trends/2026-08-19-paperscrolling-browse-trending-ai-research-papers-like-a.html">notes</a>)</li>
+<li><strong>alphaXiv Paperscrolling</strong> · tool · free<br>
+  A scrollable feed of trending research papers, each with key ideas, figures and an audio explanation.<br>
+  Mentioned in: Paperscrolling: Browse Trending AI Research Papers Like a Social Feed (alphaXiv) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2090100050982777186">X</a> · <a href="../notes/16-trends/2026-08-19-paperscrolling-browse-trending-ai-research-papers-like-a.html">notes</a>)</li>
+<li><strong><a href="https://x.com/AnthropicAI">Anthropic (@AnthropicAI) on X</a></strong> · website · x.com · free<br>
+  Anthropic's official X account.<br>
+  Mentioned in: AI News Roundup: Claude Fable 5, Scientist AI, ZCode, NVIDIA RL (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2072785831606304801">X</a> · <a href="../notes/16-trends/2026-07-03-ai-news-roundup-claude-fable-5-scientist-ai-zcode-nvidia-rl.html">notes</a>)</li>
+<li><strong><a href="https://apptronik.com">Apptronik Apollo 2</a></strong> · tool · apptronik.com · paid<br>
+  Apptronik's humanoid robot, used to demo Gemini Robotics 2 whole-body control.<br>
+  Mentioned in: Gemini Robotics 2: Whole-Body Humanoid Control from One Prompt (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2082852200867643763">X</a> · <a href="../notes/16-trends/2026-07-30-gemini-robotics-2-whole-body-humanoid-control-from-one.html">notes</a>)</li>
+<li><strong><a href="https://auk-project.github.io/">AuK — Unified Audio Generation and Editing</a></strong> · website · auk-project.github.io · free<br>
+  Project page for Tencent Hunyuan's AuK model, with demos of TTS, speech editing, accent editing, cleanup and source separation.<br>
+  Mentioned in: AuK: Tencent Hunyuan's Unified Audio Generation and Editing Model (TTS Demo) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2097738398937292879">X</a> · <a href="../notes/16-trends/2026-09-10-auk-tencent-hunyuan-s-unified-audio-generation-and-editing.html">notes</a>)</li>
+<li><strong><a href="https://buffer.com">Buffer</a></strong> · tool · buffer.com · check price<br>
+  Established social media scheduling platform that has since released a public API.<br>
+  Mentioned in: How Postiz Hit $145K MRR: Agent-First Positioning and Selling Outcomes (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2073428915100717077">X</a> · <a href="../notes/07-agents/2026-07-04-how-postiz-hit-145k-mrr-agent-first-positioning-and-selling.html">notes</a>)</li>
+<li><strong><a href="https://x.com/charlierguo">Charlie Guo (@charlierguo) on X</a></strong> · person · x.com · free<br>
+  Works at OpenAI and posts about many of its launches.<br>
+  Mentioned in: GPT-Live-1 Voice Agents in the API, and Charlie Guo (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098353668613648877">X</a> · <a href="../notes/07-agents/2026-09-11-gpt-live-1-voice-agents-in-the-api-and-charlie-guo.html">notes</a>)</li>
+<li><strong><a href="https://www.donvitocodes.com/embed?url=https%3A%2F%2Ftechcrunch.com%2F2026%2F06%2F16%2Fchatgpts-market-share-slips-below-50-for-first-time%2F">ChatGPT's market share slips below 50% for first time (TechCrunch)</a></strong> · article · donvitocodes.com · free<br>
+  TechCrunch news article reporting that ChatGPT's market share fell below 50%.<br>
+  Mentioned in: ChatGPT's market share drops below 50% (TechCrunch) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2066955300629008622">X</a> · <a href="../notes/16-trends/2026-06-17-chatgpt-s-market-share-drops-below-50-techcrunch.html">notes</a>)</li>
+<li><strong><a href="https://www.cnbc.com/2026/07/06/alibaba-anthropic-ai-ban-claude-china.html">China's Alibaba bans Anthropic AI for employees after 'distillation attack' accusation (CNBC)</a></strong> · article · cnbc.com · free<br>
+  CNBC news article on Alibaba banning Claude for its employees after a distillation accusation.<br>
+  Mentioned in: News: Alibaba Bans Anthropic's Claude After 'Distillation Attack' Claim (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2074329818955727220">X</a> · <a href="../notes/16-trends/2026-07-07-news-alibaba-bans-anthropic-s-claude-after-distillation.html">notes</a>)</li>
+<li><strong><a href="https://www.anthropic.com/claude/mythos">Claude Mythos</a></strong> · tool · anthropic.com · paid<br>
+  Anthropic's new frontier model, currently previewed only with cyber defenders.<br>
+  Mentioned in: Claude Mythos Model Card: Anthropic's Limited Preview for Cyber Defenders (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2041699399475351875">X</a> · <a href="../notes/11-safety/2026-04-08-claude-mythos-model-card-anthropic-s-limited-preview-for.html">notes</a>)</li>
+<li><strong><a href="https://cohere.com/blog/transcribe">Cohere Transcribe</a></strong> · tool · cohere.com · free<br>
+  Cohere's open-source speech recognition (speech-to-text) model, which Cohere bills as state of the art.<br>
+  Mentioned in: Cohere Transcribe: Cohere's New Open-Source Speech-to-Text Model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2037347517495656890">X</a> · <a href="../notes/16-trends/2026-03-27-cohere-transcribe-cohere-s-new-open-source-speech-to-text.html">notes</a>)</li>
+<li><strong><a href="https://x.com/deepseek_ai">DeepSeek (@deepseek_ai) on X</a></strong> · person · x.com · free<br>
+  DeepSeek's official X account for model and tool announcements.<br>
+  Mentioned in: DeepSeek Harness: Open-Source, Browser-Based Agent for DeepSeek V4.1 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099001661515813214">X</a> · <a href="../notes/13-ai-tools/2026-09-13-deepseek-harness-open-source-browser-based-agent-for.html">notes</a>)</li>
+<li><strong><a href="https://x.com/CompleteSkeptic">Diego Almeida</a></strong> · person · x.com · free<br>
+  Founder of TypeSafe.AI, who says he co-created ChatGPT and RLHF at OpenAI.<br>
+  Mentioned in: Jev by TypeSafe.AI: a parallel "System 1" model for fast structured decisions (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100053526022123977">X</a> · <a href="../notes/16-trends/2026-09-16-jev-by-typesafe-ai-a-parallel-system-1-model-for-fast.html">notes</a>)</li>
+<li><strong><a href="https://forbes.com/sites/donmuir/">Don Muir on Forbes</a></strong> · person · forbes.com · free · open in a browser to verify<br>
+  Forbes contributor page for Don Muir, the article's author.<br>
+  Mentioned in: The 'SaaSpocalypse': $300B in SaaS Market Value Wiped Out by AI Fears (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2028291208892846196">X</a> · <a href="../notes/16-trends/2026-03-02-the-saaspocalypse-300b-in-saas-market-value-wiped-out-by-ai.html">notes</a>)</li>
+<li><strong><a href="https://www.salesforce.com/dreamforce/register/">Dreamforce 2026</a></strong> · other · salesforce.com · paid<br>
+  Salesforce's annual conference, where Slack Code was shown.<br>
+  Mentioned in: Slack Code: Multiplayer Coding with AI Agents Inside Slack Channels (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2090281436670792034">X</a> · <a href="../notes/13-ai-tools/2026-08-20-slack-code-multiplayer-coding-with-ai-agents-inside-slack.html">notes</a>)</li>
+<li><strong><a href="https://elevenlabs.io/v4">Eleven v4</a></strong> · tool · elevenlabs.io · check price<br>
+  ElevenLabs' new expressive speech model, which the company calls its most emotive. Supports 100 languages and keeps the voice consistent over long text.<br>
+  Mentioned in: ElevenLabs Eleven v4 &amp; v4 Turbo: Emotive, Multilingual Text-to-Speech Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104641980634739162">X</a> · <a href="../notes/16-trends/2026-09-29-elevenlabs-eleven-v4-v4-turbo-emotive-multilingual-text-to.html">notes</a>)</li>
+<li><strong><a href="https://elevenlabs.io/agents/v4-turbo">Eleven v4 Turbo</a></strong> · tool · elevenlabs.io · check price<br>
+  Ultra-low-latency version of Eleven v4 for real-time voice agents and conversational apps.<br>
+  Mentioned in: ElevenLabs Eleven v4 &amp; v4 Turbo: Emotive, Multilingual Text-to-Speech Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104641980634739162">X</a> · <a href="../notes/16-trends/2026-09-29-elevenlabs-eleven-v4-v4-turbo-emotive-multilingual-text-to.html">notes</a>)</li>
+<li><strong><a href="https://x.com/elonmusk/status/2083800687561908662">Elon Musk (@elonmusk) on X</a></strong> · article · x.com · free<br>
+  X post announcing Grok's video analysis capability.<br>
+  Mentioned in: Grok Can Now Analyze Videos (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2083810886976995410">X</a> · <a href="../notes/16-trends/2026-08-02-grok-can-now-analyze-videos.html">notes</a>)</li>
+<li><strong><a href="https://x.com/elonmusk/status/2078289996323148076">Elon Musk (@elonmusk) on X – 2T Grok model post</a></strong> · article · x.com · free<br>
+  Elon Musk's X post about the upcoming 2T-parameter Grok model.<br>
+  Mentioned in: Heads-up: an upcoming 2T-parameter Grok model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2079302566710772220">X</a> · <a href="../notes/16-trends/2026-07-21-heads-up-an-upcoming-2t-parameter-grok-model.html">notes</a>)</li>
+<li><strong><a href="https://x.com/elonmusk/status/2080759312029294871">Elon Musk (@elonmusk) on X – post on open-source support</a></strong> · article · x.com · free<br>
+  Elon Musk's X post announcing public support for open-source AI.<br>
+  Mentioned in: Public Industry Support for Open-Source / Open-Weight AI (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2080875659208118688">X</a> · <a href="../notes/16-trends/2026-07-25-public-industry-support-for-open-source-open-weight-ai.html">notes</a>)</li>
+<li><strong><a href="https://www.espressif.com/en/products/socs/esp32">ESP32</a></strong> · tool · espressif.com · paid<br>
+  A low-cost microcontroller from Espressif, used here to run a tiny LLM.<br>
+  Mentioned in: Running a 28.9M-Parameter LLM on an $8 ESP32 Microcontroller (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2083934049345884248">X</a> · <a href="../notes/03-llm-fundamentals/2026-08-02-running-a-28-9m-parameter-llm-on-an-8-esp32-microcontroller.html">notes</a>)</li>
+<li><strong><a href="https://www.figure.ai">Figure</a></strong> · website · figure.ai · free<br>
+  Humanoid robotics company behind the F.03 robots and Helix.<br>
+  Mentioned in: Humanoid Robots Run a Full 8-Hour Shift with Helix-02 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2055927325527773430">X</a> · <a href="../notes/16-trends/2026-05-17-humanoid-robots-run-a-full-8-hour-shift-with-helix-02.html">notes</a>)</li>
+<li><strong><a href="https://x.com/Forbes">Forbes (@Forbes) on X</a></strong> · website · x.com · free<br>
+  The Forbes news account on X, the source of the article.<br>
+  Mentioned in: News: Chinese AI, Hugging Face and an OpenAI Hack (Forbes) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2080183937520001159">X</a> · <a href="../notes/16-trends/2026-07-23-news-chinese-ai-hugging-face-and-an-openai-hack-forbes.html">notes</a>)</li>
+<li><strong><a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/">Gemini 4 Argon</a></strong> · tool · blog.google · paid<br>
+  Google's newly announced frontier model in the Gemini 4 family.<br>
+  Mentioned in: Gemini 4 Argon Announced (Google AI Ultra Only) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105520907028771196">X</a> · <a href="../notes/16-trends/2026-10-01-gemini-4-argon-announced-google-ai-ultra-only.html">notes</a>)</li>
+<li><strong><a href="https://ai.google.dev/gemini-api/docs/models/gemini-omni-flash">Gemini Omni Flash</a></strong> · tool · ai.google.dev · paid<br>
+  Google's natively multimodal generative media model with strong cost-performance.<br>
+  Mentioned in: Google Releases Nano Banana 2 Lite and Gemini Omni Flash (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2072037448633450633">X</a> · <a href="../notes/16-trends/2026-07-01-google-releases-nano-banana-2-lite-and-gemini-omni-flash.html">notes</a>)</li>
+<li><strong><a href="https://deepmind.google/models/gemini-robotics/">Gemini Robotics 2</a></strong> · tool · deepmind.google · check price<br>
+  Google DeepMind's robotics model that turns natural-language prompts into whole-body control for humanoid robots.<br>
+  Mentioned in: Gemini Robotics 2: Whole-Body Humanoid Control from One Prompt (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2082852200867643763">X</a> · <a href="../notes/16-trends/2026-07-30-gemini-robotics-2-whole-body-humanoid-control-from-one.html">notes</a>)</li>
+<li><strong><a href="https://www.ncbi.nlm.nih.gov/geo/">GEO (Gene Expression Omnibus)</a></strong> · dataset · ncbi.nlm.nih.gov · free<br>
+  NCBI's public repository of functional genomics data, including DNA methylation data.<br>
+  Mentioned in: Liquid AI's LFM2-Longevity models for aging-data analysis (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100626614128378309">X</a> · <a href="../notes/16-trends/2026-09-18-liquid-ai-s-lfm2-longevity-models-for-aging-data-analysis.html">notes</a>)</li>
+<li><strong><a href="https://deepmind.google">Google DeepMind</a></strong> · website · deepmind.google · free<br>
+  Google's AI research lab, which builds the Gemini models, including Gemini Robotics.<br>
+  Mentioned in: Gemini Robotics 2: Whole-Body Humanoid Control from One Prompt (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2082852200867643763">X</a> · <a href="../notes/16-trends/2026-07-30-gemini-robotics-2-whole-body-humanoid-control-from-one.html">notes</a>)</li>
+<li><strong><a href="https://io.google/">Google I/O</a></strong> · other · io.google · free<br>
+  Google's yearly developer conference, where Gemini Omni was announced.<br>
+  Mentioned in: Gemini Omni: Google's Any-to-Video Multimodal Model (Google I/O) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2056800400138031302">X</a> · <a href="../notes/16-trends/2026-05-19-gemini-omni-google-s-any-to-video-multimodal-model-google-i.html">notes</a>)</li>
+<li><strong><a href="https://blog.google/products-and-platforms/products/translate/live-translate-with-headphones/">Google Live Translate</a></strong> · tool · blog.google · free · open in a browser to verify<br>
+  Google's live translation feature that the creator used himself.<br>
+  Mentioned in: Gemini 3.5 Live Translate: Real-Time Speech Translation via the Gemini Live API (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2066768467878187352">X</a> · <a href="../notes/03-llm-fundamentals/2026-06-16-gemini-3-5-live-translate-real-time-speech-translation-via.html">notes</a>)</li>
+<li><strong><a href="https://translate.google.com">Google Translate</a></strong> · tool · translate.google.com · free<br>
+  Google's free translation app and service, the main incumbent for consumer travel translation.<br>
+  Mentioned in: GPT-Realtime-2 &amp; Realtime-Translate: Reasoning Voice Agents and Live Translation (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2052586973563642025">X</a> · <a href="../notes/07-agents/2026-05-08-gpt-realtime-2-realtime-translate-reasoning-voice-agents.html">notes</a>)</li>
+<li><strong><a href="https://openai.com/blog/gpt-3-apps">GPT-3 powers the next generation of apps</a></strong> · article · openai.com · free<br>
+  OpenAI blog post showcasing products built on GPT-3.<br>
+  Mentioned in: Q&amp;A Over Your Own PDFs with LlamaIndex, OpenAI and Python (2023) (Melvin Vivas on <a href="https://www.melvinvivas.com/chatgpt-openai-langchain-llama-index-generative-text-ai">melvinvivas.com</a> · <a href="../notes/06-rag/2023-04-08-q-a-over-your-own-pdfs-with-llamaindex-openai-and-python.html">notes</a>)</li>
+<li><strong><a href="https://gtexportal.org/">GTEx (Genotype-Tissue Expression)</a></strong> · dataset · gtexportal.org · free<br>
+  A public resource of gene expression (transcriptomics) data across human tissues.<br>
+  Mentioned in: Liquid AI's LFM2-Longevity models for aging-data analysis (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100626614128378309">X</a> · <a href="../notes/16-trends/2026-09-18-liquid-ai-s-lfm2-longevity-models-for-aging-data-analysis.html">notes</a>)</li>
+<li><strong><a href="https://www.figure.ai/news/helix-02">Helix-02</a></strong> · tool · figure.ai · check price<br>
+  Figure's vision-language-action model that controls its humanoid robots.<br>
+  Mentioned in: Humanoid Robots Run a Full 8-Hour Shift with Helix-02 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2055927325527773430">X</a> · <a href="../notes/16-trends/2026-05-17-humanoid-robots-run-a-full-8-hour-shift-with-helix-02.html">notes</a>)</li>
+<li><strong><a href="https://www.hootsuite.com">Hootsuite</a></strong> · tool · hootsuite.com · paid<br>
+  Long-established social media management and scheduling platform.<br>
+  Mentioned in: How Postiz Hit $145K MRR: Agent-First Positioning and Selling Outcomes (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2073428915100717077">X</a> · <a href="../notes/07-agents/2026-07-04-how-postiz-hit-145k-mrr-agent-first-positioning-and-selling.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/papers">Hugging Face Papers</a></strong> · website · huggingface.co · free<br>
+  A daily, community-curated feed of trending AI research papers on Hugging Face.<br>
+  Mentioned in: 7 Habits to Become an AI Engineer: Books, Tooling, Research &amp; Shipping (Bashiri Smith on <a href="https://www.facebook.com/reel/1081423530962902">Facebook</a> · <a href="../notes/01-roadmap/2026-09-25-7-habits-to-become-an-ai-engineer-books-tooling-research.html">notes</a>)</li>
+<li><strong><a href="https://infiniteslop.ai/">Infinite Slop</a></strong> · website · infiniteslop.ai · free<br>
+  A site by levelsio and fal.ai that streams AI-generated videos without end.<br>
+  Mentioned in: Infinite Slop: Endless AI-Generated Video Site Switches to Portrait (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2094112770187026635">X</a> · <a href="../notes/16-trends/2026-08-31-infinite-slop-endless-ai-generated-video-site-switches-to.html">notes</a>)</li>
+<li><strong><a href="https://x.com/JensenHuang/status/2080643682408321103">Jensen Huang's X post sharing the open-weight models letter</a></strong> · article · x.com · free<br>
+  Jensen Huang's post with the joint letter asking policymakers not to restrict open-weight models.<br>
+  Mentioned in: Open-Weight Model Letter: Who Signed and Who Didn't (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2080737367724642374">X</a> · <a href="../notes/16-trends/2026-07-25-open-weight-model-letter-who-signed-and-who-didn-t.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/krea/Krea-2-Turbo">Krea 2 Turbo</a></strong> · tool · huggingface.co · free<br>
+  A fast, distilled open-weights version of Krea 2 with a wide range of aesthetic styles.<br>
+  Mentioned in: Krea 2 Open Weights: Raw (Undistilled) vs Turbo (Distilled) Image Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2069471532196458521">X</a> · <a href="../notes/10-fine-tuning/2026-06-23-krea-2-open-weights-raw-undistilled-vs-turbo-distilled.html">notes</a>)</li>
+<li><strong><a href="https://www.latent.space">Latent Space</a></strong> · newsletter · latent.space · free<br>
+  AI engineering podcast and newsletter that publishes the AINews daily roundup.<br>
+  Mentioned in: Opus 5.5 vs GPT-6 Sol for Writing: Latent Space AINews Test (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102679214554243271">X</a> · <a href="../notes/03-llm-fundamentals/2026-09-23-opus-5-5-vs-gpt-6-sol-for-writing-latent-space-ainews-test.html">notes</a>)</li>
+<li><strong><a href="https://x.com/Lentils80/status/2053827582638924169">Lentils (@Lentils80) on X – original "Veo Omni" clip post</a></strong> · article · x.com · free<br>
+  The original X post with the AI-generated video clip that Melvin reposted.<br>
+  Mentioned in: "Veo Omni?": A 10-Second Teaser Clip of a Possible New Google Video Model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2053843968472097147">X</a> · <a href="../notes/16-trends/2026-05-11-veo-omni-a-10-second-teaser-clip-of-a-possible-new-google.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/LiquidAI/LFM2-1.2B-Longevity">LFM2-1.2B-Longevity</a></strong> · tool · huggingface.co · free<br>
+  Liquid AI's 1.2B-parameter model specialized for interpreting structured aging data.<br>
+  Mentioned in: Liquid AI's LFM2-Longevity models for aging-data analysis (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100626614128378309">X</a> · <a href="../notes/16-trends/2026-09-18-liquid-ai-s-lfm2-longevity-models-for-aging-data-analysis.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/LiquidAI/LFM2-2.6B-Longevity">LFM2-2.6B-Longevity</a></strong> · tool · huggingface.co · free<br>
+  Liquid AI's 2.6B-parameter model specialized for interpreting structured aging data.<br>
+  Mentioned in: Liquid AI's LFM2-Longevity models for aging-data analysis (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100626614128378309">X</a> · <a href="../notes/16-trends/2026-09-18-liquid-ai-s-lfm2-longevity-models-for-aging-data-analysis.html">notes</a>)</li>
+<li><strong><a href="https://research.nvidia.com/labs/lpr/locate-anything/">LocateAnything (NVIDIA, CVPR 2026)</a></strong> · paper · research.nvidia.com · free<br>
+  NVIDIA research paper and model for vision-language object detection with a new approach to predicting bounding boxes, built for fast localization by agents and robots.<br>
+  Mentioned in: NVIDIA's LocateAnything: Vision-Language Detection Model (CVPR 2026) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2060174825059131694">X</a> · <a href="../notes/16-trends/2026-05-29-nvidia-s-locateanything-vision-language-detection-model.html">notes</a>)</li>
+<li><strong><a href="https://x.com/bfl_ai/status/2061800769226252721">Martin Scorsese</a></strong> · person · x.com · free<br>
+  Film director who is now an advisor to Black Forest Labs on visual AI.<br>
+  Mentioned in: Martin Scorsese Storyboards a Scene with Black Forest Labs' FLUX (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2061928559405367528">X</a> · <a href="../notes/16-trends/2026-06-02-martin-scorsese-storyboards-a-scene-with-black-forest-labs.html">notes</a>)</li>
+<li><strong><a href="https://www.moonshot.ai/">Moonshot AI</a></strong> · tool · moonshot.ai · check price<br>
+  Chinese AI lab that makes the open-weight Kimi models.<br>
+  Mentioned in: Open models now dominate token volume on Vercel AI Gateway (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101188319703134335">X</a> · <a href="../notes/16-trends/2026-09-19-open-models-now-dominate-token-volume-on-vercel-ai-gateway.html">notes</a>)</li>
+<li><strong>Muse Image</strong> · tool · free<br>
+  Meta's agentic image generation model, which reasons, searches and plans before generating.<br>
+  Mentioned in: Meta's Muse Image: An Agentic Image Generation Model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2074591296292053325">X</a> · <a href="../notes/16-trends/2026-07-08-meta-s-muse-image-an-agentic-image-generation-model.html">notes</a>)</li>
+<li><strong>Muse Spark</strong> · tool · free<br>
+  Meta's reasoning model that Muse Image works with to plan generations.<br>
+  Mentioned in: Meta's Muse Image: An Agentic Image Generation Model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2074591296292053325">X</a> · <a href="../notes/16-trends/2026-07-08-meta-s-muse-image-an-agentic-image-generation-model.html">notes</a>)</li>
+<li><strong><a href="https://developer.meta.com/ai/resources/blog/meet-muse-voice-transcribe-streaming-speech-to-text/">Muse Voice Transcribe</a></strong> · tool · developer.meta.com · paid<br>
+  Meta Superintelligence Labs' real-time multilingual speech-to-text model with diarization and endpointing.<br>
+  Mentioned in: Muse Voice Transcribe: Meta's real-time speech-to-text model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2095122002336252073">X</a> · <a href="../notes/16-trends/2026-09-02-muse-voice-transcribe-meta-s-real-time-speech-to-text-model.html">notes</a>)</li>
+<li><strong><a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-omni-flash-nano-banana-2-lite/">Nano Banana 2 Lite</a></strong> · tool · blog.google · paid · open in a browser to verify<br>
+  Google's fast, low-cost image generation model in the Nano Banana family.<br>
+  Mentioned in: Google Releases Nano Banana 2 Lite and Gemini Omni Flash (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2072037448633450633">X</a> · <a href="../notes/16-trends/2026-07-01-google-releases-nano-banana-2-lite-and-gemini-omni-flash.html">notes</a>)</li>
+<li><strong><a href="https://x.com/wickedguro">Nevo David (@wickedguro) on X</a></strong> · person · x.com · free<br>
+  Founder of Postiz who shares startup growth, open-source and agent-first product advice on X.<br>
+  Mentioned in: How Postiz Hit $145K MRR: Agent-First Positioning and Selling Outcomes (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2073428915100717077">X</a> · <a href="../notes/07-agents/2026-07-04-how-postiz-hit-145k-mrr-agent-first-positioning-and-selling.html">notes</a>)</li>
+<li><strong><a href="https://www.cdc.gov/nchs/nhanes/">NHANES</a></strong> · dataset · cdc.gov · free · open in a browser to verify<br>
+  The US National Health and Nutrition Examination Survey, a source of clinical and health records.<br>
+  Mentioned in: Liquid AI's LFM2-Longevity models for aging-data analysis (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100626614128378309">X</a> · <a href="../notes/16-trends/2026-09-18-liquid-ai-s-lfm2-longevity-models-for-aging-data-analysis.html">notes</a>)</li>
+<li><strong><a href="https://x.com/NousResearch">Nous Research (@NousResearch) on X</a></strong> · website · x.com · free<br>
+  X account of Nous Research, the AI lab behind the Hermes models and agent.<br>
+  Mentioned in: Hermes by Nous Research Praised as a 'Life Hack' (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2073344682814558668">X</a> · <a href="../notes/07-agents/2026-07-04-hermes-by-nous-research-praised-as-a-life-hack.html">notes</a>)</li>
+<li><strong><a href="https://x.com/NVIDIAAIDev">NVIDIA AI Developer (@NVIDIAAIDev)</a></strong> · person · x.com · free<br>
+  NVIDIA's developer account on X, with news on models, NIM and tools.<br>
+  Mentioned in: NVIDIA build.nvidia.com: Try Hosted NIM Model APIs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2031417114008104982">X</a> · <a href="../notes/03-llm-fundamentals/2026-03-11-nvidia-build-nvidia-com-try-hosted-nim-model-apis.html">notes</a>)</li>
+<li><strong><a href="https://www.nvidia.com/en-us/ai/cosmos/">NVIDIA Cosmos</a></strong> · tool · nvidia.com · free<br>
+  NVIDIA's open world foundation models for physical AI.<br>
+  Mentioned in: Jensen Huang on NVIDIA's Long-Term Commitment to Open Nemotron Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2034093172129984515">X</a> · <a href="../notes/16-trends/2026-03-18-jensen-huang-on-nvidia-s-long-term-commitment-to-open.html">notes</a>)</li>
+<li><strong><a href="https://developer.nvidia.com/isaac/gr00t">NVIDIA Isaac GR00T</a></strong> · tool · developer.nvidia.com · free<br>
+  NVIDIA's open foundation model family for humanoid robots.<br>
+  Mentioned in: Jensen Huang on NVIDIA's Long-Term Commitment to Open Nemotron Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2034093172129984515">X</a> · <a href="../notes/16-trends/2026-03-18-jensen-huang-on-nvidia-s-long-term-commitment-to-open.html">notes</a>)</li>
+<li><strong><a href="https://olink.com/">Olink</a></strong> · dataset · olink.com · paid<br>
+  Olink proteomics data, which comes from Olink's protein measurement platform.<br>
+  Mentioned in: Liquid AI's LFM2-Longevity models for aging-data analysis (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100626614128378309">X</a> · <a href="../notes/16-trends/2026-09-18-liquid-ai-s-lfm2-longevity-models-for-aging-data-analysis.html">notes</a>)</li>
+<li><strong><a href="https://devday.openai.com/">OpenAI DevDay</a></strong> · other · devday.openai.com · free<br>
+  OpenAI's yearly developer conference, where new APIs, models and tools are announced.<br>
+  Mentioned in: OpenAI DevDay keynote livestream (watch party) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104743680993271935">X</a> · <a href="../notes/16-trends/2026-09-29-openai-devday-keynote-livestream-watch-party.html">notes</a>)</li>
+<li><strong><a href="https://openai.com/index/openai-broadcom-jalapeno-inference-chip/">OpenAI Jalapeño</a></strong> · other · openai.com · free<br>
+  OpenAI's first custom AI chip, built for LLM inference and training workloads.<br>
+  Mentioned in: OpenAI's first custom AI chip: Jalapeño, built with Broadcom (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2069777975944552524">X</a> · <a href="../notes/16-trends/2026-06-24-openai-s-first-custom-ai-chip-jalapeno-built-with-broadcom.html">notes</a>)</li>
+<li><strong><a href="https://openai.com/index/openai-launches-the-deployment-company/">OpenAI launches the OpenAI Deployment Company to help businesses build around intelligence</a></strong> · article · openai.com · free<br>
+  OpenAI's official announcement of its new Deployment Company for enterprise AI adoption.<br>
+  Mentioned in: OpenAI launches the OpenAI Deployment Company (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2053828050471850148">X</a> · <a href="../notes/16-trends/2026-05-11-openai-launches-the-openai-deployment-company.html">notes</a>)</li>
+<li><strong><a href="https://openai.com/live/">OpenAI Livestreams</a></strong> · website · openai.com · free<br>
+  OpenAI's official livestream page, including the DevDay keynote.<br>
+  Mentioned in: OpenAI DevDay keynote livestream (watch party) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104743680993271935">X</a> · <a href="../notes/16-trends/2026-09-29-openai-devday-keynote-livestream-watch-party.html">notes</a>)</li>
+<li><strong><a href="https://x.com/OpenRouter/status/2038701599175196715?s=20">OpenRouter announcement: Qwen 3.6 Plus Preview</a></strong> · article · x.com · free<br>
+  OpenRouter's post announcing free, limited-time access to Qwen 3.6 Plus Preview, including the data-collection notice.<br>
+  Mentioned in: Qwen 3.6 Plus Preview Is Free for a Limited Time on OpenRouter (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2039658147103809703">X</a> · <a href="../notes/03-llm-fundamentals/2026-04-02-qwen-3-6-plus-preview-is-free-for-a-limited-time-on.html">notes</a>)</li>
+<li><strong><a href="https://persimmon.humansand.ai/blog/persimmon.html">Persimmon</a></strong> · tool · persimmon.humansand.ai · check price<br>
+  A newly announced large-scale model designed to realistically simulate how people talk and interact.<br>
+  Mentioned in: Persimmon: A Model Built to Simulate Human Conversation (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098384678717981070">X</a> · <a href="../notes/16-trends/2026-09-11-persimmon-a-model-built-to-simulate-human-conversation.html">notes</a>)</li>
+<li><strong><a href="https://photoai.com/">Photo AI (photoai.com)</a></strong> · website · photoai.com · check price<br>
+  An AI image and video generator product, cited as a profitable single-file PHP app.<br>
+  Mentioned in: Opinion: With AI Coding, Frameworks Are for Humans (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2030237059307479430">X</a> · <a href="../notes/16-trends/2026-03-07-opinion-with-ai-coding-frameworks-are-for-humans.html">notes</a>)</li>
+<li><strong><a href="https://x.com/Alibaba_Qwen/status/2102687258990026993">Qwen TTS-Next</a></strong> · tool · x.com · paid<br>
+  Alibaba's audio model family with upgraded ASR, TTS and Realtime models.<br>
+  Mentioned in: Qwen-Audio-3.1: Alibaba's Five-Model Audio Stack (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102726628048810098">X</a> · <a href="../notes/16-trends/2026-09-23-qwen-audio-3-1-alibaba-s-five-model-audio-stack.html">notes</a>)</li>
+<li><strong><a href="https://x.com/Alibaba_Qwen/status/2048022731548229869">Qwen-Image-2.0-Pro</a></strong> · tool · x.com · check price<br>
+  Qwen's text-to-image model, with strong multilingual text rendering and instruction following.<br>
+  Mentioned in: Qwen-Image-2.0-Pro Released: Text-to-Image Model Update (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2048056228639855058">X</a> · <a href="../notes/16-trends/2026-04-25-qwen-image-2-0-pro-released-text-to-image-model-update.html">notes</a>)</li>
+<li><strong><a href="https://qwen.ai/blog?id=qwen-image-3.0">Qwen-Image-3.0</a></strong> · tool · qwen.ai · check price<br>
+  Qwen's third-generation base image generation model, focused on realism.<br>
+  Mentioned in: Qwen-Image-3.0 Released: Third-Gen Image Generation Model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2079926660338761942">X</a> · <a href="../notes/16-trends/2026-07-22-qwen-image-3-0-released-third-gen-image-generation-model.html">notes</a>)</li>
+<li><strong><a href="https://qwen.ai/blog?id=qwen3.8-livetranslate">Qwen3.8-LiveTranslate</a></strong> · tool · qwen.ai · check price<br>
+  Qwen's real-time simultaneous interpretation model covering 60 languages with about 2.3s average lag.<br>
+  Mentioned in: Qwen3.8-LiveTranslate: real-time simultaneous interpretation model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101264405531070851">X</a> · <a href="../notes/16-trends/2026-09-19-qwen3-8-livetranslate-real-time-simultaneous-interpretation.html">notes</a>)</li>
+<li><strong><a href="https://qwen.ai/blog?id=qwen3.8-omni-flash">Qwen3.8-Omni-Flash</a></strong> · tool · qwen.ai · check price<br>
+  Qwen's omni-modal model with native audio/video understanding, reasoning and tool use.<br>
+  Mentioned in: Qwen3.8-Omni-Flash: Qwen's agentic omni-modal model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100806281116393795">X</a> · <a href="../notes/16-trends/2026-09-18-qwen3-8-omni-flash-qwen-s-agentic-omni-modal-model.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/Jackrong/Qwopus3.5-9B-Coder-GGUF">Qwopus Coder 9B</a></strong> · tool · huggingface.co · free<br>
+  A 9B-parameter coding-focused language model.<br>
+  Mentioned in: Qwopus Coder 9B: Small Coding Model Line Expanding (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2056801265024410017">X</a> · <a href="../notes/16-trends/2026-05-20-qwopus-coder-9b-small-coding-model-line-expanding.html">notes</a>)</li>
+<li><strong><a href="https://openai.com/index/samsung-electronics-chatgpt-codex-deployment/">Samsung Electronics brings ChatGPT and Codex to employees</a></strong> · article · openai.com · free<br>
+  OpenAI's announcement of Samsung's company-wide rollout of ChatGPT and Codex.<br>
+  Mentioned in: Samsung Electronics Rolls Out ChatGPT and Codex to Employees (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2069097323804946578">X</a> · <a href="../notes/16-trends/2026-06-23-samsung-electronics-rolls-out-chatgpt-and-codex-to-employees.html">notes</a>)</li>
+<li><strong><a href="https://seed.bytedance.com/en/blog/one-take-creation-flexible-referencing-introducing-seedance-2-5">Seedance 2.5</a></strong> · tool · seed.bytedance.com · check price<br>
+  An AI video generation model that supports up to 50 references and 30-second outputs.<br>
+  Mentioned in: Seedance 2.5 Video Model: Up to 50 References and 30-Second Clips (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2082495256684347762">X</a> · <a href="../notes/16-trends/2026-07-29-seedance-2-5-video-model-up-to-50-references-and-30-second.html">notes</a>)</li>
+<li><strong><a href="https://x.com/SpaceXAI">SpaceXAI on X (@SpaceXAI)</a></strong> · person · x.com · free<br>
+  Official X account that announced Grok 4.5.<br>
+  Mentioned in: AI News Roundup: Grok 4.5, GPT-5.6 Launch, GPT-Live Voice Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2074941646840754455">X</a> · <a href="../notes/16-trends/2026-07-09-ai-news-roundup-grok-4-5-gpt-5-6-launch-gpt-live-voice.html">notes</a>)</li>
+<li><strong><a href="https://www.donvitocodes.com/embed?url=https%3A%2F%2Fhai.stanford.edu%2Fassets%2Ffiles%2Fai_index_report_2026.pdf">Stanford AI Index Report 2026</a></strong> · pdf · donvitocodes.com · free<br>
+  Stanford HAI's annual report on the state of AI: research, benchmarks, investment, policy and workforce.<br>
+  Mentioned in: Stanford AI Index Report 2026 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2066949679183765561">X</a> · <a href="../notes/16-trends/2026-06-17-stanford-ai-index-report-2026.html">notes</a>)</li>
+<li><strong><a href="https://x.com/stephenbtl">Stephen Batifol</a></strong> · person · x.com · free<br>
+  The speaker in this clip; he presented where visual intelligence and multimodal generative models are heading at AI Engineer.<br>
+  Mentioned in: Self-Flow: Training Multimodal Generative Models Without an External Encoder (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2053897572536975846">X</a> · <a href="../notes/16-trends/2026-05-11-self-flow-training-multimodal-generative-models-without-an.html">notes</a>)</li>
+<li><strong><a href="https://newsletter.pragmaticengineer.com">The Pragmatic Engineer</a></strong> · newsletter · newsletter.pragmaticengineer.com · check price<br>
+  Gergely Orosz's software engineering newsletter.<br>
+  Mentioned in: How OpenAI's Agentic Software Factory Works (Pragmatic Engineer) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100065968869585315">X</a> · <a href="../notes/07-agents/2026-09-16-how-openai-s-agentic-software-factory-works-pragmatic.html">notes</a>)</li>
+<li><strong><a href="https://www.andela.com/research/emergent-roles">The roles emerging in the gaps between roles (Andela Research)</a></strong> · article · andela.com · free<br>
+  Andela's study of 47,101 Fortune 500 technical job postings, which found that job titles often don't match the actual work.<br>
+  Mentioned in: Find Hidden AI Jobs: Search by Skills (RAG, LLMs), Not "AI Engineer" Titles (Bashiri Smith on <a href="https://www.facebook.com/reel/2247063872805427">Facebook</a> · <a href="../notes/15-career/2026-09-28-find-hidden-ai-jobs-search-by-skills-rag-llms-not-ai.html">notes</a>)</li>
+<li><strong><a href="https://x.com/vercel/status/2101077346203971900">Vercel announcement post on X</a></strong> · article · x.com · free<br>
+  Vercel's post announcing free Jev access on AI Gateway.<br>
+  Mentioned in: Jev was free on Vercel AI Gateway until Sept 25 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101153115324190789">X</a> · <a href="../notes/09-llmops/2026-09-19-jev-was-free-on-vercel-ai-gateway-until-sept-25.html">notes</a>)</li>
+<li><strong><a href="https://x.com/victormustar">Victor M (@victormustar) on X</a></strong> · person · x.com · free<br>
+  Hugging Face team member who posts about HF products, open models and agent workflows.<br>
+  Mentioned in: Using Hugging Face credits: Jobs, Inference Endpoints and Open Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105651655459168673">X</a> · <a href="../notes/09-llmops/2026-10-01-using-hugging-face-credits-jobs-inference-endpoints-and.html">notes</a>)</li>
+<li><strong><a href="http://yann.lecun.com/">Yann LeCun</a></strong> · person · yann.lecun.com · free<br>
+  AI researcher and deep learning pioneer whose advice on learning skills that last opens the video.<br>
+  Mentioned in: Problem Solving Over Keywords: The AI Skill That Never Expires (Bashiri Smith on <a href="https://www.facebook.com/reel/1048528874852440">Facebook</a> · <a href="../notes/15-career/2026-09-24-problem-solving-over-keywords-the-ai-skill-that-never.html">notes</a>)</li>
+</ul>
+<p><strong>Build</strong></p>
+<ul>
+<li>Recreate the keynote demo: ask a coding agent to 'build an app that picks three attendees at random' to give away free tickets. (from <a href="../notes/16-trends/2026-09-30-openai-devday-2026-recap-dots-agents-api-codex-cloud.html">OpenAI DevDay 2026 Recap: Dots, Agents API, Codex Cloud &amp; Marketplace</a>)</li>
+<li>Build a ChatGPT plugin extension (a full app that feels native to ChatGPT) and list it on the OpenAI marketplace. (from <a href="../notes/16-trends/2026-09-30-openai-devday-2026-recap-dots-agents-api-codex-cloud.html">OpenAI DevDay 2026 Recap: Dots, Agents API, Codex Cloud &amp; Marketplace</a>)</li>
+<li>Build an iPhone app that downloads a small open model (e.g., Gemma 4 E2B) and runs it offline with LiteRT as a local chat assistant. (from <a href="../notes/16-trends/2026-09-24-on-device-ai-running-gemma-4-e2b-offline-on-an-iphone-with.html">On-Device AI: Running Gemma 4 E2B Offline on an iPhone with LiteRT</a>)</li>
+<li>Build a multilingual voice app or narrator using Gemini 3.8 Flash TTS voices. (from <a href="../notes/16-trends/2026-09-24-gemini-3-8-flash-and-flash-lite-tts-new-text-to-speech.html">Gemini 3.8 Flash and Flash-Lite TTS: new text-to-speech models</a>)</li>
+<li>Build an AI agent project that you can explain end to end in an interview. (from <a href="../notes/16-trends/2026-09-11-ai-engineer-salaries-at-openai-anthropic-and-the-skills.html">AI Engineer Salaries at OpenAI &amp; Anthropic and the Skills They Want</a>)</li>
+<li>Build an LLM application with an evaluation suite that measures how well it performs. (from <a href="../notes/16-trends/2026-09-11-ai-engineer-salaries-at-openai-anthropic-and-the-skills.html">AI Engineer Salaries at OpenAI &amp; Anthropic and the Skills They Want</a>)</li>
+<li>Ship an AI application that runs reliably in production and be ready to talk about the reliability choices you made. (from <a href="../notes/16-trends/2026-09-11-ai-engineer-salaries-at-openai-anthropic-and-the-skills.html">AI Engineer Salaries at OpenAI &amp; Anthropic and the Skills They Want</a>)</li>
+<li>Make a short stop-motion clip by generating consistent frames with an image model and putting them together as an animation. (from <a href="../notes/16-trends/2026-09-09-will-smith-spaghetti-benchmark-stop-motion-with-gpt-image-2.html">Will Smith Spaghetti Benchmark: Stop Motion with GPT Image 2.5 and Astra</a>)</li>
+<li>Build a 3D browser game where the player dodges asteroids with the arrow keys and uses space to boost (prompted in the demo). (from <a href="../notes/16-trends/2026-09-04-gpt-6-astra-demo-one-agent-juggling-many-computer-tasks.html">GPT-6 Astra Demo: One Agent Juggling Many Computer Tasks</a>)</li>
+<li>Build a design-to-fabrication pipeline: sketch, detailed render, Blender 3D model, STL export for a 3D printer. (from <a href="../notes/16-trends/2026-09-04-gpt-6-astra-demo-one-agent-juggling-many-computer-tasks.html">GPT-6 Astra Demo: One Agent Juggling Many Computer Tasks</a>)</li>
+<li>Try running the Minimax H3 model locally on a 24 GB consumer GPU and write down VRAM use, generation time and output quality. (from <a href="../notes/16-trends/2026-08-06-running-minimax-h3-locally-on-a-single-rtx-3090-demo.html">Running MiniMax H3 Locally on a Single RTX 3090 (Demo)</a>)</li>
+<li>Build a product around AI agents instead of a simple micro-SaaS (Melvin's suggestion). (from <a href="../notes/16-trends/2026-07-30-is-indie-hacking-dead-how-ai-coding-changes-the-micro-saas.html">Is Indie Hacking Dead? How AI Coding Changes the Micro-SaaS Playbook</a>)</li>
+<li>Fine-tune Gemma for an indigenous language such as Quechua and ship it as an offline mobile app for schools or hospitals. (from <a href="../notes/16-trends/2026-06-25-gemma-4-google-s-open-models-for-on-device-offline-ai.html">Gemma 4: Google's Open Models for On-Device, Offline AI</a>)</li>
+<li>Build an offline, data-free health assistant app, like the maternal-health example in the video. (from <a href="../notes/16-trends/2026-06-25-gemma-4-google-s-open-models-for-on-device-offline-ai.html">Gemma 4: Google's Open Models for On-Device, Offline AI</a>)</li>
+<li>Build a homework-checking assistant that runs on a phone. (from <a href="../notes/16-trends/2026-06-25-gemma-4-google-s-open-models-for-on-device-offline-ai.html">Gemma 4: Google's Open Models for On-Device, Offline AI</a>)</li>
+<li>Build a script-to-storyboard tool: take a scene description, pull out the setting, mood and camera directions, and generate a sequence of FLUX frames. (from <a href="../notes/16-trends/2026-06-02-martin-scorsese-storyboards-a-scene-with-black-forest-labs.html">Martin Scorsese Storyboards a Scene with Black Forest Labs' FLUX</a>)</li>
+<li>Build a camera-based diet coach: the user sets food or drink rules, and a vision-capable multimodal model checks webcam frames and gives spoken or written advice that follows those rules. (from <a href="../notes/16-trends/2026-05-12-demo-a-real-time-vision-ai-assistant-that-coaches-your-diet.html">Demo: A Real-Time Vision AI Assistant That Coaches Your Diet</a>)</li>
+<li>Use Audio Tags in Gemini 3.1 Flash TTS to produce narration in different styles and paces. (from <a href="../notes/16-trends/2026-04-16-gemini-3-1-flash-tts-controllable-speech-with-audio-tags.html">Gemini 3.1 Flash TTS: Controllable Speech with Audio Tags</a>)</li>
+</ul><nav class="pager" aria-label="Topics"><a rel="prev" href="career.html">&larr; Resume, Job Search &amp; Interviews</a></nav>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../license.html">License</a> &middot; <a href="../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

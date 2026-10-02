@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cursor as a Multi-Model Coding Harness | AI Engineer Study Library</title>
+<meta name="description" content="Melvin Vivas calls Cursor the best coding &#x27;harness&#x27; right now because one tool gives access to several frontier models, including Fable 5, Grok 4.5 and GPT…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-07-10-cursor-as-a-multi-model-coding-harness.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Cursor as a Multi-Model Coding Harness | AI Engineer Study Library">
+<meta property="og:description" content="Melvin Vivas calls Cursor the best coding &#x27;harness&#x27; right now because one tool gives access to several frontier models, including Fable 5, Grok 4.5 and GPT…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-07-10-cursor-as-a-multi-model-coding-harness.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-07-10-cursor-as-a-multi-model-coding-harness.html#note","headline":"Cursor as a Multi-Model Coding Harness","description":"Melvin Vivas calls Cursor the best coding 'harness' right now because one tool gives access to several frontier models, including Fable 5, Grok 4.5 and GPT 5.6, with all their variants. It is a short tool recommendation for anyone choosing an AI coding environment.","url":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-07-10-cursor-as-a-multi-model-coding-harness.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"AI Dev Tools & Productivity"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2075331717888671971","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-07-10"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-07-10-cursor-as-a-multi-model-coding-harness.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"AI Dev Tools & Productivity","item":"https://ralmodiel.github.io/ai-study-library/topics/ai-tools.html"},{"@type":"ListItem","position":4,"name":"Cursor as a Multi-Model Coding Harness"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/ai-tools.html">AI Dev Tools &amp; Productivity</a> &rsaquo; <span aria-current="page">Cursor as a Multi-Model Coding Harness</span></nav><h1>Cursor as a Multi-Model Coding Harness</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2075331717888671971">a post by Melvin Vivas on X</a>, posted 10 July 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X post · 2026-07-10 · <a href="https://x.com/melvindvivas/status/2075331717888671971">Open on X</a></p>
+<p><strong>Topics:</strong> AI Dev Tools &amp; Productivity · <strong>Level:</strong> beginner</p>
+<h2>Summary</h2>
+<p>Melvin Vivas calls Cursor the best coding 'harness' right now because one tool gives access to several frontier models, including Fable 5, Grok 4.5 and GPT 5.6, with all their variants. It is a short tool recommendation for anyone choosing an AI coding environment.</p>
+<h2>Key points</h2>
+<ul>
+<li>A 'harness' is the coding tool or environment that wraps a model; you can choose it separately from the model.</li>
+<li>Cursor gives access to Fable 5, Grok 4.5 and GPT 5.6 in one place.</li>
+<li>Cursor offers all the model variants, so you can switch models for each task without changing tools.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://x.com/cursor_ai">Cursor</a></strong> · tool · x.com · free<br>
+  Cursor's official X account, which posts product announcements such as cloud agents running in configured dev environments.<br>
+  Also in: GLM 5.3 and GLM 5.3 Flash now in Cursor (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105952116930163074">X</a> · <a href="2026-10-02-glm-5-3-and-glm-5-3-flash-now-in-cursor.html">notes</a>), Grok Bot Can Now Hand Off Coding Tasks to Cursor (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105468023352279408">X</a> · <a href="2026-10-01-grok-bot-can-now-hand-off-coding-tasks-to-cursor.html">notes</a>), Why Plan Mode Still Matters in AI Coding Assistants (Codex, Claude, Cursor) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104239715520250187">X</a> · <a href="2026-09-28-why-plan-mode-still-matters-in-ai-coding-assistants-codex.html">notes</a>), Why Plan Mode Still Matters in AI Coding Agents (Codex, Claude, Cursor) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104223654678839637">X</a> · <a href="2026-09-27-why-plan-mode-still-matters-in-ai-coding-agents-codex.html">notes</a>) and 121 more</li>
+<li><strong><a href="https://www.anthropic.com/news/claude-fable-5-mythos-5">Fable 5</a></strong> · tool · anthropic.com · paid<br>
+  A frontier model used as the comparison point in the Claude Opus 5 announcement; the post gives no other details about it.<br>
+  Also in: Claude Opus 5.5 in Devin: #1 on FrontierCode 1.1 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102453435144736968">X</a> · <a href="2026-09-23-claude-opus-5-5-in-devin-1-on-frontiercode-1-1.html">notes</a>), Creator's Top 3 Closed Models: Fable 5, GPT 5.6 Sol, Grok 4.6 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2093532238583587170">X</a> · <a href="../03-llm-fundamentals/2026-08-29-creator-s-top-3-closed-models-fable-5-gpt-5-6-sol-grok-4-6.html">notes</a>), Opus 5 vs Fable 5: Cost per Task in Cursor Benchmarks (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2080733336423788872">X</a> · <a href="../03-llm-fundamentals/2026-07-25-opus-5-vs-fable-5-cost-per-task-in-cursor-benchmarks.html">notes</a>), Opus 5 Beats Fable 5 on Cost per Task and Tokens (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2080729419396850027">X</a> · <a href="../03-llm-fundamentals/2026-07-25-opus-5-beats-fable-5-on-cost-per-task-and-tokens.html">notes</a>) and 7 more</li>
+<li><strong><a href="https://x.ai/news/grok-4-5">Grok 4.5</a></strong> · tool · x.ai · paid<br>
+  An LLM said to be trained in partnership with SpaceXAI, pitched as a general model beyond software engineering.<br>
+  Also in: Grok 4.5 Works Well as the Model Behind Hermes Agent (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2082662373400412296">X</a> · <a href="../07-agents/2026-07-30-grok-4-5-works-well-as-the-model-behind-hermes-agent.html">notes</a>), Models That Work With the Hermes Agent for Personal Productivity (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2079895506806030617">X</a> · <a href="../07-agents/2026-07-22-models-that-work-with-the-hermes-agent-for-personal.html">notes</a>), Agent-Made Video in 10 Minutes: Hermes Agent + Grok 4.5 + Hyperframes (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2078761137001443365">X</a> · <a href="../07-agents/2026-07-19-agent-made-video-in-10-minutes-hermes-agent-grok-4-5.html">notes</a>), Personal Assistant Agent on Hermes: Morning Briefings and Inbox Triage (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2078760898102219148">X</a> · <a href="../07-agents/2026-07-19-personal-assistant-agent-on-hermes-morning-briefings-and.html">notes</a>) and 9 more</li>
+<li><strong><a href="https://openai.com/index/gpt-5-6/">GPT 5.6 Luna</a></strong> · tool · openai.com · paid<br>
+  The OpenAI model used inside Codex for the demo. The transcript gives the variant name as 'Soul', which is unclear.<br>
+  Also in: Set Codex subagent model and reasoning to save usage limits (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103466507531665428">X</a> · <a href="2026-09-25-set-codex-subagent-model-and-reasoning-to-save-usage-limits.html">notes</a>), Use GPT-5.6 Luna in Codex for Terminal Tasks (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099454377509687314">X</a> · <a href="2026-09-14-use-gpt-5-6-luna-in-codex-for-terminal-tasks.html">notes</a>), Match Reasoning Effort to Task Length in Codex (Astra/Sol) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098351646191628754">X</a> · <a href="2026-09-11-match-reasoning-effort-to-task-length-in-codex-astra-sol.html">notes</a>), Run Coworker desktop agents cheaply with GPT-5.6 Luna on OpenRouter (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098270299745832989">X</a> · <a href="../07-agents/2026-09-11-run-coworker-desktop-agents-cheaply-with-gpt-5-6-luna-on.html">notes</a>) and 24 more</li>
+</ul><section class="more"><h2>More in AI Dev Tools &amp; Productivity</h2><ul><li><a href="2026-07-14-grok-4-5-as-the-default-exploration-model-in-cursor.html">Grok 4.5 as the Default Exploration Model in Cursor</a> <span class="meta">Melvin Vivas, 2026-07-14</span></li><li><a href="2026-07-14-choosing-which-usage-limit-reset-to-use-in-codex.html">Choosing Which Usage-Limit Reset to Use in Codex</a> <span class="meta">Melvin Vivas, 2026-07-14</span></li><li><a href="2026-07-11-cursor-s-new-side-chats-feature-quick-pointer.html">Cursor&#x27;s New &quot;Side Chats&quot; Feature (Quick Pointer)</a> <span class="meta">Melvin Vivas, 2026-07-11</span></li><li><a href="2026-07-10-first-impressions-gpt-5-6-sol-for-prs-in-cursor.html">First Impressions: GPT 5.6 Sol for PRs in Cursor</a> <span class="meta">Melvin Vivas, 2026-07-10</span></li><li><a href="2026-07-10-using-cursor-bugbot-for-automated-code-review-on-solo.html">Using Cursor Bugbot for automated code review on solo projects</a> <span class="meta">Melvin Vivas, 2026-07-10</span></li><li><a href="2026-07-09-grok-4-5-and-cursor-models-tuned-for-a-specific-coding.html">Grok 4.5 and Cursor: Models Tuned for a Specific Coding Harness</a> <span class="meta">Melvin Vivas, 2026-07-09</span></li></ul><p><a href="../../topics/ai-tools.html">All of AI Dev Tools &amp; Productivity</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

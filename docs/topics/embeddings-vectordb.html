@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Embeddings &amp; Vector Databases: free resources and study plan | AI…</title>
+<meta name="description" content="Embedding models, similarity search, vector stores and indexing. 17 summarised reels and posts and 26 linked resources (8 free to watch), from Bashiri Smith…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/topics/embeddings-vectordb.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Embeddings &amp; Vector Databases: free resources and study plan | AI…">
+<meta property="og:description" content="Embedding models, similarity search, vector stores and indexing. 17 summarised reels and posts and 26 linked resources (8 free to watch), from Bashiri Smith…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/topics/embeddings-vectordb.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://ralmodiel.github.io/ai-study-library/topics/embeddings-vectordb.html","name":"Embeddings & Vector Databases","url":"https://ralmodiel.github.io/ai-study-library/topics/embeddings-vectordb.html","description":"Embedding models, similarity search, vector stores and indexing.","about":{"@type":"Thing","name":"Embeddings & Vector Databases"},"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"inLanguage":"en"},{"@type":"WebSite","@id":"https://ralmodiel.github.io/ai-study-library/#website","name":"AI Engineer Study Library","url":"https://ralmodiel.github.io/ai-study-library/","inLanguage":"en","publisher":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"}},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"Embeddings & Vector Databases"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../learning-path.html">Learning path</a><a href="../free-watch-list.html">Free to watch</a><a href="../resources.html">All resources</a><a href="../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../">Library</a> &rsaquo; <a href="../learning-path.html">Learning path</a> &rsaquo; <span aria-current="page">Embeddings &amp; Vector Databases</span></nav><p class="step">Topic 5 of 16 in the <a href="../learning-path.html">learning path</a></p><h1>Embeddings &amp; Vector Databases</h1>
+<p><em>Embedding models, similarity search, vector stores and indexing.</em></p>
+<p><strong>Reels and posts (7)</strong></p>
+<ul>
+<li><a href="../notes/05-embeddings-vectordb/2026-09-27-liquid-ai-lfm-2-5-encoder-a-cpu-friendly-encoder-model.html">Liquid AI LFM 2.5 Encoder: a CPU-friendly encoder model</a> · Melvin Vivas, X: Points out Liquid AI's LFM 2.5 Encoder, released in July 2026, which runs on CPU.</li>
+<li><a href="../notes/05-embeddings-vectordb/2026-09-25-how-rag-finds-the-right-document-fast-graph-based-vector.html">How RAG Finds the Right Document Fast: Graph-Based Vector Search</a> · Bashiri Smith, Facebook · 1:08: A skit about an interview question: how does a RAG app find the right document for a question?</li>
+<li><a href="../notes/05-embeddings-vectordb/2026-08-20-sentence-transformers-v6-colbert-style-multi-vector-models.html">Sentence Transformers v6: ColBERT-Style Multi-Vector Models Fully Supported</a> · Melvin Vivas, X: Sentence Transformers v6.0 has been released.</li>
+<li><a href="../notes/05-embeddings-vectordb/2026-04-30-building-interactive-ai-concept-demos-with-claude-design.html">Building Interactive AI Concept Demos with Claude Design (Embeddings Example)</a> · Melvin Vivas, X · 0:19: In this 19-second X post with no narration, Melvin Vivas shows an interactive demo of how embeddings work that he made with Claude Design, Anthropic's tool for making visual design</li>
+<li><a href="../notes/05-embeddings-vectordb/2026-04-23-gemini-embedding-2-one-vector-space-for-five-modalities.html">Gemini Embedding 2: One Vector Space for Five Modalities</a> · Melvin Vivas, X: Gemini Embedding 2 is now generally available.</li>
+<li><a href="../notes/05-embeddings-vectordb/2026-03-27-fine-tuning-minilm-embeddings-with-synthetic-data-running.html">Fine-Tuning MiniLM Embeddings with Synthetic Data, Running on CPU</a> · Melvin Vivas, X: A practical case study in text matching.</li>
+<li><a href="../notes/05-embeddings-vectordb/2026-03-23-fine-tuning-all-minilm-l6-v2-to-beat-openai-embeddings.html">Fine-tuning all-MiniLM-L6-v2 to Beat OpenAI Embeddings</a> · Melvin Vivas, X: The creator trained a custom embedding model starting from the small open-source all-MiniLM-L6-v2.</li>
+</ul>
+<p><strong>Watch, free (4)</strong></p>
+<ul>
+<li><strong><a href="https://www.youtube.com/watch?v=viZrOnJclY0">Word Embedding and Word2Vec, Clearly Explained!!! (StatQuest with Josh Starmer)</a></strong> · video · youtube.com · free<br>
+  StatQuest's visual explanation of word embeddings and how Word2Vec learns them.<br>
+  Mentioned in: 6 Free Videos to Move from Software Engineer to AI Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1615291686990735">Facebook</a> · <a href="../notes/01-roadmap/2026-09-28-6-free-videos-to-move-from-software-engineer-to-ai-engineer.html">notes</a>), How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="../notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+<li><strong><a href="https://www.deeplearning.ai/courses/google-cloud-vertex-ai">Understanding and Applying Text Embeddings (DeepLearning.AI)</a></strong> · course · deeplearning.ai · free<br>
+  A DeepLearning.AI course on embeddings and semantic search.<br>
+  Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="../notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+<li><strong><a href="https://www.deeplearning.ai/short-courses/vector-databases-embeddings-applications/">Vector Databases: from Embeddings to Applications (DeepLearning.AI)</a></strong> · course · deeplearning.ai · free<br>
+  A DeepLearning.AI short course on how vector databases work and how to build applications with them.<br>
+  Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="../notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=gl1r1XV0SLw">What is a Vector Database? Powering Semantic Search &amp; AI Applications (IBM Technology)</a></strong> · video · youtube.com · free<br>
+  An IBM video introducing vector databases.<br>
+  Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="../notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+</ul>
+<p><strong>Read and use (10)</strong></p>
+<ul>
+<li><strong><a href="https://www.pinecone.io">Pinecone</a></strong> · tool · pinecone.io · free<br>
+  A managed vector database used to store embeddings and run similarity search in RAG systems.<br>
+  Mentioned in: Basic RAG Pipeline in 60 Seconds: From Documents to Grounded Answers (Bashiri Smith on <a href="https://www.facebook.com/reel/1893190305357331">Facebook</a> · <a href="../notes/06-rag/2026-10-01-basic-rag-pipeline-in-60-seconds-from-documents-to-grounded.html">notes</a>), Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="../notes/01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), How RAG Works: Chunking, Embedding, Vector Storage, and Retrieval (Bashiri Smith on <a href="https://www.facebook.com/reel/1639527170837316">Facebook</a> · <a href="../notes/06-rag/2026-09-26-how-rag-works-chunking-embedding-vector-storage-and.html">notes</a>), How RAG Works Under the Hood: Chunking, Embedding, Storage, Retrieval (Bashiri Smith on <a href="https://www.facebook.com/reel/28850952981168407">Facebook</a> · <a href="../notes/06-rag/2026-09-13-how-rag-works-under-the-hood-chunking-embedding-storage.html">notes</a>) and 1 more</li>
+<li><strong><a href="https://weaviate.io">Weaviate</a></strong> · tool · weaviate.io · free<br>
+  An open-source vector database for storing embeddings and running semantic and hybrid search.<br>
+  Mentioned in: Basic RAG Pipeline in 60 Seconds: From Documents to Grounded Answers (Bashiri Smith on <a href="https://www.facebook.com/reel/1893190305357331">Facebook</a> · <a href="../notes/06-rag/2026-10-01-basic-rag-pipeline-in-60-seconds-from-documents-to-grounded.html">notes</a>), Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="../notes/01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), How RAG Works: Chunking, Embedding, Vector Storage, and Retrieval (Bashiri Smith on <a href="https://www.facebook.com/reel/1639527170837316">Facebook</a> · <a href="../notes/06-rag/2026-09-26-how-rag-works-chunking-embedding-vector-storage-and.html">notes</a>), How RAG Works Under the Hood: Chunking, Embedding, Storage, Retrieval (Bashiri Smith on <a href="https://www.facebook.com/reel/28850952981168407">Facebook</a> · <a href="../notes/06-rag/2026-09-13-how-rag-works-under-the-hood-chunking-embedding-storage.html">notes</a>) and 1 more</li>
+<li><strong><a href="https://github.com/pgvector/pgvector">pgvector</a></strong> · tool · github.com · free<br>
+  An open-source Postgres extension for storing embeddings and running vector similarity search.<br>
+  Mentioned in: Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="../notes/01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), How RAG Works: Chunking, Embedding, Vector Storage, and Retrieval (Bashiri Smith on <a href="https://www.facebook.com/reel/1639527170837316">Facebook</a> · <a href="../notes/06-rag/2026-09-26-how-rag-works-chunking-embedding-vector-storage-and.html">notes</a>), 7 Habits to Become an AI Engineer: Books, Tooling, Research &amp; Shipping (Bashiri Smith on <a href="https://www.facebook.com/reel/1081423530962902">Facebook</a> · <a href="../notes/01-roadmap/2026-09-25-7-habits-to-become-an-ai-engineer-books-tooling-research.html">notes</a>), How RAG Works Under the Hood: Chunking, Embedding, Storage, Retrieval (Bashiri Smith on <a href="https://www.facebook.com/reel/28850952981168407">Facebook</a> · <a href="../notes/06-rag/2026-09-13-how-rag-works-under-the-hood-chunking-embedding-storage.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2">all-MiniLM-L6-v2</a></strong> · tool · huggingface.co · free<br>
+  A small open-source sentence-transformers embedding model that maps text to 384-dimensional vectors.<br>
+  Mentioned in: Fine-Tuning MiniLM Embeddings with Synthetic Data, Running on CPU (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2037352956023202198">X</a> · <a href="../notes/05-embeddings-vectordb/2026-03-27-fine-tuning-minilm-embeddings-with-synthetic-data-running.html">notes</a>), Fine-tuning all-MiniLM-L6-v2 to Beat OpenAI Embeddings (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2035940011934449952">X</a> · <a href="../notes/05-embeddings-vectordb/2026-03-23-fine-tuning-all-minilm-l6-v2-to-beat-openai-embeddings.html">notes</a>)</li>
+<li><strong><a href="https://platform.openai.com/docs/guides/embeddings">OpenAI text-embedding-3-small</a></strong> · tool · platform.openai.com · paid<br>
+  OpenAI's small paid embedding model, available through its API.<br>
+  Mentioned in: Fine-Tuning MiniLM Embeddings with Synthetic Data, Running on CPU (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2037352956023202198">X</a> · <a href="../notes/05-embeddings-vectordb/2026-03-27-fine-tuning-minilm-embeddings-with-synthetic-data-running.html">notes</a>), Fine-tuning all-MiniLM-L6-v2 to Beat OpenAI Embeddings (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2035940011934449952">X</a> · <a href="../notes/05-embeddings-vectordb/2026-03-23-fine-tuning-all-minilm-l6-v2-to-beat-openai-embeddings.html">notes</a>)</li>
+<li><strong><a href="https://pypi.org/project/aibackends/">aibackends (Python package)</a></strong> · tool · pypi.org · free<br>
+  A Python package installed with pip and shown in the post's caption; it seems to be connected to the demo.<br>
+  Mentioned in: Building Interactive AI Concept Demos with Claude Design (Embeddings Example) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2049970196866281968">X</a> · <a href="../notes/05-embeddings-vectordb/2026-04-30-building-interactive-ai-concept-demos-with-claude-design.html">notes</a>)</li>
+<li><strong><a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-embedding-2/">Gemini Embedding 2</a></strong> · tool · blog.google · check price · open in a browser to verify<br>
+  Google's multimodal embedding model, with one vector space for text, image, video, audio and PDF.<br>
+  Mentioned in: Gemini Embedding 2: One Vector Space for Five Modalities (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2047150982900109532">X</a> · <a href="../notes/05-embeddings-vectordb/2026-04-23-gemini-embedding-2-one-vector-space-for-five-modalities.html">notes</a>)</li>
+<li><strong><a href="https://www.liquid.ai/blog/lfm2-5-encoders">LFM 2.5 Encoder</a></strong> · tool · liquid.ai · free<br>
+  Liquid AI's encoder model, released in July 2026, that can run on CPU.<br>
+  Mentioned in: Liquid AI LFM 2.5 Encoder: a CPU-friendly encoder model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103885808768078071">X</a> · <a href="../notes/05-embeddings-vectordb/2026-09-27-liquid-ai-lfm-2-5-encoder-a-cpu-friendly-encoder-model.html">notes</a>)</li>
+<li><strong><a href="https://platform.openai.com/docs/models/text-embedding-ada-002">OpenAI Ada embeddings</a></strong> · tool · platform.openai.com · paid<br>
+  OpenAI embedding model used by llama_index by default.<br>
+  Mentioned in: Q&amp;A Over Your Own PDFs with LlamaIndex, OpenAI and Python (2023) (Melvin Vivas on <a href="https://www.melvinvivas.com/chatgpt-openai-langchain-llama-index-generative-text-ai">melvinvivas.com</a> · <a href="../notes/06-rag/2023-04-08-q-a-over-your-own-pdfs-with-llamaindex-openai-and-python.html">notes</a>)</li>
+<li><strong><a href="https://www.sbert.net">Sentence Transformers</a></strong> · tool · sbert.net · free<br>
+  Open-source Python library for training and running embedding, sparse, reranker and (from v6) multi-vector models.<br>
+  Mentioned in: Sentence Transformers v6: ColBERT-Style Multi-Vector Models Fully Supported (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2090291993402597855">X</a> · <a href="../notes/05-embeddings-vectordb/2026-08-20-sentence-transformers-v6-colbert-style-multi-vector-models.html">notes</a>)</li>
+</ul>
+<p><strong>Build</strong></p>
+<ul>
+<li>Compare dense, sparse and ColBERT-style multi-vector retrieval on your own RAG dataset. (from <a href="../notes/05-embeddings-vectordb/2026-08-20-sentence-transformers-v6-colbert-style-multi-vector-models.html">Sentence Transformers v6: ColBERT-Style Multi-Vector Models Fully Supported</a>)</li>
+<li>Use Claude Design to build an interactive visual explainer of how embeddings work: text becomes vectors, and similar meanings sit close together. (from <a href="../notes/05-embeddings-vectordb/2026-04-30-building-interactive-ai-concept-demos-with-claude-design.html">Building Interactive AI Concept Demos with Claude Design (Embeddings Example)</a>)</li>
+<li>Build a multimodal search/RAG system that searches text, images, audio and PDFs in one Gemini Embedding 2 index. (from <a href="../notes/05-embeddings-vectordb/2026-04-23-gemini-embedding-2-one-vector-space-for-five-modalities.html">Gemini Embedding 2: One Vector Space for Five Modalities</a>)</li>
+<li>Fine-tune all-MiniLM-L6-v2 on synthetic pairs for a domain-specific text-matching task, publish it to Hugging Face, and serve it from a CPU-only Docker container (from <a href="../notes/05-embeddings-vectordb/2026-03-27-fine-tuning-minilm-embeddings-with-synthetic-data-running.html">Fine-Tuning MiniLM Embeddings with Synthetic Data, Running on CPU</a>)</li>
+<li>Fine-tune all-MiniLM-L6-v2 on domain-specific pairs and compare retrieval quality against OpenAI text-embedding-3-small. (from <a href="../notes/05-embeddings-vectordb/2026-03-23-fine-tuning-all-minilm-l6-v2-to-beat-openai-embeddings.html">Fine-tuning all-MiniLM-L6-v2 to Beat OpenAI Embeddings</a>)</li>
+</ul><nav class="pager" aria-label="Topics"><a rel="prev" href="prompting.html">&larr; Prompt &amp; Context Engineering</a><a rel="next" href="rag.html">Retrieval-Augmented Generation (RAG) &rarr;</a></nav>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../license.html">License</a> &middot; <a href="../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

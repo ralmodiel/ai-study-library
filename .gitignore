@@ -1,17 +1,27 @@
-# --- Private: never commit -----------------------------------------------------
-# Working data: audio, transcripts, extraction results, caches, error logs, the
-# artifact copy of the page - and YOUR LOGIN SESSIONS (browser-profile*/, cookies.txt).
-data/
+# This repository publishes the study library only: docs/ (the site), README.md, LICENSE and credits.json.
 
-# The local library: full transcripts and downloaded PDFs (other people's content).
-# The public, link-only copy is generated into docs/.
-library/
+# --- Local working files (not published) ------------------------------------------
+/data/
+/library/
+/fblearn/
+/promo/
+/run.cmd
+/setup.cmd
+/requirements.txt
+/overrides.json
+/DEVELOPMENT.md
 
-# Secrets (e.g. ANTHROPIC_API_KEY) if you ever keep them in a file
+# --- Keys and local settings, wherever they end up ------------------------------
 .env
 .env.*
 *.pem
 *.key
+*.ppk
+id_rsa*
+id_ed25519*
+cookies.txt
+browser-profile*/
+*.sqlite
 
 # --- Python and tooling ----------------------------------------------------------
 .venv/
@@ -40,23 +50,3 @@ pip-wheel-metadata/
 .DS_Store
 Thumbs.db
 desktop.ini
-
-# Screenshots the promo is rendered from (promo/make.py capture)
-promo/captures/
-
-# Login sessions and keys, wherever they end up (they normally live in data/)
-cookies.txt
-browser-profile*/
-*.sqlite
-*.ppk
-id_rsa*
-id_ed25519*
-
-# --- Code: kept on this PC only; the repository publishes just the library -------
-fblearn/
-promo/
-run.cmd
-setup.cmd
-requirements.txt
-overrides.json
-DEVELOPMENT.md

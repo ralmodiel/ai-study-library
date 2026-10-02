@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Opus 5.5 for Video Making: Creator&#x27;s Showcase Thread…</title>
+<meta name="description" content="This is a short showcase thread. Melvin Vivas says Claude Opus 5.5 is good at making and editing videos, and he starts a list of what he has made with it. The…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-09-28-claude-opus-5-5-for-video-making-creator-s-showcase-thread.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Claude Opus 5.5 for Video Making: Creator&#x27;s Showcase Thread…">
+<meta property="og:description" content="This is a short showcase thread. Melvin Vivas says Claude Opus 5.5 is good at making and editing videos, and he starts a list of what he has made with it. The…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-09-28-claude-opus-5-5-for-video-making-creator-s-showcase-thread.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-09-28-claude-opus-5-5-for-video-making-creator-s-showcase-thread.html#note","headline":"Claude Opus 5.5 for Video Making: Creator's Showcase Thread (Coworker)","description":"This is a short showcase thread. Melvin Vivas says Claude Opus 5.5 is good at making and editing videos, and he starts a list of what he has made with it. The first item is Coworker, a local-first desktop app for \"AI coworkers\" hosted on his donvitocodes.com site. The 15-second clip has no speech…","url":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-09-28-claude-opus-5-5-for-video-making-creator-s-showcase-thread.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"AI Dev Tools & Productivity"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2104386225612415297","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-09-28"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-09-28-claude-opus-5-5-for-video-making-creator-s-showcase-thread.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"AI Dev Tools & Productivity","item":"https://ralmodiel.github.io/ai-study-library/topics/ai-tools.html"},{"@type":"ListItem","position":4,"name":"Claude Opus 5.5 for Video Making: Creator's Showcase Thread (Coworker)"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/ai-tools.html">AI Dev Tools &amp; Productivity</a> &rsaquo; <span aria-current="page">Claude Opus 5.5 for Video Making: Creator&#x27;s Showcase Thread (Coworker)</span></nav><h1>Claude Opus 5.5 for Video Making: Creator's Showcase Thread (Coworker)</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2104386225612415297">a video post by Melvin Vivas on X</a>, posted 28 September 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X video post · 2026-09-28 · 0:15 · 530 views · <a href="https://x.com/melvindvivas/status/2104386225612415297">Open on X</a></p>
+<p><strong>Topics:</strong> AI Dev Tools &amp; Productivity · <strong>Level:</strong> beginner</p>
+<h2>Summary</h2>
+<p>This is a short showcase thread. Melvin Vivas says Claude Opus 5.5 is good at making and editing videos, and he starts a list of what he has made with it. The first item is Coworker, a local-first desktop app for "AI coworkers" hosted on his donvitocodes.com site. The 15-second clip has no speech, so the post doesn't explain how the videos were made.</p>
+<h2>Key points</h2>
+<ul>
+<li>The creator says Claude Opus 5.5 is good at both making and editing videos.</li>
+<li>The post opens a thread listing the creator's projects made with Claude Opus 5.5. Only item 1 appears here.</li>
+<li>Item 1 is Coworker, described on its page as 'Local-First AI Coworkers for Desktop' and hosted at donvitocodes.com/coworker.</li>
+<li>The 15-second video has no narration, so the post gives no workflow, prompts or technical steps.</li>
+<li>To see the other examples, read the rest of the thread on X.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://github.com/donvito/coworker">Coworker (donvito/coworker)</a></strong> · repo · github.com · free<br>
+  The creator's local-first desktop app where you pick an AI coworker and have it produce work such as invoices as finished PDFs.<br>
+  Also in: Coworker: free open-source desktop AI coworker app (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103533091117736005">X</a> · <a href="2026-09-26-coworker-free-open-source-desktop-ai-coworker-app.html">notes</a>), Coworker: Open-Source Desktop App for AI Agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101347063820955903">X</a> · <a href="../07-agents/2026-09-20-coworker-open-source-desktop-app-for-ai-agents.html">notes</a>), Using Devin AI to Test the Coworker Desktop App on Windows (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100651879219044800">X</a> · <a href="2026-09-18-using-devin-ai-to-test-the-coworker-desktop-app-on-windows.html">notes</a>), Intent Classification and Routing in a Multi-Agent Desktop App (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100617893625163993">X</a> · <a href="../07-agents/2026-09-18-intent-classification-and-routing-in-a-multi-agent-desktop.html">notes</a>) and 38 more</li>
+<li><strong><a href="https://claude.ai">Claude Opus 5.5</a></strong> · tool · claude.ai · paid · open in a browser to verify · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Anthropic's AI assistant, used throughout the guide to tailor resumes, add live roles to the tracker, match connections to target companies and find hiring managers.<br>
+  Also in: Generating a Repo Promo Video with a Claude Skill on Sonnet 5.5 vs Opus 5.5 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105947598104449202">X</a> · <a href="2026-10-02-generating-a-repo-promo-video-with-a-claude-skill-on-sonnet.html">notes</a>), Comparing Coding Models on the Same Task in Devin iOS (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105882889653248435">X</a> · <a href="2026-10-02-comparing-coding-models-on-the-same-task-in-devin-ios.html">notes</a>), Customizing Your Coding Setup with Pi Coding Agent Extensions (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105871612591714651">X</a> · <a href="2026-10-02-customizing-your-coding-setup-with-pi-coding-agent.html">notes</a>), LLM Council Agent in Pi Using Codex and Claude Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105623208875761959">X</a> · <a href="../07-agents/2026-10-01-llm-council-agent-in-pi-using-codex-and-claude-models.html">notes</a>) and 52 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Open the full X thread to see the creator's other Claude Opus 5.5 video examples.</li>
+<li>Visit the Coworker page to see what the creator made with Claude Opus 5.5.</li>
+<li>Use Claude Opus 5.5 to make or edit a short demo video for a project, as the creator did for Coworker.</li>
+</ul><section class="more"><h2>More in AI Dev Tools &amp; Productivity</h2><ul><li><a href="2026-09-29-the-last-manual-programmer-a-song-about-coding-with-ai.html">&quot;The Last Manual Programmer&quot;: A Song About Coding With AI Agents</a> <span class="meta">Melvin Vivas, 2026-09-29</span></li><li><a href="2026-09-29-devin-mobile-beta-waitlist-opens.html">Devin Mobile beta waitlist opens</a> <span class="meta">Melvin Vivas, 2026-09-29</span></li><li><a href="2026-09-29-devin-mobile-beta-cognition-s-ai-coding-agent-is-now-on.html">Devin Mobile Beta: Cognition&#x27;s AI Coding Agent Is Now on Mobile</a> <span class="meta">Melvin Vivas, 2026-09-29</span></li><li><a href="2026-09-28-pig-the-pi-coding-agent-rebuilt-in-go-as-a-single-native.html">PiG: The Pi Coding Agent Rebuilt in Go as a Single Native Binary</a> <span class="meta">Melvin Vivas, 2026-09-28</span></li><li><a href="2026-09-28-why-plan-mode-still-matters-in-ai-coding-assistants-codex.html">Why Plan Mode Still Matters in AI Coding Assistants (Codex, Claude, Cursor)</a> <span class="meta">Melvin Vivas, 2026-09-28</span></li><li><a href="2026-09-27-why-removing-plan-mode-from-coding-agents-is-a-mistake.html">Why removing Plan Mode from coding agents is a mistake</a> <span class="meta">Melvin Vivas, 2026-09-27</span></li></ul><p><a href="../../topics/ai-tools.html">All of AI Dev Tools &amp; Productivity</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

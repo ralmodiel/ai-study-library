@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free AI engineering videos and courses to watch</title>
+<meta name="description" content="64 free videos, playlists and courses recommended by Bashiri Smith and Melvin Vivas, grouped by topic in study order.">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/free-watch-list.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Free AI engineering videos and courses to watch">
+<meta property="og:description" content="64 free videos, playlists and courses recommended by Bashiri Smith and Melvin Vivas, grouped by topic in study order.">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/free-watch-list.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://ralmodiel.github.io/ai-study-library/free-watch-list.html","name":"Free AI engineering videos and courses to watch","url":"https://ralmodiel.github.io/ai-study-library/free-watch-list.html","isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"}},{"@type":"WebSite","@id":"https://ralmodiel.github.io/ai-study-library/#website","name":"AI Engineer Study Library","url":"https://ralmodiel.github.io/ai-study-library/","inLanguage":"en","publisher":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"}},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Free AI engineering videos and courses to watch"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="./">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="learning-path.html">Learning path</a><a href="free-watch-list.html">Free to watch</a><a href="resources.html">All resources</a><a href="credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="./">Library</a> &rsaquo; <span aria-current="page">Free AI engineering videos and courses to watch</span></nav><h1>Free resources to watch, recommended by Bashiri Smith and Melvin Vivas</h1>
+<p>64 free videos, playlists, channels and courses from 100 Facebook reels, 1,391 X posts and 2 blog articles, plus the PDFs they shared. Sorted by topic in study order; the most recommended come first. Tick the boxes as you go (VS Code and Obsidian render them as checkboxes).</p>
+<h2>Start Here: Roadmaps &amp; Strategy (1)</h2>
+<ul>
+<li><strong><a href="https://www.youtube.com/watch?v=ZSOecQCdea4">The Complete AI Engineer Roadmap for 2026 (Exact Courses + Step-by-Step)</a></strong> · video · youtube.com · free<br>
+  Bashiri Smith's free YouTube training on upgrading your skills and becoming competitive for AI engineering roles, with specific courses listed step by step.<br>
+  Mentioned in: Pointer to Bashiri Smith's Complete AI Engineer Roadmap for 2026 (Bashiri Smith on <a href="https://www.facebook.com/reel/1771577477300003">Facebook</a> · <a href="notes/01-roadmap/2026-10-01-pointer-to-bashiri-smith-s-complete-ai-engineer-roadmap-for.html">notes</a>), Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="notes/01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), Software Engineer to AI Engineer Before 2027: A 5-Step Career Plan (Bashiri Smith on <a href="https://www.facebook.com/reel/1433622515329300">Facebook</a> · <a href="notes/01-roadmap/2026-09-30-software-engineer-to-ai-engineer-before-2027-a-5-step.html">notes</a>), 6 Free Videos to Move from Software Engineer to AI Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1615291686990735">Facebook</a> · <a href="notes/01-roadmap/2026-09-28-6-free-videos-to-move-from-software-engineer-to-ai-engineer.html">notes</a>) and 19 more</li>
+</ul>
+<h2>Programming &amp; ML Foundations (3)</h2>
+<ul>
+<li><strong><a href="https://karpathy.ai/zero-to-hero.html">Neural Networks: Zero to Hero (Andrej Karpathy)</a></strong> · course · karpathy.ai · free<br>
+  Free YouTube series by Andrej Karpathy that builds neural networks and GPT-style language models from scratch in code.<br>
+  Mentioned in: AI Engineer Roadmap Before 2027: Fundamentals, RAG, Agents, Ops, Evals (Bashiri Smith on <a href="https://www.facebook.com/reel/943434268837194">Facebook</a> · <a href="notes/01-roadmap/2026-09-19-ai-engineer-roadmap-before-2027-fundamentals-rag-agents-ops.html">notes</a>), AI Engineer Roadmap: Fundamentals, RAG, Agents, Books &amp; Your First AI Service (Bashiri Smith on <a href="https://www.facebook.com/reel/2012814779367142">Facebook</a> · <a href="notes/01-roadmap/2026-08-28-ai-engineer-roadmap-fundamentals-rag-agents-books-your.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi">3Blue1Brown Neural Networks series</a></strong> · video · youtube.com · free<br>
+  A visual series by 3Blue1Brown explaining neural networks, backpropagation and transformers.<br>
+  Mentioned in: AI Engineer Roadmap: Fundamentals, RAG, Agents, Books &amp; Your First AI Service (Bashiri Smith on <a href="https://www.facebook.com/reel/2012814779367142">Facebook</a> · <a href="notes/01-roadmap/2026-08-28-ai-engineer-roadmap-fundamentals-rag-agents-books-your.html">notes</a>)</li>
+<li><strong><a href="https://www.freecodecamp.org">freeCodeCamp</a></strong> · channel · freecodecamp.org · free<br>
+  Nonprofit that publishes free, full-length programming and AI courses.<br>
+  Mentioned in: 6 Free Videos to Move from Software Engineer to AI Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1615291686990735">Facebook</a> · <a href="notes/01-roadmap/2026-09-28-6-free-videos-to-move-from-software-engineer-to-ai-engineer.html">notes</a>)</li>
+</ul>
+<h2>LLM Fundamentals (5)</h2>
+<ul>
+<li><strong><a href="https://www.youtube.com/watch?v=zjkBMFhNj_g">[1hr Talk] Intro to Large Language Models (Andrej Karpathy)</a></strong> · video · youtube.com · free<br>
+  A video by Andrej Karpathy that introduces how large language models work.<br>
+  Mentioned in: 6 Free Videos to Move from Software Engineer to AI Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1615291686990735">Facebook</a> · <a href="notes/01-roadmap/2026-09-28-6-free-videos-to-move-from-software-engineer-to-ai-engineer.html">notes</a>), How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/learn/llm-course">Hugging Face LLM Course</a></strong> · course · huggingface.co · free<br>
+  A free course from Hugging Face on how large language models work, including tokenization, transformers and inference.<br>
+  Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>), AI Engineer Roadmap for 2026 in 60 Seconds (Bashiri Smith on <a href="https://www.facebook.com/reel/1601172415086808">Facebook</a> · <a href="notes/01-roadmap/2026-09-11-ai-engineer-roadmap-for-2026-in-60-seconds.html">notes</a>)</li>
+<li><strong><a href="https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/">Building Systems with the ChatGPT API</a></strong> · course · deeplearning.ai · free<br>
+  A DeepLearning.AI course on building with LLM APIs.<br>
+  Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=-A7njXsJl5M">OpenAI with Python: A Step-by-Step Guide for Beginners (George Shakan)</a></strong> · video · youtube.com · free<br>
+  A video tutorial on starting to build with the OpenAI API (creator and title not shown).<br>
+  Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+<li><strong><a href="https://x.com/DonvitoAI/status/2060055559148302624">X post by DonvitoAI: animation of how an LLM works</a></strong> · video · x.com · free<br>
+  The linked X post with the short animation that shows how an LLM works.<br>
+  Mentioned in: Claude Opus 4.8 Generates an Animation of How an LLM Works in One Shot (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2060055559148302624">X</a> · <a href="notes/13-ai-tools/2026-05-28-claude-opus-4-8-generates-an-animation-of-how-an-llm-works.html">notes</a>)</li>
+</ul>
+<h2>Prompt &amp; Context Engineering (2)</h2>
+<ul>
+<li><strong><a href="https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers">ChatGPT Prompt Engineering for Developers</a></strong> · course · deeplearning.ai · free<br>
+  A DeepLearning.AI short course on prompt engineering.<br>
+  Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=2BpCk4d2Cc0">Prompt Engineering Full Course (Tech With Tim)</a></strong> · video · youtube.com · free<br>
+  A Tech With Tim video on how to prompt LLMs well.<br>
+  Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+</ul>
+<h2>Embeddings &amp; Vector Databases (4)</h2>
+<ul>
+<li><strong><a href="https://www.youtube.com/watch?v=viZrOnJclY0">Word Embedding and Word2Vec, Clearly Explained!!! (StatQuest with Josh Starmer)</a></strong> · video · youtube.com · free<br>
+  StatQuest's visual explanation of word embeddings and how Word2Vec learns them.<br>
+  Mentioned in: 6 Free Videos to Move from Software Engineer to AI Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1615291686990735">Facebook</a> · <a href="notes/01-roadmap/2026-09-28-6-free-videos-to-move-from-software-engineer-to-ai-engineer.html">notes</a>), How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+<li><strong><a href="https://www.deeplearning.ai/courses/google-cloud-vertex-ai">Understanding and Applying Text Embeddings (DeepLearning.AI)</a></strong> · course · deeplearning.ai · free<br>
+  A DeepLearning.AI course on embeddings and semantic search.<br>
+  Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+<li><strong><a href="https://www.deeplearning.ai/short-courses/vector-databases-embeddings-applications/">Vector Databases: from Embeddings to Applications (DeepLearning.AI)</a></strong> · course · deeplearning.ai · free<br>
+  A DeepLearning.AI short course on how vector databases work and how to build applications with them.<br>
+  Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=gl1r1XV0SLw">What is a Vector Database? Powering Semantic Search &amp; AI Applications (IBM Technology)</a></strong> · video · youtube.com · free<br>
+  An IBM video introducing vector databases.<br>
+  Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+</ul>
+<h2>Retrieval-Augmented Generation (RAG) (12)</h2>
+<ul>
+<li><strong><a href="https://www.youtube.com/watch?v=sVcwVQRHIc8">RAG from Scratch (freeCodeCamp)</a></strong> · video · youtube.com · free<br>
+  A freeCodeCamp video about two and a half hours long on building basic RAG (the exact title isn't shown).<br>
+  Mentioned in: 6 Free Videos to Move from Software Engineer to AI Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1615291686990735">Facebook</a> · <a href="notes/01-roadmap/2026-09-28-6-free-videos-to-move-from-software-engineer-to-ai-engineer.html">notes</a>), How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+<li><strong><a href="https://github.com/langchain-ai/rag-from-scratch">RAG From Scratch (LangChain)</a></strong> · video · github.com · free<br>
+  LangChain's free video series and notebooks that build retrieval-augmented generation step by step, from indexing through retrieval and generation.<br>
+  Mentioned in: AI Engineer Roadmap Before 2027: Fundamentals, RAG, Agents, Ops, Evals (Bashiri Smith on <a href="https://www.facebook.com/reel/943434268837194">Facebook</a> · <a href="notes/01-roadmap/2026-09-19-ai-engineer-roadmap-before-2027-fundamentals-rag-agents-ops.html">notes</a>), AI Engineer Roadmap: Fundamentals, RAG, Agents, Books &amp; Your First AI Service (Bashiri Smith on <a href="https://www.facebook.com/reel/2012814779367142">Facebook</a> · <a href="notes/01-roadmap/2026-08-28-ai-engineer-roadmap-fundamentals-rag-agents-books-your.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=8OJC21T2SL4">5 Levels of Text Splitting for Retrieval (Greg Kamradt)</a></strong> · video · youtube.com · free<br>
+  A video by Greg Kamradt that walks through chunking and text-splitting strategies for RAG, from simple to advanced.<br>
+  Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+<li><strong><a href="https://www.deeplearning.ai/short-courses/advanced-retrieval-for-ai/">Advanced Retrieval for AI with Chroma (DeepLearning.AI)</a></strong> · course · deeplearning.ai · free<br>
+  A DeepLearning.AI short course on advanced retrieval techniques that improve RAG results.<br>
+  Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=YNcoFoRwoc8">Build Production-Ready Retrieval RAG Pipeline in LangChain | Hybrid Search (BM25), Re-ranking &amp; HyDE (Venelin Valkov)</a></strong> · video · youtube.com · free<br>
+  A 15-minute video by Venelin Valkov on hybrid retrieval and advanced retrieval tactics.<br>
+  Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=vT-DpLvf29Q">Complete RAG tutorial 2026, with free labs</a></strong> · video · youtube.com · free<br>
+  A full code-along crash course that goes from setup to a working RAG system.<br>
+  In a shared PDF: <a href="https://drive.google.com/file/d/1Thj1wcILRDxniC231RaDx0wyuc81f2M5/view">How to become an expert in RAG (BASWE AI Engineer Field Guide)</a> - shared in <a href="https://www.facebook.com/reel/1639527170837316">this reel on Facebook</a>, <a href="https://www.facebook.com/reel/28850952981168407">this reel on Facebook</a></li>
+<li><strong><a href="https://learn.deeplearning.ai/courses/retrieval-augmented-generation/information">DeepLearning.AI: Retrieval Augmented Generation</a></strong> · course · learn.deeplearning.ai · free<br>
+  Course taught by Zain Hasan with five hands-on modules, free to audit; the same site hosts free short courses on agentic, knowledge-graph and multimodal RAG.<br>
+  In a shared PDF: <a href="https://drive.google.com/file/d/1Thj1wcILRDxniC231RaDx0wyuc81f2M5/view">How to become an expert in RAG (BASWE AI Engineer Field Guide)</a> - shared in <a href="https://www.facebook.com/reel/1639527170837316">this reel on Facebook</a>, <a href="https://www.facebook.com/reel/28850952981168407">this reel on Facebook</a></li>
+<li><strong><a href="https://www.deeplearning.ai/short-courses/langchain-chat-with-your-data/">LangChain Chat with Your Data</a></strong> · course · deeplearning.ai · free<br>
+  A DeepLearning.AI course on building RAG with LangChain.<br>
+  Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/playlist?list=PLfaIDFEXuae2LXbO1_PKyVJiQ23ZztA0x">LangChain: RAG From Scratch (YouTube playlist)</a></strong> · video · youtube.com · free<br>
+  Short-video series by Lance Martin that goes from indexing basics up to advanced routing and reranking; the guide calls it the gold standard.<br>
+  In a shared PDF: <a href="https://drive.google.com/file/d/1Thj1wcILRDxniC231RaDx0wyuc81f2M5/view">How to become an expert in RAG (BASWE AI Engineer Field Guide)</a> - shared in <a href="https://www.facebook.com/reel/1639527170837316">this reel on Facebook</a>, <a href="https://www.facebook.com/reel/28850952981168407">this reel on Facebook</a></li>
+<li><strong><a href="https://www.deeplearning.ai/courses/preprocessing-unstructured-data-for-llm-applications">Preprocessing Unstructured Data for LLM Applications</a></strong> · course · deeplearning.ai · free<br>
+  A DeepLearning.AI course on document processing and chunking.<br>
+  Mentioned in: How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources (Bashiri Smith on <a href="https://www.facebook.com/reel/2217704205474341">Facebook</a> · <a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=RosLeHGBLoY">RAG explained in 20 minutes</a></strong> · video · youtube.com · free<br>
+  A fast, clear intro with a hands-on project; the quickest way to see the full RAG loop in action.<br>
+  In a shared PDF: <a href="https://drive.google.com/file/d/1Thj1wcILRDxniC231RaDx0wyuc81f2M5/view">How to become an expert in RAG (BASWE AI Engineer Field Guide)</a> - shared in <a href="https://www.facebook.com/reel/1639527170837316">this reel on Facebook</a>, <a href="https://www.facebook.com/reel/28850952981168407">this reel on Facebook</a></li>
+<li><strong><a href="https://wandb.ai/site/courses/rag/">RAG++: From POC to Production (Weights &amp; Biases)</a></strong> · course · wandb.ai · free<br>
+  RAG course from Weights &amp; Biases named in the Class Central roundup of the best RAG courses.<br>
+  In a shared PDF: <a href="https://drive.google.com/file/d/1Thj1wcILRDxniC231RaDx0wyuc81f2M5/view">How to become an expert in RAG (BASWE AI Engineer Field Guide)</a> - shared in <a href="https://www.facebook.com/reel/1639527170837316">this reel on Facebook</a>, <a href="https://www.facebook.com/reel/28850952981168407">this reel on Facebook</a></li>
+</ul>
+<h2>AI Agents, Tool Use &amp; MCP (7)</h2>
+<ul>
+<li><strong><a href="https://huggingface.co/learn/agents-course">Hugging Face Agents Course</a></strong> · course · huggingface.co · free<br>
+  Hugging Face's free course on building AI agents that use tools and work through multiple steps.<br>
+  Mentioned in: AI Engineer Roadmap Before 2027: Fundamentals, RAG, Agents, Ops, Evals (Bashiri Smith on <a href="https://www.facebook.com/reel/943434268837194">Facebook</a> · <a href="notes/01-roadmap/2026-09-19-ai-engineer-roadmap-before-2027-fundamentals-rag-agents-ops.html">notes</a>), AI Engineer Roadmap: Fundamentals, RAG, Agents, Books &amp; Your First AI Service (Bashiri Smith on <a href="https://www.facebook.com/reel/2012814779367142">Facebook</a> · <a href="notes/01-roadmap/2026-08-28-ai-engineer-roadmap-fundamentals-rag-agents-books-your.html">notes</a>)</li>
+<li><strong><a href="https://www.deeplearning.ai/courses/building-adaptive-ai-agents">Building Adaptive AI Agents</a></strong> · course · deeplearning.ai · free<br>
+  A course on agents that learn from experience: turning their traces into reusable skills and building a code knowledge graph for retrieval.<br>
+  Mentioned in: Building Adaptive AI Agents: Skills from Traces and Code Knowledge Graphs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2092968683140489349">X</a> · <a href="notes/07-agents/2026-08-27-building-adaptive-ai-agents-skills-from-traces-and-code.html">notes</a>)</li>
+<li><strong><a href="https://x.com/GoogleDeepMind/status/2054246119635300451">Google DeepMind (@GoogleDeepMind) on X: AI pointer demo post</a></strong> · video · x.com · free<br>
+  Google DeepMind's original post with the demo video of a Gemini-powered pointer that combines voice, pointing and visual understanding.<br>
+  Mentioned in: Multimodal AI Pointer: Combining Voice, Mouse Pointing and Vision with Gemini (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2054614185963888919">X</a> · <a href="notes/07-agents/2026-05-13-multimodal-ai-pointer-combining-voice-mouse-pointing-and.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=4mnP1lRdUm8">Intro to Agent Skills (video)</a></strong> · video · youtube.com · free<br>
+  Intro video on building modular, on-demand agent skills that give coding agents deep context.<br>
+  Mentioned in: Agent Skills: Modular On-Demand Context, and skillsbento (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2028177375884906862">X</a> · <a href="notes/07-agents/2026-03-02-agent-skills-modular-on-demand-context-and-skillsbento.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=e2zIr_2JMbE">Master All 20 Agentic Design Patterns (Mark Kashef)</a></strong> · video · youtube.com · free<br>
+  Mark Kashef's walkthrough of 20 agentic design patterns you can use when building agents.<br>
+  Mentioned in: 6 Free Videos to Move from Software Engineer to AI Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1615291686990735">Facebook</a> · <a href="notes/01-roadmap/2026-09-28-6-free-videos-to-move-from-software-engineer-to-ai-engineer.html">notes</a>)</li>
+<li><strong><a href="https://x.com/MiniMaxAgent/status/2027398200802660652">MiniMax Agent post: MaxClaw walkthrough</a></strong> · video · x.com · free<br>
+  MiniMax Agent's own X post with the MaxClaw walkthrough video.<br>
+  Mentioned in: Set Up MaxClaw in MiniMax Agent and Connect It to Telegram (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2028108420944146587">X</a> · <a href="notes/07-agents/2026-03-01-set-up-maxclaw-in-minimax-agent-and-connect-it-to-telegram.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=F8NKVhkZZWI">What Are AI Agents? (IBM Technology)</a></strong> · video · youtube.com · free<br>
+  IBM's short explainer on what AI agents are and how they work.<br>
+  Mentioned in: 6 Free Videos to Move from Software Engineer to AI Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1615291686990735">Facebook</a> · <a href="notes/01-roadmap/2026-09-28-6-free-videos-to-move-from-software-engineer-to-ai-engineer.html">notes</a>)</li>
+</ul>
+<h2>LLMOps, Deployment &amp; Monitoring (3)</h2>
+<ul>
+<li><strong><a href="https://www.youtube.com/watch?v=cvPEiPt7HXo">Large Language Model Operations (LLMOps) Explained (IBM Technology)</a></strong> · video · youtube.com · free<br>
+  An IBM explainer video on running and operating LLM applications (LLMOps). The exact title was shown on screen only.<br>
+  Mentioned in: AI Engineer Roadmap Before 2027: Fundamentals, RAG, Agents, Ops, Evals (Bashiri Smith on <a href="https://www.facebook.com/reel/943434268837194">Facebook</a> · <a href="notes/01-roadmap/2026-09-19-ai-engineer-roadmap-before-2027-fundamentals-rag-agents-ops.html">notes</a>)</li>
+<li><strong><a href="https://learn.deeplearning.ai/courses/llmops/information">LLMOps (DeepLearning.AI)</a></strong> · course · learn.deeplearning.ai · free<br>
+  A DeepLearning.AI course on putting LLM applications into production. The exact course was shown on screen only.<br>
+  Mentioned in: AI Engineer Roadmap Before 2027: Fundamentals, RAG, Agents, Ops, Evals (Bashiri Smith on <a href="https://www.facebook.com/reel/943434268837194">Facebook</a> · <a href="notes/01-roadmap/2026-09-19-ai-engineer-roadmap-before-2027-fundamentals-rag-agents-ops.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=DkJ3-XLuk0c">Original LFM 2.5-Encoder prompt routing demo video (YouTube)</a></strong> · video · youtube.com · free<br>
+  The full original YouTube demo of zero-shot prompt routing with LFM 2.5-Encoder. The caption link appears truncated and looked broken when checked.<br>
+  Mentioned in: Zero-Shot Prompt Routing with Liquid AI's LFM 2.5-Encoder-350M (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2092904020239421888">X</a> · <a href="notes/09-llmops/2026-08-27-zero-shot-prompt-routing-with-liquid-ai-s-lfm-2-5-encoder.html">notes</a>)</li>
+</ul>
+<h2>Fine-tuning &amp; Model Customization (3)</h2>
+<ul>
+<li><strong><a href="https://www.youtube.com/watch?v=rNgUoH7Wbv8">Training Agents series (Hugging Face)</a></strong> · video · youtube.com · free<br>
+  Hugging Face live tutorial on fine-tuning a coding agent with its own traces for continual learning.<br>
+  Mentioned in: Hugging Face Training Agents series: post-training coding agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098823366379749485">X</a> · <a href="notes/10-fine-tuning/2026-09-13-hugging-face-training-agents-series-post-training-coding.html">notes</a>), Fine-Tune a Model on Your Own Coding Agent Traces (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2093954206478774398">X</a> · <a href="notes/10-fine-tuning/2026-08-30-fine-tune-a-model-on-your-own-coding-agent-traces.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/learn/llm-course/chapter7/3">Hugging Face LLM Course – Chapter 7.3</a></strong> · course · huggingface.co · free<br>
+  A section of Hugging Face's free LLM Course with hands-on training and fine-tuning of models.<br>
+  Mentioned in: Hugging Face LLM Course: Chapter 7.3 for Training Your Own Model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102093173195694401">X</a> · <a href="notes/10-fine-tuning/2026-09-22-hugging-face-llm-course-chapter-7-3-for-training-your-own.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/@HuggingFace">Hugging Face YouTube channel</a></strong> · channel · youtube.com · free<br>
+  Hugging Face's official YouTube channel, which hosts the Training Agents sessions.<br>
+  Mentioned in: Hugging Face Training Agents series: post-training coding agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098823366379749485">X</a> · <a href="notes/10-fine-tuning/2026-09-13-hugging-face-training-agents-series-post-training-coding.html">notes</a>)</li>
+</ul>
+<h2>AI Safety, Security &amp; Guardrails (1)</h2>
+<ul>
+<li><strong><a href="https://x.com/DonvitoAI/status/2049604820848595190">DonvitoAI post on X (AIBackends PII redaction demo)</a></strong> · video · x.com · free<br>
+  The original X post with the short video demo of AIBackends redacting PII locally.<br>
+  Mentioned in: Local PII Redaction on CPU with the AIBackends Python Package (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2049604820848595190">X</a> · <a href="notes/11-safety/2026-04-29-local-pii-redaction-on-cpu-with-the-aibackends-python.html">notes</a>)</li>
+</ul>
+<h2>AI Dev Tools &amp; Productivity (10)</h2>
+<ul>
+<li><strong><a href="https://www.youtube.com/@melvindvivas">Melvin Vivas YouTube channel</a></strong> · channel · youtube.com · free<br>
+  The creator's channel with livestreams and videos on building apps with AI tools.<br>
+  Mentioned in: Melvin Vivas YouTube channel for live replays (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103858602377412627">X</a> · <a href="notes/13-ai-tools/2026-09-26-melvin-vivas-youtube-channel-for-live-replays.html">notes</a>), Livestream: Building a React Native ChatGPT App with Cursor and OpenAI (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099388668909850812">X</a> · <a href="notes/13-ai-tools/2026-09-14-livestream-building-a-react-native-chatgpt-app-with-cursor.html">notes</a>)</li>
+<li><strong><a href="https://academy.claude.com/">Claude Academy</a></strong> · course · academy.claude.com · free<br>
+  Learning content about Claude that can be opened in the Claude desktop app.<br>
+  Mentioned in: Claude Academy is now in the Claude desktop app (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2091191226431312093">X</a> · <a href="notes/13-ai-tools/2026-08-22-claude-academy-is-now-in-the-claude-desktop-app.html">notes</a>)</li>
+<li><strong><a href="https://x.com/cursor_ai/status/2098162488013455784">Cursor (@cursor_ai) on X – Projects launch post</a></strong> · video · x.com · free<br>
+  Cursor's official launch video and post introducing Projects, long-lived agents that manage fleets of coding agents.<br>
+  Mentioned in: Cursor Projects: Long-Lived Agents That Manage Fleets of Coding Agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098411199478296673">X</a> · <a href="notes/13-ai-tools/2026-09-11-cursor-projects-long-lived-agents-that-manage-fleets-of.html">notes</a>)</li>
+<li><strong><a href="https://x.com/kagigz/status/2027444590895063313">Katia Gil Guzman (@kagigz) on X – Codex workflow post</a></strong> · video · x.com · free<br>
+  The original X post with the video showing how to build and deploy an app with the Codex app.<br>
+  Mentioned in: Building and Deploying a Full App with the Codex App, MCP Servers and Skills (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2028108822850773077">X</a> · <a href="notes/13-ai-tools/2026-03-01-building-and-deploying-a-full-app-with-the-codex-app-mcp.html">notes</a>)</li>
+<li><strong><a href="https://youtube.com/watch?v=HphlFZ">Livestream replay on YouTube (Codex vs Devin)</a></strong> · video · youtube.com · free · link looked broken<br>
+  Replay of the creator's livestream about Codex usage limits and building with Devin.<br>
+  Mentioned in: Livestream Recap: Codex Limits and Why Devin Is a $200 Option (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102039135146185201">X</a> · <a href="notes/13-ai-tools/2026-09-21-livestream-recap-codex-limits-and-why-devin-is-a-200-option.html">notes</a>)</li>
+<li><strong><a href="https://x.com/i/broadcasts/1qKDzPlZPVwJV">Magnific broadcast: Learn Seedance 2.0</a></strong> · video · x.com · free<br>
+  A live broadcast on X teaching how to use Seedance 2.0.<br>
+  Mentioned in: Seedance 2.0 Video Generation in Freepik (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2044043619238281349">X</a> · <a href="notes/13-ai-tools/2026-04-14-seedance-2-0-video-generation-in-freepik.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=nQwJVHCtDDY">Matt Pocock's Agentic Engineering Workflow (just copy him)</a></strong> · video · youtube.com · free<br>
+  David Ondrej's YouTube video on how Matt Pocock works with AI coding agents.<br>
+  Mentioned in: Video: Matt Pocock's Agentic Engineering Workflow (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2068308753527775554">X</a> · <a href="notes/13-ai-tools/2026-06-20-video-matt-pocock-s-agentic-engineering-workflow.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=3Y74woLTGUQ">Removing Plan Mode in Claude, Codex and Cursor Is a Huge Mistake</a></strong> · video · youtube.com · free<br>
+  Melvin Vivas's long-form YouTube video arguing for keeping Plan Mode in AI coding agents.<br>
+  Mentioned in: Why removing Plan Mode from coding agents is a mistake (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104237441288962381">X</a> · <a href="notes/13-ai-tools/2026-09-27-why-removing-plan-mode-from-coding-agents-is-a-mistake.html">notes</a>)</li>
+<li><strong><a href="https://x.com/i/broadcasts/1">X Live broadcast</a></strong> · video · x.com · free · open in a browser to verify<br>
+  The original X livestream broadcast. The link currently returns 404.<br>
+  Mentioned in: Livestream Recap: Codex Limits and Why Devin Is a $200 Option (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102039135146185201">X</a> · <a href="notes/13-ai-tools/2026-09-21-livestream-recap-codex-limits-and-why-devin-is-a-200-option.html">notes</a>)</li>
+<li><strong><a href="https://studio.youtube.com">YouTube Studio</a></strong> · tool · studio.youtube.com · free<br>
+  YouTube's creator dashboard for uploading and managing videos; it is the target app in the demo workflow.<br>
+  Mentioned in: Codex Record &amp; Replay: Turn a Demonstrated Workflow into a Reusable Skill (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2067689694159356081">X</a> · <a href="notes/13-ai-tools/2026-06-18-codex-record-replay-turn-a-demonstrated-workflow-into-a.html">notes</a>)</li>
+</ul>
+<h2>Portfolio Projects (3)</h2>
+<ul>
+<li><strong><a href="https://www.youtube.com/watch?v=vKEK6VpPNV8">How to Build a Coding Project That Will Get You Hired in 2026 [FULL BLUEPRINT]</a></strong> · video · youtube.com · free<br>
+  Bashiri Smith's full YouTube tutorial on planning and building portfolio projects that solve real problems and show employers you can do useful work.<br>
+  Mentioned in: Build Side Projects With Real Users to Stand Out to Employers (Bashiri Smith on <a href="https://www.facebook.com/reel/1842614773572053">Facebook</a> · <a href="notes/14-projects/2026-09-28-build-side-projects-with-real-users-to-stand-out-to.html">notes</a>), Be the "Glue": Build AI Projects That Solve Real Problems to Get Hired (Bashiri Smith on <a href="https://www.facebook.com/reel/1783926396271901">Facebook</a> · <a href="notes/14-projects/2026-09-25-be-the-glue-build-ai-projects-that-solve-real-problems-to.html">notes</a>), Stop Writing AI Keyword Soup: Build Projects That Solve Real Problems (Bashiri Smith on <a href="https://www.facebook.com/reel/1056777847150929">Facebook</a> · <a href="notes/14-projects/2026-09-23-stop-writing-ai-keyword-soup-build-projects-that-solve-real.html">notes</a>), Beat the Hiring "Trust Recession" With Public Proof-of-Skill Projects (Bashiri Smith on <a href="https://www.facebook.com/reel/1677345863825116">Facebook</a> · <a href="notes/14-projects/2026-09-22-beat-the-hiring-trust-recession-with-public-proof-of-skill.html">notes</a>) and 3 more</li>
+<li><strong><a href="https://www.youtube.com/watch?v=6RADVVSDZK8">27 AI Engineering Projects to Get Hired - The Ultimate Guide</a></strong> · video · youtube.com · free<br>
+  A longer walkthrough of all 27 projects: what to build, which tools you need, how long to spend building and how to find real users.<br>
+  Mentioned in: Software Engineer to AI Engineer Before 2027: A 5-Step Career Plan (Bashiri Smith on <a href="https://www.facebook.com/reel/1433622515329300">Facebook</a> · <a href="notes/01-roadmap/2026-09-30-software-engineer-to-ai-engineer-before-2027-a-5-step.html">notes</a>), 27 Portfolio Projects to Move from Software Engineer to AI Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1618042190000498">Facebook</a> · <a href="notes/14-projects/2026-09-26-27-portfolio-projects-to-move-from-software-engineer-to-ai.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=6x5I2SjSf9w">[Full livestream] Build a React Native ChatGPT app using Cursor, OpenAI, and Expo</a></strong> · video · youtube.com · free<br>
+  A full livestream building an iOS ChatGPT app with React Native, Expo, the OpenAI API and Cursor.<br>
+  Mentioned in: Livestream: Building a React Native ChatGPT App with Cursor and OpenAI (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099388668909850812">X</a> · <a href="notes/13-ai-tools/2026-09-14-livestream-building-a-react-native-chatgpt-app-with-cursor.html">notes</a>)</li>
+</ul>
+<h2>Resume, Job Search &amp; Interviews (2)</h2>
+<ul>
+<li><strong><a href="https://www.youtube.com/watch?v=Raet4-RFrVY">Why Your Job Applications Keep Getting Ignored</a></strong> · video · youtube.com · free<br>
+  Bashiri Smith's YouTube video on his strategy for standing out among applicants and getting interviews.<br>
+  Mentioned in: Software Engineer to AI Engineer Before 2027: A 5-Step Career Plan (Bashiri Smith on <a href="https://www.facebook.com/reel/1433622515329300">Facebook</a> · <a href="notes/01-roadmap/2026-09-30-software-engineer-to-ai-engineer-before-2027-a-5-step.html">notes</a>), Beat the Hiring "Signal Problem": Referrals, Targeting, and Volume (Bashiri Smith on <a href="https://www.facebook.com/reel/2182954155974409">Facebook</a> · <a href="notes/15-career/2026-09-21-beat-the-hiring-signal-problem-referrals-targeting-and.html">notes</a>), Using the September Hiring Surge: Volume Plus Quality in Your Job Search (Bashiri Smith on <a href="https://www.facebook.com/reel/1819927632698021">Facebook</a> · <a href="notes/15-career/2026-09-03-using-the-september-hiring-surge-volume-plus-quality-in.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=HuE7OvOckfE">Theo's video 'We're leaving GitHub' (rebranded 'Get in, we're leaving GitHub')</a></strong> · video · youtube.com · free<br>
+  Theo's video that flopped at first and then beat his channel average after it was repackaged with a new thumbnail and title.<br>
+  Mentioned in: Theo's YouTube Packaging Masterclass: Thumbnails, Titles and the Algorithm (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099731305567322378">X</a> · <a href="notes/15-career/2026-09-15-theo-s-youtube-packaging-masterclass-thumbnails-titles-and.html">notes</a>)</li>
+</ul>
+<h2>Industry Trends &amp; Job Market (8)</h2>
+<ul>
+<li><strong><a href="https://x.com/i/broadcasts/1AxRnZyWMORxl">OpenAI DevDay livestream replay</a></strong> · video · x.com · free<br>
+  Replay of Melvin Vivas's X Live watch party covering the full OpenAI DevDay 2026 keynote.<br>
+  Mentioned in: OpenAI DevDay recap: Dots, GPT-6.1 Sol, Codex Cloud, Agents API (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105018489794879836">X</a> · <a href="notes/16-trends/2026-09-30-openai-devday-recap-dots-gpt-6-1-sol-codex-cloud-agents-api.html">notes</a>), OpenAI DevDay 2026 Replay: Timestamped Guide to the Announcements (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105015301180182833">X</a> · <a href="notes/16-trends/2026-09-30-openai-devday-2026-replay-timestamped-guide-to-the.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/@aiDotEngineer">AI Engineer (conference and YouTube channel)</a></strong> · channel · youtube.com · free<br>
+  AI engineering conference series that posts its talks for free on YouTube, including the full version of this talk.<br>
+  Mentioned in: Self-Flow: Training Multimodal Generative Models Without an External Encoder (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2053897572536975846">X</a> · <a href="notes/16-trends/2026-05-11-self-flow-training-multimodal-generative-models-without-an.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=luU57hMhkak">F.03 Livestream - Day 9 | 191 consecutive hours and 238,000 packages</a></strong> · video · youtube.com · free<br>
+  Figure's livestream of F.03 humanoid robots running package handling around the clock.<br>
+  Mentioned in: Figure F.03 Livestream: Humanoid Robots Working Nonstop (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2055927328665157819">X</a> · <a href="notes/16-trends/2026-05-17-figure-f-03-livestream-humanoid-robots-working-nonstop.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/@Fireship">Fireship</a></strong> · channel · youtube.com · free<br>
+  Developer YouTube channel with short, fast-paced videos on tech news and programming; it made the 'indie hackers going extinct' video quoted here.<br>
+  Mentioned in: Is Indie Hacking Dead? How AI Coding Changes the Micro-SaaS Playbook (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2082811111192367241">X</a> · <a href="notes/16-trends/2026-07-30-is-indie-hacking-dead-how-ai-coding-changes-the-micro-saas.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=x2VHFgyawPE">Full interview with Dario Amodei</a></strong> · video · youtube.com · free<br>
+  Full-length YouTube interview with Anthropic CEO Dario Amodei about the Anthropic story.<br>
+  Mentioned in: Must-Watch: Full Interview with Dario Amodei on the Anthropic Story (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2068230361344290951">X</a> · <a href="notes/16-trends/2026-06-20-must-watch-full-interview-with-dario-amodei-on-the.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=v1wZwxY3CMg">Inside Anthropic, the $965 Billion AI Juggernaut | The Circuit</a></strong> · video · youtube.com · free<br>
+  A Bloomberg Originals interview with Anthropic co-founders Dario and Daniela Amodei about the company's history, safety approach and politics.<br>
+  Mentioned in: Bloomberg's 'Inside Anthropic' interview with Dario and Daniela Amodei (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2068221036479258757">X</a> · <a href="notes/16-trends/2026-06-20-bloomberg-s-inside-anthropic-interview-with-dario-and.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=erLE8mujQz8">President Xi pitches China as leader of new global AI order, challenging US dominance (CNA)</a></strong> · video · youtube.com · free<br>
+  CNA news video on China's pitch to lead global AI governance and cooperation.<br>
+  Mentioned in: Why Chinese AI Models Are Mostly Open Source (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2079119057413115995">X</a> · <a href="notes/16-trends/2026-07-20-why-chinese-ai-models-are-mostly-open-source.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/@t3dotgg">Theo - t3.gg (YouTube channel)</a></strong> · channel · youtube.com · free<br>
+  Theo Browne's channel about web development and AI tools, and the main speaker in this masterclass.<br>
+  Mentioned in: Theo's YouTube Packaging Masterclass: Thumbnails, Titles and the Algorithm (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099731305567322378">X</a> · <a href="notes/15-career/2026-09-15-theo-s-youtube-packaging-masterclass-thumbnails-titles-and.html">notes</a>)</li>
+</ul>
+<h2>Mentioned without a public link</h2>
+<p>Check the original post for these:</p>
+<ul>
+<li><strong>AI Engineering Interview Questions Training Video</strong>: The creator's full walkthrough video covering each of the 100 interview questions and their answers.<br>
+  From: The 5 Categories Asked in Every AI Engineering Interview (Bashiri Smith on <a href="https://www.facebook.com/reel/1400719441618655">Facebook</a> · <a href="notes/15-career/2026-09-29-the-5-categories-asked-in-every-ai-engineering-interview.html">notes</a>)</li>
+<li><strong>Melvin Vivas – full Hermes assistant build video</strong>: The creator's full walkthrough of building this personal assistant agent.<br>
+  From: Personal Assistant Agent on Hermes: Morning Briefings and Inbox Triage (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2078760898102219148">X</a> · <a href="notes/07-agents/2026-07-19-personal-assistant-agent-on-hermes-morning-briefings-and.html">notes</a>)</li>
+<li><strong>Tomy's AI Garage (YouTube channel)</strong>: The creator's YouTube channel with videos on AI and agents, including a beginner's guide to Buzz.<br>
+  From: Connecting Hermes Agent to the Buzz Agent-First Chat App via the Native Gateway (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2082811961239388654">X</a> · <a href="notes/07-agents/2026-07-30-connecting-hermes-agent-to-the-buzz-agent-first-chat-app.html">notes</a>)</li>
+</ul>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="license.html">License</a> &middot; <a href="privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

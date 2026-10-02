@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cursor CLI and Grok both use the &#x27;agent&#x27; command name | AI Engineer…</title>
+<meta name="description" content="The creator says Cursor CLI and Grok both run with the same &#x27;agent&#x27; alias, so they clash in the terminal. The general lesson is that AI coding CLIs can claim…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-08-18-cursor-cli-and-grok-both-use-the-agent-command-name.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Cursor CLI and Grok both use the &#x27;agent&#x27; command name | AI Engineer…">
+<meta property="og:description" content="The creator says Cursor CLI and Grok both run with the same &#x27;agent&#x27; alias, so they clash in the terminal. The general lesson is that AI coding CLIs can claim…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-08-18-cursor-cli-and-grok-both-use-the-agent-command-name.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-08-18-cursor-cli-and-grok-both-use-the-agent-command-name.html#note","headline":"Cursor CLI and Grok both use the 'agent' command name","description":"The creator says Cursor CLI and Grok both run with the same 'agent' alias, so they clash in the terminal. The general lesson is that AI coding CLIs can claim the same command name, and you need to rename or re-alias one to use both. The post does not explain how to fix it.","url":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-08-18-cursor-cli-and-grok-both-use-the-agent-command-name.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"AI Dev Tools & Productivity"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2089590968114889208","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-08-18"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-08-18-cursor-cli-and-grok-both-use-the-agent-command-name.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"AI Dev Tools & Productivity","item":"https://ralmodiel.github.io/ai-study-library/topics/ai-tools.html"},{"@type":"ListItem","position":4,"name":"Cursor CLI and Grok both use the 'agent' command name"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/ai-tools.html">AI Dev Tools &amp; Productivity</a> &rsaquo; <span aria-current="page">Cursor CLI and Grok both use the &#x27;agent&#x27; command name</span></nav><h1>Cursor CLI and Grok both use the 'agent' command name</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2089590968114889208">a post by Melvin Vivas on X</a>, posted 18 August 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X post · 2026-08-18 · <a href="https://x.com/melvindvivas/status/2089590968114889208">Open on X</a></p>
+<p><strong>Topics:</strong> AI Dev Tools &amp; Productivity · <strong>Level:</strong> beginner</p>
+<h2>Summary</h2>
+<p>The creator says Cursor CLI and Grok both run with the same 'agent' alias, so they clash in the terminal. The general lesson is that AI coding CLIs can claim the same command name, and you need to rename or re-alias one to use both. The post does not explain how to fix it.</p>
+<h2>Key points</h2>
+<ul>
+<li>Cursor CLI and Grok both use the 'agent' alias to run, so the two clash.</li>
+<li>When you install several AI coding CLIs, check whether they use the same command name.</li>
+<li>Usual fix (not described in the post): give one tool its own shell alias or wrapper script, or change which one comes first on your PATH.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://x.com/cursor_ai">Cursor</a></strong> · tool · x.com · free<br>
+  Cursor's official X account, which posts product announcements such as cloud agents running in configured dev environments.<br>
+  Also in: GLM 5.3 and GLM 5.3 Flash now in Cursor (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105952116930163074">X</a> · <a href="2026-10-02-glm-5-3-and-glm-5-3-flash-now-in-cursor.html">notes</a>), Grok Bot Can Now Hand Off Coding Tasks to Cursor (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105468023352279408">X</a> · <a href="2026-10-01-grok-bot-can-now-hand-off-coding-tasks-to-cursor.html">notes</a>), Why Plan Mode Still Matters in AI Coding Assistants (Codex, Claude, Cursor) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104239715520250187">X</a> · <a href="2026-09-28-why-plan-mode-still-matters-in-ai-coding-assistants-codex.html">notes</a>), Why Plan Mode Still Matters in AI Coding Agents (Codex, Claude, Cursor) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104223654678839637">X</a> · <a href="2026-09-27-why-plan-mode-still-matters-in-ai-coding-agents-codex.html">notes</a>) and 121 more</li>
+<li><strong><a href="https://x.com/grok">Grok</a></strong> · tool · x.com · free<br>
+  xAI's AI assistant. Here it is used as a terminal coding agent that also runs with the 'agent' alias.<br>
+  Also in: OpenAI Dots: Agents Inside ChatGPT That Debug, Fix, and Open PRs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105232287231324526">X</a> · <a href="../07-agents/2026-09-30-openai-dots-agents-inside-chatgpt-that-debug-fix-and-open.html">notes</a>), Grok Team Bots: Shared AI Teammates in Slack and Grok (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104743446116552838">X</a> · <a href="../07-agents/2026-09-29-grok-team-bots-shared-ai-teammates-in-slack-and-grok.html">notes</a>), Cue by Manus: A New Rival to the Grok Bot on X (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104635050809807248">X</a> · <a href="2026-09-29-cue-by-manus-a-new-rival-to-the-grok-bot-on-x.html">notes</a>), How to Grow an X (Twitter) Account: 9 Practical Tips from Melvin Vivas (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103672859919110290">X</a> · <a href="../15-career/2026-09-26-how-to-grow-an-x-twitter-account-9-practical-tips-from.html">notes</a>) and 14 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Resolve the 'agent' alias clash so Cursor CLI and Grok can both be used</li>
+</ul><section class="more"><h2>More in AI Dev Tools &amp; Productivity</h2><ul><li><a href="2026-08-18-claude-cowork-comes-to-mobile-and-web-beta-announcement.html">Claude Cowork Comes to Mobile and Web (Beta Announcement)</a> <span class="meta">Melvin Vivas, 2026-08-18</span></li><li><a href="2026-08-18-origin-a-new-code-hosting-platform-and-its-getting-started.html">Origin: A New Code Hosting Platform and Its Getting-Started Guide</a> <span class="meta">Melvin Vivas, 2026-08-18</span></li><li><a href="2026-08-18-pi-v0-84-2-release-transcript-search-and-configurable.html">Pi v0.84.2 Release: Transcript Search and Configurable Default Tools</a> <span class="meta">Melvin Vivas, 2026-08-18</span></li><li><a href="2026-08-18-gpt-5-6-luna-vs-sol-making-codex-usage-limits-last-longer.html">GPT-5.6 Luna vs Sol: Making Codex Usage Limits Last Longer</a> <span class="meta">Melvin Vivas, 2026-08-18</span></li><li><a href="2026-08-18-track-codex-usage-limits-live-with-an-open-source-windows.html">Track Codex Usage Limits Live with an Open-Source Windows Taskbar Widget</a> <span class="meta">Melvin Vivas, 2026-08-18</span></li><li><a href="2026-08-18-edit-notebooks-locally-in-cursor-run-on-colab-gpus-via-the.html">Edit Notebooks Locally in Cursor, Run on Colab GPUs via the Colab Plugin</a> <span class="meta">Melvin Vivas, 2026-08-18</span></li></ul><p><a href="../../topics/ai-tools.html">All of AI Dev Tools &amp; Productivity</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

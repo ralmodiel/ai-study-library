@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Multimodal AI Pointer: Combining Voice, Mouse Pointing and Vision…</title>
+<meta name="description" content="Melvin Vivas shares a Google DeepMind demo of a prototype that puts Gemini behind the mouse pointer. You point at things on screen and speak deictic words…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-05-13-multimodal-ai-pointer-combining-voice-mouse-pointing-and.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Multimodal AI Pointer: Combining Voice, Mouse Pointing and Vision…">
+<meta property="og:description" content="Melvin Vivas shares a Google DeepMind demo of a prototype that puts Gemini behind the mouse pointer. You point at things on screen and speak deictic words…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-05-13-multimodal-ai-pointer-combining-voice-mouse-pointing-and.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-05-13-multimodal-ai-pointer-combining-voice-mouse-pointing-and.html#note","headline":"Multimodal AI Pointer: Combining Voice, Mouse Pointing and Vision with Gemini","description":"Melvin Vivas shares a Google DeepMind demo of a prototype that puts Gemini behind the mouse pointer. You point at things on screen and speak deictic words like \"this\", \"that\", \"here\" or \"there\". The model combines your voice, where the pointer is, and what it sees on screen to work out what you…","url":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-05-13-multimodal-ai-pointer-combining-voice-mouse-pointing-and.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"AI Agents, Tool Use & MCP"},{"@type":"Thing","name":"Industry Trends & Job Market"},{"@type":"Thing","name":"Prompt & Context Engineering"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2054614185963888919","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-05-13"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-05-13-multimodal-ai-pointer-combining-voice-mouse-pointing-and.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"AI Agents, Tool Use & MCP","item":"https://ralmodiel.github.io/ai-study-library/topics/agents.html"},{"@type":"ListItem","position":4,"name":"Multimodal AI Pointer: Combining Voice, Mouse Pointing and Vision with Gemini"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/agents.html">AI Agents, Tool Use &amp; MCP</a> &rsaquo; <span aria-current="page">Multimodal AI Pointer: Combining Voice, Mouse Pointing and Vision with Gemini</span></nav><h1>Multimodal AI Pointer: Combining Voice, Mouse Pointing and Vision with Gemini</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2054614185963888919">a video post by Melvin Vivas on X</a>, posted 13 May 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X video post · 2026-05-13 · 0:57 · 86 views · <a href="https://x.com/melvindvivas/status/2054614185963888919">Open on X</a></p>
+<p><strong>Topics:</strong> AI Agents, Tool Use &amp; MCP, Industry Trends &amp; Job Market, Prompt &amp; Context Engineering · <strong>Level:</strong> beginner</p>
+<h2>Summary</h2>
+<p>Melvin Vivas shares a Google DeepMind demo of a prototype that puts Gemini behind the mouse pointer. You point at things on screen and speak deictic words like "this", "that", "here" or "there". The model combines your voice, where the pointer is, and what it sees on screen to work out what you mean, then acts across apps. It shows a new kind of multimodal, agent-style interface where the pointer becomes a way to give the model context.</p>
+<h2>Key points</h2>
+<ul>
+<li>Idea: the mouse pointer is an overlooked input. Putting a model like Gemini behind it lets the computer understand you the way another person would when you point and talk.</li>
+<li>Prototype technique: deictic keywords ('this', 'that', 'here', 'there') in speech are tied to wherever the pointer is when you say them. This settles what the user is referring to.</li>
+<li>Example: 'Could you get those two ingredients and also this one? Add them to my shopping list here?' The system picks out the items you pointed at and adds them to the list you pointed at.</li>
+<li>Layers of input: voice, text and image understanding are combined so the pointer can 'dig through all of the layers of data' on screen.</li>
+<li>Editing in context: pointing at a calendar draft and saying 'Can you make this 8pm?' updates the draft's start time.</li>
+<li>Working across apps: Gemini writes code to carry out what the user wants as they move the pointer between apps, for example getting directions between two locations they pointed at.</li>
+<li>Design lesson for AI engineers: speech says what to do, pointing says which thing, and vision supplies what is on screen. Together they replace long text prompts.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://x.com/GoogleDeepMind/status/2054246119635300451">Google DeepMind (@GoogleDeepMind) on X: AI pointer demo post</a></strong> · video · x.com · free<br>
+  Google DeepMind's original post with the demo video of a Gemini-powered pointer that combines voice, pointing and visual understanding.</li>
+<li><strong><a href="https://gemini.google.com">Gemini</a></strong> · tool · gemini.google.com · free<br>
+  Google's multimodal AI model family. In this prototype it interprets voice, pointer position and on-screen content, and writes code to act on what the user wants.<br>
+  Also in: Why Claude Works Well as a Brainstorming Partner (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2045404254375157902">X</a> · <a href="../13-ai-tools/2026-04-18-why-claude-works-well-as-a-brainstorming-partner.html">notes</a>), Workshop AI: Building Apps with Cloud and Local Agents (GLM 5, Qwen 3.5) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2037540661747142980">X</a> · <a href="../13-ai-tools/2026-03-27-workshop-ai-building-apps-with-cloud-and-local-agents-glm-5.html">notes</a>), Building a Nano Banana 2 Image-Gen App with Memex Managed AI Connectors (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2028132338249634105">X</a> · <a href="../13-ai-tools/2026-03-01-building-a-nano-banana-2-image-gen-app-with-memex-managed.html">notes</a>)</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Watch Google DeepMind's original demo post to see the full voice + pointer + vision interaction.</li>
+<li>Build a desktop assistant that takes a screenshot plus pointer coordinates whenever you say 'this', 'that', 'here' or 'there', and sends speech, screenshot and coordinates to a multimodal model like Gemini so it can run actions such as adding items to a list or editing a calendar event.</li>
+</ul><section class="more"><h2>More in AI Agents, Tool Use &amp; MCP</h2><ul><li><a href="2026-05-22-gemma-4-e4b-driving-an-ios-simulator-with-argent.html">Gemma 4 E4B Driving an iOS Simulator With Argent</a> <span class="meta">Melvin Vivas, 2026-05-22</span></li><li><a href="2026-05-20-gemini-spark-google-s-vm-based-personal-agent-in-the-gemini.html">Gemini Spark: Google&#x27;s VM-Based Personal Agent in the Gemini App</a> <span class="meta">Melvin Vivas, 2026-05-20</span></li><li><a href="2026-05-15-aevo-splitting-the-agent-self-improvement-loop-in-two.html">AEvo: Splitting the Agent Self-Improvement Loop in Two</a> <span class="meta">Melvin Vivas, 2026-05-15</span></li><li><a href="2026-05-08-gpt-realtime-2-realtime-translate-reasoning-voice-agents.html">GPT-Realtime-2 &amp; Realtime-Translate: Reasoning Voice Agents and Live Translation</a> <span class="meta">Melvin Vivas, 2026-05-08</span></li><li><a href="2026-05-07-gpt-realtime-2-gpt-realtime-translate-reasoning-voice.html">GPT-Realtime-2 &amp; GPT-Realtime-Translate: Reasoning Voice Agents and Live Translation</a> <span class="meta">Melvin Vivas, 2026-05-07</span></li><li><a href="2026-05-01-running-pi-coding-agent-with-a-local-qwen-3-6-model.html">Running Pi Coding Agent with a Local Qwen 3.6 Model</a> <span class="meta">Melvin Vivas, 2026-05-01</span></li></ul><p><a href="../../topics/agents.html">All of AI Agents, Tool Use &amp; MCP</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

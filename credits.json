@@ -1,11 +1,11 @@
 {
-  "_comment": "Who the library credits. `run.cmd build` uses this for the credits banner on the page and for CREDITS.md and LICENSE.md in library/ and docs/. Edit freely, then run `run.cmd build`.",
+  "_comment": "Who the library credits, and the license of the summaries. The build uses this for the credits on every page, CREDITS.md and LICENSE.md.",
   "maintainer": "Roque Almodiel",
   "content_license": {
-    "name": "CC BY 4.0",
-    "title": "Creative Commons Attribution 4.0 International",
-    "url": "https://creativecommons.org/licenses/by/4.0/",
-    "legal_code": "https://creativecommons.org/licenses/by/4.0/legalcode"
+    "name": "CC BY-NC 4.0",
+    "title": "Creative Commons Attribution-NonCommercial 4.0 International",
+    "url": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "legal_code": "https://creativecommons.org/licenses/by-nc/4.0/legalcode"
   },
   "creators": [
     {

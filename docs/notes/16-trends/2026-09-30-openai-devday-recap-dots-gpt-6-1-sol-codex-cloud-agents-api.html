@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenAI DevDay recap: Dots, GPT-6.1 Sol, Codex Cloud, Agents API | AI…</title>
+<meta name="description" content="A full list of OpenAI DevDay launches: Dots agents powered by Astra, Codex Spaces, Codex Cloud and Codex Security Cloud, GPT-6.1 Sol, Ultrafast inference, new…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/16-trends/2026-09-30-openai-devday-recap-dots-gpt-6-1-sol-codex-cloud-agents-api.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="OpenAI DevDay recap: Dots, GPT-6.1 Sol, Codex Cloud, Agents API | AI…">
+<meta property="og:description" content="A full list of OpenAI DevDay launches: Dots agents powered by Astra, Codex Spaces, Codex Cloud and Codex Security Cloud, GPT-6.1 Sol, Ultrafast inference, new…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/16-trends/2026-09-30-openai-devday-recap-dots-gpt-6-1-sol-codex-cloud-agents-api.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/16-trends/2026-09-30-openai-devday-recap-dots-gpt-6-1-sol-codex-cloud-agents-api.html#note","headline":"OpenAI DevDay recap: Dots, GPT-6.1 Sol, Codex Cloud, Agents API","description":"A full list of OpenAI DevDay launches: Dots agents powered by Astra, Codex Spaces, Codex Cloud and Codex Security Cloud, GPT-6.1 Sol, Ultrafast inference, new Pro plans, the Decisions API and Agents API, Sign in with ChatGPT, Plugin Extensions, OpenAI Marketplace and a banked usage reset. Use it…","url":"https://ralmodiel.github.io/ai-study-library/notes/16-trends/2026-09-30-openai-devday-recap-dots-gpt-6-1-sol-codex-cloud-agents-api.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"Industry Trends & Job Market"},{"@type":"Thing","name":"AI Agents, Tool Use & MCP"},{"@type":"Thing","name":"AI Dev Tools & Productivity"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2105018489794879836","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-09-30"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/16-trends/2026-09-30-openai-devday-recap-dots-gpt-6-1-sol-codex-cloud-agents-api.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"Industry Trends & Job Market","item":"https://ralmodiel.github.io/ai-study-library/topics/trends.html"},{"@type":"ListItem","position":4,"name":"OpenAI DevDay recap: Dots, GPT-6.1 Sol, Codex Cloud, Agents API"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/trends.html">Industry Trends &amp; Job Market</a> &rsaquo; <span aria-current="page">OpenAI DevDay recap: Dots, GPT-6.1 Sol, Codex Cloud, Agents API</span></nav><h1>OpenAI DevDay recap: Dots, GPT-6.1 Sol, Codex Cloud, Agents API</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2105018489794879836">a post by Melvin Vivas on X</a>, posted 30 September 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X post · 2026-09-30 · <a href="https://x.com/melvindvivas/status/2105018489794879836">Open on X</a></p>
+<p><strong>Topics:</strong> Industry Trends &amp; Job Market, AI Agents, Tool Use &amp; MCP, AI Dev Tools &amp; Productivity · <strong>Level:</strong> beginner</p>
+<h2>Summary</h2>
+<p>A full list of OpenAI DevDay launches: Dots agents powered by Astra, Codex Spaces, Codex Cloud and Codex Security Cloud, GPT-6.1 Sol, Ultrafast inference, new Pro plans, the Decisions API and Agents API, Sign in with ChatGPT, Plugin Extensions, OpenAI Marketplace and a banked usage reset. Use it as a map of what's new on OpenAI's agent and developer platform.</p>
+<h2>Key points</h2>
+<ul>
+<li>Dots: agent teammates powered by the Astra model, compared to xAI's Grok Bot</li>
+<li>Codex Spaces is where you work with Dots. Codex Cloud runs tasks remotely, so you can close your laptop</li>
+<li>GPT-6.1 Sol: about 1/5 the price of Astra with near-Astra intelligence</li>
+<li>Ultrafast mode: 300 tokens/s, 8x faster on Astra</li>
+<li>Plans: Pro 500 gives 25x Plus usage, and Pro 200 is back</li>
+<li>New developer APIs: Decisions API and Agents API, plus Codex Security Cloud</li>
+<li>Sign in with ChatGPT lets you use ChatGPT credits in third-party tools (Devin, Hermes, T3Code)</li>
+<li>Also launched: Plugin Extensions, OpenAI Marketplace and a banked Codex usage reset</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://openai.com/index/introducing-dots/">OpenAI Dots</a></strong> · tool · openai.com · paid<br>
+  Always-on agents in ChatGPT, each with its own cloud computer and browser, that take on ongoing work and personal responsibilities.<br>
+  Also in: Dots Demo: A Voice AI Agent Handling Travel Booking and Feedback Triage (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105717848928866390">X</a> · <a href="../07-agents/2026-10-01-dots-demo-a-voice-ai-agent-handling-travel-booking-and.html">notes</a>), OpenAI Dots: Agents Inside ChatGPT That Debug, Fix, and Open PRs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105232287231324526">X</a> · <a href="../07-agents/2026-09-30-openai-dots-agents-inside-chatgpt-that-debug-fix-and-open.html">notes</a>), Dots in ChatGPT: always-on AI agents that you hand responsibilities to (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105209775156076624">X</a> · <a href="../07-agents/2026-09-30-dots-in-chatgpt-always-on-ai-agents-that-you-hand.html">notes</a>), OpenAI DevDay 2026 Recap: Dots, Agents API, Codex Cloud &amp; Marketplace (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105173002740695356">X</a> · <a href="2026-09-30-openai-devday-2026-recap-dots-agents-api-codex-cloud.html">notes</a>) and 1 more</li>
+<li><strong><a href="https://openai.com/index/gpt-6-astra/">GPT-6 Astra</a></strong> · tool · openai.com · paid<br>
+  The model announced in the quoted launch post, pitched as the developer's most capable model for work, coding, science and cybersecurity, and able to operate a computer.<br>
+  Also in: Customizing Your Coding Setup with Pi Coding Agent Extensions (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105871612591714651">X</a> · <a href="../13-ai-tools/2026-10-02-customizing-your-coding-setup-with-pi-coding-agent.html">notes</a>), Pi Agent Council: Ask Multiple LLMs in Parallel and Compare Their Advice (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105645508186570807">X</a> · <a href="../13-ai-tools/2026-10-01-pi-agent-council-ask-multiple-llms-in-parallel-and-compare.html">notes</a>), Use GPT-6.1 Sol by Default, Save Astra for Emergencies (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105295649810047401">X</a> · <a href="../03-llm-fundamentals/2026-09-30-use-gpt-6-1-sol-by-default-save-astra-for-emergencies.html">notes</a>), Dots in ChatGPT: always-on AI agents that you hand responsibilities to (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105209775156076624">X</a> · <a href="../07-agents/2026-09-30-dots-in-chatgpt-always-on-ai-agents-that-you-hand.html">notes</a>) and 49 more</li>
+<li><strong><a href="https://x.ai/bot">Grok Bot</a></strong> · tool · x.ai · paid<br>
+  An early-beta AI agent product from the Grok family that runs in its own computer and browser instance and does tasks in your tools.<br>
+  Also in: An agent bot that installs and drives Codex on its own (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105963336097837160">X</a> · <a href="../07-agents/2026-10-02-an-agent-bot-that-installs-and-drives-codex-on-its-own.html">notes</a>), Asking a Coder bot to install Codex (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105961766471754199">X</a> · <a href="../07-agents/2026-10-02-asking-a-coder-bot-to-install-codex.html">notes</a>), Using an ML agent to train an open-source TTS model on your voice (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105946723692707961">X</a> · <a href="../10-fine-tuning/2026-10-02-using-an-ml-agent-to-train-an-open-source-tts-model-on-your.html">notes</a>), Organizing Grok Bot Lead Collection in One Google Sheet (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105928546699092061">X</a> · <a href="../07-agents/2026-10-02-organizing-grok-bot-lead-collection-in-one-google-sheet.html">notes</a>) and 14 more</li>
+<li><strong><a href="https://learn.chatgpt.com/docs/space">Codex Spaces</a></strong> · tool · learn.chatgpt.com · check price<br>
+  Codex workspace where you collaborate with Dots.<br>
+  Also in: OpenAI DevDay 2026 Replay: Timestamped Guide to the Announcements (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105015301180182833">X</a> · <a href="2026-09-30-openai-devday-2026-replay-timestamped-guide-to-the.html">notes</a>)</li>
+<li><strong><a href="https://openai.com/index/introducing-gpt-6-1-sol/">GPT-6.1 Sol</a></strong> · tool · openai.com · paid<br>
+  A new OpenAI model announced at DevDay 2026 (name as written in the machine transcript), offered with Fast and Ultra fast speed tiers.<br>
+  Also in: JevDev: Open-Source UI Tool for Experimenting with Jev (Typesafe.ai) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105945215991488696">X</a> · <a href="../13-ai-tools/2026-10-02-jevdev-open-source-ui-tool-for-experimenting-with-jev.html">notes</a>), Comparing Coding Models on the Same Task in Devin iOS (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105882889653248435">X</a> · <a href="../13-ai-tools/2026-10-02-comparing-coding-models-on-the-same-task-in-devin-ios.html">notes</a>), Customizing Your Coding Setup with Pi Coding Agent Extensions (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105871612591714651">X</a> · <a href="../13-ai-tools/2026-10-02-customizing-your-coding-setup-with-pi-coding-agent.html">notes</a>), Pi Agent Council: Ask Multiple LLMs in Parallel and Compare Their Advice (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105645508186570807">X</a> · <a href="../13-ai-tools/2026-10-01-pi-agent-council-ask-multiple-llms-in-parallel-and-compare.html">notes</a>) and 9 more</li>
+<li><strong><a href="https://openai.com/form/ultrafast/">OpenAI Ultrafast</a></strong> · tool · openai.com · paid<br>
+  High-speed inference mode running at about 300 tokens/s.</li>
+<li><strong><a href="https://help.openai.com/en/articles/9793128-about-chatgpt-pro-tiers">ChatGPT Pro 500</a></strong> · tool · help.openai.com · paid<br>
+  A new ChatGPT subscription tier with the highest usage limits and Ultra fast access.<br>
+  Also in: OpenAI DevDay 2026 Recap: Dots, Agents API, Codex Cloud &amp; Marketplace (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105173002740695356">X</a> · <a href="2026-09-30-openai-devday-2026-recap-dots-agents-api-codex-cloud.html">notes</a>)</li>
+<li><strong><a href="https://openai.com/index/devday-2026-recap/">OpenAI Decisions API</a></strong> · tool · openai.com · paid<br>
+  A new OpenAI API, shown as a preview, that lets the model respond and make decisions.<br>
+  Also in: OpenAI DevDay 2026 Recap: Dots, Agents API, Codex Cloud &amp; Marketplace (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105173002740695356">X</a> · <a href="2026-09-30-openai-devday-2026-recap-dots-agents-api-codex-cloud.html">notes</a>), Creator's favorite OpenAI DevDay announcements (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105021153379275030">X</a> · <a href="2026-09-30-creator-s-favorite-openai-devday-announcements.html">notes</a>), OpenAI DevDay 2026 Replay: Timestamped Guide to the Announcements (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105015301180182833">X</a> · <a href="2026-09-30-openai-devday-2026-replay-timestamped-guide-to-the.html">notes</a>)</li>
+<li><strong><a href="https://learn.chatgpt.com/docs/cloud">Codex Cloud</a></strong> · tool · learn.chatgpt.com · paid<br>
+  OpenAI's cloud-run version of Codex, so coding tasks keep running remotely.<br>
+  Also in: Creator's favorite OpenAI DevDay announcements (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105021153379275030">X</a> · <a href="2026-09-30-creator-s-favorite-openai-devday-announcements.html">notes</a>), OpenAI DevDay 2026 Replay: Timestamped Guide to the Announcements (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105015301180182833">X</a> · <a href="2026-09-30-openai-devday-2026-replay-timestamped-guide-to-the.html">notes</a>)</li>
+<li><strong><a href="https://learn.chatgpt.com/docs/security">Codex Security Cloud</a></strong> · tool · learn.chatgpt.com · paid<br>
+  A new Codex product that runs in cloud environments and helps defenders harden their infrastructure.<br>
+  Also in: OpenAI DevDay 2026 Recap: Dots, Agents API, Codex Cloud &amp; Marketplace (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105173002740695356">X</a> · <a href="2026-09-30-openai-devday-2026-recap-dots-agents-api-codex-cloud.html">notes</a>), OpenAI DevDay 2026 Replay: Timestamped Guide to the Announcements (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105015301180182833">X</a> · <a href="2026-09-30-openai-devday-2026-replay-timestamped-guide-to-the.html">notes</a>)</li>
+<li><strong><a href="https://developers.openai.com/api/docs/guides/agents-api/overview">OpenAI Agents API</a></strong> · tool · developers.openai.com · paid<br>
+  OpenAI's managed API for building and running cloud agents on a hosted Codex harness, with orchestration, sessions and context management built in.<br>
+  Also in: OpenAI DevDay 2026 Recap: Dots, Agents API, Codex Cloud &amp; Marketplace (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105173002740695356">X</a> · <a href="2026-09-30-openai-devday-2026-recap-dots-agents-api-codex-cloud.html">notes</a>), Creator's favorite OpenAI DevDay announcements (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105021153379275030">X</a> · <a href="2026-09-30-creator-s-favorite-openai-devday-announcements.html">notes</a>), OpenAI DevDay 2026 Replay: Timestamped Guide to the Announcements (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105015301180182833">X</a> · <a href="2026-09-30-openai-devday-2026-replay-timestamped-guide-to-the.html">notes</a>), Building Software Factories on the OpenAI Agents API (Codex-Powered) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098405420855660963">X</a> · <a href="../07-agents/2026-09-11-building-software-factories-on-the-openai-agents-api-codex.html">notes</a>) and 1 more</li>
+<li><strong><a href="https://developers.openai.com/siwc">Sign in with ChatGPT</a></strong> · tool · developers.openai.com · check price<br>
+  A sign-in option that lets third-party apps use your ChatGPT account for access to models.<br>
+  Also in: T3 Code Adds Sign in with ChatGPT, With Support for Multiple Accounts (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105130123641102466">X</a> · <a href="../13-ai-tools/2026-09-30-t3-code-adds-sign-in-with-chatgpt-with-support-for-multiple.html">notes</a>), OpenAI DevDay 2026 Replay: Timestamped Guide to the Announcements (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105015301180182833">X</a> · <a href="2026-09-30-openai-devday-2026-replay-timestamped-guide-to-the.html">notes</a>)</li>
+<li><strong><a href="https://x.com/DevinAI">Devin</a></strong> · tool · x.com · paid<br>
+  A desktop app from the makers of the Devin coding agent for planning, delegating, reviewing and shipping work across fleets of local and cloud coding agents.<br>
+  Also in: Using the Devin iOS App to Build iOS Apps (Quick Demo) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105923285418668441">X</a> · <a href="../13-ai-tools/2026-10-02-using-the-devin-ios-app-to-build-ios-apps-quick-demo.html">notes</a>), Use Your ChatGPT Plus/Pro Subscription to Run Devin (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105133960296898826">X</a> · <a href="../13-ai-tools/2026-09-30-use-your-chatgpt-plus-pro-subscription-to-run-devin.html">notes</a>), Devin price cuts and top score on FrontierCode 1.1 Extended (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104637875396735214">X</a> · <a href="../13-ai-tools/2026-09-29-devin-price-cuts-and-top-score-on-frontiercode-1-1-extended.html">notes</a>), Devin Mobile Beta: Cognition's AI Coding Agent Is Now on Mobile (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104606293856325658">X</a> · <a href="../13-ai-tools/2026-09-29-devin-mobile-beta-cognition-s-ai-coding-agent-is-now-on.html">notes</a>) and 44 more</li>
+<li><strong><a href="https://hermes-agent.nousresearch.com/">Hermes</a></strong> · tool · hermes-agent.nousresearch.com · free<br>
+  The AI agent the creator uses to automate making explainer videos. It is probably Nous Research's Hermes Agent, but the post does not say so.<br>
+  Also in: Coworker: free open-source desktop AI coworker app (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103533091117736005">X</a> · <a href="../13-ai-tools/2026-09-26-coworker-free-open-source-desktop-ai-coworker-app.html">notes</a>), Agent Monitor: see traces, tokens and costs of your coding agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100681194585432373">X</a> · <a href="../09-llmops/2026-09-18-agent-monitor-see-traces-tokens-and-costs-of-your-coding.html">notes</a>), Coworker: An Open-Source Desktop Agent App for Local and Cloud Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099551050130936120">X</a> · <a href="../07-agents/2026-09-15-coworker-an-open-source-desktop-agent-app-for-local-and.html">notes</a>), jsonl-viewer: Inspect Coding Agent Traces (Codex, Claude Code, Pi, Hermes) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2097243999874724189">X</a> · <a href="../07-agents/2026-09-08-jsonl-viewer-inspect-coding-agent-traces-codex-claude-code.html">notes</a>) and 13 more</li>
+<li><strong><a href="https://x.com/t3dotcodes">T3 Code</a></strong> · tool · x.com · free<br>
+  An AI coding tool that you can now use by signing in with one or more ChatGPT accounts.<br>
+  Also in: T3 Code Adds Sign in with ChatGPT, With Support for Multiple Accounts (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105130123641102466">X</a> · <a href="../13-ai-tools/2026-09-30-t3-code-adds-sign-in-with-chatgpt-with-support-for-multiple.html">notes</a>), T3Code: a better interface for terminal coding agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099695364345639176">X</a> · <a href="../13-ai-tools/2026-09-15-t3code-a-better-interface-for-terminal-coding-agents.html">notes</a>), T3 Code: An Agent App Praised for Its UX (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098626658945389009">X</a> · <a href="../13-ai-tools/2026-09-12-t3-code-an-agent-app-praised-for-its-ux.html">notes</a>), T3 Code Opens Your Project in Any Installed IDE (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098616772807278900">X</a> · <a href="../13-ai-tools/2026-09-12-t3-code-opens-your-project-in-any-installed-ide.html">notes</a>) and 2 more</li>
+<li><strong><a href="https://developers.openai.com/plugins/build/extensions">OpenAI Plugin Extensions</a></strong> · tool · developers.openai.com · free<br>
+  Lets developers build full apps that feel native to ChatGPT and distribute them through ChatGPT and ChatGPT sites.<br>
+  Also in: OpenAI DevDay 2026 Recap: Dots, Agents API, Codex Cloud &amp; Marketplace (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105173002740695356">X</a> · <a href="2026-09-30-openai-devday-2026-recap-dots-agents-api-codex-cloud.html">notes</a>)</li>
+<li><strong><a href="https://openai.com/business/marketplace/">OpenAI Marketplace</a></strong> · website · openai.com · paid<br>
+  OpenAI's new marketplace where developers sell products and enterprises can pay with their OpenAI commitment.<br>
+  Also in: OpenAI DevDay 2026 Recap: Dots, Agents API, Codex Cloud &amp; Marketplace (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105173002740695356">X</a> · <a href="2026-09-30-openai-devday-2026-recap-dots-agents-api-codex-cloud.html">notes</a>), Creator's favorite OpenAI DevDay announcements (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105021153379275030">X</a> · <a href="2026-09-30-creator-s-favorite-openai-devday-announcements.html">notes</a>), OpenAI DevDay 2026 Replay: Timestamped Guide to the Announcements (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105015301180182833">X</a> · <a href="2026-09-30-openai-devday-2026-replay-timestamped-guide-to-the.html">notes</a>)</li>
+<li><strong><a href="https://x.com/i/broadcasts/1AxRnZyWMORxl">OpenAI DevDay livestream replay</a></strong> · video · x.com · free<br>
+  Replay of Melvin Vivas's X Live watch party covering the full OpenAI DevDay 2026 keynote.<br>
+  Also in: OpenAI DevDay 2026 Replay: Timestamped Guide to the Announcements (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105015301180182833">X</a> · <a href="2026-09-30-openai-devday-2026-replay-timestamped-guide-to-the.html">notes</a>)</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Watch the full DevDay livestream replay, which is posted on the creator's timeline</li>
+</ul><section class="more"><h2>More in Industry Trends &amp; Job Market</h2><ul><li><a href="2026-09-30-openai-devday-2026-recap-dots-agents-api-codex-cloud.html">OpenAI DevDay 2026 Recap: Dots, Agents API, Codex Cloud &amp; Marketplace</a> <span class="meta">Melvin Vivas, 2026-09-30</span></li><li><a href="2026-09-30-dot-com-redirects-to-xai-s-grok-bot.html">dot.com redirects to xAI&#x27;s Grok Bot</a> <span class="meta">Melvin Vivas, 2026-09-30</span></li><li><a href="2026-09-30-creator-s-favorite-openai-devday-announcements.html">Creator&#x27;s favorite OpenAI DevDay announcements</a> <span class="meta">Melvin Vivas, 2026-09-30</span></li><li><a href="2026-09-30-openai-devday-2026-replay-timestamped-guide-to-the.html">OpenAI DevDay 2026 Replay: Timestamped Guide to the Announcements</a> <span class="meta">Melvin Vivas, 2026-09-30</span></li><li><a href="2026-09-29-openai-devday-keynote-livestream-watch-party.html">OpenAI DevDay keynote livestream (watch party)</a> <span class="meta">Melvin Vivas, 2026-09-29</span></li><li><a href="2026-09-29-elevenlabs-eleven-v4-v4-turbo-emotive-multilingual-text-to.html">ElevenLabs Eleven v4 &amp; v4 Turbo: Emotive, Multilingual Text-to-Speech Models</a> <span class="meta">Melvin Vivas, 2026-09-29</span></li></ul><p><a href="../../topics/trends.html">All of Industry Trends &amp; Job Market</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

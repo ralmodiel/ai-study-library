@@ -1,0 +1,49 @@
+# Running Coworker on Free OpenRouter Models and Its Agent Stack
+
+Melvin Vivas · X post · 2026-08-24 · [Open on X](https://x.com/melvindvivas/status/2091613394617155791)
+
+**Topics:** AI Agents, Tool Use & MCP, LLM Fundamentals, AI Dev Tools & Productivity · **Level:** intermediate
+
+## Summary
+
+The creator says you can run his open-source Coworker app (a Grok Bot clone) on free models through OpenRouter. The quoted post lists the stack: tested with OpenAI and OpenRouter models, local-model support through Ollama and LM Studio, Pi for the agent runtime, CopilotKit for the chat UI and Firecrawl for web search.
+
+## Key points
+
+- Coworker is a free, open-source clone of Grok Bot.
+- You can use free models through OpenRouter, so it costs nothing to run.
+- It was tested with OpenAI and OpenRouter models.
+- Local models are supported through Ollama and LM Studio.
+- Agent runtime: Pi (@pidotdev). Chat UI: CopilotKit. Web search: Firecrawl.
+
+## Resources mentioned
+
+- [ ] **[OpenRouter](https://openrouter.ai/z-ai/glm-5-tur)** · tool · openrouter.ai · free  
+  OpenRouter is a unified API gateway that gives access to many LLMs behind one OpenAI-compatible endpoint; this link is its X account.  
+  Also in: Customizing Your Coding Setup with Pi Coding Agent Extensions (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105871612591714651) · [notes](../../notes/13-ai-tools/2026-10-02-customizing-your-coding-setup-with-pi-coding-agent.md)), The Jev model is now on OpenRouter (Melvin Vivas on [X](https://x.com/melvindvivas/status/2103826669324869745) · [notes](../../notes/03-llm-fundamentals/2026-09-26-the-jev-model-is-now-on-openrouter.md)), Kev-4B model, an alternative to Jev, now available on OpenRouter (Melvin Vivas on [X](https://x.com/melvindvivas/status/2103655416299466815) · [notes](../../notes/03-llm-fundamentals/2026-09-26-kev-4b-model-an-alternative-to-jev-now-available-on.md)), Space Bunny Alpha: stealth 1M-context flash model on OpenRouter (Melvin Vivas on [X](https://x.com/melvindvivas/status/2102779478737142186) · [notes](../../notes/16-trends/2026-09-23-space-bunny-alpha-stealth-1m-context-flash-model-on.md)) and 42 more
+- [ ] **[Coworker (donvito/coworker)](https://github.com/donvito/coworker)** · repo · github.com · free  
+  The creator's local-first desktop app where you pick an AI coworker and have it produce work such as invoices as finished PDFs.  
+  Also in: Claude Opus 5.5 for Video Making: Creator's Showcase Thread (Coworker) (Melvin Vivas on [X](https://x.com/melvindvivas/status/2104386225612415297) · [notes](../../notes/13-ai-tools/2026-09-28-claude-opus-5-5-for-video-making-creator-s-showcase-thread.md)), Coworker: free open-source desktop AI coworker app (Melvin Vivas on [X](https://x.com/melvindvivas/status/2103533091117736005) · [notes](../../notes/13-ai-tools/2026-09-26-coworker-free-open-source-desktop-ai-coworker-app.md)), Coworker: Open-Source Desktop App for AI Agents (Melvin Vivas on [X](https://x.com/melvindvivas/status/2101347063820955903) · [notes](../../notes/07-agents/2026-09-20-coworker-open-source-desktop-app-for-ai-agents.md)), Using Devin AI to Test the Coworker Desktop App on Windows (Melvin Vivas on [X](https://x.com/melvindvivas/status/2100651879219044800) · [notes](../../notes/13-ai-tools/2026-09-18-using-devin-ai-to-test-the-coworker-desktop-app-on-windows.md)) and 38 more
+- [ ] **[OpenAI](https://x.com/OpenAI)** · tool · x.com · free  
+  An AI model provider whose models can be used through managed connectors.  
+  Also in: Creator's favorite OpenAI DevDay announcements (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105021153379275030) · [notes](../../notes/16-trends/2026-09-30-creator-s-favorite-openai-devday-announcements.md)), OpenAI Agents API with Bring Your Own Sandbox as a backend for a 'software factory' (Melvin Vivas on [X](https://x.com/melvindvivas/status/2098729077163401577) · [notes](../../notes/07-agents/2026-09-12-openai-agents-api-with-bring-your-own-sandbox-as-a-backend.md)), Building Software Factories on the OpenAI Agents API (Codex-Powered) (Melvin Vivas on [X](https://x.com/melvindvivas/status/2098405420855660963) · [notes](../../notes/07-agents/2026-09-11-building-software-factories-on-the-openai-agents-api-codex.md)), Coworker: Free Local-First Desktop App for Running AI Agents (Melvin Vivas on [X](https://x.com/melvindvivas/status/2093548227039830065) · [notes](../../notes/07-agents/2026-08-29-coworker-free-local-first-desktop-app-for-running-ai-agents.md)) and 11 more
+- [ ] **[Ollama](https://x.com/ollama)** · tool · x.com · free · **recommended by both** Bashiri Smith & Melvin Vivas  
+  Open-source tool for downloading and running LLMs on your own machine with minimal setup.  
+  Also in: Running LLMs Locally Without an Expensive Rig (Melvin Vivas on [X](https://x.com/melvindvivas/status/2104363353045123168) · [notes](../../notes/03-llm-fundamentals/2026-09-28-running-llms-locally-without-an-expensive-rig.md)), Adding Vercel AI Gateway as a provider in AIBackends with Devin (Melvin Vivas on [X](https://x.com/melvindvivas/status/2101160927718781084) · [notes](../../notes/09-llmops/2026-09-19-adding-vercel-ai-gateway-as-a-provider-in-aibackends-with.md)), Running Qwen3.8-27B Locally on an M5 Max MacBook with Inco Splash (Melvin Vivas on [X](https://x.com/melvindvivas/status/2101115697049043177) · [notes](../../notes/09-llmops/2026-09-19-running-qwen3-8-27b-locally-on-an-m5-max-macbook-with-inco.md)), AIBackends: An API Layer Between Your App and AI Models (Now with Jev) (Melvin Vivas on [X](https://x.com/melvindvivas/status/2100848362648195307) · [notes](../../notes/12-system-design/2026-09-18-aibackends-an-api-layer-between-your-app-and-ai-models-now.md)) and 12 more
+- [ ] **[LM Studio](https://x.com/lmstudio)** · tool · x.com · free  
+  Desktop app for downloading and running LLMs locally, with a developer mode that serves models through an API.  
+  Also in: Running LLMs Locally Without an Expensive Rig (Melvin Vivas on [X](https://x.com/melvindvivas/status/2104363353045123168) · [notes](../../notes/03-llm-fundamentals/2026-09-28-running-llms-locally-without-an-expensive-rig.md)), Adding Vercel AI Gateway as a provider in AIBackends with Devin (Melvin Vivas on [X](https://x.com/melvindvivas/status/2101160927718781084) · [notes](../../notes/09-llmops/2026-09-19-adding-vercel-ai-gateway-as-a-provider-in-aibackends-with.md)), LoRA Fine-Tune Qwen3.5-2B on Your Tweets with Unsloth Studio (Melvin Vivas on [X](https://x.com/melvindvivas/status/2101111328714993970) · [notes](../../notes/10-fine-tuning/2026-09-19-lora-fine-tune-qwen3-5-2b-on-your-tweets-with-unsloth-studio.md)), AIBackends: An API Layer Between Your App and AI Models (Now with Jev) (Melvin Vivas on [X](https://x.com/melvindvivas/status/2100848362648195307) · [notes](../../notes/12-system-design/2026-09-18-aibackends-an-api-layer-between-your-app-and-ai-models-now.md)) and 31 more
+- [ ] **[Pi (pi.dev)](https://pi.dev)** · tool · pi.dev · free  
+  Minimal coding agent with four core tools, plus an SDK for adding those tools to your own apps.  
+  Also in: Re-authenticate the Pi Agent with the New ChatGPT Sign-In (Melvin Vivas on [X](https://x.com/melvindvivas/status/2105476742412689578) · [notes](../../notes/13-ai-tools/2026-10-01-re-authenticate-the-pi-agent-with-the-new-chatgpt-sign-in.md)), Coworker: Open-Source Work Agent That Runs on Small Local Models (Melvin Vivas on [X](https://x.com/melvindvivas/status/2093317984358219810) · [notes](../../notes/07-agents/2026-08-28-coworker-open-source-work-agent-that-runs-on-small-local.md)), Pi Coding Agent: Four Built-In Tools (read, bash, edit, write) (Melvin Vivas on [X](https://x.com/melvindvivas/status/2086793807895683107) · [notes](../../notes/07-agents/2026-08-10-pi-coding-agent-four-built-in-tools-read-bash-edit-write.md))
+- [ ] **[CopilotKit](https://x.com/CopilotKit)** · tool · x.com · free  
+  An open-source framework for building in-app AI copilot and agent UIs.  
+  Also in: Coworker: Open-Source Work Agent That Runs on Small Local Models (Melvin Vivas on [X](https://x.com/melvindvivas/status/2093317984358219810) · [notes](../../notes/07-agents/2026-08-28-coworker-open-source-work-agent-that-runs-on-small-local.md)), Coworker: Open-Source Grok Bot Clone Built on Pi and CopilotKit (Melvin Vivas on [X](https://x.com/melvindvivas/status/2091565948256109004) · [notes](../../notes/07-agents/2026-08-24-coworker-open-source-grok-bot-clone-built-on-pi-and.md))
+- [ ] **[Firecrawl](https://x.com/firecrawl)** · tool · x.com · free  
+  An open-source web data API with Search, Scrape and Interact features that turn web pages into LLM-ready markdown or structured data for AI agents.  
+  Also in: Firecrawl Keyless: Free Web Search & Scraping for AI Agents, No API Key (Melvin Vivas on [X](https://x.com/melvindvivas/status/2093395106602893818) · [notes](../../notes/07-agents/2026-08-29-firecrawl-keyless-free-web-search-scraping-for-ai-agents-no.md)), Coworker: Open-Source Work Agent That Runs on Small Local Models (Melvin Vivas on [X](https://x.com/melvindvivas/status/2093317984358219810) · [notes](../../notes/07-agents/2026-08-28-coworker-open-source-work-agent-that-runs-on-small-local.md)), Coworker: Open-Source Grok Bot Clone Built on Pi and CopilotKit (Melvin Vivas on [X](https://x.com/melvindvivas/status/2091565948256109004) · [notes](../../notes/07-agents/2026-08-24-coworker-open-source-grok-bot-clone-built-on-pi-and.md)), Serve LFM2.5-2.6B with vLLM and connect it to Hermes (Melvin Vivas on [X](https://x.com/melvindvivas/status/2086179805431824458) · [notes](../../notes/07-agents/2026-08-09-serve-lfm2-5-2-6b-with-vllm-and-connect-it-to-hermes.md))
+
+## Try this
+
+- [ ] Try Coworker with free models through OpenRouter.
+- [ ] Build your own agent desktop app by combining an agent runtime (Pi), a chat UI (CopilotKit), web search (Firecrawl) and local or cloud models.

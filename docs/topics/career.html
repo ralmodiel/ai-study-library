@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resume, Job Search &amp; Interviews: free resources and study plan | AI…</title>
+<meta name="description" content="Resumes, finding roles, interview prep, negotiation and career moves. 63 summarised reels and posts and 41 linked resources (5 free to watch), from Bashiri…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/topics/career.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Resume, Job Search &amp; Interviews: free resources and study plan | AI…">
+<meta property="og:description" content="Resumes, finding roles, interview prep, negotiation and career moves. 63 summarised reels and posts and 41 linked resources (5 free to watch), from Bashiri…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/topics/career.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://ralmodiel.github.io/ai-study-library/topics/career.html","name":"Resume, Job Search & Interviews","url":"https://ralmodiel.github.io/ai-study-library/topics/career.html","description":"Resumes, finding roles, interview prep, negotiation and career moves.","about":{"@type":"Thing","name":"Resume, Job Search & Interviews"},"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"inLanguage":"en"},{"@type":"WebSite","@id":"https://ralmodiel.github.io/ai-study-library/#website","name":"AI Engineer Study Library","url":"https://ralmodiel.github.io/ai-study-library/","inLanguage":"en","publisher":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"}},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"Resume, Job Search & Interviews"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../learning-path.html">Learning path</a><a href="../free-watch-list.html">Free to watch</a><a href="../resources.html">All resources</a><a href="../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../">Library</a> &rsaquo; <a href="../learning-path.html">Learning path</a> &rsaquo; <span aria-current="page">Resume, Job Search &amp; Interviews</span></nav><p class="step">Topic 15 of 16 in the <a href="../learning-path.html">learning path</a></p><h1>Resume, Job Search &amp; Interviews</h1>
+<p><em>Resumes, finding roles, interview prep, negotiation and career moves.</em></p>
+<p><strong>Reels and posts (26)</strong></p>
+<ul>
+<li><a href="../notes/15-career/2026-09-29-the-5-categories-asked-in-every-ai-engineering-interview.html">The 5 Categories Asked in Every AI Engineering Interview</a> · Bashiri Smith, Facebook · 0:21: Bashiri Smith lists the five topic areas he says come up in every AI engineering interview: LLMs &amp; RAG, integration/agents/orchestration, ops &amp; evaluation, safety &amp; ethics, and ML</li>
+<li><a href="../notes/15-career/2026-09-29-6-ai-career-paths-for-software-engineers-and-what-each-one.html">6 AI Career Paths for Software Engineers and What Each One Focuses On</a> · Bashiri Smith, Facebook · 0:16: A short reel listing six AI-related career paths open to software engineers and the main focus of each: AI Engineer, Forward Deployed Engineer, AI Solutions Engineer, Machine Learn</li>
+<li><a href="../notes/15-career/2026-09-28-find-hidden-ai-jobs-search-by-skills-rag-llms-not-ai.html">Find Hidden AI Jobs: Search by Skills (RAG, LLMs), Not "AI Engineer" Titles</a> · Bashiri Smith, Facebook · 1:03: Bashiri Smith points to an Andela study of Fortune 500 technical job postings.</li>
+<li><a href="../notes/15-career/2026-09-28-optimizing-your-x-profile-to-gain-followers.html">Optimizing Your X Profile to Gain Followers</a> · Melvin Vivas, X: Personal-branding tips for X (Twitter): the parts of your profile visitors see first and how to set them up to turn visits into follows.</li>
+<li><a href="../notes/15-career/2026-09-26-how-to-grow-an-x-twitter-account-9-practical-tips-from.html">How to Grow an X (Twitter) Account: 9 Practical Tips from Melvin Vivas</a> · Melvin Vivas, X: Melvin Vivas lost his original X account and rebuilt a new one.</li>
+<li><a href="../notes/15-career/2026-09-24-problem-solving-over-keywords-the-ai-skill-that-never.html">Problem Solving Over Keywords: The AI Skill That Never Expires</a> · Bashiri Smith, Facebook · 1:50: The video starts with a clip of Yann LeCun.</li>
+<li><a href="../notes/15-career/2026-09-21-stand-out-in-the-tech-job-market-show-proof-not-applications.html">Stand Out in the Tech Job Market: Show Proof, Not Applications</a> · Bashiri Smith, Facebook · 1:12: Bashiri Smith argues that the people struggling most to get hired in tech are "boring" candidates: people with average degrees or jobs who never built anything significant.</li>
+<li><a href="../notes/15-career/2026-09-21-90-day-ai-engineering-job-search-targeted-companies.html">90-Day AI Engineering Job Search: Targeted Companies, Outreach &amp; Loom Pitches</a> · Bashiri Smith, Facebook · 1:29: Bashiri Smith lays out a 90-day plan for landing an AI engineering job using only a laptop.</li>
+<li><a href="../notes/15-career/2026-09-21-beat-the-hiring-signal-problem-referrals-targeting-and.html">Beat the Hiring "Signal Problem": Referrals, Targeting, and Volume</a> · Bashiri Smith, Facebook · 1:34: Hiring managers get thousands of applications, and the resumes all look the same, so being qualified isn't enough.</li>
+<li><a href="../notes/15-career/2026-09-18-apply-while-you-build-get-job-search-feedback-on-your-ai.html">Apply While You Build: Get Job-Search Feedback on Your AI Project Early</a> · Bashiri Smith, Facebook · 1:12: Bashiri Smith says the biggest mistake aspiring AI engineers make is waiting until a big portfolio project is finished before applying for jobs.</li>
+<li><a href="../notes/15-career/2026-09-17-why-software-engineers-should-move-into-ai-engineering.html">Why Software Engineers Should Move Into AI Engineering</a> · Bashiri Smith, Facebook · 0:49: The creator argues that AI engineering is a natural next career step for software engineers.</li>
+<li><a href="../notes/15-career/2026-09-17-3-worst-mistakes-when-trying-to-land-an-ai-engineer-job.html">3 Worst Mistakes When Trying to Land an AI Engineer Job</a> · Bashiri Smith, Facebook · 0:53: Bashiri Smith lists three mistakes that hold back aspiring AI engineers.</li>
+<li><a href="../notes/15-career/2026-09-16-what-it-takes-to-become-a-forward-deployed-engineer-fde.html">What It Takes to Become a Forward-Deployed Engineer (FDE)</a> · Bashiri Smith, Facebook · 0:41: This short skit explains that the forward-deployed engineer (FDE) role is not entry-level.</li>
+<li><a href="../notes/15-career/2026-09-15-theo-s-youtube-packaging-masterclass-thumbnails-titles-and.html">Theo's YouTube Packaging Masterclass: Thumbnails, Titles and the Algorithm</a> · Melvin Vivas, X · 13:09: Theo (t3.gg) explains how to package YouTube videos so the right viewers stop scrolling, click, and watch to the end.</li>
+<li><a href="../notes/15-career/2026-09-14-software-engineer-to-ai-engineer-job-boards-stack-projects.html">Software Engineer to AI Engineer: Job Boards, Stack, Projects and Learning Sites</a> · Bashiri Smith, Facebook · 0:10: A quick checklist for software engineers moving into AI engineering.</li>
+<li><a href="../notes/15-career/2026-09-12-ai-engineering-interviews-answer-every-topic-with-a-number.html">AI Engineering Interviews: Answer Every Topic With a Number, Trade-off, Failure Mode</a> · Bashiri Smith, Facebook · 0:08: An 8-second reel with no speech.</li>
+<li><a href="../notes/15-career/2026-09-10-5-lessons-from-helping-engineers-land-3m-in-tech-jobs.html">5 Lessons from Helping Engineers Land $3M+ in Tech Jobs</a> · Bashiri Smith, Facebook · 1:31: Bashiri Smith shares five patterns he saw over two years of helping engineers land jobs worth more than $3M in combined salary.</li>
+<li><a href="../notes/15-career/2026-09-09-ai-engineer-vs-forward-deployed-engineer-which-role-fits-you.html">AI Engineer vs Forward Deployed Engineer: Which Role Fits You?</a> · Bashiri Smith, Facebook · 1:08: The video compares the AI engineer and forward-deployed engineer (FDE) roles side by side.</li>
+<li><a href="../notes/15-career/2026-09-03-using-the-september-hiring-surge-volume-plus-quality-in.html">Using the September Hiring Surge: Volume Plus Quality in Your Job Search</a> · Bashiri Smith, Facebook · 0:29: Bashiri Smith explains that the "September Surge" is the second-biggest hiring season of the year.</li>
+<li><a href="../notes/15-career/2026-08-30-red-flags-that-hurt-your-chances-of-landing-an-ai-era.html">Red Flags That Hurt Your Chances of Landing an AI-Era Coding Job</a> · Bashiri Smith, Facebook · 0:13: A 13-second hook video listing warning signs that a developer won't be competitive for coding and AI engineering jobs in the next few years.</li>
+<li><a href="../notes/15-career/2026-08-26-wannabe-vs-hired-ai-engineer-beyond-rag-fde-roles-and.html">Wannabe vs. Hired AI Engineer: Beyond RAG, FDE Roles and Degrees</a> · Bashiri Smith, Facebook · 1:22: A short skit that answers four common misconceptions of aspiring AI engineers.</li>
+<li><a href="../notes/15-career/2026-08-26-why-software-engineers-should-move-into-ai-engineering-for.html">Why Software Engineers Should Move Into AI Engineering for Job Security</a> · Bashiri Smith, Facebook · 0:48: The creator argues that software engineers who worry about job security should move into AI engineering.</li>
+<li><a href="../notes/15-career/2026-08-20-which-current-tech-roles-map-to-which-ai-engineering-roles.html">Which Current Tech Roles Map to Which AI Engineering Roles</a> · Bashiri Smith, Facebook · 0:47: This short reel says people already working in software, data or business analysis are well placed to move into AI engineering.</li>
+<li><a href="../notes/15-career/2026-08-19-coding-agent-harness-knowledge-as-a-new-developer-job-skill.html">Coding agent harness knowledge as a new developer job skill</a> · Melvin Vivas, X: The creator argues that developer job descriptions should now ask for knowledge of coding agent harnesses.</li>
+<li><a href="../notes/15-career/2026-06-29-pure-dev-roles-are-fading-product-knowledge-is-now-essential.html">Pure dev roles are fading: product knowledge is now essential</a> · Melvin Vivas, X: Melvin argues that technical roles have changed: engineers can no longer focus only on development.</li>
+<li><a href="../notes/15-career/2026-04-02-kimi-office-agent-build-an-ats-optimized-resume-by-chatting.html">Kimi Office Agent: Build an ATS-Optimized Resume by Chatting</a> · Melvin Vivas, X: This post shares Kimi Office Agent, which turns a chat with your details into an ATS-optimized resume.</li>
+</ul>
+<p><strong>Watch, free (2)</strong></p>
+<ul>
+<li><strong><a href="https://www.youtube.com/watch?v=Raet4-RFrVY">Why Your Job Applications Keep Getting Ignored</a></strong> · video · youtube.com · free<br>
+  Bashiri Smith's YouTube video on his strategy for standing out among applicants and getting interviews.<br>
+  Mentioned in: Software Engineer to AI Engineer Before 2027: A 5-Step Career Plan (Bashiri Smith on <a href="https://www.facebook.com/reel/1433622515329300">Facebook</a> · <a href="../notes/01-roadmap/2026-09-30-software-engineer-to-ai-engineer-before-2027-a-5-step.html">notes</a>), Beat the Hiring "Signal Problem": Referrals, Targeting, and Volume (Bashiri Smith on <a href="https://www.facebook.com/reel/2182954155974409">Facebook</a> · <a href="../notes/15-career/2026-09-21-beat-the-hiring-signal-problem-referrals-targeting-and.html">notes</a>), Using the September Hiring Surge: Volume Plus Quality in Your Job Search (Bashiri Smith on <a href="https://www.facebook.com/reel/1819927632698021">Facebook</a> · <a href="../notes/15-career/2026-09-03-using-the-september-hiring-surge-volume-plus-quality-in.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=HuE7OvOckfE">Theo's video 'We're leaving GitHub' (rebranded 'Get in, we're leaving GitHub')</a></strong> · video · youtube.com · free<br>
+  Theo's video that flopped at first and then beat his channel average after it was repackaged with a new thumbnail and title.<br>
+  Mentioned in: Theo's YouTube Packaging Masterclass: Thumbnails, Titles and the Algorithm (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099731305567322378">X</a> · <a href="../notes/15-career/2026-09-15-theo-s-youtube-packaging-masterclass-thumbnails-titles-and.html">notes</a>)</li>
+</ul>
+<p><strong>Read and use (24)</strong></p>
+<ul>
+<li><strong><a href="https://www.skool.com/baswe-ai/about">BASWE.Ai Engineer (Skool community)</a></strong> · community · skool.com · paid<br>
+  The creator's paid community and program, with an AI learning roadmap (including the full ops and evaluation track), daily calls with engineers and recruiters, resume and portfolio help, and a job-search pipeline.<br>
+  Mentioned in: Basic RAG Pipeline in 60 Seconds: From Documents to Grounded Answers (Bashiri Smith on <a href="https://www.facebook.com/reel/1893190305357331">Facebook</a> · <a href="../notes/06-rag/2026-10-01-basic-rag-pipeline-in-60-seconds-from-documents-to-grounded.html">notes</a>), Pointer to Bashiri Smith's Complete AI Engineer Roadmap for 2026 (Bashiri Smith on <a href="https://www.facebook.com/reel/1771577477300003">Facebook</a> · <a href="../notes/01-roadmap/2026-10-01-pointer-to-bashiri-smith-s-complete-ai-engineer-roadmap-for.html">notes</a>), Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="../notes/01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), How to Evaluate a RAG Pipeline: Retrieval vs. Generation (Interview Answer) (Bashiri Smith on <a href="https://www.facebook.com/reel/915452468082856">Facebook</a> · <a href="../notes/06-rag/2026-09-30-how-to-evaluate-a-rag-pipeline-retrieval-vs-generation.html">notes</a>) and 77 more<br>
+  In a shared PDF: <a href="https://docs.google.com/document/d/1yIw_P6KCcDnz1KqZ1JZo4Sx-js9zpKxv2NnoTpN0DYw/edit?usp=sharing">5 books to upgrade from software engineer into Ai/ML engineer</a> - shared in <a href="https://www.facebook.com/reel/1462121052468374">this reel on Facebook</a>; <a href="https://drive.google.com/file/d/1BQwIzI5tWC4Rd6jmloCQMueQnwAYuM1M/view?usp=sharing">Evaluation Field Guide (baswe.ai engineer accelerator – Ops and Evaluation module)</a> - shared in <a href="https://www.facebook.com/reel/2589891101436330">this reel on Facebook</a>, <a href="https://www.facebook.com/reel/1752298882486280">this reel on Facebook</a>; <a href="https://drive.google.com/file/d/1Thj1wcILRDxniC231RaDx0wyuc81f2M5/view">How to become an expert in RAG (BASWE AI Engineer Field Guide)</a> - shared in <a href="https://www.facebook.com/reel/1639527170837316">this reel on Facebook</a>, <a href="https://www.facebook.com/reel/28850952981168407">this reel on Facebook</a>; <a href="https://drive.google.com/file/d/1n4n-L-_7GV-RCOfffZetHPgLc_RScljR/view">The Interview Engine: The 7-Step System to Land AI Engineering Interviews</a> - shared in <a href="https://www.facebook.com/reel/2182954155974409">this reel on Facebook</a></li>
+<li><strong><a href="https://www.linkedin.com">LinkedIn</a></strong> · website · linkedin.com · free<br>
+  Professional network, used here to find warm-lead connections and the names of contacts for cold outreach.<br>
+  Mentioned in: Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="../notes/01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), 7 Habits to Become an AI Engineer: Books, Tooling, Research &amp; Shipping (Bashiri Smith on <a href="https://www.facebook.com/reel/1081423530962902">Facebook</a> · <a href="../notes/01-roadmap/2026-09-25-7-habits-to-become-an-ai-engineer-books-tooling-research.html">notes</a>), 6 Steps to Build a Resume Project That Lands an AI Engineering Job (Bashiri Smith on <a href="https://www.facebook.com/reel/961750610321136">Facebook</a> · <a href="../notes/14-projects/2026-09-24-6-steps-to-build-a-resume-project-that-lands-an-ai.html">notes</a>), 6-Step Framework for Building AI Projects Target Companies Care About (Bashiri Smith on <a href="https://www.facebook.com/reel/4074702829504077">Facebook</a> · <a href="../notes/14-projects/2026-09-23-6-step-framework-for-building-ai-projects-target-companies.html">notes</a>) and 4 more</li>
+<li><strong><a href="https://baswe.ai/">BASWE.AI</a></strong> · community · baswe.ai · paid<br>
+  BASWE's AI engineer accelerator site, which also mentions an application manager service for high-ticket placement clients.<br>
+  Mentioned in: 6-Step Framework for Building AI Projects Target Companies Care About (Bashiri Smith on <a href="https://www.facebook.com/reel/4074702829504077">Facebook</a> · <a href="../notes/14-projects/2026-09-23-6-step-framework-for-building-ai-projects-target-companies.html">notes</a>), Comment-to-DM Offer: Claude Prompt, 27 AI Engineering Projects &amp; BASWE.AI (Bashiri Smith on <a href="https://www.facebook.com/reel/28080194778339660">Facebook</a> · <a href="../notes/14-projects/2026-09-09-comment-to-dm-offer-claude-prompt-27-ai-engineering.html">notes</a>)<br>
+  In a shared PDF: <a href="https://drive.google.com/file/d/1BQwIzI5tWC4Rd6jmloCQMueQnwAYuM1M/view?usp=sharing">Evaluation Field Guide (baswe.ai engineer accelerator – Ops and Evaluation module)</a> - shared in <a href="https://www.facebook.com/reel/2589891101436330">this reel on Facebook</a>, <a href="https://www.facebook.com/reel/1752298882486280">this reel on Facebook</a>; <a href="https://drive.google.com/file/d/1n4n-L-_7GV-RCOfffZetHPgLc_RScljR/view">The Interview Engine: The 7-Step System to Land AI Engineering Interviews</a> - shared in <a href="https://www.facebook.com/reel/2182954155974409">this reel on Facebook</a></li>
+<li><strong><a href="https://drive.google.com/file/d/1VUHvpwfuL-9R6aijI49jH5AvRk7A_x20/view">100 AI Engineering Interview Questions Guide</a></strong> · pdf · drive.google.com · free<br>
+  The creator's guide of 100 AI engineering interview questions, covering LLMs &amp; RAG, agents, ops &amp; evals, safety, and ML foundations.<br>
+  Mentioned in: The 5 Categories Asked in Every AI Engineering Interview (Bashiri Smith on <a href="https://www.facebook.com/reel/1400719441618655">Facebook</a> · <a href="../notes/15-career/2026-09-29-the-5-categories-asked-in-every-ai-engineering-interview.html">notes</a>), AI Engineering Interviews: Answer Every Topic With a Number, Trade-off, Failure Mode (Bashiri Smith on <a href="https://www.facebook.com/reel/1640058474505508">Facebook</a> · <a href="../notes/15-career/2026-09-12-ai-engineering-interviews-answer-every-topic-with-a-number.html">notes</a>)</li>
+<li><strong><a href="https://Hunter.io">Hunter.io</a></strong> · tool · hunter.io · free<br>
+  An email-finding tool: domain search shows a company's email pattern, the email finder returns a person's likely address with a confidence score, and it can verify addresses before you send.<br>
+  Mentioned in: AI Engineer Roadmap: 5 Skill Areas, a 24-Week Study Order &amp; Interview Strategy (Bashiri Smith on <a href="https://www.facebook.com/reel/1773952177150793">Facebook</a> · <a href="../notes/01-roadmap/2026-09-18-ai-engineer-roadmap-5-skill-areas-a-24-week-study-order.html">notes</a>)<br>
+  In a shared PDF: <a href="https://drive.google.com/file/d/1n4n-L-_7GV-RCOfffZetHPgLc_RScljR/view">The Interview Engine: The 7-Step System to Land AI Engineering Interviews</a> - shared in <a href="https://www.facebook.com/reel/2182954155974409">this reel on Facebook</a></li>
+<li><strong><a href="https://www.loom.com">Loom</a></strong> · tool · loom.com · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  A popular tool for recording your screen and camera to share video messages and demos.<br>
+  Mentioned in: 90-Day AI Engineering Job Search: Targeted Companies, Outreach &amp; Loom Pitches (Bashiri Smith on <a href="https://www.facebook.com/reel/1429406039343568">Facebook</a> · <a href="../notes/15-career/2026-09-21-90-day-ai-engineering-job-search-targeted-companies.html">notes</a>), Clueso Agents: AI That Records and Edits Product Demo Videos for You (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2092238420978675993">X</a> · <a href="../notes/13-ai-tools/2026-08-25-clueso-agents-ai-that-records-and-edits-product-demo-videos.html">notes</a>)</li>
+<li><strong>AI Engineering Interview Questions Training Video</strong> · video · free<br>
+  The creator's full walkthrough video covering each of the 100 interview questions and their answers.<br>
+  Mentioned in: The 5 Categories Asked in Every AI Engineering Interview (Bashiri Smith on <a href="https://www.facebook.com/reel/1400719441618655">Facebook</a> · <a href="../notes/15-career/2026-09-29-the-5-categories-asked-in-every-ai-engineering-interview.html">notes</a>)</li>
+<li><strong><a href="https://www.anthropic.com/careers">Anthropic Careers – Applied AI Engineer</a></strong> · website · anthropic.com · free<br>
+  Anthropic's careers page, where the Applied AI Engineer posting from the video can be found.<br>
+  Mentioned in: AI Engineer Salaries at OpenAI &amp; Anthropic and the Skills They Want (Bashiri Smith on <a href="https://www.facebook.com/reel/1963349201010032">Facebook</a> · <a href="../notes/16-trends/2026-09-11-ai-engineer-salaries-at-openai-anthropic-and-the-skills.html">notes</a>)</li>
+<li><strong><a href="https://www.apollo.io">Apollo</a></strong> · tool · apollo.io · free<br>
+  A people database for searching by title at a company (e.g. engineering manager) and pulling verified emails. The guide calls it best for volume; it has a free tier with monthly limits.<br>
+  In a shared PDF: <a href="https://drive.google.com/file/d/1n4n-L-_7GV-RCOfffZetHPgLc_RScljR/view">The Interview Engine: The 7-Step System to Land AI Engineering Interviews</a> - shared in <a href="https://www.facebook.com/reel/2182954155974409">this reel on Facebook</a></li>
+<li><strong>Bashiri Smith's free AI engineering interview resources guide</strong> · pdf · free<br>
+  A free guide in which the creator lists his favourite resources for AI engineering interviews.<br>
+<strong>DM only:</strong> comment <strong>solved</strong> on <a href="https://www.facebook.com/reel/1773952177150793">this reel on Facebook</a> and you get it by DM.<br>
+  Mentioned in: AI Engineer Roadmap: 5 Skill Areas, a 24-Week Study Order &amp; Interview Strategy (Bashiri Smith on <a href="https://www.facebook.com/reel/1773952177150793">Facebook</a> · <a href="../notes/01-roadmap/2026-09-18-ai-engineer-roadmap-5-skill-areas-a-24-week-study-order.html">notes</a>)</li>
+<li><strong><a href="https://www.blackmagicdesign.com/products/davinciresolve">DaVinci Resolve</a></strong> · tool · blackmagicdesign.com · free<br>
+  Video editing software from Blackmagic Design with a free version.<br>
+  Mentioned in: Theo's YouTube Packaging Masterclass: Thumbnails, Titles and the Algorithm (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099731305567322378">X</a> · <a href="../notes/15-career/2026-09-15-theo-s-youtube-packaging-masterclass-thumbnails-titles-and.html">notes</a>)</li>
+<li><strong><a href="https://ethanniser.com/">Ethan Niser</a></strong> · person · ethanniser.com · free<br>
+  Developer and creator whose first YouTube videos about Effect took off with Theo's help.<br>
+  Mentioned in: Theo's YouTube Packaging Masterclass: Thumbnails, Titles and the Algorithm (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099731305567322378">X</a> · <a href="../notes/15-career/2026-09-15-theo-s-youtube-packaging-masterclass-thumbnails-titles-and.html">notes</a>)</li>
+<li><strong><a href="https://hiringcafe.com/">HiringCafe</a></strong> · website · hiringcafe.com · free<br>
+  Job search site that collects job listings, useful for finding AI engineering roles.<br>
+  Mentioned in: Software Engineer to AI Engineer: Job Boards, Stack, Projects and Learning Sites (Bashiri Smith on <a href="https://www.facebook.com/reel/1650742066760603">Facebook</a> · <a href="../notes/15-career/2026-09-14-software-engineer-to-ai-engineer-job-boards-stack-projects.html">notes</a>)</li>
+<li><strong><a href="https://www.kimi.com/share/19d48c8c">Kimi Office Agent (Kimi AI shared example)</a></strong> · tool · kimi.com · check price<br>
+  A shared Kimi chat showing the Office Agent building a resume from a prompt.<br>
+  Mentioned in: Kimi Office Agent: Build an ATS-Optimized Resume by Chatting (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2039660071140131036">X</a> · <a href="../notes/15-career/2026-04-02-kimi-office-agent-build-an-ats-optimized-resume-by-chatting.html">notes</a>)</li>
+<li><strong><a href="https://linkedin.com/mypreferences/d/download-my-data">LinkedIn Download My Data</a></strong> · tool · linkedin.com · free<br>
+  LinkedIn's data export page, used to download Connections.csv (name, company, position and connection date for your network) so you can map warm referral paths.<br>
+  In a shared PDF: <a href="https://drive.google.com/file/d/1n4n-L-_7GV-RCOfffZetHPgLc_RScljR/view">The Interview Engine: The 7-Step System to Land AI Engineering Interviews</a> - shared in <a href="https://www.facebook.com/reel/2182954155974409">this reel on Facebook</a></li>
+<li><strong><a href="https://www.microsoft.com/en-us/microsoft-365/excel">Microsoft Excel</a></strong> · tool · microsoft.com · paid<br>
+  Spreadsheet app you can use instead of Google Sheets for the job tracker.<br>
+  Mentioned in: 6 Steps to Build a Resume Project That Lands an AI Engineering Job (Bashiri Smith on <a href="https://www.facebook.com/reel/961750610321136">Facebook</a> · <a href="../notes/14-projects/2026-09-24-6-steps-to-build-a-resume-project-that-lands-an-ai.html">notes</a>)</li>
+<li><strong><a href="https://openai.com/careers">OpenAI Careers – Applied AI Engineer</a></strong> · website · openai.com · free<br>
+  OpenAI's careers page, where the Applied AI Engineer posting from the video can be found.<br>
+  Mentioned in: AI Engineer Salaries at OpenAI &amp; Anthropic and the Skills They Want (Bashiri Smith on <a href="https://www.facebook.com/reel/1963349201010032">Facebook</a> · <a href="../notes/16-trends/2026-09-11-ai-engineer-salaries-at-openai-anthropic-and-the-skills.html">notes</a>)</li>
+<li><strong><a href="https://drive.google.com/file/d/1n4n-L-_7GV-RCOfffZetHPgLc_RScljR/view">The Interview Engine: The 7-Step System to Land AI Engineering Interviews</a></strong> · pdf · drive.google.com · free<br>
+  A BASWE field guide that lays out a 7-step job-search system for software engineers going after AI engineering roles.<br>
+  Mentioned in: Beat the Hiring "Signal Problem": Referrals, Targeting, and Volume (Bashiri Smith on <a href="https://www.facebook.com/reel/2182954155974409">Facebook</a> · <a href="../notes/15-career/2026-09-21-beat-the-hiring-signal-problem-referrals-targeting-and.html">notes</a>)</li>
+<li><strong><a href="https://www.welcometothejungle.com/">Welcome to the Jungle</a></strong> · website · welcometothejungle.com · free<br>
+  Job board and company-profile site for tech and startup roles.<br>
+  Mentioned in: Software Engineer to AI Engineer: Job Boards, Stack, Projects and Learning Sites (Bashiri Smith on <a href="https://www.facebook.com/reel/1650742066760603">Facebook</a> · <a href="../notes/15-career/2026-09-14-software-engineer-to-ai-engineer-job-boards-stack-projects.html">notes</a>)</li>
+<li><strong><a href="https://wellfound.com/">Wellfound</a></strong> · website · wellfound.com · free<br>
+  Startup job platform (formerly AngelList Talent) for finding roles at startups.<br>
+  Mentioned in: Software Engineer to AI Engineer: Job Boards, Stack, Projects and Learning Sites (Bashiri Smith on <a href="https://www.facebook.com/reel/1650742066760603">Facebook</a> · <a href="../notes/15-career/2026-09-14-software-engineer-to-ai-engineer-job-boards-stack-projects.html">notes</a>)</li>
+<li><strong><a href="https://x.com/i/account_analytics">X Analytics</a></strong> · tool · x.com · check price<br>
+  X's built-in account and post analytics: views, engagement and follower growth.<br>
+  Mentioned in: How to Grow an X (Twitter) Account: 9 Practical Tips from Melvin Vivas (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103672859919110290">X</a> · <a href="../notes/15-career/2026-09-26-how-to-grow-an-x-twitter-account-9-practical-tips-from.html">notes</a>)</li>
+<li><strong><a href="https://help.x.com/en/using-x/creator-revenue-sharing">X Creator Revenue Sharing</a></strong> · other · help.x.com · paid · open in a browser to verify<br>
+  X's program that pays verified creators based on engagement with their posts.<br>
+  Mentioned in: How to Grow an X (Twitter) Account: 9 Practical Tips from Melvin Vivas (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103672859919110290">X</a> · <a href="../notes/15-career/2026-09-26-how-to-grow-an-x-twitter-account-9-practical-tips-from.html">notes</a>)</li>
+<li><strong><a href="https://pro.x.com">X Pro</a></strong> · tool · pro.x.com · paid<br>
+  X's multi-column dashboard (formerly TweetDeck) for following timelines, lists and searches in real time.<br>
+  Mentioned in: How to Grow an X (Twitter) Account: 9 Practical Tips from Melvin Vivas (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103672859919110290">X</a> · <a href="../notes/15-career/2026-09-26-how-to-grow-an-x-twitter-account-9-practical-tips-from.html">notes</a>)</li>
+<li><strong><a href="https://www.ycombinator.com/jobs">YC Jobs (Y Combinator Work at a Startup)</a></strong> · website · ycombinator.com · free<br>
+  Job listings at Y Combinator-backed startups.<br>
+  Mentioned in: Software Engineer to AI Engineer: Job Boards, Stack, Projects and Learning Sites (Bashiri Smith on <a href="https://www.facebook.com/reel/1650742066760603">Facebook</a> · <a href="../notes/15-career/2026-09-14-software-engineer-to-ai-engineer-job-boards-stack-projects.html">notes</a>)</li>
+</ul>
+<p><strong>Build</strong></p>
+<ul>
+<li>Find a real problem someone has, build an AI-powered solution for it, and get real users, so you can list problem, solution and user count on your resume. (from <a href="../notes/15-career/2026-09-24-problem-solving-over-keywords-the-ai-skill-that-never.html">Problem Solving Over Keywords: The AI Skill That Never Expires</a>)</li>
+<li>Build a solution to a real problem you find in a field you know well, to show domain knowledge (from <a href="../notes/15-career/2026-09-21-stand-out-in-the-tech-job-market-show-proof-not-applications.html">Stand Out in the Tech Job Market: Show Proof, Not Applications</a>)</li>
+<li>Build software for friends or a small business to show real-world impact (from <a href="../notes/15-career/2026-09-21-stand-out-in-the-tech-job-market-show-proof-not-applications.html">Stand Out in the Tech Job Market: Show Proof, Not Applications</a>)</li>
+<li>Start a freelance practice or small startup around something you built (from <a href="../notes/15-career/2026-09-21-stand-out-in-the-tech-job-market-show-proof-not-applications.html">Stand Out in the Tech Job Market: Show Proof, Not Applications</a>)</li>
+<li>Build a project idea from a specific job description that solves a problem the hiring team cares about, then pitch it in a Loom video. (from <a href="../notes/15-career/2026-09-21-90-day-ai-engineering-job-search-targeted-companies.html">90-Day AI Engineering Job Search: Targeted Companies, Outreach &amp; Loom Pitches</a>)</li>
+<li>Pick one real problem and build, test and deploy an AI solution for it, such as a RAG app that answers questions using your own data. (from <a href="../notes/15-career/2026-09-17-why-software-engineers-should-move-into-ai-engineering.html">Why Software Engineers Should Move Into AI Engineering</a>)</li>
+<li>Build and deploy a production-level application (the video names this as a prerequisite but doesn't describe a specific project). (from <a href="../notes/15-career/2026-09-16-what-it-takes-to-become-a-forward-deployed-engineer-fde.html">What It Takes to Become a Forward-Deployed Engineer (FDE)</a>)</li>
+<li>Knowledge Graph RAG for enterprise data (from <a href="../notes/15-career/2026-09-14-software-engineer-to-ai-engineer-job-boards-stack-projects.html">Software Engineer to AI Engineer: Job Boards, Stack, Projects and Learning Sites</a>)</li>
+<li>Multi-agent research assistant (from <a href="../notes/15-career/2026-09-14-software-engineer-to-ai-engineer-job-boards-stack-projects.html">Software Engineer to AI Engineer: Job Boards, Stack, Projects and Learning Sites</a>)</li>
+<li>Self-healing LLM gateway (from <a href="../notes/15-career/2026-09-14-software-engineer-to-ai-engineer-job-boards-stack-projects.html">Software Engineer to AI Engineer: Job Boards, Stack, Projects and Learning Sites</a>)</li>
+<li>LLM-as-judge evaluations calibrated against human scores (from <a href="../notes/15-career/2026-09-14-software-engineer-to-ai-engineer-job-boards-stack-projects.html">Software Engineer to AI Engineer: Job Boards, Stack, Projects and Learning Sites</a>)</li>
+<li>Model distillation pipeline (from <a href="../notes/15-career/2026-09-14-software-engineer-to-ai-engineer-job-boards-stack-projects.html">Software Engineer to AI Engineer: Job Boards, Stack, Projects and Learning Sites</a>)</li>
+<li>Customer-support AI agent using hybrid search plus a re-ranker, with tests for answer accuracy. (from <a href="../notes/15-career/2026-09-09-ai-engineer-vs-forward-deployed-engineer-which-role-fits-you.html">AI Engineer vs Forward Deployed Engineer: Which Role Fits You?</a>)</li>
+<li>Connect a support agent to a ticketing system with permission handling, and measure whether tickets get resolved faster. (from <a href="../notes/15-career/2026-09-09-ai-engineer-vs-forward-deployed-engineer-which-role-fits-you.html">AI Engineer vs Forward Deployed Engineer: Which Role Fits You?</a>)</li>
+<li>Build a project using a modern GenAI tech stack, such as a RAG application. (from <a href="../notes/15-career/2026-08-30-red-flags-that-hurt-your-chances-of-landing-an-ai-era.html">Red Flags That Hurt Your Chances of Landing an AI-Era Coding Job</a>)</li>
+</ul><nav class="pager" aria-label="Topics"><a rel="prev" href="projects.html">&larr; Portfolio Projects</a><a rel="next" href="trends.html">Industry Trends &amp; Job Market &rarr;</a></nav>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../license.html">License</a> &middot; <a href="../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

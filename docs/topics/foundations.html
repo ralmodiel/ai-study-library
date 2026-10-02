@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Programming &amp; ML Foundations: free resources and study plan | AI…</title>
+<meta name="description" content="Python, software engineering, math and classic machine/deep learning basics. 15 summarised reels and posts and 50 linked resources (4 free to watch), from…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/topics/foundations.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Programming &amp; ML Foundations: free resources and study plan | AI…">
+<meta property="og:description" content="Python, software engineering, math and classic machine/deep learning basics. 15 summarised reels and posts and 50 linked resources (4 free to watch), from…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/topics/foundations.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://ralmodiel.github.io/ai-study-library/topics/foundations.html","name":"Programming & ML Foundations","url":"https://ralmodiel.github.io/ai-study-library/topics/foundations.html","description":"Python, software engineering, math and classic machine/deep learning basics.","about":{"@type":"Thing","name":"Programming & ML Foundations"},"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"inLanguage":"en"},{"@type":"WebSite","@id":"https://ralmodiel.github.io/ai-study-library/#website","name":"AI Engineer Study Library","url":"https://ralmodiel.github.io/ai-study-library/","inLanguage":"en","publisher":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"}},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"Programming & ML Foundations"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../learning-path.html">Learning path</a><a href="../free-watch-list.html">Free to watch</a><a href="../resources.html">All resources</a><a href="../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../">Library</a> &rsaquo; <a href="../learning-path.html">Learning path</a> &rsaquo; <span aria-current="page">Programming &amp; ML Foundations</span></nav><p class="step">Topic 2 of 16 in the <a href="../learning-path.html">learning path</a></p><h1>Programming &amp; ML Foundations</h1>
+<p><em>Python, software engineering, math and classic machine/deep learning basics.</em></p>
+<p><strong>Reels and posts (4)</strong></p>
+<ul>
+<li><a href="../notes/02-foundations/2026-09-28-run-notebooks-on-a-free-gpu-with-google-colab-t4-15gb-vram.html">Run Notebooks on a Free GPU with Google Colab (T4, 15GB VRAM)</a> · Melvin Vivas, X · 0:17: The post's caption is excited about Claude Opus 5.5 turning the creator's raw clips into shorts.</li>
+<li><a href="../notes/02-foundations/2026-09-20-5-books-to-move-from-software-engineer-to-ai-ml-engineer.html">5 Books to Move from Software Engineer to AI/ML Engineer</a> · Bashiri Smith, Facebook · 0:13: A short reel listing five books for software engineers moving into AI/ML engineering.</li>
+<li><a href="../notes/02-foundations/2026-09-18-software-engineering-fundamentals-before-ai-engineering.html">Software Engineering Fundamentals Before AI Engineering</a> · Bashiri Smith, Facebook · 0:49: Bashiri Smith says many people struggle to become AI engineers because their software engineering skills are weak.</li>
+<li><a href="../notes/02-foundations/2026-07-29-why-coding-fundamentals-still-matter-in-the-ai-era.html">Why Coding Fundamentals Still Matter in the AI Era</a> · Melvin Vivas, X: The creator argues that people who learned to code before AI have an advantage.</li>
+</ul>
+<p><strong>Watch, free (3)</strong></p>
+<ul>
+<li><strong><a href="https://karpathy.ai/zero-to-hero.html">Neural Networks: Zero to Hero (Andrej Karpathy)</a></strong> · course · karpathy.ai · free<br>
+  Free YouTube series by Andrej Karpathy that builds neural networks and GPT-style language models from scratch in code.<br>
+  Mentioned in: AI Engineer Roadmap Before 2027: Fundamentals, RAG, Agents, Ops, Evals (Bashiri Smith on <a href="https://www.facebook.com/reel/943434268837194">Facebook</a> · <a href="../notes/01-roadmap/2026-09-19-ai-engineer-roadmap-before-2027-fundamentals-rag-agents-ops.html">notes</a>), AI Engineer Roadmap: Fundamentals, RAG, Agents, Books &amp; Your First AI Service (Bashiri Smith on <a href="https://www.facebook.com/reel/2012814779367142">Facebook</a> · <a href="../notes/01-roadmap/2026-08-28-ai-engineer-roadmap-fundamentals-rag-agents-books-your.html">notes</a>)</li>
+<li><strong><a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi">3Blue1Brown Neural Networks series</a></strong> · video · youtube.com · free<br>
+  A visual series by 3Blue1Brown explaining neural networks, backpropagation and transformers.<br>
+  Mentioned in: AI Engineer Roadmap: Fundamentals, RAG, Agents, Books &amp; Your First AI Service (Bashiri Smith on <a href="https://www.facebook.com/reel/2012814779367142">Facebook</a> · <a href="../notes/01-roadmap/2026-08-28-ai-engineer-roadmap-fundamentals-rag-agents-books-your.html">notes</a>)</li>
+<li><strong><a href="https://www.freecodecamp.org">freeCodeCamp</a></strong> · channel · freecodecamp.org · free<br>
+  Nonprofit that publishes free, full-length programming and AI courses.<br>
+  Mentioned in: 6 Free Videos to Move from Software Engineer to AI Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1615291686990735">Facebook</a> · <a href="../notes/01-roadmap/2026-09-28-6-free-videos-to-move-from-software-engineer-to-ai-engineer.html">notes</a>)</li>
+</ul>
+<p><strong>Read and use (34)</strong></p>
+<ul>
+<li><strong><a href="https://colab.research.google.com/">Google Colab</a></strong> · tool · colab.research.google.com · free<br>
+  Browser-based Jupyter notebook service from Google with free GPU access (T4) for running ML notebooks.<br>
+  Mentioned in: Run Notebooks on a Free GPU with Google Colab (T4, 15GB VRAM) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104526931538616773">X</a> · <a href="../notes/02-foundations/2026-09-28-run-notebooks-on-a-free-gpu-with-google-colab-t4-15gb-vram.html">notes</a>), Run Local Models on a Free GPU with Google Colab (T4) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103502126865658236">X</a> · <a href="../notes/10-fine-tuning/2026-09-25-run-local-models-on-a-free-gpu-with-google-colab-t4.html">notes</a>), Free Colab Notebooks for Local Model Fine-Tuning and Inference (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103489519815442882">X</a> · <a href="../notes/10-fine-tuning/2026-09-25-free-colab-notebooks-for-local-model-fine-tuning-and.html">notes</a>), Intent classification for support using GLiNER2.5-Decide notebook (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103372920605331589">X</a> · <a href="../notes/03-llm-fundamentals/2026-09-25-intent-classification-for-support-using-gliner2-5-decide.html">notes</a>) and 13 more</li>
+<li><strong><a href="https://pytorch.org">PyTorch</a></strong> · tool · pytorch.org · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Deep-learning framework. Its built-in scaled dot-product attention (SDP) was the baseline in this benchmark.<br>
+  Mentioned in: Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="../notes/01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), Wannabe vs $200K+ AI Engineer: RAG, Agents, Context and Fine-Tuning Mistakes (Bashiri Smith on <a href="https://www.facebook.com/reel/28509399318713823">Facebook</a> · <a href="../notes/06-rag/2026-09-27-wannabe-vs-200k-ai-engineer-rag-agents-context-and-fine.html">notes</a>), AI DevBox v1.3.0: a GPU-ready Docker image with coding-agent CLIs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103720219491619025">X</a> · <a href="../notes/13-ai-tools/2026-09-26-ai-devbox-v1-3-0-a-gpu-ready-docker-image-with-coding-agent.html">notes</a>), Docker image with coding agents pre-installed on a CUDA + PyTorch base (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099758058876649922">X</a> · <a href="../notes/13-ai-tools/2026-09-15-docker-image-with-coding-agents-pre-installed-on-a-cuda.html">notes</a>) and 6 more</li>
+<li><strong><a href="https://www.sqlite.org">SQLite</a></strong> · tool · sqlite.org · free<br>
+  A lightweight embedded SQL database stored in a file.<br>
+  Mentioned in: Why Plan Mode Still Matters in AI Coding Agents (Codex, Claude, Cursor) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104223654678839637">X</a> · <a href="../notes/13-ai-tools/2026-09-27-why-plan-mode-still-matters-in-ai-coding-agents-codex.html">notes</a>), Running Qwen3.8-27B EXL3 Locally on an RTX 3090 with 220K+ Context (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2094737166354293091">X</a> · <a href="../notes/09-llmops/2026-09-01-running-qwen3-8-27b-exl3-locally-on-an-rtx-3090-with-220k.html">notes</a>), One-Shotting a Slack Clone with Fable 5 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2064807455435956586">X</a> · <a href="../notes/13-ai-tools/2026-06-11-one-shotting-a-slack-clone-with-fable-5.html">notes</a>), Google Antigravity 2.0: Multi-Agent Desktop App Walkthrough (Subagents, Scheduled Tasks) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2056815299677290730">X</a> · <a href="../notes/13-ai-tools/2026-05-19-google-antigravity-2-0-multi-agent-desktop-app-walkthrough.html">notes</a>) and 1 more</li>
+<li><strong><a href="https://developer.nvidia.com/cuda-toolkit">CUDA</a></strong> · tool · developer.nvidia.com · free<br>
+  NVIDIA's GPU computing platform, needed for GPU-accelerated deep learning.<br>
+  Mentioned in: AI DevBox v1.3.0: a GPU-ready Docker image with coding-agent CLIs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103720219491619025">X</a> · <a href="../notes/13-ai-tools/2026-09-26-ai-devbox-v1-3-0-a-gpu-ready-docker-image-with-coding-agent.html">notes</a>), GPU-Ready AI Devbox Docker Image on Runpod (PyTorch 2.8 + CUDA 12.8) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2095486635349880962">X</a> · <a href="../notes/13-ai-tools/2026-09-03-gpu-ready-ai-devbox-docker-image-on-runpod-pytorch-2-8-cuda.html">notes</a>), Reusable GPU devbox: PyTorch/CUDA plus six coding agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2095138320481390772">X</a> · <a href="../notes/13-ai-tools/2026-09-02-reusable-gpu-devbox-pytorch-cuda-plus-six-coding-agents.html">notes</a>), Jensen Huang on NVIDIA's Long-Term Commitment to Open Nemotron Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2034093172129984515">X</a> · <a href="../notes/16-trends/2026-03-18-jensen-huang-on-nvidia-s-long-term-commitment-to-open.html">notes</a>)</li>
+<li><strong><a href="https://jupyter.org/">Jupyter Notebook</a></strong> · tool · jupyter.org · free<br>
+  An interactive notebook format (.ipynb) that mixes code and output. Colab can open these files.<br>
+  Mentioned in: AI DevBox v1.3.0: a GPU-ready Docker image with coding-agent CLIs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103720219491619025">X</a> · <a href="../notes/13-ai-tools/2026-09-26-ai-devbox-v1-3-0-a-gpu-ready-docker-image-with-coding-agent.html">notes</a>), Run Local Models on a Free GPU with Google Colab (T4) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103502126865658236">X</a> · <a href="../notes/10-fine-tuning/2026-09-25-run-local-models-on-a-free-gpu-with-google-colab-t4.html">notes</a>), Q&amp;A Over Your Own PDFs with LlamaIndex, OpenAI and Python (2023) (Melvin Vivas on <a href="https://www.melvinvivas.com/chatgpt-openai-langchain-llama-index-generative-text-ai">melvinvivas.com</a> · <a href="../notes/06-rag/2023-04-08-q-a-over-your-own-pdfs-with-llamaindex-openai-and-python.html">notes</a>)</li>
+<li><strong><a href="https://nextjs.org">Next.js</a></strong> · tool · nextjs.org · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Open-source React framework for building full-stack web apps.<br>
+  Mentioned in: Problem Solving Over Keywords: The AI Skill That Never Expires (Bashiri Smith on <a href="https://www.facebook.com/reel/1048528874852440">Facebook</a> · <a href="../notes/15-career/2026-09-24-problem-solving-over-keywords-the-ai-skill-that-never.html">notes</a>), Is Indie Hacking Dead? How AI Coding Changes the Micro-SaaS Playbook (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2082811111192367241">X</a> · <a href="../notes/16-trends/2026-07-30-is-indie-hacking-dead-how-ai-coding-changes-the-micro-saas.html">notes</a>), Building and Deploying a Full App with the Codex App, MCP Servers and Skills (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2028108822850773077">X</a> · <a href="../notes/13-ai-tools/2026-03-01-building-and-deploying-a-full-app-with-the-codex-app-mcp.html">notes</a>)</li>
+<li><strong><a href="https://www.python.org">Python</a></strong> · tool · python.org · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  A programming language that comes preinstalled on Droplets created by the plugin.<br>
+  Mentioned in: Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="../notes/01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), Software Engineer to AI Engineer: Job Boards, Stack, Projects and Learning Sites (Bashiri Smith on <a href="https://www.facebook.com/reel/1650742066760603">Facebook</a> · <a href="../notes/15-career/2026-09-14-software-engineer-to-ai-engineer-job-boards-stack-projects.html">notes</a>), Run Codex in the Cloud: Spin Up DigitalOcean Droplets with the Codex Plugin (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2070417052180078667">X</a> · <a href="../notes/13-ai-tools/2026-06-26-run-codex-in-the-cloud-spin-up-digitalocean-droplets-with.html">notes</a>)</li>
+<li><strong><a href="https://www.deeplearningbook.org/">Deep Learning</a></strong> · book · deeplearningbook.org · free<br>
+  Strengthens your conceptual understanding as an AI engineer, and is essential for an ML engineer who wants to go far.<br>
+  Mentioned in: 5 Books to Move from Software Engineer to AI/ML Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1462121052468374">Facebook</a> · <a href="../notes/02-foundations/2026-09-20-5-books-to-move-from-software-engineer-to-ai-ml-engineer.html">notes</a>)<br>
+  In a shared PDF: <a href="https://docs.google.com/document/d/1yIw_P6KCcDnz1KqZ1JZo4Sx-js9zpKxv2NnoTpN0DYw/edit?usp=sharing">5 books to upgrade from software engineer into Ai/ML engineer</a> - shared in <a href="https://www.facebook.com/reel/1462121052468374">this reel on Facebook</a></li>
+<li><strong><a href="https://www.electronjs.org">Electron</a></strong> · tool · electronjs.org · free<br>
+  Framework for building cross-platform desktop apps with web technologies.<br>
+  Mentioned in: Coworker: An Open-Source Desktop Agent App for Local and Cloud Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099551050130936120">X</a> · <a href="../notes/07-agents/2026-09-15-coworker-an-open-source-desktop-agent-app-for-local-and.html">notes</a>), One-Shotting a Slack Clone with Fable 5 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2064807455435956586">X</a> · <a href="../notes/13-ai-tools/2026-06-11-one-shotting-a-slack-clone-with-fable-5.html">notes</a>)</li>
+<li><strong><a href="https://git-scm.com">Git</a></strong> · tool · git-scm.com · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Version control system. Conductor uses its worktree feature to give each agent an isolated copy of the repo.<br>
+  Mentioned in: AI Engineer Roadmap for 2026 in 60 Seconds (Bashiri Smith on <a href="https://www.facebook.com/reel/1601172415086808">Facebook</a> · <a href="../notes/01-roadmap/2026-09-11-ai-engineer-roadmap-for-2026-in-60-seconds.html">notes</a>), Conductor Walkthrough: Running Parallel Coding Agents in Isolated Git Worktrees (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2069521472742404424">X</a> · <a href="../notes/13-ai-tools/2026-06-23-conductor-walkthrough-running-parallel-coding-agents-in.html">notes</a>)</li>
+<li><strong><a href="https://nodejs.org">Node.js</a></strong> · tool · nodejs.org · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  A JavaScript runtime that comes preinstalled on Droplets created by the plugin.<br>
+  Mentioned in: Problem Solving Over Keywords: The AI Skill That Never Expires (Bashiri Smith on <a href="https://www.facebook.com/reel/1048528874852440">Facebook</a> · <a href="../notes/15-career/2026-09-24-problem-solving-over-keywords-the-ai-skill-that-never.html">notes</a>), Run Codex in the Cloud: Spin Up DigitalOcean Droplets with the Codex Plugin (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2070417052180078667">X</a> · <a href="../notes/13-ai-tools/2026-06-26-run-codex-in-the-cloud-spin-up-digitalocean-droplets-with.html">notes</a>)</li>
+<li><strong><a href="https://scikit-learn.org/stable/">scikit-learn</a></strong> · tool · scikit-learn.org · free<br>
+  A Python machine learning library for building pipelines and training classic ML models.<br>
+  Mentioned in: Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="../notes/01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), Five Core AI Engineering Topic Areas: A Study Roadmap Checklist (Bashiri Smith on <a href="https://www.facebook.com/reel/1769177294097565">Facebook</a> · <a href="../notes/01-roadmap/2026-08-25-five-core-ai-engineering-topic-areas-a-study-roadmap.html">notes</a>)</li>
+<li><strong><a href="https://github.com/ranaroussi/yfinance">yfinance</a></strong> · repo · github.com · free<br>
+  Open-source Python library for downloading Yahoo Finance market data.<br>
+  Mentioned in: Qwen 3.5 One-Shots a Python Stock Analyzer App with yfinance (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2028133455671001556">X</a> · <a href="../notes/03-llm-fundamentals/2026-03-01-qwen-3-5-one-shots-a-python-stock-analyzer-app-with-yfinance.html">notes</a>), Prompting Qwen 3.5 to Build a yfinance Stock Analyzer (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2028130616890523976">X</a> · <a href="../notes/13-ai-tools/2026-03-01-prompting-qwen-3-5-to-build-a-yfinance-stock-analyzer.html">notes</a>)</li>
+<li><strong><a href="https://datatalks.club">DataTalksClub</a></strong> · community · datatalks.club · free<br>
+  Free data/ML engineering community with free courses; this was the affected course platform.<br>
+  Mentioned in: Cautionary Tale: Claude Code Wiped a Production Database via Terraform (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2029973896397832255">X</a> · <a href="../notes/11-safety/2026-03-07-cautionary-tale-claude-code-wiped-a-production-database-via.html">notes</a>)</li>
+<li><strong><a href="https://effect.website">Effect</a></strong> · tool · effect.website · free<br>
+  Open-source TypeScript library for building robust, type-safe applications.<br>
+  Mentioned in: Theo's YouTube Packaging Masterclass: Thumbnails, Titles and the Algorithm (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099731305567322378">X</a> · <a href="../notes/15-career/2026-09-15-theo-s-youtube-packaging-masterclass-thumbnails-titles-and.html">notes</a>)</li>
+<li><strong><a href="https://expo.dev">Expo</a></strong> · tool · expo.dev · free<br>
+  A framework and platform for building React Native apps.<br>
+  Mentioned in: Livestream: Building a React Native ChatGPT App with Cursor and OpenAI (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099388668909850812">X</a> · <a href="../notes/13-ai-tools/2026-09-14-livestream-building-a-react-native-chatgpt-app-with-cursor.html">notes</a>)</li>
+<li><strong><a href="https://expressjs.com">Express</a></strong> · tool · expressjs.com · free<br>
+  A minimal Node.js web framework for building APIs.<br>
+  Mentioned in: Local Qwen 3.5 Adds an Express API and SQLite to Make an App Full-Stack (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2030343979829801360">X</a> · <a href="../notes/13-ai-tools/2026-03-08-local-qwen-3-5-adds-an-express-api-and-sqlite-to-make-an.html">notes</a>)</li>
+<li><strong><a href="https://go.dev">Go (programming language)</a></strong> · tool · go.dev · free<br>
+  The compiled programming language used to rebuild Pi as a single native binary.<br>
+  Mentioned in: PiG: The Pi Coding Agent Rebuilt in Go as a Single Native Binary (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104361883054813305">X</a> · <a href="../notes/13-ai-tools/2026-09-28-pig-the-pi-coding-agent-rebuilt-in-go-as-a-single-native.html">notes</a>)</li>
+<li><strong><a href="https://homl.info/">Hands-On Machine Learning with Scikit-Learn and PyTorch</a></strong> · book · homl.info · paid<br>
+  Aurelien Geron's hands-on ML book; the official site has the notebooks plus free online chapters and appendices.<br>
+  Mentioned in: 5 Books to Move from Software Engineer to AI/ML Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1462121052468374">Facebook</a> · <a href="../notes/02-foundations/2026-09-20-5-books-to-move-from-software-engineer-to-ai-ml-engineer.html">notes</a>)</li>
+<li><strong><a href="https://ageron.github.io/homlp/HOMLP_Appendix_E.pdf">Hands-On Machine Learning with Scikit-Learn and PyTorch (Aurélien Géron)</a></strong> · book · ageron.github.io · check price<br>
+  Hands-on guide to ML techniques. A basic grasp of them helps AI engineers and is essential for ML engineers. The link only goes to the free Appendix E PDF, not the full book.<br>
+  In a shared PDF: <a href="https://docs.google.com/document/d/1yIw_P6KCcDnz1KqZ1JZo4Sx-js9zpKxv2NnoTpN0DYw/edit?usp=sharing">5 books to upgrade from software engineer into Ai/ML engineer</a> - shared in <a href="https://www.facebook.com/reel/1462121052468374">this reel on Facebook</a></li>
+<li><strong><a href="https://www.jbang.dev">JBang</a></strong> · tool · jbang.dev · free<br>
+  Tool for running Java programs and scripts directly, without a build setup.<br>
+  Mentioned in: CamelFlow: open-source visual viewer for Apache Camel routes (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104855828822204518">X</a> · <a href="../notes/13-ai-tools/2026-09-29-camelflow-open-source-visual-viewer-for-apache-camel-routes.html">notes</a>)</li>
+<li><strong><a href="https://www.latex-project.org">LaTeX</a></strong> · tool · latex-project.org · free<br>
+  Typesetting system for math notation; the agent added LaTeX equation rendering to Excalidraw.<br>
+  Mentioned in: Cursor Cloud Agents: Onboarding, Self-Testing on a Remote Desktop, Video Demos (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2054439149982408826">X</a> · <a href="../notes/13-ai-tools/2026-05-13-cursor-cloud-agents-onboarding-self-testing-on-a-remote.html">notes</a>)</li>
+<li><strong><a href="https://mml-book.github.io/">Mathematics for Machine Learning</a></strong> · book · mml-book.github.io · free<br>
+  Book by Deisenroth, Faisal and Ong covering the linear algebra, calculus, probability and optimization behind ML.<br>
+  Mentioned in: 5 Books to Move from Software Engineer to AI/ML Engineer (Bashiri Smith on <a href="https://www.facebook.com/reel/1462121052468374">Facebook</a> · <a href="../notes/02-foundations/2026-09-20-5-books-to-move-from-software-engineer-to-ai-ml-engineer.html">notes</a>)</li>
+<li><strong><a href="https://mml-book.github.io/book/mml-book.pdf">Mathematics for Machine Learning (Deisenroth, Faisal, Ong)</a></strong> · book · mml-book.github.io · free<br>
+  Math for ML. You don't strictly need it to be an AI engineer, though it is very useful, but you do need math to be an ML engineer.<br>
+  In a shared PDF: <a href="https://docs.google.com/document/d/1yIw_P6KCcDnz1KqZ1JZo4Sx-js9zpKxv2NnoTpN0DYw/edit?usp=sharing">5 books to upgrade from software engineer into Ai/ML engineer</a> - shared in <a href="https://www.facebook.com/reel/1462121052468374">this reel on Facebook</a></li>
+<li><strong><a href="https://mlflow.org">MLflow</a></strong> · tool · mlflow.org · free<br>
+  An open-source platform for tracking ML experiments, managing models and handling deployment.<br>
+  Mentioned in: Five Core AI Engineering Topic Areas: A Study Roadmap Checklist (Bashiri Smith on <a href="https://www.facebook.com/reel/1769177294097565">Facebook</a> · <a href="../notes/01-roadmap/2026-08-25-five-core-ai-engineering-topic-areas-a-study-roadmap.html">notes</a>)</li>
+<li><strong><a href="https://www.postgresql.org">PostgreSQL</a></strong> · tool · postgresql.org · free<br>
+  Open-source relational database.<br>
+  Mentioned in: Why Plan Mode Still Matters in AI Coding Agents (Codex, Claude, Cursor) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104223654678839637">X</a> · <a href="../notes/13-ai-tools/2026-09-27-why-plan-mode-still-matters-in-ai-coding-agents-codex.html">notes</a>)</li>
+<li><strong><a href="https://www.prisma.io">Prisma</a></strong> · tool · prisma.io · free<br>
+  TypeScript ORM with a migration tool.<br>
+  Mentioned in: Don't Let Coding Agents Run Database Migrations Unsupervised (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2082512880034009559">X</a> · <a href="../notes/11-safety/2026-07-30-don-t-let-coding-agents-run-database-migrations-unsupervised.html">notes</a>)</li>
+<li><strong><a href="https://react.dev">React</a></strong> · tool · react.dev · free<br>
+  JavaScript library for building user interfaces.<br>
+  Mentioned in: Problem Solving Over Keywords: The AI Skill That Never Expires (Bashiri Smith on <a href="https://www.facebook.com/reel/1048528874852440">Facebook</a> · <a href="../notes/15-career/2026-09-24-problem-solving-over-keywords-the-ai-skill-that-never.html">notes</a>)</li>
+<li><strong><a href="https://reactnative.dev">React Native</a></strong> · tool · reactnative.dev · free<br>
+  Meta's open-source framework for building native iOS and Android apps with JavaScript/TypeScript and React.<br>
+  Mentioned in: Gemma 4 Coming to React Native: On-Device LLMs for Mobile Apps (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2051364698902467000">X</a> · <a href="../notes/16-trends/2026-05-04-gemma-4-coming-to-react-native-on-device-llms-for-mobile.html">notes</a>)</li>
+<li><strong><a href="https://supabase.com">Supabase</a></strong> · tool · supabase.com · free<br>
+  Hosted Postgres backend platform.<br>
+  Mentioned in: Don't Let Coding Agents Run Database Migrations Unsupervised (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2082512880034009559">X</a> · <a href="../notes/11-safety/2026-07-30-don-t-let-coding-agents-run-database-migrations-unsupervised.html">notes</a>)</li>
+<li><strong><a href="https://tailwindcss.com">Tailwind CSS</a></strong> · tool · tailwindcss.com · free<br>
+  Utility-first CSS framework.<br>
+  Mentioned in: One-Shotting a Slack Clone with Fable 5 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2064807455435956586">X</a> · <a href="../notes/13-ai-tools/2026-06-11-one-shotting-a-slack-clone-with-fable-5.html">notes</a>)</li>
+<li><strong><a href="https://tauri.app">Tauri</a></strong> · tool · tauri.app · free<br>
+  Framework for building desktop apps, which Conductor itself is built with.<br>
+  Mentioned in: Conductor Walkthrough: Running Parallel Coding Agents in Isolated Git Worktrees (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2069521472742404424">X</a> · <a href="../notes/13-ai-tools/2026-06-23-conductor-walkthrough-running-parallel-coding-agents-in.html">notes</a>)</li>
+<li><strong><a href="https://github.com/ChrisBuilds/terminaltexteffects">TerminalTextEffects</a></strong> · repo · github.com · free<br>
+  Python library for visual text effects in the terminal; the original that was rewritten.<br>
+  Mentioned in: AI One-Shot Rust Rewrite of TerminalTextEffects: 43x Faster Startup (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2086674472455831859">X</a> · <a href="../notes/13-ai-tools/2026-08-10-ai-one-shot-rust-rewrite-of-terminaltexteffects-43x-faster.html">notes</a>)</li>
+<li><strong><a href="https://www.typescriptlang.org">TypeScript</a></strong> · tool · typescriptlang.org · free<br>
+  Typed superset of JavaScript.<br>
+  Mentioned in: One-Shotting a Slack Clone with Fable 5 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2064807455435956586">X</a> · <a href="../notes/13-ai-tools/2026-06-11-one-shotting-a-slack-clone-with-fable-5.html">notes</a>)</li>
+</ul><nav class="pager" aria-label="Topics"><a rel="prev" href="roadmap.html">&larr; Start Here: Roadmaps &amp; Strategy</a><a rel="next" href="llm-fundamentals.html">LLM Fundamentals &rarr;</a></nav>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../license.html">License</a> &middot; <a href="../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

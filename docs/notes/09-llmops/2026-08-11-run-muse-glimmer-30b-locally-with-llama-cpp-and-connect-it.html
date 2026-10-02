@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Run Muse Glimmer 30B Locally with llama.cpp and Connect It to Hermes…</title>
+<meta name="description" content="This post is a step-by-step guide to serving Unsloth&#x27;s quantized Muse Glimmer 30B GGUF model on one RTX 3090 (24 GB) using llama.cpp built with CUDA under WSL…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-08-11-run-muse-glimmer-30b-locally-with-llama-cpp-and-connect-it.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Run Muse Glimmer 30B Locally with llama.cpp and Connect It to Hermes…">
+<meta property="og:description" content="This post is a step-by-step guide to serving Unsloth&#x27;s quantized Muse Glimmer 30B GGUF model on one RTX 3090 (24 GB) using llama.cpp built with CUDA under WSL…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-08-11-run-muse-glimmer-30b-locally-with-llama-cpp-and-connect-it.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-08-11-run-muse-glimmer-30b-locally-with-llama-cpp-and-connect-it.html#note","headline":"Run Muse Glimmer 30B Locally with llama.cpp and Connect It to Hermes Agent","description":"This post is a step-by-step guide to serving Unsloth's quantized Muse Glimmer 30B GGUF model on one RTX 3090 (24 GB) using llama.cpp built with CUDA under WSL Ubuntu on Windows 11. It covers building llama-server, the launch flags and sampling settings, a health check, and pointing an agent…","url":"https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-08-11-run-muse-glimmer-30b-locally-with-llama-cpp-and-connect-it.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"LLMOps, Deployment & Monitoring"},{"@type":"Thing","name":"AI Agents, Tool Use & MCP"},{"@type":"Thing","name":"LLM Fundamentals"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2087038764136972499","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-08-11"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-08-11-run-muse-glimmer-30b-locally-with-llama-cpp-and-connect-it.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"LLMOps, Deployment & Monitoring","item":"https://ralmodiel.github.io/ai-study-library/topics/llmops.html"},{"@type":"ListItem","position":4,"name":"Run Muse Glimmer 30B Locally with llama.cpp and Connect It to Hermes Agent"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/llmops.html">LLMOps, Deployment &amp; Monitoring</a> &rsaquo; <span aria-current="page">Run Muse Glimmer 30B Locally with llama.cpp and Connect It to Hermes Agent</span></nav><h1>Run Muse Glimmer 30B Locally with llama.cpp and Connect It to Hermes Agent</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2087038764136972499">a post by Melvin Vivas on X</a>, posted 11 August 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X post · 2026-08-11 · <a href="https://x.com/melvindvivas/status/2087038764136972499">Open on X</a></p>
+<p><strong>Topics:</strong> LLMOps, Deployment &amp; Monitoring, AI Agents, Tool Use &amp; MCP, LLM Fundamentals · <strong>Level:</strong> intermediate</p>
+<h2>Summary</h2>
+<p>This post is a step-by-step guide to serving Unsloth's quantized Muse Glimmer 30B GGUF model on one RTX 3090 (24 GB) using llama.cpp built with CUDA under WSL Ubuntu on Windows 11. It covers building llama-server, the launch flags and sampling settings, a health check, and pointing an agent (Hermes Agent) at the local OpenAI-compatible endpoint. The author says OpenClaw and Pi should also work but hasn't tested them.</p>
+<h2>Key points</h2>
+<ul>
+<li>Setup: Windows 11 Pro + WSL Ubuntu 24.04.1, RTX 3090. Uses about 23 GB VRAM at full 65,536-token context with the unsloth/Muse-Glimmer-30B-GGUF:UD-Q4_K_XL quantization.</li>
+<li>Build llama.cpp with CUDA: git clone the ggml-org/llama.cpp repo, then run <code>cmake -S . -B build-cuda -DGGML_CUDA=ON -DLLAMA_OPENSSL=ON</code> and <code>cmake --build build-cuda --config Release --target llama-server -j 8</code>.</li>
+<li>Launch with <code>./build-cuda/bin/llama-server -hf unsloth/Muse-Glimmer-30B-GGUF:UD-Q4_K_XL</code>. The -hf flag downloads the model straight from Hugging Face.</li>
+<li>Server flags: --ctx-size 65536, --parallel 1, --alias unsloth-Muse-Glimmer-30B-GGUF, --host 127.0.0.1, --port 8001. Raise ctx-size if you have spare VRAM; any port works.</li>
+<li>Sampling settings: --temp 1.0, --top-p 0.95, --top-k 64.</li>
+<li>Check the server with <code>curl -fsS http://localhost:8001/health</code>. The OpenAI-compatible base URL is http://localhost:8001/v1.</li>
+<li>Hermes Agent setup: choose Custom endpoint, Base URL http://localhost:8001/v1, leave the API key empty, Model = the alias (unsloth-Muse-Glimmer-30B-GGUF), Context length 65536, API mode chat_completions.</li>
+<li>Any agent that can use an OpenAI-compatible endpoint (the author names OpenClaw and Pi, untested) should work with the same settings.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a></strong> · repo · github.com · free<br>
+  An open-source C/C++ engine for running GGUF models locally. Its llama-server command provides an OpenAI-compatible HTTP server.<br>
+  Also in: Running LLMs Locally Without an Expensive Rig (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104363353045123168">X</a> · <a href="../03-llm-fundamentals/2026-09-28-running-llms-locally-without-an-expensive-rig.html">notes</a>), llama.cpp / Llama-macOS v0.5.0 release (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102927420282302776">X</a> · <a href="2026-09-24-llama-cpp-llama-macos-v0-5-0-release.html">notes</a>), Run llama.cpp GGUF Checkpoints in Hugging Face Transformers (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102409652449472740">X</a> · <a href="2026-09-22-run-llama-cpp-gguf-checkpoints-in-hugging-face-transformers.html">notes</a>), llama.cpp v0.4.1 release announcement (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099579358268760083">X</a> · <a href="2026-09-15-llama-cpp-v0-4-1-release-announcement.html">notes</a>) and 28 more</li>
+<li><strong><a href="https://huggingface.co/unsloth/Muse-Glimmer-30B-GGUF">unsloth/Muse-Glimmer-30B-GGUF</a></strong> · tool · huggingface.co · free<br>
+  Unsloth's GGUF quantizations of Meta's Muse Glimmer 30B open-weights model, used here with the UD-Q4_K_XL quant.<br>
+  Also in: Three Local GGUF Models That Fit on an RTX 3090 (24GB) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2097627753935929670">X</a> · <a href="../03-llm-fundamentals/2026-09-09-three-local-gguf-models-that-fit-on-an-rtx-3090-24gb.html">notes</a>), Run Muse Glimmer 30B Locally on an RTX 3090 with llama.cpp (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2087923865813193027">X</a> · <a href="2026-08-13-run-muse-glimmer-30b-locally-on-an-rtx-3090-with-llama-cpp.html">notes</a>), Running Muse Glimmer 30B Locally with llama.cpp and the Hermes Agent (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2087041258766413927">X</a> · <a href="2026-08-11-running-muse-glimmer-30b-locally-with-llama-cpp-and-the.html">notes</a>)</li>
+<li><strong><a href="https://x.com/UnslothAI">Unsloth</a></strong> · tool · x.com · free<br>
+  Open-source web UI from Unsloth for fine-tuning and running LLMs (text, vision, audio, embedding, GGUF) locally, with dataset creation from documents.<br>
+  Also in: Run Laya Decision models locally with Unsloth on 4GB RAM (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104744976089579549">X</a> · <a href="2026-09-29-run-laya-decision-models-locally-with-unsloth-on-4gb-ram.html">notes</a>), Unsloth passes 500M model downloads on Hugging Face (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102849447885734173">X</a> · <a href="../16-trends/2026-09-24-unsloth-passes-500m-model-downloads-on-hugging-face.html">notes</a>), Run Qwen-Image-2.1 locally on 12GB VRAM with Unsloth GGUFs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102440958164115529">X</a> · <a href="2026-09-23-run-qwen-image-2-1-locally-on-12gb-vram-with-unsloth-ggufs.html">notes</a>), Base vs fine-tuned Gemma 4 E2B as a model router (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101538253929406562">X</a> · <a href="../10-fine-tuning/2026-09-20-base-vs-fine-tuned-gemma-4-e2b-as-a-model-router.html">notes</a>) and 29 more</li>
+<li><strong><a href="https://github.com/NousResearch/hermes-agent">Hermes Agent</a></strong> · tool · github.com · free<br>
+  Nous Research's open-source AI agent with CLI, TUI and desktop interfaces. It now supports hands-free activation with a wake word.<br>
+  Also in: Inspecting Coding-Agent Traces Live with JSONL Viewer (Codex, Claude Code) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2096783580596989985">X</a> · <a href="../07-agents/2026-09-07-inspecting-coding-agent-traces-live-with-jsonl-viewer-codex.html">notes</a>), Hermes Agent: each bot is its own profile (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2091050200450412860">X</a> · <a href="../07-agents/2026-08-22-hermes-agent-each-bot-is-its-own-profile.html">notes</a>), An X research bot built with Hermes (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2091048347520077994">X</a> · <a href="../07-agents/2026-08-22-an-x-research-bot-built-with-hermes.html">notes</a>), Run Your Hermes Agent on Free LFM2.5-2.6B via OpenRouter (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2090719661159797074">X</a> · <a href="../07-agents/2026-08-21-run-your-hermes-agent-on-free-lfm2-5-2-6b-via-openrouter.html">notes</a>) and 55 more</li>
+<li><strong><a href="https://github.com/openclaw/openclaw">OpenClaw</a></strong> · tool · github.com · free<br>
+  An open-source, self-hostable personal AI agent that can run on local or hosted LLMs.<br>
+  Also in: Run Muse Glimmer 30B Locally on an RTX 3090 with llama.cpp (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2087923865813193027">X</a> · <a href="2026-08-13-run-muse-glimmer-30b-locally-on-an-rtx-3090-with-llama-cpp.html">notes</a>), Running Muse Glimmer 30B Locally with llama.cpp and the Hermes Agent (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2087041258766413927">X</a> · <a href="2026-08-11-running-muse-glimmer-30b-locally-with-llama-cpp-and-the.html">notes</a>), Running Local Models for Agents: Tool Use, Context and Quantization (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2067585799252836556">X</a> · <a href="../03-llm-fundamentals/2026-06-18-running-local-models-for-agents-tool-use-context-and.html">notes</a>), Ollama Is Now an Official Provider for OpenClaw (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2033504191252177046">X</a> · <a href="../07-agents/2026-03-16-ollama-is-now-an-official-provider-for-openclaw.html">notes</a>) and 2 more</li>
+<li><strong><a href="https://x.com/pidotdev">Pi</a></strong> · tool · x.com · free<br>
+  A customizable coding agent that can be extended through its Extensions API and connected to several model providers.<br>
+  Also in: Sign in with ChatGPT: Setting Usage Limits for Each App (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105933855802929153">X</a> · <a href="../13-ai-tools/2026-10-02-sign-in-with-chatgpt-setting-usage-limits-for-each-app.html">notes</a>), Pi reaches v1.0 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105873124176826551">X</a> · <a href="../13-ai-tools/2026-10-02-pi-reaches-v1-0.html">notes</a>), Claude Code mods: customize behavior and UI with plugins (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105872553818611759">X</a> · <a href="../13-ai-tools/2026-10-02-claude-code-mods-customize-behavior-and-ui-with-plugins.html">notes</a>), Customizing Your Coding Setup with Pi Coding Agent Extensions (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105871612591714651">X</a> · <a href="../13-ai-tools/2026-10-02-customizing-your-coding-setup-with-pi-coding-agent.html">notes</a>) and 39 more</li>
+<li><strong><a href="https://learn.microsoft.com/en-us/windows/wsl/">WSL (Windows Subsystem for Linux)</a></strong> · tool · learn.microsoft.com · free<br>
+  Runs a Linux environment such as Ubuntu on Windows, here used to build llama.cpp with CUDA.<br>
+  Also in: Any OS works for AI dev: Mac, Windows + WSL (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100110722852409435">X</a> · <a href="../13-ai-tools/2026-09-16-any-os-works-for-ai-dev-mac-windows-wsl.html">notes</a>), Running Gemma 4 E2B Video Understanding Locally in WSL (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2044518139329958315">X</a> · <a href="../03-llm-fundamentals/2026-04-16-running-gemma-4-e2b-video-understanding-locally-in-wsl.html">notes</a>), Installing Unsloth Studio on Windows via WSL (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2039785611872379110">X</a> · <a href="../10-fine-tuning/2026-04-03-installing-unsloth-studio-on-windows-via-wsl.html">notes</a>)</li>
+<li><strong><a href="https://x.com/melvindvivas">Melvin Vivas</a></strong> · person · x.com · free<br>
+  A creator who shares experiments with AI agents and developer tools on X.<br>
+  Also in: How LLMs Work: A Motion-Graphics Explainer Made in One Shot with Claude Opus 5.5 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103762693664727066">X</a> · <a href="../03-llm-fundamentals/2026-09-26-how-llms-work-a-motion-graphics-explainer-made-in-one-shot.html">notes</a>), Concept Demo: An Agent Monitor Built on OpenAI Codex Traces (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100123695675212116">X</a> · <a href="2026-09-16-concept-demo-an-agent-monitor-built-on-openai-codex-traces.html">notes</a>), Running MiniMax H3 Locally on a Single RTX 3090 (Demo) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2085439986699223322">X</a> · <a href="../16-trends/2026-08-06-running-minimax-h3-locally-on-a-single-rtx-3090-demo.html">notes</a>)</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Build llama.cpp's llama-server with CUDA (-DGGML_CUDA=ON) under WSL Ubuntu.</li>
+<li>Start llama-server with unsloth/Muse-Glimmer-30B-GGUF:UD-Q4_K_XL, 65536 context, temp 1.0, top-p 0.95, top-k 64 on port 8001.</li>
+<li>Raise --ctx-size if your GPU has spare VRAM.</li>
+<li>Check the server with curl http://localhost:8001/health.</li>
+<li>In Hermes Agent, add a Custom endpoint: base URL http://localhost:8001/v1, empty API key, model alias, context 65536, API mode chat_completions.</li>
+<li>Follow @melvindvivas for more guides.</li>
+<li>Run a fully local coding/agent setup: llama.cpp serving a 30B GGUF model on a 24 GB GPU, used as the backend for Hermes Agent, OpenClaw or Pi.</li>
+</ul><section class="more"><h2>More in LLMOps, Deployment &amp; Monitoring</h2><ul><li><a href="2026-08-14-unsloth-releases-qwen3-8-27b-gguf-quantizations.html">Unsloth releases Qwen3.8-27B GGUF quantizations</a> <span class="meta">Melvin Vivas, 2026-08-14</span></li><li><a href="2026-08-13-run-muse-glimmer-30b-locally-on-an-rtx-3090-with-llama-cpp.html">Run Muse Glimmer 30B Locally on an RTX 3090 with llama.cpp</a> <span class="meta">Melvin Vivas, 2026-08-13</span></li><li><a href="2026-08-11-running-muse-glimmer-30b-locally-with-llama-cpp-and-the.html">Running Muse Glimmer 30B Locally with llama.cpp and the Hermes Agent</a> <span class="meta">Melvin Vivas, 2026-08-11</span></li><li><a href="2026-08-10-running-liquid-ai-lfm2-5-2-6b-locally-with-llama-server.html">Running Liquid AI LFM2.5-2.6B Locally with llama-server</a> <span class="meta">Melvin Vivas, 2026-08-10</span></li><li><a href="2026-08-09-adding-lfm2-5-2-6b-support-to-aibackends-with-cursor.html">Adding LFM2.5-2.6B support to AIBackends with Cursor</a> <span class="meta">Melvin Vivas, 2026-08-09</span></li><li><a href="2026-08-09-zero-shot-prompt-routing-by-task-complexity-with-lfm2-5.html">Zero-Shot Prompt Routing by Task Complexity with LFM2.5-Encoder</a> <span class="meta">Melvin Vivas, 2026-08-09</span></li></ul><p><a href="../../topics/llmops.html">All of LLMOps, Deployment &amp; Monitoring</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GPT-Realtime-2 &amp; GPT-Realtime-Translate: Reasoning Voice Agents and…</title>
+<meta name="description" content="Melvin Vivas shares OpenAI&#x27;s demo of two new realtime audio models in the API. GPT-Realtime-Translate translates speech live across 70 languages while the…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-05-07-gpt-realtime-2-gpt-realtime-translate-reasoning-voice.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="GPT-Realtime-2 &amp; GPT-Realtime-Translate: Reasoning Voice Agents and…">
+<meta property="og:description" content="Melvin Vivas shares OpenAI&#x27;s demo of two new realtime audio models in the API. GPT-Realtime-Translate translates speech live across 70 languages while the…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-05-07-gpt-realtime-2-gpt-realtime-translate-reasoning-voice.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<style>
+#consent { position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; max-width: 34rem; margin: 0 auto;
+  background: var(--surface, #fff); color: var(--ink, #16201b);
+  border: 1px solid color-mix(in srgb, var(--ink, #16201b) 35%, transparent); border-top: 3px solid var(--accent, #2344bd);
+  border-radius: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, .28); padding: 16px 18px;
+  font: var(--s-md, .9375rem)/1.45 var(--body, system-ui, sans-serif); }
+#consent[hidden] { display: none; }
+#consent:focus { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+#consent p { margin: 0 0 12px; }
+#consent a { color: var(--accent, #2344bd); }
+#consent .consent-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin: 0; padding: 0; border: 0; }
+#consent button { font: 600 var(--s-md, .9375rem)/1.2 var(--body, system-ui, sans-serif); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; border: 1px solid var(--ink, #16201b); background: var(--surface, #fff); color: var(--ink, #16201b); min-width: 7rem; }
+#consent button:hover { background: var(--accent-soft, #e4e9fd); }
+#consent button:focus-visible { outline: 2px solid var(--accent, #2344bd); outline-offset: 2px; }
+</style>
+<script>
+(() => {
+  const ID = "G-CSFCML3KMM", PATH = "/ai-study-library/", ROOT = "../../", KEY = "ai-study-library:cookie-consent";
+  const MAX_AGE = 182 * 24 * 3600 * 1000;  // ask again after about six months (CNIL guidance)
+  const saved = () => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) || "null");
+      return c && (c.v === "granted" || c.v === "denied") && Date.now() - c.t < MAX_AGE ? c.v : null;
+    } catch (e) { return null; }
+  };
+  const save = v => { try { localStorage.setItem(KEY, JSON.stringify({ v, t: Date.now() })); } catch (e) { /* private mode: ask again next visit */ } };
+  let loaded = false, box = null, before = null;
+  const load = () => {  // Google's script only ever loads from here, after "Accept"
+    if (loaded) return;
+    loaded = true;
+    window["ga-disable-" + ID] = false;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    gtag("js", new Date());
+    // No ad features. The cookies stay on this site's path and expire 13 months after they are set:
+    // cookie_update false means a visit does not extend them (CNIL guidance).
+    gtag("config", ID, { allow_google_signals: false, allow_ad_personalization_signals: false,
+      cookie_expires: 33696000, cookie_update: false, cookie_path: PATH, cookie_domain: location.hostname });
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + ID;
+    document.head.appendChild(s);
+  };
+  const forget = () => {  // declined after accepting: switch the tag off, delete its cookies, reload without it
+    window["ga-disable-" + ID] = true;
+    if (window.gtag) gtag("consent", "update", { analytics_storage: "denied" });
+    window.gtag = undefined;
+    for (const c of document.cookie.split(";")) {
+      const name = c.split("=")[0].trim();
+      if (!/^_ga/.test(name)) continue;
+      for (const p of ["/", PATH])
+        for (const d of ["", "; domain=" + location.hostname, "; domain=." + location.hostname])
+          document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=" + p + d;
+    }
+    if (loaded) location.reload();
+  };
+  const pad = on => {  // keep the end of the page, and anything focused, out from under the banner
+    const h = on && box ? box.offsetHeight + 32 + "px" : "";
+    document.body.style.paddingBottom = h;
+    document.documentElement.style.scrollPaddingBottom = h;
+  };
+  const choose = v => {
+    save(v);
+    box.hidden = true;
+    pad(false);
+    if (before && before !== document.body && document.contains(before)) before.focus({ preventScroll: true });
+    if (v === "granted") load(); else forget();
+  };
+  const show = () => {
+    before = document.activeElement;
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "consent";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "Cookie consent");
+      box.setAttribute("aria-describedby", "consent-text");
+      box.tabIndex = -1;
+      box.innerHTML = '<p id="consent-text">Can this site use Google Analytics cookies to count visits and see which tabs, '
+        + 'searches and links are used? Nothing is tracked unless you accept, and you can change your mind at any time '
+        + 'under &ldquo;Cookie settings&rdquo;. <a href="' + ROOT + 'privacy.html">Privacy policy</a></p>'
+        + '<div class="consent-actions"><button type="button" data-choice="denied">Decline</button>'
+        + '<button type="button" data-choice="granted">Accept</button></div>';
+      box.addEventListener("click", e => { const b = e.target.closest("[data-choice]"); if (b) choose(b.dataset.choice); });
+      document.body.appendChild(box);
+      window.addEventListener("resize", () => { if (!box.hidden) pad(true); });
+    }
+    box.hidden = false;
+    pad(true);
+    box.focus({ preventScroll: true });
+  };
+  window.cookieConsent = { open: show };
+  document.addEventListener("click", e => {
+    if (e.target.closest("[data-cookie-settings]")) { e.preventDefault(); show(); }
+  });
+  const choice = saved();
+  if (choice === "granted") load();
+  else if (!choice) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", show); else show();
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-05-07-gpt-realtime-2-gpt-realtime-translate-reasoning-voice.html#note","headline":"GPT-Realtime-2 & GPT-Realtime-Translate: Reasoning Voice Agents and Live Translation","description":"Melvin Vivas shares OpenAI's demo of two new realtime audio models in the API. GPT-Realtime-Translate translates speech live across 70 languages while the speaker is still talking. GPT-Realtime-2 adds GPT-5-class reasoning and parallel tool calling to voice agents. The demo also shows how…","url":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-05-07-gpt-realtime-2-gpt-realtime-translate-reasoning-voice.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"AI Agents, Tool Use & MCP"},{"@type":"Thing","name":"LLM Fundamentals"},{"@type":"Thing","name":"Industry Trends & Job Market"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2052447105902596348","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-05-07"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-05-07-gpt-realtime-2-gpt-realtime-translate-reasoning-voice.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"AI Agents, Tool Use & MCP","item":"https://ralmodiel.github.io/ai-study-library/topics/agents.html"},{"@type":"ListItem","position":4,"name":"GPT-Realtime-2 & GPT-Realtime-Translate: Reasoning Voice Agents and Live Translation"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/agents.html">AI Agents, Tool Use &amp; MCP</a> &rsaquo; <span aria-current="page">GPT-Realtime-2 &amp; GPT-Realtime-Translate: Reasoning Voice Agents and Live Translation</span></nav><h1>GPT-Realtime-2 &amp; GPT-Realtime-Translate: Reasoning Voice Agents and Live Translation</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2052447105902596348">a video post by Melvin Vivas on X</a>, posted 7 May 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X video post · 2026-05-07 · 4:03 · 58 views · <a href="https://x.com/melvindvivas/status/2052447105902596348">Open on X</a></p>
+<p><strong>Topics:</strong> AI Agents, Tool Use &amp; MCP, LLM Fundamentals, Industry Trends &amp; Job Market · <strong>Level:</strong> intermediate</p>
+<h2>Summary</h2>
+<p>Melvin Vivas shares OpenAI's demo of two new realtime audio models in the API. GPT-Realtime-Translate translates speech live across 70 languages while the speaker is still talking. GPT-Realtime-2 adds GPT-5-class reasoning and parallel tool calling to voice agents. The demo also shows how "preambles" keep users informed while the agent reasons or calls tools, and how an agent can keep listening without interrupting until it is called back.</p>
+<h2>Key points</h2>
+<ul>
+<li>OpenAI added two realtime audio models to its API: GPT-Realtime-Translate for live speech translation and GPT-Realtime-2 for voice agents that reason and take actions.</li>
+<li>GPT-Realtime-Translate handles 70 languages and translates while the speaker is still talking. It waits for a key word, such as the verb, before starting, so the result sounds like a natural conversation.</li>
+<li>The translator can switch between languages in the middle of a conversation (French to German in the demo) and keeps technical terms like 'GPT', 'OpenAI' and 'computer use' intact.</li>
+<li>GPT-Realtime-2 brings GPT-5-class reasoning and parallel tool calling to voice agents. In the demo it reads a calendar and updates a CRM with a meeting brief and next steps.</li>
+<li>Use preambles: because reasoning and tool calls can take a few seconds, the agent should say what it is doing (e.g. 'Let me pull the latest context and update your CRM') so the user stays informed.</li>
+<li>The agent stays in the conversation: you can tell it to stay quiet until a phrase like 'back to demo'. It keeps listening and keeps context without interrupting.</li>
+<li>Voice agents can be connected to any system, such as dashboards, SaaS services or connected devices, which makes voice a possible primary interface.</li>
+<li>Suggested use cases for live translation: media platforms, customer support and education.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://developers.openai.com/api/docs/models/gpt-realtime-2">GPT-Realtime-2</a></strong> · tool · developers.openai.com · paid<br>
+  OpenAI's realtime speech-to-speech model for voice agents, with GPT-5-class reasoning, parallel tool calling and preambles.<br>
+  Also in: GPT-Realtime-2 &amp; Realtime-Translate: Reasoning Voice Agents and Live Translation (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2052586973563642025">X</a> · <a href="2026-05-08-gpt-realtime-2-realtime-translate-reasoning-voice-agents.html">notes</a>)</li>
+<li><strong><a href="https://developers.openai.com/api/docs/models/gpt-realtime-translate">GPT-Realtime-Translate</a></strong> · tool · developers.openai.com · paid<br>
+  OpenAI's realtime model that translates speech live across 70 languages while the speaker is talking.<br>
+  Also in: GPT-Realtime-2 &amp; Realtime-Translate: Reasoning Voice Agents and Live Translation (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2052586973563642025">X</a> · <a href="2026-05-08-gpt-realtime-2-realtime-translate-reasoning-voice-agents.html">notes</a>)</li>
+<li><strong><a href="https://platform.openai.com/docs/guides/realtime">OpenAI Realtime API</a></strong> · docs · platform.openai.com · paid<br>
+  OpenAI's developer platform, where the realtime audio models are available for building voice agents and translation apps.<br>
+  Also in: GPT-Realtime-2 &amp; Realtime-Translate: Reasoning Voice Agents and Live Translation (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2052586973563642025">X</a> · <a href="2026-05-08-gpt-realtime-2-realtime-translate-reasoning-voice-agents.html">notes</a>)</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Try GPT-Realtime-2 and GPT-Realtime-Translate in the OpenAI API.</li>
+<li>Add preambles to your voice agents so they tell the user what they are doing during reasoning and tool calls.</li>
+<li>Connect your voice agent to the tools and systems you already use, such as your calendar, CRM, dashboards or devices.</li>
+<li>A personal voice assistant that reads your calendar, briefs you before meetings and updates your CRM with notes and next steps.</li>
+<li>A live speech-translation tool for presentations, customer support or education across many languages.</li>
+<li>A voice interface for dashboards or connected devices, built on parallel tool calling.</li>
+</ul><section class="more"><h2>More in AI Agents, Tool Use &amp; MCP</h2><ul><li><a href="2026-05-15-aevo-splitting-the-agent-self-improvement-loop-in-two.html">AEvo: Splitting the Agent Self-Improvement Loop in Two</a> <span class="meta">Melvin Vivas, 2026-05-15</span></li><li><a href="2026-05-13-multimodal-ai-pointer-combining-voice-mouse-pointing-and.html">Multimodal AI Pointer: Combining Voice, Mouse Pointing and Vision with Gemini</a> <span class="meta">Melvin Vivas, 2026-05-13</span></li><li><a href="2026-05-08-gpt-realtime-2-realtime-translate-reasoning-voice-agents.html">GPT-Realtime-2 &amp; Realtime-Translate: Reasoning Voice Agents and Live Translation</a> <span class="meta">Melvin Vivas, 2026-05-08</span></li><li><a href="2026-05-01-running-pi-coding-agent-with-a-local-qwen-3-6-model.html">Running Pi Coding Agent with a Local Qwen 3.6 Model</a> <span class="meta">Melvin Vivas, 2026-05-01</span></li><li><a href="2026-04-29-cursor-sdk-build-agents-on-cursor-s-runtime-harness-and.html">Cursor SDK: Build Agents on Cursor&#x27;s Runtime, Harness and Models</a> <span class="meta">Melvin Vivas, 2026-04-29</span></li><li><a href="2026-04-25-skillsbento-free-open-source-agent-skills-for-claude.html">skillsbento: Free Open-Source Agent Skills for Claude</a> <span class="meta">Melvin Vivas, 2026-04-25</span></li></ul><p><a href="../../topics/agents.html">All of AI Agents, Tool Use &amp; MCP</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

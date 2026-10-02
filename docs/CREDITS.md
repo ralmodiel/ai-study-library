@@ -33,7 +33,9 @@ Software engineer building with AI, with a focus on local and open models and AI
 
 This is an unofficial study index. It is not affiliated with or endorsed by Bashiri Smith or Melvin Vivas.
 
-The summaries and notes are licensed CC BY 4.0 - see [LICENSE.md](LICENSE.md). The page itself (index.html) is under MIT No Attribution (MIT-0).
+The summaries and key points are AI-assisted: drafted with an AI model from the public posts, then selected and checked by the maintainer. They may contain mistakes, so always check the original.
+
+The summaries and notes are licensed CC BY-NC 4.0 - see [LICENSE.md](LICENSE.md). The page's own code (its HTML, CSS and JavaScript, not the library data) is under MIT No Attribution (MIT-0). The scripts that collect and build the library are not published.
 
 ## Corrections and removal
 
