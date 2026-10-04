@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent Harness Matters: Hugging Face&#x27;s Open Guide to Multi-Harness RL…</title>
+<meta name="description" content="Melvin Vivas quotes a post about a new open guide from Hugging Face and Adithya S K on multi-harness reinforcement learning (RL). The quoted post&#x27;s main point…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-03-agent-harness-matters-hugging-face-s-open-guide-to-multi.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Agent Harness Matters: Hugging Face&#x27;s Open Guide to Multi-Harness RL…">
+<meta property="og:description" content="Melvin Vivas quotes a post about a new open guide from Hugging Face and Adithya S K on multi-harness reinforcement learning (RL). The quoted post&#x27;s main point…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-03-agent-harness-matters-hugging-face-s-open-guide-to-multi.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-03-agent-harness-matters-hugging-face-s-open-guide-to-multi.html#note","headline":"Agent Harness Matters: Hugging Face's Open Guide to Multi-Harness RL","description":"Melvin Vivas quotes a post about a new open guide from Hugging Face and Adithya S K on multi-harness reinforcement learning (RL). The quoted post's main point is that the agent harness (the scaffolding around a model) has a big effect on results: the same model with the same weights scored 62% in…","url":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-03-agent-harness-matters-hugging-face-s-open-guide-to-multi.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"AI Agents, Tool Use & MCP"},{"@type":"Thing","name":"Fine-tuning & Model Customization"},{"@type":"Thing","name":"Evaluation (Evals) & Testing"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2106065862058983696","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-10-03"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-03-agent-harness-matters-hugging-face-s-open-guide-to-multi.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"AI Agents, Tool Use & MCP","item":"https://ralmodiel.github.io/ai-study-library/topics/agents.html"},{"@type":"ListItem","position":4,"name":"Agent Harness Matters: Hugging Face's Open Guide to Multi-Harness RL"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/agents.html">AI Agents, Tool Use &amp; MCP</a> &rsaquo; <span aria-current="page">Agent Harness Matters: Hugging Face&#x27;s Open Guide to Multi-Harness RL</span></nav><h1>Agent Harness Matters: Hugging Face's Open Guide to Multi-Harness RL</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2106065862058983696">a post by Melvin Vivas on X</a>, posted 3 October 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X post · 2026-10-03 · <a href="https://x.com/melvindvivas/status/2106065862058983696">Open on X</a></p>
+<p><strong>Topics:</strong> AI Agents, Tool Use &amp; MCP, Fine-tuning &amp; Model Customization, Evaluation (Evals) &amp; Testing · <strong>Level:</strong> advanced</p>
+<h2>Summary</h2>
+<p>Melvin Vivas quotes a post about a new open guide from Hugging Face and Adithya S K on multi-harness reinforcement learning (RL). The quoted post's main point is that the agent harness (the scaffolding around a model) has a big effect on results: the same model with the same weights scored 62% in one harness and 33% in another. Melvin's view is that builders should own both their models and their harness.</p>
+<h2>Key points</h2>
+<ul>
+<li>The same model with identical weights scored 62% in one agent harness and 33% in another, so the harness can roughly double benchmark results.</li>
+<li>An agent's performance comes from the model plus its harness (tools, loop, prompts, scaffolding), not from the weights alone.</li>
+<li>Multi-harness RL means training a model across several agent harnesses so it holds up in different scaffolds.</li>
+<li>Hugging Face, with Adithya S K, released a practical and fully open write-up on multi-harness RL.</li>
+<li>The creator's takeaway: own your models and own your harness instead of relying only on closed, vendor-controlled setups.</li>
+<li>The quoted text is cut off at 'The trick is', so the actual method has to be read in the original guide.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://huggingface.co/spaces/AdithyaSK/multi-harness-rl">Hugging Face multi-harness RL guide</a></strong> · article · huggingface.co · free<br>
+  An open, practical write-up from Hugging Face on training agents with reinforcement learning across multiple agent harnesses.</li>
+<li><strong><a href="https://x.com/huggingface">Hugging Face</a></strong> · website · x.com · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Platform for hosting and finding ML models, datasets and papers. The quoted post says LocateAnything was trending there.<br>
+  Also in: Using an ML agent to train an open-source TTS model on your voice (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105946723692707961">X</a> · <a href="../10-fine-tuning/2026-10-02-using-an-ml-agent-to-train-an-open-source-tts-model-on-your.html">notes</a>), Deploy Open-Source Models with Hugging Face Inference Endpoints (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105897373000155331">X</a> · <a href="../09-llmops/2026-10-02-deploy-open-source-models-with-hugging-face-inference.html">notes</a>), Deploying Qwen3.8 27B on Hugging Face Inference Endpoints (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105662886249165009">X</a> · <a href="../09-llmops/2026-10-01-deploying-qwen3-8-27b-on-hugging-face-inference-endpoints.html">notes</a>), Using Hugging Face credits: Jobs, Inference Endpoints and Open Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105651655459168673">X</a> · <a href="../09-llmops/2026-10-01-using-hugging-face-credits-jobs-inference-endpoints-and.html">notes</a>) and 39 more</li>
+<li><strong><a href="https://x.com/adithya_s_k">Adithya S K</a></strong> · person · x.com · free<br>
+  A co-author of the Hugging Face multi-harness RL guide; posts on X as @adithya_s_k.</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Read the Hugging Face multi-harness RL guide to learn the method the quoted post leaves cut off.</li>
+<li>Test your agent in more than one harness before judging how good the model is.</li>
+<li>Run the same open-weights model in two different agent harnesses on one task set and compare the scores.</li>
+</ul><section class="more"><h2>More in AI Agents, Tool Use &amp; MCP</h2><ul><li><a href="2026-10-03-chain-grok-bots-to-get-trending-x-posts.html">Chain Grok Bots to Get Trending X Posts</a> <span class="meta">Melvin Vivas, 2026-10-03</span></li><li><a href="2026-10-03-coworker-open-source-desktop-app-for-ai-agents-with-local.html">Coworker: open-source desktop app for AI agents with local models</a> <span class="meta">Melvin Vivas, 2026-10-03</span></li><li><a href="2026-10-03-grok-bot-template-daily-business-ideas-agent.html">Grok Bot template: daily business-ideas agent</a> <span class="meta">Melvin Vivas, 2026-10-03</span></li><li><a href="2026-10-03-graph-engineering-explained-nodes-edges-and-state-for-ai.html">Graph Engineering Explained: Nodes, Edges, and State for AI Agent Workflows</a> <span class="meta">Bashiri Smith, 2026-10-03</span></li><li><a href="2026-10-02-an-agent-bot-that-installs-and-drives-codex-on-its-own.html">An agent bot that installs and drives Codex on its own</a> <span class="meta">Melvin Vivas, 2026-10-02</span></li><li><a href="2026-10-02-asking-a-coder-bot-to-install-codex.html">Asking a Coder bot to install Codex</a> <span class="meta">Melvin Vivas, 2026-10-02</span></li></ul><p><a href="../../topics/agents.html">All of AI Agents, Tool Use &amp; MCP</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

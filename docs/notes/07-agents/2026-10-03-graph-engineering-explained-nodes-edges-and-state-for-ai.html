@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Graph Engineering Explained: Nodes, Edges, and State for AI Agent…</title>
+<meta name="description" content="The reel explains &quot;graph engineering,&quot; which builds on prompt and loop engineering. Instead of prompting a model again and again by hand, you put the steps…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-03-graph-engineering-explained-nodes-edges-and-state-for-ai.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Graph Engineering Explained: Nodes, Edges, and State for AI Agent…">
+<meta property="og:description" content="The reel explains &quot;graph engineering,&quot; which builds on prompt and loop engineering. Instead of prompting a model again and again by hand, you put the steps…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-03-graph-engineering-explained-nodes-edges-and-state-for-ai.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-03-graph-engineering-explained-nodes-edges-and-state-for-ai.html#note","headline":"Graph Engineering Explained: Nodes, Edges, and State for AI Agent Workflows","description":"The reel explains \"graph engineering,\" which builds on prompt and loop engineering. Instead of prompting a model again and again by hand, you put the steps and decisions into a workflow graph that the system runs: AI writes code, tests run, failures go back for another try, and passing work waits…","url":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-03-graph-engineering-explained-nodes-edges-and-state-for-ai.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"AI Agents, Tool Use & MCP"},{"@type":"Thing","name":"AI System Design & Architecture"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"VideoObject","url":"https://www.facebook.com/reel/1094451143559463","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#bashiri-smith"},"datePublished":"2026-10-03"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-03-graph-engineering-explained-nodes-edges-and-state-for-ai.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#bashiri-smith","name":"Bashiri Smith","url":"https://baswe.ai/","sameAs":["https://www.facebook.com/basweai","https://www.youtube.com/@BashiFuirkashi","https://www.instagram.com/bashi_fuirkashi/","https://www.tiktok.com/@bashifuirkashi","https://www.linkedin.com/in/bashiri-smith/","https://x.com/bashifuirkashi","https://www.skool.com/baswe-ai"],"description":"Helps aspiring and working software engineers move into AI engineering roles.","brand":{"@type":"Brand","name":"BASWE.Ai"}},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"AI Agents, Tool Use & MCP","item":"https://ralmodiel.github.io/ai-study-library/topics/agents.html"},{"@type":"ListItem","position":4,"name":"Graph Engineering Explained: Nodes, Edges, and State for AI Agent Workflows"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/agents.html">AI Agents, Tool Use &amp; MCP</a> &rsaquo; <span aria-current="page">Graph Engineering Explained: Nodes, Edges, and State for AI Agent Workflows</span></nav><h1>Graph Engineering Explained: Nodes, Edges, and State for AI Agent Workflows</h1>
+<aside class="source"><p>This note summarises <a href="https://www.facebook.com/reel/1094451143559463">a reel by Bashiri Smith on Facebook</a>, posted 3 October 2026. The original belongs to Bashiri Smith.</p><p>Follow Bashiri Smith: <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p></aside>
+<p>Bashiri Smith · Facebook reel · 2026-10-03 · 1:10 · 4,738 views · <a href="https://www.facebook.com/reel/1094451143559463">Open on Facebook</a></p>
+<p><strong>Topics:</strong> AI Agents, Tool Use &amp; MCP, AI System Design &amp; Architecture · <strong>Level:</strong> intermediate</p>
+<h2>Summary</h2>
+<p>The reel explains "graph engineering," which builds on prompt and loop engineering. Instead of prompting a model again and again by hand, you put the steps and decisions into a workflow graph that the system runs: AI writes code, tests run, failures go back for another try, and passing work waits for human approval. It covers the core ideas (nodes, edges, state), parallel branches and loops, and two warnings: put a limit on retries, and don't force every task into a rigid workflow.</p>
+<h2>Key points</h2>
+<ul>
+<li>Prompting: you ask the AI to write code, check it yourself, and ask again. Loop engineering: the system does the work, checks the result, and retries on its own. Graph engineering: you design how those loops connect to the rest of the workflow.</li>
+<li>Example workflow: AI writes code, then tests run, then failed tests send the code back for another attempt, and when everything passes the workflow pauses for human approval.</li>
+<li>Nodes are the steps. A node can run regular code, call an LLM, or run a whole agent.</li>
+<li>Edges are the connections that decide which step runs next. State is the information passed through the workflow, such as the code and test results.</li>
+<li>Graphs can include loops, branches into different paths, and parallel work. For example, a front-end agent and a back-end agent work at the same time, their changes are merged for testing, and failures go back to the right agent.</li>
+<li>It is basically a flowchart your system actually runs. You decide where the AI gets flexibility and where fixed rules apply.</li>
+<li>Watch out 1: put a limit on retries so a task that keeps failing doesn't keep burning tokens.</li>
+<li>Watch out 2: don't force every task into a rigid workflow. Sometimes an agent needs room to work out the steps itself.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://x.com/steipete">Peter Steinberger (@steipete)</a></strong> · person · x.com · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  The creator of OpenClaw. His tweet about moving from loops to graphs started the 'graph engineering' discussion.<br>
+  Also in: CodexBar: Track Your Codex Usage Limits from the Mac Menu Bar (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099788216660619678">X</a> · <a href="../13-ai-tools/2026-09-15-codexbar-track-your-codex-usage-limits-from-the-mac-menu-bar.html">notes</a>), Track your Codex usage limits with CodexBar (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099350563456692672">X</a> · <a href="../13-ai-tools/2026-09-14-track-your-codex-usage-limits-with-codexbar.html">notes</a>), Ollama Is Now an Official Provider for OpenClaw (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2033504191252177046">X</a> · <a href="2026-03-16-ollama-is-now-an-official-provider-for-openclaw.html">notes</a>)</li>
+<li><strong><a href="https://github.com/openclaw/openclaw">OpenClaw</a></strong> · tool · github.com · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  An open-source, self-hostable personal AI agent that can run on local or hosted LLMs.<br>
+  Also in: Coworker: An Open-Source Personal AI Assistant Desktop App (Not a Coding Agent) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2106599768168579381">X</a> · <a href="2026-10-04-coworker-an-open-source-personal-ai-assistant-desktop-app.html">notes</a>), Coworker v0.7.0: A Desktop AI Agent App That Works With Any Model via OpenRouter (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2106370482115432524">X</a> · <a href="2026-10-03-coworker-v0-7-0-a-desktop-ai-agent-app-that-works-with-any.html">notes</a>), Run Muse Glimmer 30B Locally on an RTX 3090 with llama.cpp (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2087923865813193027">X</a> · <a href="../09-llmops/2026-08-13-run-muse-glimmer-30b-locally-on-an-rtx-3090-with-llama-cpp.html">notes</a>), Running Muse Glimmer 30B Locally with llama.cpp and the Hermes Agent (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2087041258766413927">X</a> · <a href="../09-llmops/2026-08-11-running-muse-glimmer-30b-locally-with-llama-cpp-and-the.html">notes</a>) and 5 more</li>
+<li><strong><a href="https://www.langchain.com/langgraph">LangGraph</a></strong> · tool · langchain.com · free<br>
+  Graph-based agent framework with typed state, checkpointing, cycles and human-in-the-loop interrupts. The guide calls it the production default for complex stateful agents.<br>
+  Also in: Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="../01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), LangChain vs. LangGraph Explained with One RAG Chatbot (Bashiri Smith on <a href="https://www.facebook.com/reel/1394445942341422">Facebook</a> · <a href="../06-rag/2026-09-29-langchain-vs-langgraph-explained-with-one-rag-chatbot.html">notes</a>), Wannabe vs $200K+ AI Engineer: RAG, Agents, Context and Fine-Tuning Mistakes (Bashiri Smith on <a href="https://www.facebook.com/reel/28509399318713823">Facebook</a> · <a href="../06-rag/2026-09-27-wannabe-vs-200k-ai-engineer-rag-agents-context-and-fine.html">notes</a>), 7 Habits to Become an AI Engineer: Books, Tooling, Research &amp; Shipping (Bashiri Smith on <a href="https://www.facebook.com/reel/1081423530962902">Facebook</a> · <a href="../01-roadmap/2026-09-25-7-habits-to-become-an-ai-engineer-books-tooling-research.html">notes</a>) and 3 more</li>
+<li><strong><a href="https://github.com/hwchase17/langchain">LangChain</a></strong> · tool · github.com · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Open-source framework with ready-made integrations and common interfaces for connecting LLMs, embedding models, vector stores and tools.<br>
+  Also in: SWE-to-AI Engineer Plan for 2027: LLMs, RAG, Agents, Evals, Job Search (Bashiri Smith on <a href="https://www.facebook.com/reel/1087338640563321">Facebook</a> · <a href="../01-roadmap/2026-10-02-swe-to-ai-engineer-plan-for-2027-llms-rag-agents-evals-job.html">notes</a>), Basic RAG Pipeline in 60 Seconds: From Documents to Grounded Answers (Bashiri Smith on <a href="https://www.facebook.com/reel/1893190305357331">Facebook</a> · <a href="../06-rag/2026-10-01-basic-rag-pipeline-in-60-seconds-from-documents-to-grounded.html">notes</a>), Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="../01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), LangChain vs. LangGraph Explained with One RAG Chatbot (Bashiri Smith on <a href="https://www.facebook.com/reel/1394445942341422">Facebook</a> · <a href="../06-rag/2026-09-29-langchain-vs-langgraph-explained-with-one-rag-chatbot.html">notes</a>) and 4 more</li>
+</ul>
+<h2>From the PDF shared here: Agentic design patterns: The AI engineer's field guide to designing, building, and deploying agents (2026 edition)</h2>
+<p><a href="https://drive.google.com/file/d/1Sr-YNL7FecmuH6BFK1nnH7ng9YjVn_jl/view?usp=sharing">Open the original</a> · 48 pages</p>
+<p>Bashiri Smith (BASWE) wrote this 48-page field guide for software engineers moving into AI engineering. It covers what an agent is, five core patterns (ReAct, planning, reflection, routing and supervisor-worker), 20 more workflow, reasoning, coordination, control and knowledge patterns, and how to design agents (context engineering, tool design, state, MCP/A2A and frameworks). It then covers evaluating agents (eval stack, LLM-as-judge, metrics, tracing) and deploying them (runtime, reliability, security, cost, rollout). It ends with a reference architecture, a production checklist, 12 interview questions and five portfolio projects. Read Parts 1–2 in order, do each build exercise, or pick one of the three reading paths (one evening, one week, one month).</p>
+<ul>
+<li><strong><a href="https://modelcontextprotocol.io">Model Context Protocol (MCP)</a></strong> · docs · modelcontextprotocol.io · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Specification and docs for MCP, an open standard that lets agents use tools, resources and prompts exposed by MCP servers.<br>
+  Also in: xAI's Experimental TypeScript SDK: Grok Text, Voice, Image and Video in One SDK (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2106095337077395633">X</a> · <a href="../03-llm-fundamentals/2026-10-02-xai-s-experimental-typescript-sdk-grok-text-voice-image-and.html">notes</a>), Grok Bot Templates: Sharing, Publishing and Safely Installing Bots (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103697947640918283">X</a> · <a href="2026-09-26-grok-bot-templates-sharing-publishing-and-safely-installing.html">notes</a>), 8-Week Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1758231042116375">Facebook</a> · <a href="../01-roadmap/2026-09-19-8-week-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), Paste Documentation URLs into Codex Instead of Using MCP (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099439011534368806">X</a> · <a href="../13-ai-tools/2026-09-14-paste-documentation-urls-into-codex-instead-of-using-mcp.html">notes</a>) and 9 more</li>
+<li><strong><a href="https://www.langchain.com/langgraph">LangGraph</a></strong> · tool · langchain.com · free<br>
+  Graph-based agent framework with typed state, checkpointing, cycles and human-in-the-loop interrupts. The guide calls it the production default for complex stateful agents.<br>
+  Also in: Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="../01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), LangChain vs. LangGraph Explained with One RAG Chatbot (Bashiri Smith on <a href="https://www.facebook.com/reel/1394445942341422">Facebook</a> · <a href="../06-rag/2026-09-29-langchain-vs-langgraph-explained-with-one-rag-chatbot.html">notes</a>), Wannabe vs $200K+ AI Engineer: RAG, Agents, Context and Fine-Tuning Mistakes (Bashiri Smith on <a href="https://www.facebook.com/reel/28509399318713823">Facebook</a> · <a href="../06-rag/2026-09-27-wannabe-vs-200k-ai-engineer-rag-agents-context-and-fine.html">notes</a>), 7 Habits to Become an AI Engineer: Books, Tooling, Research &amp; Shipping (Bashiri Smith on <a href="https://www.facebook.com/reel/1081423530962902">Facebook</a> · <a href="../01-roadmap/2026-09-25-7-habits-to-become-an-ai-engineer-books-tooling-research.html">notes</a>) and 3 more</li>
+<li><strong><a href="https://langfuse.com">Langfuse</a></strong> · tool · langfuse.com · free<br>
+  Purpose-built tool for viewing traces, running evals and managing prompts.<br>
+  Also in: Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="../01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), 7 Habits to Become an AI Engineer: Books, Tooling, Research &amp; Shipping (Bashiri Smith on <a href="https://www.facebook.com/reel/1081423530962902">Facebook</a> · <a href="../01-roadmap/2026-09-25-7-habits-to-become-an-ai-engineer-books-tooling-research.html">notes</a>), Taking a RAG App to Production: Evals, Guardrails, Cost and Tracing (Bashiri Smith on <a href="https://www.facebook.com/reel/1223253343329020">Facebook</a> · <a href="../06-rag/2026-09-12-taking-a-rag-app-to-production-evals-guardrails-cost-and.html">notes</a>)</li>
+<li><strong><a href="https://docs.smith.langchain.com">LangSmith</a></strong> · tool · docs.smith.langchain.com · free<br>
+  Purpose-built tool for viewing traces, running evals and managing prompts.<br>
+  Also in: Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="../01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), 7 Habits to Become an AI Engineer: Books, Tooling, Research &amp; Shipping (Bashiri Smith on <a href="https://www.facebook.com/reel/1081423530962902">Facebook</a> · <a href="../01-roadmap/2026-09-25-7-habits-to-become-an-ai-engineer-books-tooling-research.html">notes</a>)</li>
+<li><strong><a href="https://www.crewai.com">CrewAI</a></strong> · tool · crewai.com · free<br>
+  Framework for role-based multi-agent teams. The guide calls it the fastest prototyping path; it supports MCP and A2A.<br>
+  Also in: 8-Week Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1758231042116375">Facebook</a> · <a href="../01-roadmap/2026-09-19-8-week-roadmap-to-a-200k-ai-engineering-role.html">notes</a>)</li>
+<li><strong><a href="https://github.com/Arize-ai/phoenix">Arize Phoenix</a></strong> · tool · github.com · free<br>
+  Purpose-built tool for viewing traces, running evals and managing prompts.</li>
+<li><strong><a href="https://www.braintrust.dev">Braintrust</a></strong> · tool · braintrust.dev · free<br>
+  Purpose-built tool for viewing traces, running evals and managing prompts.</li>
+<li><strong><a href="https://github.com/anthropics/claude-agent-sdk-python">Claude Agent SDK</a></strong> · tool · github.com · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Anthropic's SDK for agents that work with files, commands, code and MCP tools, using the same loop that powers Claude Code. Subagents and hooks are built in.<br>
+  Also in: Claude Plans Get Monthly Credit for Agent SDK and claude -p (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2054641607899840956">X</a> · <a href="../16-trends/2026-05-14-claude-plans-get-monthly-credit-for-agent-sdk-and-claude-p.html">notes</a>)</li>
+<li><strong><a href="https://opentelemetry.io">OpenTelemetry</a></strong> · tool · opentelemetry.io · free<br>
+  Vendor-neutral tracing standard. The guide recommends it, with its GenAI semantic conventions, as the base layer for agent observability.<br>
+  Also in: 7 Habits to Become an AI Engineer: Books, Tooling, Research &amp; Shipping (Bashiri Smith on <a href="https://www.facebook.com/reel/1081423530962902">Facebook</a> · <a href="../01-roadmap/2026-09-25-7-habits-to-become-an-ai-engineer-books-tooling-research.html">notes</a>)</li>
+<li><strong><a href="https://arxiv.org/abs/2210.03629">ReAct: Synergizing Reasoning and Acting in Language Models</a></strong> · paper · arxiv.org · free<br>
+  The original ReAct paper behind the tool-use reason-act-observe loop.<br>
+  Also in: 17-Step AI Engineer Roadmap: From Basic RAG to Agents, Evals, LLMOps &amp; Governance (Bashiri Smith on <a href="https://www.facebook.com/reel/1137452818806022">Facebook</a> · <a href="../01-roadmap/2026-08-22-17-step-ai-engineer-roadmap-from-basic-rag-to-agents-evals.html">notes</a>)</li>
+<li><strong><a href="https://huggingface.co/docs/smolagents">smolagents</a></strong> · docs · huggingface.co · free<br>
+  Small Hugging Face library for code-as-action agents. It requires a real sandbox.</li>
+<li><strong><a href="https://ai-sdk.dev">Vercel AI SDK</a></strong> · tool · ai-sdk.dev · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  TypeScript SDK for adding AI and agent features to web products.<br>
+  Also in: Swapping AI SDK for pi-ai as the LLM provider layer (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2088682790032486904">X</a> · <a href="../03-llm-fundamentals/2026-08-16-swapping-ai-sdk-for-pi-ai-as-the-llm-provider-layer.html">notes</a>)</li>
+<li><strong><a href="https://github.com/wandb/weave">Weights &amp; Biases Weave</a></strong> · tool · github.com · free<br>
+  Purpose-built tool for viewing traces, running evals and managing prompts.</li>
+<li><strong><a href="https://github.com/a2aproject/A2A">A2A (Agent2Agent) protocol</a></strong> · docs · github.com · free<br>
+  Linux Foundation agent-to-agent protocol that standardizes how agents built on different frameworks find each other and exchange tasks.</li>
+<li><strong><a href="https://www.anthropic.com/engineering/building-effective-agents">Building effective agents (Anthropic engineering)</a></strong> · article · anthropic.com · free<br>
+  Anthropic article that separates workflows from agents and describes core agent patterns such as prompt chaining, routing, orchestrator-workers and evaluator-optimizer.</li>
+<li><strong><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents (Anthropic engineering)</a></strong> · article · anthropic.com · free<br>
+  Anthropic's guidance on context engineering, which treats context as a finite resource with diminishing returns. The guide says it is worth reading in full.</li>
+<li><strong><a href="https://arxiv.org/abs/2402.01030">Executable Code Actions Elicit Better LLM Agents (CodeAct, Wang et al., 2024)</a></strong> · paper · arxiv.org · free<br>
+  The CodeAct paper: agents write and run programs as their actions instead of making one JSON tool call at a time.</li>
+<li><strong><a href="https://google.github.io/adk-docs/">Google ADK (Agent Development Kit)</a></strong> · tool · google.github.io · free<br>
+  Google framework for multi-agent hierarchies, with native A2A support, Python, Java and Go, and deployment on Google Cloud.</li>
+<li><strong><a href="https://www.anthropic.com/engineering/multi-agent-research-system">How we built our multi-agent research system (Anthropic engineering)</a></strong> · article · anthropic.com · free<br>
+  Anthropic's write-up of its multi-agent research system, including token-usage findings (agents use about 4x and multi-agent systems about 15x the tokens of chat).</li>
+<li><strong><a href="https://arxiv.org/abs/2310.04406">Language Agent Tree Search (Zhou et al., 2023)</a></strong> · paper · arxiv.org · free<br>
+  LATS paper, which applies Monte Carlo tree search to full agent trajectories with tool calls.</li>
+<li><strong><a href="https://mastra.ai">Mastra</a></strong> · tool · mastra.ai · free<br>
+  TypeScript agent framework for web products that add agent features.</li>
+<li><strong><a href="https://github.com/microsoft/agent-framework">Microsoft Agent Framework</a></strong> · tool · github.com · free<br>
+  Successor to AutoGen and Semantic Kernel, for .NET and Python teams on Azure.</li>
+<li><strong><a href="https://github.com/openai/openai-agents-python">OpenAI Agents SDK</a></strong> · tool · github.com · free<br>
+  OpenAI framework that provides agents, handoffs, guardrails, sessions and tracing with minimal code.</li>
+<li><strong><a href="https://ai.pydantic.dev">Pydantic AI</a></strong> · tool · ai.pydantic.dev · free<br>
+  Python framework for type-safe single agents with structured outputs and minimal abstraction.</li>
+<li><strong><a href="https://docs.pytest.org">pytest</a></strong> · tool · docs.pytest.org · free<br>
+  Python test framework. The reflection build exercise uses it as the deterministic critic in a code-generation loop.</li>
+<li><strong><a href="https://arxiv.org/abs/2303.11366">Reflexion: Language Agents with Verbal Reinforcement Learning (Shinn et al., 2023)</a></strong> · paper · arxiv.org · free<br>
+  Paper on agents that write verbal reflections after failed attempts and use them to improve without weight updates.</li>
+<li><strong><a href="https://arxiv.org/abs/2305.18323">ReWOO: Decoupling Reasoning from Observations (Xu et al., 2023)</a></strong> · paper · arxiv.org · free<br>
+  Paper on planning every tool call up front, with placeholders for results, to cut token usage sharply.</li>
+<li><strong><a href="https://temporal.io">Temporal</a></strong> · tool · temporal.io · free<br>
+  Durable execution engine for long-running agent runs, with checkpointing, resume and human-input pauses.</li>
+<li><strong><a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">The lethal trifecta for AI agents (Simon Willison, 2025)</a></strong> · article · simonwillison.net · free<br>
+  Simon Willison's security model: an agent with private data, untrusted content and external communication can be turned into a data-exfiltration tool.</li>
+<li><strong><a href="https://arxiv.org/abs/2305.10601">Tree of Thoughts (Yao et al., 2023)</a></strong> · paper · arxiv.org · free<br>
+  Paper on generating, evaluating and searching over several candidate reasoning steps, with backtracking.</li>
+<li><strong><a href="https://www.anthropic.com/engineering/writing-tools-for-agents">Writing tools for agents (Anthropic engineering)</a></strong> · article · anthropic.com · free<br>
+  Anthropic article on designing and testing tools that agents can use well.</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Save the video if you're building AI agents.</li>
+<li>Comment 'graph' to get the creator's breakdown of the five most common agentic design patterns asked about in AI engineering interviews.</li>
+<li>Read the LangChain/LangGraph team's breakdown of graph engineering.</li>
+<li>Put a limit on retries in any agent loop.</li>
+<li>Decide which steps need fixed rules and which should leave the agent free to choose its own steps.</li>
+<li>Build a coding workflow graph: an LLM writes code, tests run, failures loop back with a retry limit, and passing code pauses for human approval.</li>
+<li>Build a parallel multi-agent graph: front-end and back-end agents work at the same time, their changes are merged for testing, and failures go back to the right agent.</li>
+</ul><section class="more"><h2>More in AI Agents, Tool Use &amp; MCP</h2><ul><li><a href="2026-10-03-coworker-open-source-desktop-app-for-ai-agents-with-local.html">Coworker: open-source desktop app for AI agents with local models</a> <span class="meta">Melvin Vivas, 2026-10-03</span></li><li><a href="2026-10-03-grok-bot-template-daily-business-ideas-agent.html">Grok Bot template: daily business-ideas agent</a> <span class="meta">Melvin Vivas, 2026-10-03</span></li><li><a href="2026-10-03-agent-harness-matters-hugging-face-s-open-guide-to-multi.html">Agent Harness Matters: Hugging Face&#x27;s Open Guide to Multi-Harness RL</a> <span class="meta">Melvin Vivas, 2026-10-03</span></li><li><a href="2026-10-02-an-agent-bot-that-installs-and-drives-codex-on-its-own.html">An agent bot that installs and drives Codex on its own</a> <span class="meta">Melvin Vivas, 2026-10-02</span></li><li><a href="2026-10-02-asking-a-coder-bot-to-install-codex.html">Asking a Coder bot to install Codex</a> <span class="meta">Melvin Vivas, 2026-10-02</span></li><li><a href="2026-10-02-organizing-grok-bot-lead-collection-in-one-google-sheet.html">Organizing Grok Bot Lead Collection in One Google Sheet</a> <span class="meta">Melvin Vivas, 2026-10-02</span></li></ul><p><a href="../../topics/agents.html">All of AI Agents, Tool Use &amp; MCP</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>
