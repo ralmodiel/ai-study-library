@@ -32,7 +32,8 @@
   const safeUrl = u => /^https?:\/\//i.test(u || "") ? u : null;
   const fileUrl = f => f ? f.split("/").map(encodeURIComponent).join("/") : null;
   const dur = s => { s = Math.round(s || 0); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = String(s % 60).padStart(2, "0"); return h ? `${h}:${String(m).padStart(2, "0")}:${x}` : `${m}:${x}`; };
-  const fmtDate = d => d ? new Date(d + "T12:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }) : "undated";
+  const dateFmt = new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric", year: "numeric" }), numFmt = new Intl.NumberFormat();
+  const fmtDate = d => d ? dateFmt.format(new Date(d + "T12:00:00")) : "undated";
   const terms = () => state.q.toLowerCase().split(/\s+/).filter(Boolean);
   const hl = text => {
     const ts = terms();
@@ -119,7 +120,7 @@
     return `<li class="row reel${done.has(key) ? " is-done" : ""}" id="reel-${esc(v.id)}">
       <input class="check" type="checkbox" id="done-v-${esc(v.id)}" data-done="${esc(key)}" ${done.has(key) ? "checked" : ""} aria-label="Mark ${esc(v.title)} as done">
       <div class="main">
-        <div class="when"><span>${esc(v.who)} &middot; ${esc(v.plabel)} ${esc(v.kind.toLowerCase())}</span><span>${esc(fmtDate(v.date))}</span>${v.dur ? `<span>${dur(v.dur)}</span>` : ""}${v.views && !compact ? `<span>${Number(v.views).toLocaleString()} views</span>` : ""}${v.level && !compact ? `<span>${esc(v.level)}</span>` : ""}</div>
+        <div class="when"><span>${esc(v.who)} &middot; ${esc(v.plabel)} ${esc(v.kind.toLowerCase())}</span><span>${esc(fmtDate(v.date))}</span>${v.dur ? `<span>${dur(v.dur)}</span>` : ""}${v.views && !compact ? `<span>${numFmt.format(v.views)} views</span>` : ""}${v.level && !compact ? `<span>${esc(v.level)}</span>` : ""}</div>
         <h3 class="title name">${url ? `<a class="ext" href="${esc(url)}" target="_blank" rel="noopener">${hl(v.title)}</a>` : hl(v.title)}</h3>
         ${v.summary ? `<p class="desc">${hl(v.summary)}</p>` : `<p class="desc quote">${esc(v.hook)}</p>`}
         <div class="meta">${(v.topics || []).map(t => `<span class="tag">${esc(topicLabel(t))}</span>`).join(" ")}${res.length ? ` &middot; ${res.length} resource${res.length > 1 ? "s" : ""}` : ""}${docRes.length ? ` + ${docRes.length} in the PDF` : ""}${v.page ? ` &middot; <a href="${esc(v.page)}">Full note</a>` : ""}</div>
