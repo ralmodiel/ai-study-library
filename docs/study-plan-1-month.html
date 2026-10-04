@@ -38,8 +38,8 @@
 <p>An unofficial study plan built from the public posts of Bashiri Smith and Melvin Vivas, not affiliated with or endorsed by them. Items under <strong>Fill the gap</strong> are not from the creators: they cover skills their posts don't. Track your progress in the <a href="./#plans">library app</a>; ticks are saved in your browser.</p>
 </blockquote>
 <h2>Week 1: LLMs, prompts and APIs</h2>
-<p><strong>Goal:</strong> Explain how LLMs work and call an LLM API from Python that returns validated JSON, with tokens, latency and cost logged. (about 15 h in total)</p>
-<p><strong>Core</strong></p>
+<p class="goal"><strong>Goal</strong> Explain how LLMs work and call an LLM API from Python that returns validated JSON, with tokens, latency and cost logged. (about 15 h in total)</p>
+<p class="lbl"><strong>Core</strong></p>
 <ul>
 <li><strong><a href="https://www.youtube.com/watch?v=zjkBMFhNj_g">[1hr Talk] Intro to Large Language Models (Andrej Karpathy)</a></strong> · Video · youtube.com<br>
 <strong>Do:</strong> Whole talk (60 min): inference, training stages, fine-tuning into an assistant, tool use, and the closing security part (jailbreaks, prompt injection) · about 1.5 h.</li>
@@ -48,30 +48,30 @@
 <li><strong><a href="https://machinelearningplus.com/gen-ai/llm-api-call-openai-claude-gemini/">OpenAI, Claude &amp; Gemini API Tutorial in Python (Machine Learning Plus)</a></strong> · Article · machinelearningplus.com<br>
 <strong>Do:</strong> Whole tutorial incl. its 3 exercises: first calls to OpenAI, Claude and Gemini, error handling, a unified wrapper, multi-turn chat, streaming and cost estimation · about 1.5 h.</li>
 </ul>
-<p><strong>From the creators' posts</strong></p>
+<p class="lbl"><strong>From the creators' posts</strong></p>
 <ul>
 <li><a href="notes/01-roadmap/2026-09-23-how-to-relearn-llms-rag-in-2026-a-7-step-roadmap-with-free.html">How to Relearn LLMs &amp; RAG in 2026: A 7-Step Roadmap with Free Resources</a> · Bashiri Smith, Facebook · 1:54</li>
 <li><a href="notes/01-roadmap/2026-09-13-3-month-roadmap-to-ai-engineering-for-experienced-software.html">3-Month Roadmap to AI Engineering for Experienced Software Engineers</a> · Bashiri Smith, Facebook · 0:07</li>
 <li><a href="notes/14-projects/2026-09-24-6-steps-to-build-a-resume-project-that-lands-an-ai.html">6 Steps to Build a Resume Project That Lands an AI Engineering Job</a> · Bashiri Smith, Facebook · 2:47</li>
 <li><a href="notes/03-llm-fundamentals/2026-06-23-how-gpt-works-from-token-embeddings-to-multi-head-attention.html">How GPT Works: From Token Embeddings to Multi-Head Attention</a> · Melvin Vivas, X · 15:11</li>
 </ul>
-<p><strong>Build</strong></p>
+<p class="lbl"><strong>Build</strong></p>
 <ul>
 <li>Start the capstone: pick a focused use case with 20-50 pages of real documents (ideally from a company you'd like to work for) and write 15-20 real questions with expected answers. Then build a Python CLI that calls an LLM API with a system prompt and returns Pydantic-validated JSON (answer, confidence, sources). It retries on invalid output and logs tokens, latency and cost per call; compare three prompt versions on your questions. (about 7.5 h) Idea from <a href="notes/01-roadmap/2026-09-13-3-month-roadmap-to-ai-engineering-for-experienced-software.html">3-Month Roadmap to AI Engineering for Experienced Software Engineers</a>.</li>
 </ul>
-<p><strong>Fill the gap</strong> (not from the creators)</p>
+<p class="lbl"><strong>Fill the gap</strong> (not from the creators)</p>
 <ul>
 <li><strong><a href="https://www.deeplearning.ai/courses/getting-structured-llm-output">Getting Structured LLM Output (DeepLearning.AI x .txt)</a></strong> · Course · deeplearning.ai<br>
   Vendor-neutral 1h21m course (updated Oct 2025) that moves from provider structured-output APIs with Pydantic to Instructor re-prompting and Outlines constrained decoding. Free with a DeepLearning.AI account during its platform beta. (about 2 h)</li>
 </ul>
-<p><strong>Optional</strong></p>
+<p class="lbl"><strong>Optional</strong></p>
 <ul>
 <li><strong><a href="https://www.youtube.com/watch?v=ZSOecQCdea4">The Complete AI Engineer Roadmap for 2026 (Exact Courses + Step-by-Step)</a></strong> · Video · youtube.com · the creator's own</li>
 <li><strong><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices">Prompting best practices (Claude Platform Docs)</a></strong> · Docs · platform.claude.com</li>
 </ul>
 <h2>Week 2: Embeddings and RAG</h2>
-<p><strong>Goal:</strong> Explain embeddings and vector search, and run RAG over your own documents that cites sources and says when it doesn't know. (about 14 h in total)</p>
-<p><strong>Core</strong></p>
+<p class="goal"><strong>Goal</strong> Explain embeddings and vector search, and run RAG over your own documents that cites sources and says when it doesn't know. (about 14 h in total)</p>
+<p class="lbl"><strong>Core</strong></p>
 <ul>
 <li><strong><a href="https://www.deeplearning.ai/short-courses/vector-databases-embeddings-applications/">Vector Databases: from Embeddings to Applications (DeepLearning.AI)</a></strong> · Course · deeplearning.ai<br>
 <strong>Do:</strong> All lessons (1 h 5 min) with the notebooks: vector representations, similarity search, approximate nearest neighbours (HNSW), vector databases, sparse/dense/hybrid search · about 1.5 h.</li>
@@ -80,32 +80,32 @@
 <li><strong><a href="https://drive.google.com/file/d/1Thj1wcILRDxniC231RaDx0wyuc81f2M5/view">How to become an expert in RAG (BASWE AI Engineer Field Guide)</a></strong> · PDF · drive.google.com · the creator's own<br>
 <strong>Do:</strong> The one-page guide: do stages 1-2 (mental model, base pipeline) this week and keep stage 3 (hybrid search, reranking, query rewriting) as stretch goals. Stage 4 (evals, cost, monitoring) comes in weeks 3-4 · about 15 min.</li>
 </ul>
-<p><strong>From the creators' posts</strong></p>
+<p class="lbl"><strong>From the creators' posts</strong></p>
 <ul>
 <li><a href="notes/06-rag/2026-09-13-how-rag-works-under-the-hood-chunking-embedding-storage.html">How RAG Works Under the Hood: Chunking, Embedding, Storage, Retrieval</a> · Bashiri Smith, Facebook · 1:12</li>
 <li><a href="notes/06-rag/2026-09-04-rag-chunking-balancing-chunk-size-for-precision-and-context.html">RAG Chunking: Balancing Chunk Size for Precision and Context</a> · Bashiri Smith, Facebook · 0:29</li>
 <li><a href="notes/06-rag/2026-09-03-why-blind-top-k-retrieval-hurts-rag-and-what-to-use-instead.html">Why Blind Top-K Retrieval Hurts RAG, and What to Use Instead</a> · Bashiri Smith, Facebook · 1:11</li>
 <li><a href="notes/05-embeddings-vectordb/2026-09-25-how-rag-finds-the-right-document-fast-graph-based-vector.html">How RAG Finds the Right Document Fast: Graph-Based Vector Search</a> · Bashiri Smith, Facebook · 1:08</li>
 </ul>
-<p><strong>Build</strong></p>
+<p class="lbl"><strong>Build</strong></p>
 <ul>
 <li>Add retrieval to the assistant: ingest and chunk your documents (with overlap), embed them into pgvector or Chroma, and retrieve the top matches. Answer with citations and reply 'I don't know' when nothing relevant comes back. Compare two chunk sizes and two top-k values on your question set and record which chunks were retrieved. (about 9 h) Idea from <a href="notes/06-rag/2026-10-01-basic-rag-pipeline-in-60-seconds-from-documents-to-grounded.html">Basic RAG Pipeline in 60 Seconds: From Documents to Grounded Answers</a>.</li>
 </ul>
-<p><strong>Fill the gap</strong> (not from the creators)</p>
+<p class="lbl"><strong>Fill the gap</strong> (not from the creators)</p>
 <ul>
 <li><strong><a href="https://www.anthropic.com/engineering/contextual-retrieval">Contextual Retrieval (Anthropic Engineering)</a></strong> · Article · anthropic.com<br>
   Shows how adding LLM-generated context to each chunk before embedding and BM25 indexing, plus reranking, cut failed retrievals by up to 67%, with a runnable cookbook. (about 30 min)</li>
 <li><strong><a href="https://weaviate.io/blog/how-to-choose-an-embedding-model">Step-by-Step Guide to Choosing the Best Embedding Model (Weaviate)</a></strong> · Article · weaviate.io<br>
   A 4-step process: define the use case, shortlist from MTEB by task, size, dimensions and max tokens, then build a small hand-labelled set (50-100 documents plus test queries) from your own data and compare models on precision and recall. (about 30 min)</li>
 </ul>
-<p><strong>Optional</strong></p>
+<p class="lbl"><strong>Optional</strong></p>
 <ul>
 <li><strong><a href="https://www.youtube.com/watch?v=vT-DpLvf29Q">Complete RAG tutorial 2026, with free labs</a></strong> · Video · youtube.com</li>
 <li><strong><a href="https://www.youtube.com/watch?v=YNcoFoRwoc8">Build Production-Ready Retrieval RAG Pipeline in LangChain | Hybrid Search (BM25), Re-ranking &amp; HyDE (Venelin Valkov)</a></strong> · Video · youtube.com</li>
 </ul>
 <h2>Week 3: Evals, then tools and agents</h2>
-<p><strong>Goal:</strong> Score your assistant on a golden test set, then turn it into a tool-calling agent with an MCP tool, without losing quality. (about 14.5 h in total)</p>
-<p><strong>Core</strong></p>
+<p class="goal"><strong>Goal</strong> Score your assistant on a golden test set, then turn it into a tool-calling agent with an MCP tool, without losing quality. (about 14.5 h in total)</p>
+<p class="lbl"><strong>Core</strong></p>
 <ul>
 <li><strong><a href="https://drive.google.com/file/d/1BQwIzI5tWC4Rd6jmloCQMueQnwAYuM1M/view?usp=sharing">Evaluation Field Guide (baswe.ai engineer accelerator – Ops and Evaluation module)</a></strong> · PDF · drive.google.com · the creator's own<br>
 <strong>Do:</strong> Sections 00-04 (why evals, eval-driven development and golden datasets, output metrics, LLM-as-a-judge, RAG evaluation); skim 05 (agents) and 07 (production) · about 1.5 h.</li>
@@ -114,31 +114,31 @@
 <li><strong><a href="https://modelcontextprotocol.io">Model Context Protocol (MCP)</a></strong> · Docs · modelcontextprotocol.io<br>
 <strong>Do:</strong> 'What is MCP' and 'Architecture', then the 'Build an MCP server' quickstart in Python · about 1.5 h.</li>
 </ul>
-<p><strong>From the creators' posts</strong></p>
+<p class="lbl"><strong>From the creators' posts</strong></p>
 <ul>
 <li><a href="notes/06-rag/2026-09-30-how-to-evaluate-a-rag-pipeline-retrieval-vs-generation.html">How to Evaluate a RAG Pipeline: Retrieval vs. Generation (Interview Answer)</a> · Bashiri Smith, Facebook · 2:23</li>
 <li><a href="notes/06-rag/2026-09-29-langchain-vs-langgraph-explained-with-one-rag-chatbot.html">LangChain vs. LangGraph Explained with One RAG Chatbot</a> · Bashiri Smith, Facebook · 1:13</li>
 <li><a href="notes/06-rag/2026-08-27-7-ai-engineering-concept-pairs-rag-vs-fine-tuning-agents-vs.html">7 AI Engineering Concept Pairs: RAG vs Fine-Tuning, Agents vs Workflows &amp; More</a> · Bashiri Smith, Facebook · 1:47</li>
 <li><a href="notes/03-llm-fundamentals/2026-06-18-running-local-models-for-agents-tool-use-context-and.html">Running Local Models for Agents: Tool Use, Context and Quantization</a> · Melvin Vivas, X · 1:45</li>
 </ul>
-<p><strong>Build</strong></p>
+<p class="lbl"><strong>Build</strong></p>
 <ul>
 <li>Grow your questions into a 25-30-case golden set, including 3-5 the documents can't answer. Score the week-2 RAG baseline on retrieval hit rate and on LLM-as-judge faithfulness and correctness, spot-checking 10 answers by hand. Then make it a tool-calling agent: search_docs plus one action tool that waits for your approval, with a step limit. Expose search_docs through a small MCP server and re-run the evals to compare. (about 9 h) Idea from <a href="notes/06-rag/2026-09-30-how-to-evaluate-a-rag-pipeline-retrieval-vs-generation.html">How to Evaluate a RAG Pipeline: Retrieval vs. Generation (Interview Answer)</a>.</li>
 </ul>
-<p><strong>Fill the gap</strong> (not from the creators)</p>
+<p class="lbl"><strong>Fill the gap</strong> (not from the creators)</p>
 <ul>
 <li><strong><a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">The lethal trifecta for AI agents (Simon Willison)</a></strong> · Article · simonwillison.net<br>
   A 10-minute mental model of why an agent that has private data, untrusted content and an outbound channel can be hijacked to leak data, and why guardrail filters alone don't fix it. (about 15 min)</li>
 </ul>
-<p><strong>Optional</strong></p>
+<p class="lbl"><strong>Optional</strong></p>
 <ul>
 <li><strong><a href="https://huggingface.co/learn/agents-course">Hugging Face Agents Course</a></strong> · Course · huggingface.co</li>
 <li><strong><a href="https://aibackends.com/blog/ai-agents-vs-ai-workflows">AI Agents vs AI Workflows: How to Choose for Production (AIBackends blog)</a></strong> · Article · aibackends.com · the creator's own</li>
 <li><strong><a href="https://github.com/promptfoo/promptfoo">promptfoo</a></strong> · Repo · github.com</li>
 </ul>
 <h2>Week 4: Ship it and start applying</h2>
-<p><strong>Goal:</strong> Ship the assistant as a traced, containerized API, present it as a portfolio project, and start a targeted job search. (about 15 h in total)</p>
-<p><strong>Core</strong></p>
+<p class="goal"><strong>Goal</strong> Ship the assistant as a traced, containerized API, present it as a portfolio project, and start a targeted job search. (about 15 h in total)</p>
+<p class="lbl"><strong>Core</strong></p>
 <ul>
 <li><strong><a href="https://fastapi.tiangolo.com">FastAPI</a></strong> · Tool · fastapi.tiangolo.com<br>
 <strong>Do:</strong> Tutorial: First Steps, path/query parameters and request body (Pydantic models), then Deployment &gt; 'FastAPI in Containers - Docker' · about 2 h.</li>
@@ -147,23 +147,23 @@
 <li><strong><a href="https://drive.google.com/file/d/1n4n-L-_7GV-RCOfffZetHPgLc_RScljR/view">The Interview Engine: The 7-Step System to Land AI Engineering Interviews</a></strong> · PDF · drive.google.com · the creator's own<br>
 <strong>Do:</strong> All 7 steps (12 pages): one-page resume, tailoring prompt, LinkedIn connections export, job tracker, warm paths, finding emails, outreach email and follow-ups. The PDF has the prompts and email template; the tracker spreadsheet is only in the paid community, so make your own (Jobs, Warm paths, Contacts). The free resume template is linked from Bashiri's roadmap video · about 1.5 h.</li>
 </ul>
-<p><strong>From the creators' posts</strong></p>
+<p class="lbl"><strong>From the creators' posts</strong></p>
 <ul>
 <li><a href="notes/06-rag/2026-09-27-rag-pre-deployment-checklist-evals-grounding-latency-cost.html">RAG Pre-Deployment Checklist: Evals, Grounding, Latency, Cost &amp; Monitoring</a> · Bashiri Smith, Facebook · 0:54</li>
 <li><a href="notes/06-rag/2026-09-12-taking-a-rag-app-to-production-evals-guardrails-cost-and.html">Taking a RAG App to Production: Evals, Guardrails, Cost and Tracing</a> · Bashiri Smith, Facebook · 1:10</li>
 <li><a href="notes/15-career/2026-09-18-apply-while-you-build-get-job-search-feedback-on-your-ai.html">Apply While You Build: Get Job-Search Feedback on Your AI Project Early</a> · Bashiri Smith, Facebook · 1:12</li>
 <li><a href="notes/15-career/2026-09-28-find-hidden-ai-jobs-search-by-skills-rag-llms-not-ai.html">Find Hidden AI Jobs: Search by Skills (RAG, LLMs), Not "AI Engineer" Titles</a> · Bashiri Smith, Facebook · 1:03</li>
 </ul>
-<p><strong>Build</strong></p>
+<p class="lbl"><strong>Build</strong></p>
 <ul>
 <li>Ship it: serve the assistant behind a FastAPI /ask endpoint in Docker, deploy it to a free tier, and trace latency, tokens and cost per request with Langfuse. Publish a README (problem, architecture diagram, eval results, trade-offs) and a 2-minute demo, then add the project with its measured results to your resume. Send your first 10 targeted applications or outreach messages using the Interview Engine. (about 9.5 h) Idea from <a href="notes/01-roadmap/2026-09-11-ai-engineer-roadmap-for-2026-in-60-seconds.html">AI Engineer Roadmap for 2026 in 60 Seconds</a>.</li>
 </ul>
-<p><strong>Fill the gap</strong> (not from the creators)</p>
+<p class="lbl"><strong>Fill the gap</strong> (not from the creators)</p>
 <ul>
 <li><strong><a href="https://developers.openai.com/api/docs/guides/latency-optimization">Latency optimization guide (OpenAI API docs)</a></strong> · Docs · developers.openai.com<br>
   Seven provider-agnostic principles (process tokens faster, generate fewer tokens, use fewer input tokens, make fewer requests, parallelise, stream to cut perceived wait, don't default to an LLM) with a worked example. (about 30 min)</li>
 </ul>
-<p><strong>Optional</strong></p>
+<p class="lbl"><strong>Optional</strong></p>
 <ul>
 <li><strong><a href="https://drive.google.com/file/d/1VUHvpwfuL-9R6aijI49jH5AvRk7A_x20/view">100 AI Engineering Interview Questions Guide</a></strong> · PDF · drive.google.com · the creator's own</li>
 <li><a href="notes/09-llmops/2026-09-24-how-cursor-cut-agent-token-costs-by-7-without-losing-quality.html">How Cursor cut agent token costs by 7% without losing quality</a> · Melvin Vivas, X</li>

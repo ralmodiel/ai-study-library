@@ -86,10 +86,10 @@
         ${note ? `<div class="plan-note"><b>Do:</b> ${esc(note)}</div>` : ""}
         ${r.desc ? `<p class="desc">${hl(r.desc)}</p>` : ""}
         ${dmLine}${noLink}
-        ${ctx ? `<div class="meta">Context, paraphrased from ${esc(V[ctx.v] ? V[ctx.v].who : "the post")}: ${esc(ctx.c)}${ctx.t ? ` <span class="mono">(${esc(ctx.t)})</span>` : ""}</div>` : ""}
+        ${ctx && !note ? `<div class="meta">Context, paraphrased from ${esc(V[ctx.v] ? V[ctx.v].who : "the post")}: ${esc(ctx.c)}${ctx.t ? ` <span class="mono">(${esc(ctx.t)})</span>` : ""}</div>` : ""}
         <div class="meta">${r.domain ? `<span class="mono">${esc(r.domain)}</span>` : ""}${local}
-          ${refs.length ? ` &middot; In ${r.videos.length} reel${r.videos.length > 1 ? "s/posts" : "/post"}: ${refs.join("; ")}${r.videos.length > 3 ? "&hellip;" : ""}` : ""}
-          ${fromDocs.length ? ` &middot; Listed in ${fromDocs.join(", ")}` : ""}</div>
+          ${!note && refs.length ? ` &middot; In ${r.videos.length} reel${r.videos.length > 1 ? "s/posts" : "/post"}: ${refs.join("; ")}${r.videos.length > 3 ? "&hellip;" : ""}` : ""}
+          ${!note && fromDocs.length ? ` &middot; Listed in ${fromDocs.join(", ")}` : ""}</div>
       </div></li>`;
   }
 
@@ -109,7 +109,7 @@
           </div>`;
   }
 
-  function reelRow(v, open) {
+  function reelRow(v, open, compact) {
     const key = "v:" + v.id, url = safeUrl(v.url);
     const res = v.res.map(id => R[id]).filter(Boolean);
     const docs = v.docs.map(k => D.docs[k]).filter(Boolean);
@@ -119,7 +119,7 @@
     return `<li class="row reel${done.has(key) ? " is-done" : ""}" id="reel-${esc(v.id)}">
       <input class="check" type="checkbox" id="done-v-${esc(v.id)}" data-done="${esc(key)}" ${done.has(key) ? "checked" : ""} aria-label="Mark ${esc(v.title)} as done">
       <div class="main">
-        <div class="when"><span>${esc(v.who)} &middot; ${esc(v.plabel)} ${esc(v.kind.toLowerCase())}</span><span>${esc(fmtDate(v.date))}</span>${v.dur ? `<span>${dur(v.dur)}</span>` : ""}${v.views ? `<span>${Number(v.views).toLocaleString()} views</span>` : ""}${v.level ? `<span>${esc(v.level)}</span>` : ""}</div>
+        <div class="when"><span>${esc(v.who)} &middot; ${esc(v.plabel)} ${esc(v.kind.toLowerCase())}</span><span>${esc(fmtDate(v.date))}</span>${v.dur ? `<span>${dur(v.dur)}</span>` : ""}${v.views && !compact ? `<span>${Number(v.views).toLocaleString()} views</span>` : ""}${v.level && !compact ? `<span>${esc(v.level)}</span>` : ""}</div>
         <h3 class="title name">${url ? `<a class="ext" href="${esc(url)}" target="_blank" rel="noopener">${hl(v.title)}</a>` : hl(v.title)}</h3>
         ${v.summary ? `<p class="desc">${hl(v.summary)}</p>` : `<p class="desc quote">${esc(v.hook)}</p>`}
         <div class="meta">${(v.topics || []).map(t => `<span class="tag">${esc(topicLabel(t))}</span>`).join(" ")}${res.length ? ` &middot; ${res.length} resource${res.length > 1 ? "s" : ""}` : ""}${docRes.length ? ` + ${docRes.length} in the PDF` : ""}${v.page ? ` &middot; <a href="${esc(v.page)}">Full note</a>` : ""}</div>
@@ -168,15 +168,15 @@
     if (!h || /\babout\b/i.test(p)) return p;
     return p ? `${p} · ${hrs(h)}` : hrs(h);
   };
-  const checkRow = (key, label, body) => `<li class="row${done.has(key) ? " is-done" : ""}"><input class="check" type="checkbox" data-done="${esc(key)}" ${done.has(key) ? "checked" : ""} aria-label="Mark ${esc(label)} as done"><div class="main">${body}</div></li>`;
+  const checkRow = (key, label, body, cls = "") => `<li class="row${cls}${done.has(key) ? " is-done" : ""}"><input class="check" type="checkbox" data-done="${esc(key)}" ${done.has(key) ? "checked" : ""} aria-label="Mark ${esc(label)} as done"><div class="main">${body}</div></li>`;
 
   function viewPlans() {
     const plans = D.plans || [];
     if (!plans.length) return empty();
     const plan = plans.find(p => p.id === state.plan) || plans[0];
     const chips = plans.map(p => `<button class="chip" data-plan="${esc(p.id)}" aria-pressed="${p.id === plan.id}">${esc(p.name)}<span class="n">${esc(p.tagline)}</span></button>`).join("");
-    let out = `<div class="chips" role="group" aria-label="Choose a plan">${chips}</div>
-      <p class="intro">${esc(plan.intro)} About ${Number(plan.hours)} hours a week. Items marked <span class="tag gap">Not from the creators</span> fill gaps their posts leave. Your ticks are shared with the other tabs.${plan.page ? ` <a href="${esc(plan.page)}">Open as a page</a>.` : ""}</p>`;
+    let out = `<div class="chips plan-chips" role="group" aria-label="Choose a plan">${chips}</div>
+      <p class="intro">${esc(plan.intro)} About ${Number(plan.hours)} hours a week. Items under Fill the gap are not from the creators; they cover what the posts leave out. Your ticks are shared with the other tabs.${plan.page ? ` <a href="${esc(plan.page)}">Open as a page</a>.` : ""}</p>`;
     // a topic (or creator) filter hides most of a plan's items: say so, with a way back to the whole plan
     if (state.topic || state.who) {
       const by = [state.topic ? `the topic &ldquo;${esc(topicLabel(state.topic))}&rdquo;` : "", state.who ? `${esc(state.who)}&rsquo;s posts` : ""].filter(Boolean).join(" and ");
@@ -198,13 +198,13 @@
       shown++;
       const keys = [...w.core.map(c => "r:" + c.id), ...w.reels.map(id => "v:" + id), ...(w.build.text ? [bKey] : []), ...w.extra.map(e => "x:" + e.url)];
       const src = build && build.from && V[build.from];
-      out += `<section class="group"><div class="group-h"><h2>Week ${Number(w.n)}: ${esc(w.title)}</h2>${countSpan(keys)}</div>
-        ${w.goal ? `<p class="group-desc"><b>Goal:</b> ${esc(w.goal)}${w.hours ? ` (${hrs(w.hours)} in total)` : ""}</p>` : ""}
+      out += `<section class="group week"><div class="group-h"><h2>Week ${Number(w.n)}: ${esc(w.title)}</h2>${countSpan(keys)}</div>
+        ${w.goal ? `<p class="group-desc goal"><b>Goal</b> ${esc(w.goal)}${w.hours ? ` (${hrs(w.hours)} in total)` : ""}</p>` : ""}
         ${core.length ? `<div class="sub">Core</div><ul class="list">${core.map(c => resRow(R[c.id], doLine(c.portion, c.hours))).join("")}</ul>` : ""}
-        ${reels.length ? `<div class="sub">From the creators&rsquo; posts</div><ul class="list">${reels.map(v => reelRow(v, false)).join("")}</ul>` : ""}
-        ${build ? `<div class="sub">Build</div><ul class="list">${checkRow(bKey, `week ${w.n} build`, `<div class="name plain">${esc(build.text)}</div>${build.hours || src ? `<div class="meta">${build.hours ? hrs(build.hours) : ""}${build.hours && src ? " &middot; " : ""}${src ? `Idea from <a href="#reels" data-reel="${esc(src.id)}">${esc(src.title)}</a>` : ""}</div>` : ""}`)}</ul>` : ""}
-        ${extra.length ? `<div class="sub">Fill the gap</div><ul class="list">${extra.map(([e, k]) => checkRow(k, e.name, `<div class="top"><span class="name">${safeUrl(e.url) ? `<a class="ext" href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.name)}</a>` : esc(e.name)}</span> <span class="tag">${esc(e.type || "Resource")}</span> <span class="tag gap">Not from the creators</span></div>${e.why ? `<p class="desc">${esc(e.why)}</p>` : ""}${e.hours ? `<div class="plan-note"><b>Time:</b> ${esc(hrs(e.hours))}</div>` : ""}`)).join("")}</ul>` : ""}
-        ${optional.length ? `<div class="sub">Optional</div><ul class="list">${optional.map(o => o.kind === "r" ? resRow(R[o.id]) : reelRow(V[o.id], false)).join("")}</ul>` : ""}
+        ${reels.length ? `<div class="sub">From the creators&rsquo; posts</div><ul class="list">${reels.map(v => reelRow(v, false, true)).join("")}</ul>` : ""}
+        ${build ? `<div class="sub">Build</div><ul class="list">${checkRow(bKey, `week ${w.n} build`, `<div class="name plain">${esc(build.text)}</div>${build.hours || src ? `<div class="meta">${build.hours ? hrs(build.hours) : ""}${build.hours && src ? " &middot; " : ""}${src ? `Idea from <a href="#reels" data-reel="${esc(src.id)}">${esc(src.title)}</a>` : ""}</div>` : ""}`, " build")}</ul>` : ""}
+        ${extra.length ? `<div class="sub">Fill the gap <span class="sub-note">not from the creators</span></div><ul class="list">${extra.map(([e, k]) => checkRow(k, e.name, `<div class="top"><span class="name">${safeUrl(e.url) ? `<a class="ext" href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.name)}</a>` : esc(e.name)}</span> <span class="tag">${esc(e.type || "Resource")}</span></div>${e.why ? `<p class="desc">${esc(e.why)}</p>` : ""}${e.hours ? `<div class="plan-note"><b>Time:</b> ${esc(hrs(e.hours))}</div>` : ""}`)).join("")}</ul>` : ""}
+        ${optional.length ? `<details class="opt"${terms().length ? " open" : ""}><summary>Optional <span class="sub-note">${optional.length} more if you have time</span></summary><ul class="list">${optional.map(o => o.kind === "r" ? resRow(R[o.id]) : reelRow(V[o.id], false, true)).join("")}</ul></details>` : ""}
       </section>`;
     }
     if (!shown) return out + empty();
@@ -247,7 +247,7 @@
     }).join("")}</div>`;
   }
 
-  const empty = () => `<p class="empty">Nothing matches${state.q ? ` &ldquo;${esc(state.q)}&rdquo;` : ""}${state.topic ? " in this topic" : ""}${state.hideDone ? " (done items are hidden)" : ""}.</p>`;
+  const empty = () => `<p class="empty">Nothing matches${state.q ? ` &ldquo;${esc(state.q)}&rdquo;` : ""}${state.topic ? " in this topic" : ""}${state.hideDone ? " (done items are hidden)" : ""}. <button type="button" class="linkish" data-clear-filters>Clear search and filters</button></p>`;
   const VIEWS = { watch: viewWatch, path: viewPath, plans: viewPlans, resources: viewResources, reels: viewReels, guides: viewGuides };
 
   // ---------- chrome
@@ -371,8 +371,8 @@
     if (!a) return;
     if (a.dataset.type !== undefined) { state.type = a.dataset.type; render(true); return; }
     if (a.dataset.clearFilters !== undefined) {
-      state.topic = ""; state.who = "";
-      document.getElementById("topic").value = ""; document.getElementById("who").value = "";
+      state.topic = ""; state.who = ""; state.q = "";
+      document.getElementById("topic").value = ""; document.getElementById("who").value = ""; document.getElementById("q").value = "";
       render(true); return;
     }
     if (a.dataset.plan !== undefined) { state.plan = a.dataset.plan; store.set("plan", state.plan); render(true); return; }

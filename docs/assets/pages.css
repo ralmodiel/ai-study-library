@@ -46,3 +46,37 @@ th, td { border: 1px solid var(--line); padding: 6px 8px; text-align: left; vert
 .foot { max-width: 52rem; margin: 0 auto; padding: 18px 16px 48px; border-top: 1px solid var(--line); color: var(--muted); font-size: var(--s-sm); }
 .foot p { margin: 6px 0; max-width: none; }
 .foot-h { font-weight: 600; color: var(--ink); }
+
+/* --- UI/UX round, Oct 2026: refine (measure, focus, quieter links and footer) --- */
+@media (min-width: 48rem) { body { font-size: 1.0625rem; } }
+p, li { max-width: 36rem; }
+.source p, .cards > li > p { max-width: none; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+a { text-decoration-thickness: 1px; text-underline-offset: .2em; text-decoration-color: color-mix(in srgb, currentColor 45%, transparent); }
+a:hover { text-decoration-color: currentColor; }
+.top { padding-top: 10px; }
+.menu { gap: 0 16px; }
+.menu a { padding: 6px 0; text-decoration: none; }
+.menu a:hover, .menu a[aria-current="page"] { text-decoration: underline; text-decoration-color: currentColor; }
+.crumbs { line-height: 1.9; }
+.crumbs [aria-current] { display: inline-block; max-width: min(100%, 26ch); vertical-align: bottom; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; }
+@media (min-width: 48rem) { .crumbs [aria-current] { max-width: 48ch; } }
+.source { max-width: 36rem; }
+.source p + p { color: var(--muted); font-size: var(--s-sm); }
+h2 { font: 600 1.3rem/1.3 var(--display); }
+blockquote > :first-child { margin-top: 0; } blockquote > :last-child { margin-bottom: 0; }
+main li:has(> br) { margin: 14px 0; }
+.foot a { color: inherit; } .foot p { max-width: 44rem; }
+body { min-height: 100vh; display: flex; flex-direction: column; }
+.top, main, .foot { width: 100%; }
+main { flex: 1 0 auto; }
+/* study plans */
+.goal { background: var(--surface); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; padding: 10px 14px; }
+.goal > strong { color: var(--accent); }
+.lbl { margin: 22px 0 4px; }
+.cards > li { position: relative; }
+.cards > li > a:first-child { text-decoration: none; font: 600 1.1rem/1.3 var(--display); color: var(--ink); }
+.cards > li > a:first-child b { color: var(--accent); }
+.cards > li > a:first-child::after { content: ""; position: absolute; inset: 0; border-radius: 8px; }
+.cards > li:hover { border-color: var(--accent); }
