@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Extend Grok Bot with Your Own MCP Servers and Connectors | AI…</title>
+<meta name="description" content="The Grok Bot plugin submission page is live. Developers can extend the assistant by submitting their own MCP servers and connectors.">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-14-extend-grok-bot-with-your-own-mcp-servers-and-connectors.html">
+<meta name="robots" content="noindex, follow">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Extend Grok Bot with Your Own MCP Servers and Connectors | AI…">
+<meta property="og:description" content="The Grok Bot plugin submission page is live. Developers can extend the assistant by submitting their own MCP servers and connectors.">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-14-extend-grok-bot-with-your-own-mcp-servers-and-connectors.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../fonts/ibm-plex-sans-normal-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/bricolage-grotesque-normal-600-750-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-14-extend-grok-bot-with-your-own-mcp-servers-and-connectors.html#note","headline":"Extend Grok Bot with Your Own MCP Servers and Connectors","description":"The Grok Bot plugin submission page is live. Developers can extend the assistant by submitting their own MCP servers and connectors.","url":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-14-extend-grok-bot-with-your-own-mcp-servers-and-connectors.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"AI Agents, Tool Use & MCP"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2110333471940043067","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-10-14"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-14-extend-grok-bot-with-your-own-mcp-servers-and-connectors.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"AI Agents, Tool Use & MCP","item":"https://ralmodiel.github.io/ai-study-library/topics/agents.html"},{"@type":"ListItem","position":4,"name":"Extend Grok Bot with Your Own MCP Servers and Connectors"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/agents.html">AI Agents, Tool Use &amp; MCP</a> &rsaquo; <span aria-current="page">Extend Grok Bot with Your Own MCP Servers and Connectors</span></nav><h1>Extend Grok Bot with Your Own MCP Servers and Connectors</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2110333471940043067">a post by Melvin Vivas on X</a>, posted 14 October 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X post · 2026-10-14 · <a href="https://x.com/melvindvivas/status/2110333471940043067">Open on X</a></p>
+<p><strong>Topics:</strong> AI Agents, Tool Use &amp; MCP · <strong>Level:</strong> intermediate</p>
+<h2>Summary</h2>
+<p>The Grok Bot plugin submission page is live. Developers can extend the assistant by submitting their own MCP servers and connectors.</p>
+<h2>Key points</h2>
+<ul>
+<li>Grok Bot plugin submissions are now open.</li>
+<li>Plugins can be MCP (Model Context Protocol) servers or connectors.</li>
+<li>Submitting one makes your tools available inside Grok Bot.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://x.ai/bot">Grok Bot</a></strong> · tool · x.ai · paid<br>
+  An early-beta AI agent product from the Grok family that runs in its own computer and browser instance and does tasks in your tools.<br>
+  Also in: Language Coach Bot Template for Grok Bot (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110721679018369478">X</a> · <a href="../13-ai-tools/2026-10-15-language-coach-bot-template-for-grok-bot.html">notes</a>), ComfyUI Templates: Chain Ready-Made Workflows Instead of Building From Scratch (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110638054184833491">X</a> · <a href="../13-ai-tools/2026-10-15-comfyui-templates-chain-ready-made-workflows-instead-of.html">notes</a>), Language Coach Bot Template for Grok Bot (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110632657814262194">X</a> · <a href="../13-ai-tools/2026-10-15-language-coach-bot-template-for-grok-bot-2.html">notes</a>), How to Customize Grok Voice 3.0 in Grok Bot (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110578219422548378">X</a> · <a href="../13-ai-tools/2026-10-15-how-to-customize-grok-voice-3-0-in-grok-bot.html">notes</a>) and 97 more</li>
+<li><strong><a href="https://modelcontextprotocol.io">Model Context Protocol (MCP)</a></strong> · docs · modelcontextprotocol.io · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Open standard for connecting models to tools and data sources through one interface. It turns an N×M integration problem into N+M.<br>
+  Also in: AI Engineer Vocab Quiz: 11 Acronyms to Know for Interviews (Bashiri Smith on <a href="https://www.facebook.com/reel/1611778797098593">Facebook</a> · <a href="../03-llm-fundamentals/2026-10-10-ai-engineer-vocab-quiz-11-acronyms-to-know-for-interviews.html">notes</a>), The 3 AI Engineering Skills: Generative AI, RAG, and Agentic AI (Bashiri Smith on <a href="https://www.facebook.com/reel/1588273506104344">Facebook</a> · <a href="../01-roadmap/2026-10-10-the-3-ai-engineering-skills-generative-ai-rag-and-agentic-ai.html">notes</a>), xAI's Experimental TypeScript SDK: Grok Text, Voice, Image and Video in One SDK (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2106095337077395633">X</a> · <a href="../03-llm-fundamentals/2026-10-03-xai-s-experimental-typescript-sdk-grok-text-voice-image-and.html">notes</a>), Grok Bot Templates: Sharing, Publishing and Safely Installing Bots (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2103697947640918283">X</a> · <a href="2026-09-26-grok-bot-templates-sharing-publishing-and-safely-installing.html">notes</a>) and 11 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Submit your own MCP server or connector on the Grok Bot plugin submission page.</li>
+<li>Build an MCP server for a tool you use and submit it as a Grok Bot plugin.</li>
+</ul><section class="more"><h2>More in AI Agents, Tool Use &amp; MCP</h2><ul><li><a href="2026-10-15-voice-driven-email-triage-with-grok-bot.html">Voice-driven email triage with Grok Bot</a> <span class="meta">Melvin Vivas, 2026-10-15</span></li><li><a href="2026-10-15-submit-plugins-connectors-to-the-grok-bot-marketplace.html">Submit Plugins/Connectors to the Grok Bot Marketplace</a> <span class="meta">Melvin Vivas, 2026-10-15</span></li><li><a href="2026-10-15-bot-to-bot-handoffs-in-grok-bot-for-multi-agent-workflows.html">Bot-to-Bot Handoffs in Grok Bot for Multi-Agent Workflows</a> <span class="meta">Melvin Vivas, 2026-10-15</span></li><li><a href="2026-10-14-why-anthropic-built-scion-a-source-control-system-for-ai.html">Why Anthropic built Scion, a source control system for AI agents</a> <span class="meta">Melvin Vivas, 2026-10-14</span></li><li><a href="2026-10-14-grok-bot-0-70-2-bot-email-live-app-cards-and-x-search.html">Grok Bot 0.70.2: Bot Email, Live App Cards and X Search</a> <span class="meta">Melvin Vivas, 2026-10-14</span></li><li><a href="2026-10-14-using-grok-bot-as-a-phone-based-team-of-personal-ai-agents.html">Using Grok Bot as a Phone-Based Team of Personal AI Agents</a> <span class="meta">Melvin Vivas, 2026-10-14</span></li></ul><p><a href="../../topics/agents.html">All of AI Agents, Tool Use &amp; MCP</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

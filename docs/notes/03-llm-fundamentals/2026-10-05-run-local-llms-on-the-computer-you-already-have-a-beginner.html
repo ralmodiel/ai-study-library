@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Run Local LLMs on the Computer You Already Have: A Beginner&#x27;s Path |…</title>
+<meta name="description" content="Melvin Vivas argues that you don&#x27;t need an expensive multi-GPU rig to start running AI models locally. Your current computer works, even running on CPU only…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/03-llm-fundamentals/2026-10-05-run-local-llms-on-the-computer-you-already-have-a-beginner.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Run Local LLMs on the Computer You Already Have: A Beginner&#x27;s Path |…">
+<meta property="og:description" content="Melvin Vivas argues that you don&#x27;t need an expensive multi-GPU rig to start running AI models locally. Your current computer works, even running on CPU only…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/03-llm-fundamentals/2026-10-05-run-local-llms-on-the-computer-you-already-have-a-beginner.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../fonts/ibm-plex-sans-normal-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/bricolage-grotesque-normal-600-750-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/03-llm-fundamentals/2026-10-05-run-local-llms-on-the-computer-you-already-have-a-beginner.html#note","headline":"Run Local LLMs on the Computer You Already Have: A Beginner's Path","description":"Melvin Vivas argues that you don't need an expensive multi-GPU rig to start running AI models locally. Your current computer works, even running on CPU only. He lays out a starter path: install Ollama or LM Studio, run a small 3B–8B model, try GGUF models, then move on to llama.cpp and Unsloth…","url":"https://ralmodiel.github.io/ai-study-library/notes/03-llm-fundamentals/2026-10-05-run-local-llms-on-the-computer-you-already-have-a-beginner.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"LLM Fundamentals"},{"@type":"Thing","name":"LLMOps, Deployment & Monitoring"},{"@type":"Thing","name":"Start Here: Roadmaps & Strategy"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2107061873413943463","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-10-05"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/03-llm-fundamentals/2026-10-05-run-local-llms-on-the-computer-you-already-have-a-beginner.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"LLM Fundamentals","item":"https://ralmodiel.github.io/ai-study-library/topics/llm-fundamentals.html"},{"@type":"ListItem","position":4,"name":"Run Local LLMs on the Computer You Already Have: A Beginner's Path"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/llm-fundamentals.html">LLM Fundamentals</a> &rsaquo; <span aria-current="page">Run Local LLMs on the Computer You Already Have: A Beginner&#x27;s Path</span></nav><h1>Run Local LLMs on the Computer You Already Have: A Beginner's Path</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2107061873413943463">a video post by Melvin Vivas on X</a>, posted 5 October 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X video post · 2026-10-05 · 1:20 · 572 views · <a href="https://x.com/melvindvivas/status/2107061873413943463">Open on X</a></p>
+<p><strong>Topics:</strong> LLM Fundamentals, LLMOps, Deployment &amp; Monitoring, Start Here: Roadmaps &amp; Strategy · <strong>Level:</strong> beginner</p>
+<h2>Summary</h2>
+<p>Melvin Vivas argues that you don't need an expensive multi-GPU rig to start running AI models locally. Your current computer works, even running on CPU only. He lays out a starter path: install Ollama or LM Studio, run a small 3B–8B model, try GGUF models, then move on to llama.cpp and Unsloth once you know the basics.</p>
+<h2>Key points</h2>
+<ul>
+<li>You don't need a $5,000 rig with multiple GPUs and huge amounts of RAM to start with local models.</li>
+<li>You can start on the computer you have, even on CPU only. It will be slower, but that's fine for learning.</li>
+<li>At the start, the goal is to understand how local models work, not to build the fastest server.</li>
+<li>Step 1: install Ollama or LM Studio, the easiest ways to run models locally.</li>
+<li>Step 2: start with a small model in the 3B–8B parameter range.</li>
+<li>Step 3: try GGUF models (a quantized model file format).</li>
+<li>Step 4: once you know the basics, experiment with llama.cpp and Unsloth.</li>
+<li>Don't buy hardware first and don't feel you need to be an ML engineer. Just get a model running.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://x.com/ollama">Ollama</a></strong> · tool · x.com · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Open-source tool for downloading and running LLMs locally from a simple command line or API.<br>
+  Also in: GitHub Copilot Adds Intelligent Local Model Routing (Project HydraFusion) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108198817816510919">X</a> · <a href="../13-ai-tools/2026-10-08-github-copilot-adds-intelligent-local-model-routing-project.html">notes</a>), Running LLMs Locally Without an Expensive Rig (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104363353045123168">X</a> · <a href="2026-09-28-running-llms-locally-without-an-expensive-rig.html">notes</a>), Adding Vercel AI Gateway as a provider in AIBackends with Devin (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101160927718781084">X</a> · <a href="../09-llmops/2026-09-19-adding-vercel-ai-gateway-as-a-provider-in-aibackends-with.html">notes</a>), Running Qwen3.8-27B Locally on an M5 Max MacBook with Inco Splash (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101115697049043177">X</a> · <a href="../09-llmops/2026-09-19-running-qwen3-8-27b-locally-on-an-m5-max-macbook-with-inco.html">notes</a>) and 14 more</li>
+<li><strong><a href="https://x.com/lmstudio">LM Studio</a></strong> · tool · x.com · free<br>
+  Desktop app for downloading and running LLMs locally, with a developer mode that serves models through an API.<br>
+  Also in: Running LLMs Locally Without an Expensive Rig (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104363353045123168">X</a> · <a href="2026-09-28-running-llms-locally-without-an-expensive-rig.html">notes</a>), Adding Vercel AI Gateway as a provider in AIBackends with Devin (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101160927718781084">X</a> · <a href="../09-llmops/2026-09-19-adding-vercel-ai-gateway-as-a-provider-in-aibackends-with.html">notes</a>), LoRA Fine-Tune Qwen3.5-2B on Your Tweets with Unsloth Studio (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2101111328714993970">X</a> · <a href="../10-fine-tuning/2026-09-19-lora-fine-tune-qwen3-5-2b-on-your-tweets-with-unsloth-studio.html">notes</a>), AIBackends: An API Layer Between Your App and AI Models (Now with Jev) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2100848362648195307">X</a> · <a href="../12-system-design/2026-09-18-aibackends-an-api-layer-between-your-app-and-ai-models-now.html">notes</a>) and 32 more</li>
+<li><strong><a href="https://github.com/ggml-org/ggml/blob/master/docs/gguf.md">GGUF</a></strong> · other · github.com · free · open in a browser to verify<br>
+  Model file format used by llama.cpp and similar runtimes to run quantized models efficiently on CPUs and consumer GPUs.</li>
+<li><strong><a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a></strong> · repo · github.com · free<br>
+  An open-source C/C++ engine for running GGUF models locally. Its llama-server command provides an OpenAI-compatible HTTP server.<br>
+  Also in: llama.app: Run Local Models on a Mac Without the llama.cpp CLI (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108777288708108346">X</a> · <a href="../13-ai-tools/2026-10-10-llama-app-run-local-models-on-a-mac-without-the-llama-cpp.html">notes</a>), Deploy Cheap Quantized GGUF Models on HF Inference Endpoints with llama.cpp (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107399598352584965">X</a> · <a href="../09-llmops/2026-10-06-deploy-cheap-quantized-gguf-models-on-hf-inference.html">notes</a>), Remote-control Codex and Claude Code in WSL from your phone (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2106080382613615041">X</a> · <a href="../13-ai-tools/2026-10-03-remote-control-codex-and-claude-code-in-wsl-from-your-phone.html">notes</a>), Running LLMs Locally Without an Expensive Rig (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104363353045123168">X</a> · <a href="2026-09-28-running-llms-locally-without-an-expensive-rig.html">notes</a>) and 32 more</li>
+<li><strong><a href="https://unsloth.ai/docs">Unsloth</a></strong> · tool · unsloth.ai · free<br>
+  Open-source library for fast, memory-efficient fine-tuning of open LLMs (LoRA/QLoRA) on a single GPU or in Colab.<br>
+  Also in: Agent tasks: Unsloth fine-tuning, ComfyUI face swap, script writing (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108048829652287911">X</a> · <a href="../10-fine-tuning/2026-10-08-agent-tasks-unsloth-fine-tuning-comfyui-face-swap-script.html">notes</a>), Train Your Own Decision Model Locally with Unsloth (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107882655836737768">X</a> · <a href="../10-fine-tuning/2026-10-08-train-your-own-decision-model-locally-with-unsloth.html">notes</a>), Remote-control Codex and Claude Code in WSL from your phone (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2106080382613615041">X</a> · <a href="../13-ai-tools/2026-10-03-remote-control-codex-and-claude-code-in-wsl-from-your-phone.html">notes</a>), Run Laya Decision models locally with Unsloth on 4GB RAM (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104744976089579549">X</a> · <a href="../09-llmops/2026-09-29-run-laya-decision-models-locally-with-unsloth-on-4gb-ram.html">notes</a>) and 33 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Use the computer you already have, even CPU only, before buying any hardware.</li>
+<li>Install Ollama or LM Studio.</li>
+<li>Download and run a small 3B–8B model.</li>
+<li>Try running GGUF models.</li>
+<li>Once you know the basics, experiment with llama.cpp and Unsloth.</li>
+</ul><section class="more"><h2>More in LLM Fundamentals</h2><ul><li><a href="2026-10-07-comparing-opus-5-5-gpt-6-astra-and-grok-4-7-on-openrouter.html">Comparing Opus 5.5, GPT-6 Astra and Grok 4.7 on OpenRouter</a> <span class="meta">Melvin Vivas, 2026-10-07</span></li><li><a href="2026-10-06-mistral-large-4-le-chonk-1t-parameter-open-weights.html">Mistral Large 4 (&quot;Le Chonk&quot;): 1T-Parameter Open-Weights Multimodal Model</a> <span class="meta">Melvin Vivas, 2026-10-06</span></li><li><a href="2026-10-06-liquid-ai-s-d1-decision-model-now-accepts-images.html">Liquid AI&#x27;s d1 Decision Model Now Accepts Images</a> <span class="meta">Melvin Vivas, 2026-10-06</span></li><li><a href="2026-10-03-use-nvidia-nemotron-3-5-lightning-on-openrouter-for-cheap.html">Use Nvidia Nemotron 3.5 Lightning on OpenRouter for Cheap Worker Tasks</a> <span class="meta">Melvin Vivas, 2026-10-03</span></li><li><a href="2026-10-03-xai-s-experimental-typescript-sdk-grok-text-voice-image-and.html">xAI&#x27;s Experimental TypeScript SDK: Grok Text, Voice, Image and Video in One SDK</a> <span class="meta">Melvin Vivas, 2026-10-03</span></li><li><a href="2026-10-02-glide-by-fastino-labs-a-post-trainable-reasoning-decision.html">GLiDE by Fastino Labs: A Post-Trainable Reasoning Decision Model</a> <span class="meta">Melvin Vivas, 2026-10-02</span></li></ul><p><a href="../../topics/llm-fundamentals.html">All of LLM Fundamentals</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

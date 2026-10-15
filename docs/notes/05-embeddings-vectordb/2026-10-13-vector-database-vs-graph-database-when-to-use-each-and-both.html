@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vector Database vs. Graph Database: When to Use Each (and Both for…</title>
+<meta name="description" content="This short reel compares vector databases and graph databases. Vector databases store embeddings, so they can find content with similar meaning. Graph…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/05-embeddings-vectordb/2026-10-13-vector-database-vs-graph-database-when-to-use-each-and-both.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Vector Database vs. Graph Database: When to Use Each (and Both for…">
+<meta property="og:description" content="This short reel compares vector databases and graph databases. Vector databases store embeddings, so they can find content with similar meaning. Graph…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/05-embeddings-vectordb/2026-10-13-vector-database-vs-graph-database-when-to-use-each-and-both.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../fonts/ibm-plex-sans-normal-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/bricolage-grotesque-normal-600-750-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/05-embeddings-vectordb/2026-10-13-vector-database-vs-graph-database-when-to-use-each-and-both.html#note","headline":"Vector Database vs. Graph Database: When to Use Each (and Both for RAG)","description":"This short reel compares vector databases and graph databases. Vector databases store embeddings, so they can find content with similar meaning. Graph databases store nodes and the relationships between them, so they can follow connections. The creator's advice: use vector search for semantic…","url":"https://ralmodiel.github.io/ai-study-library/notes/05-embeddings-vectordb/2026-10-13-vector-database-vs-graph-database-when-to-use-each-and-both.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"Embeddings & Vector Databases"},{"@type":"Thing","name":"Retrieval-Augmented Generation (RAG)"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"VideoObject","url":"https://www.facebook.com/reel/1116524034087992","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#bashiri-smith"},"datePublished":"2026-10-13"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/05-embeddings-vectordb/2026-10-13-vector-database-vs-graph-database-when-to-use-each-and-both.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#bashiri-smith","name":"Bashiri Smith","url":"https://baswe.ai/","sameAs":["https://www.facebook.com/basweai","https://www.youtube.com/@BashiFuirkashi","https://www.instagram.com/bashi_fuirkashi/","https://www.tiktok.com/@bashifuirkashi","https://www.linkedin.com/in/bashiri-smith/","https://x.com/bashifuirkashi","https://www.skool.com/baswe-ai"],"description":"Helps aspiring and working software engineers move into AI engineering roles.","brand":{"@type":"Brand","name":"BASWE.Ai"}},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"Embeddings & Vector Databases","item":"https://ralmodiel.github.io/ai-study-library/topics/embeddings-vectordb.html"},{"@type":"ListItem","position":4,"name":"Vector Database vs. Graph Database: When to Use Each (and Both for RAG)"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/embeddings-vectordb.html">Embeddings &amp; Vector Databases</a> &rsaquo; <span aria-current="page">Vector Database vs. Graph Database: When to Use Each (and Both for RAG)</span></nav><h1>Vector Database vs. Graph Database: When to Use Each (and Both for RAG)</h1>
+<aside class="source"><p>This note summarises <a href="https://www.facebook.com/reel/1116524034087992">a reel by Bashiri Smith on Facebook</a>, posted 13 October 2026. The original belongs to Bashiri Smith.</p><p>Follow Bashiri Smith: <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p></aside>
+<p>Bashiri Smith · Facebook reel · 2026-10-13 · 0:50 · 6,919 views · <a href="https://www.facebook.com/reel/1116524034087992">Open on Facebook</a></p>
+<p><strong>Topics:</strong> Embeddings &amp; Vector Databases, Retrieval-Augmented Generation (RAG) · <strong>Level:</strong> beginner</p>
+<h2>Summary</h2>
+<p>This short reel compares vector databases and graph databases. Vector databases store embeddings, so they can find content with similar meaning. Graph databases store nodes and the relationships between them, so they can follow connections. The creator's advice: use vector search for semantic search and content-based recommendations, use a graph for relationship queries, and combine the two when building RAG.</p>
+<h2>Key points</h2>
+<ul>
+<li>Choose a database by what you need to find: things with similar meaning (vector) or connections (graph).</li>
+<li>Vector databases store embeddings, which are lists of numbers that represent what a piece of data means.</li>
+<li>Example: searching 'How do I get my money back?' can return the refund policy even though the wording is different. That's semantic search.</li>
+<li>Vector databases fit semantic search and recommendations based on similar content.</li>
+<li>Graph databases store data as nodes and the relationships between them. They answer questions like 'Who works at this company? Who do they know? How are they connected to me?'</li>
+<li>Use a graph database when you need to follow relationships across people, accounts or transactions.</li>
+<li>For RAG you can use both: vector search finds relevant content, and a graph follows the connections between those pieces.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://www.skool.com/baswe-ai/about">BASWE.Ai Engineer (Skool community)</a></strong> · community · skool.com · paid<br>
+  The creator's paid community and program, with an AI learning roadmap (including the full ops and evaluation track), daily calls with engineers and recruiters, resume and portfolio help, and a job-search pipeline.<br>
+  Also in: Basic vs Production AI Engineering: RAG, Agents, and Context over Prompts (Bashiri Smith on <a href="https://www.facebook.com/reel/2197919444403928">Facebook</a> · <a href="../06-rag/2026-10-14-basic-vs-production-ai-engineering-rag-agents-and-context.html">notes</a>), ChatGPT Prompt to Generate Standout Portfolio Project Ideas (Bashiri Smith on <a href="https://www.facebook.com/reel/1279924090928838">Facebook</a> · <a href="../14-projects/2026-10-14-chatgpt-prompt-to-generate-standout-portfolio-project-ideas.html">notes</a>), The 5 Levels of RAG: From Naive Retrieval to Agentic RAG (Bashiri Smith on <a href="https://www.facebook.com/reel/1642289027572440">Facebook</a> · <a href="../06-rag/2026-10-12-the-5-levels-of-rag-from-naive-retrieval-to-agentic-rag.html">notes</a>), Get More Interviews: Prove You Built Your Projects With Video Walkthroughs (Bashiri Smith on <a href="https://www.facebook.com/reel/1751630569968263">Facebook</a> · <a href="../15-career/2026-10-11-get-more-interviews-prove-you-built-your-projects-with.html">notes</a>) and 93 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Before picking a database, decide whether you need similarity search (vector) or relationship traversal (graph).</li>
+<li>When building RAG, think about combining vector search for retrieval with a graph for following connections.</li>
+<li>Build a RAG system that uses vector search to retrieve relevant content and a graph database to follow the relationships between the retrieved items.</li>
+</ul><section class="more"><h2>More in Embeddings &amp; Vector Databases</h2><ul><li><a href="2026-10-09-embeddings-what-they-mean-for-businesses.html">Embeddings: what they mean for businesses</a> <span class="meta">Melvin Vivas, 2026-10-09</span></li><li><a href="2026-10-09-try-embeddinggemma-2-multimodal-embeddings-in-colab.html">Try EmbeddingGemma 2 multimodal embeddings in Colab</a> <span class="meta">Melvin Vivas, 2026-10-09</span></li><li><a href="2026-10-07-embeddinggemma-2-colab-notebook-for-faq-semantic-search.html">EmbeddingGemma 2 Colab Notebook for FAQ Semantic Search</a> <span class="meta">Melvin Vivas, 2026-10-07</span></li></ul><p><a href="../../topics/embeddings-vectordb.html">All of Embeddings &amp; Vector Databases</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

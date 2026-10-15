@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Always-On, Proactive Agents Work: Lee Robinson&#x27;s Stanford CS146S…</title>
+<meta name="description" content="Melvin shares a Stanford CS146S lecture by Lee Robinson (LeeRob) on how always-on, proactive agents like Grok Bot work. Per the chapter list, the lecture…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-11-how-always-on-proactive-agents-work-lee-robinson-s-stanford.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="How Always-On, Proactive Agents Work: Lee Robinson&#x27;s Stanford CS146S…">
+<meta property="og:description" content="Melvin shares a Stanford CS146S lecture by Lee Robinson (LeeRob) on how always-on, proactive agents like Grok Bot work. Per the chapter list, the lecture…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-11-how-always-on-proactive-agents-work-lee-robinson-s-stanford.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../fonts/ibm-plex-sans-normal-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/bricolage-grotesque-normal-600-750-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-11-how-always-on-proactive-agents-work-lee-robinson-s-stanford.html#note","headline":"How Always-On, Proactive Agents Work: Lee Robinson's Stanford CS146S Lecture","description":"Melvin shares a Stanford CS146S lecture by Lee Robinson (LeeRob) on how always-on, proactive agents like Grok Bot work. Per the chapter list, the lecture covers how these agents came about, what changed in the models, how an always-on agent works inside, the agent harness, context engineering, and…","url":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-11-how-always-on-proactive-agents-work-lee-robinson-s-stanford.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"AI Agents, Tool Use & MCP"},{"@type":"Thing","name":"Prompt & Context Engineering"},{"@type":"Thing","name":"Industry Trends & Job Market"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2108968437108371785","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-10-11"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-11-how-always-on-proactive-agents-work-lee-robinson-s-stanford.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"AI Agents, Tool Use & MCP","item":"https://ralmodiel.github.io/ai-study-library/topics/agents.html"},{"@type":"ListItem","position":4,"name":"How Always-On, Proactive Agents Work: Lee Robinson's Stanford CS146S Lecture"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/agents.html">AI Agents, Tool Use &amp; MCP</a> &rsaquo; <span aria-current="page">How Always-On, Proactive Agents Work: Lee Robinson&#x27;s Stanford CS146S Lecture</span></nav><h1>How Always-On, Proactive Agents Work: Lee Robinson's Stanford CS146S Lecture</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2108968437108371785">a video post by Melvin Vivas on X</a>, posted 11 October 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X video post · 2026-10-11 · <a href="https://x.com/melvindvivas/status/2108968437108371785">Open on X</a></p>
+<p><strong>Topics:</strong> AI Agents, Tool Use &amp; MCP, Prompt &amp; Context Engineering, Industry Trends &amp; Job Market · <strong>Level:</strong> intermediate</p>
+<h2>Summary</h2>
+<p>Melvin shares a Stanford CS146S lecture by Lee Robinson (LeeRob) on how always-on, proactive agents like Grok Bot work. Per the chapter list, the lecture covers how these agents came about, what changed in the models, how an always-on agent works inside, the agent harness, context engineering, and where the field is heading.</p>
+<h2>Key points</h2>
+<ul>
+<li>The lecture explains how always-on, proactive agents (e.g. Grok Bot) work, as opposed to chat agents that only respond when asked.</li>
+<li>Chapter 2:35 – How we got here: the history behind proactive agents.</li>
+<li>Chapter 6:13 – What changed in the models to make always-on agents possible.</li>
+<li>Chapter 10:06 – Inside an always-on agent: its parts and how it runs.</li>
+<li>Chapter 18:07 – The harness: the scaffolding around the model that runs the agent loop.</li>
+<li>Chapter 27:26 – Context engineering: managing what goes into the agent's context.</li>
+<li>Chapter 34:26 – Where this is going.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://www.youtube.com/watch?v=L1OBRtfPS34">Lee Robinson – Stanford CS146S lecture on always-on, proactive agents</a></strong> · video · youtube.com · free<br>
+  A lecture on how always-on agents work: model changes, agent internals, the harness and context engineering.</li>
+<li><strong><a href="https://themodernsoftware.dev">Stanford CS146S</a></strong> · course · themodernsoftware.dev · free<br>
+  The Stanford course where Lee Robinson gave this lecture on agents.</li>
+<li><strong><a href="https://leerob.com">Lee Robinson (LeeRob)</a></strong> · person · leerob.com · free<br>
+  The speaker of the Stanford lecture on always-on, proactive agents.</li>
+<li><strong><a href="https://x.ai/bot">Grok Bot</a></strong> · tool · x.ai · paid<br>
+  An early-beta AI agent product from the Grok family that runs in its own computer and browser instance and does tasks in your tools.<br>
+  Also in: Language Coach Bot Template for Grok Bot (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110721679018369478">X</a> · <a href="../13-ai-tools/2026-10-15-language-coach-bot-template-for-grok-bot.html">notes</a>), ComfyUI Templates: Chain Ready-Made Workflows Instead of Building From Scratch (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110638054184833491">X</a> · <a href="../13-ai-tools/2026-10-15-comfyui-templates-chain-ready-made-workflows-instead-of.html">notes</a>), Language Coach Bot Template for Grok Bot (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110632657814262194">X</a> · <a href="../13-ai-tools/2026-10-15-language-coach-bot-template-for-grok-bot-2.html">notes</a>), How to Customize Grok Voice 3.0 in Grok Bot (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110578219422548378">X</a> · <a href="../13-ai-tools/2026-10-15-how-to-customize-grok-voice-3-0-in-grok-bot.html">notes</a>) and 97 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Watch Lee Robinson's Stanford CS146S lecture on always-on agents.</li>
+</ul><section class="more"><h2>More in AI Agents, Tool Use &amp; MCP</h2><ul><li><a href="2026-10-11-wishlist-features-that-make-a-personal-ai-assistant.html">Wishlist: Features That Make a Personal AI Assistant Customizable</a> <span class="meta">Melvin Vivas, 2026-10-11</span></li><li><a href="2026-10-11-free-grok-bot-templates-by-melvin-vivas-donvitocodes.html">Free Grok Bot Templates by Melvin Vivas (DonvitoCodes)</a> <span class="meta">Melvin Vivas, 2026-10-11</span></li><li><a href="2026-10-11-let-an-agent-run-overnight-local-video-generation-with.html">Let an Agent Run Overnight Local Video Generation with ComfyUI</a> <span class="meta">Melvin Vivas, 2026-10-11</span></li><li><a href="2026-10-11-save-to-grok-bot-memory-by-saying-remember-this.html">Save to Grok Bot Memory by Saying &quot;Remember This&quot;</a> <span class="meta">Melvin Vivas, 2026-10-11</span></li><li><a href="2026-10-11-grok-bot-vs-dots-multiple-bots-vs-a-single-bot.html">Grok Bot vs Dots: Multiple Bots vs a Single Bot</a> <span class="meta">Melvin Vivas, 2026-10-11</span></li><li><a href="2026-10-11-chatgpt-dots-on-mobile-setting-up-an-always-on-proactive.html">ChatGPT Dots on Mobile: Setting Up an Always-On Proactive Agent</a> <span class="meta">Melvin Vivas, 2026-10-11</span></li></ul><p><a href="../../topics/agents.html">All of AI Agents, Tool Use &amp; MCP</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

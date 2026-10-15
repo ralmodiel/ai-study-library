@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Local Two-Person Video Face Swap: InsightFace + GFPGAN + SegFormer |…</title>
+<meta name="description" content="Melvin Vivas shows a 17-second clip of a two-person video face swap he ran locally and for free on one RTX 3090 GPU, with no paid API. He lists his…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/14-projects/2026-10-08-local-two-person-video-face-swap-insightface-gfpgan.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Local Two-Person Video Face Swap: InsightFace + GFPGAN + SegFormer |…">
+<meta property="og:description" content="Melvin Vivas shows a 17-second clip of a two-person video face swap he ran locally and for free on one RTX 3090 GPU, with no paid API. He lists his…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/14-projects/2026-10-08-local-two-person-video-face-swap-insightface-gfpgan.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../fonts/ibm-plex-sans-normal-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/bricolage-grotesque-normal-600-750-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/14-projects/2026-10-08-local-two-person-video-face-swap-insightface-gfpgan.html#note","headline":"Local Two-Person Video Face Swap: InsightFace + GFPGAN + SegFormer","description":"Melvin Vivas shows a 17-second clip of a two-person video face swap he ran locally and for free on one RTX 3090 GPU, with no paid API. He lists his open-source pipeline: InsightFace's inswapper_128 swaps the faces, GFPGAN 1.4 restores face detail, and SegFormer segmentation is used to match skin…","url":"https://ralmodiel.github.io/ai-study-library/notes/14-projects/2026-10-08-local-two-person-video-face-swap-insightface-gfpgan.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"Portfolio Projects"},{"@type":"Thing","name":"Programming & ML Foundations"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2108027547976155395","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-10-08"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/14-projects/2026-10-08-local-two-person-video-face-swap-insightface-gfpgan.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"Portfolio Projects","item":"https://ralmodiel.github.io/ai-study-library/topics/projects.html"},{"@type":"ListItem","position":4,"name":"Local Two-Person Video Face Swap: InsightFace + GFPGAN + SegFormer"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/projects.html">Portfolio Projects</a> &rsaquo; <span aria-current="page">Local Two-Person Video Face Swap: InsightFace + GFPGAN + SegFormer</span></nav><h1>Local Two-Person Video Face Swap: InsightFace + GFPGAN + SegFormer</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2108027547976155395">a video post by Melvin Vivas on X</a>, posted 8 October 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X video post · 2026-10-08 · 0:17 · 772 views · <a href="https://x.com/melvindvivas/status/2108027547976155395">Open on X</a></p>
+<p><strong>Topics:</strong> Portfolio Projects, Programming &amp; ML Foundations · <strong>Level:</strong> intermediate</p>
+<h2>Summary</h2>
+<p>Melvin Vivas shows a 17-second clip of a two-person video face swap he ran locally and for free on one RTX 3090 GPU, with no paid API. He lists his open-source pipeline: InsightFace's inswapper_128 swaps the faces, GFPGAN 1.4 restores face detail, and SegFormer segmentation is used to match skin tone. He says the result is less polished than viral swaps and that he is still working on it with a Grok-based assistant. The spoken audio has no content, so everything here comes from the caption.</p>
+<h2>Key points</h2>
+<ul>
+<li>Face swaps on video can run fully locally on a consumer GPU (an RTX 3090 with 24 GB of VRAM), with no cloud API costs.</li>
+<li>Step 1, swap: InsightFace's inswapper_128 model replaces each detected face with a source identity. It handles multiple faces in one frame, which is how the two-person swap works.</li>
+<li>Step 2, restore: inswapper_128 only outputs 128x128 faces, so GFPGAN v1.4 is run afterwards to sharpen and restore face detail.</li>
+<li>Step 3, skin match: SegFormer semantic segmentation masks face and skin regions so the swapped face's skin tone can be matched to the target's.</li>
+<li>Expect lower quality than viral swaps. Those usually use higher-resolution swappers, temporal smoothing or commercial tools, and the creator is still working on whether that quality is reachable locally.</li>
+<li>The creator is using an LLM assistant (his 'ML Grok Bot') to iterate on the pipeline.</li>
+<li>Caution (not from the post): the inswapper_128 weights are released for non-commercial research use. Swapping real people's faces also raises consent and deepfake concerns.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://github.com/deepinsight/insightface">InsightFace (inswapper_128)</a></strong> · repo · github.com · free<br>
+  Open-source 2D/3D face analysis library; its inswapper_128 model swaps face identities in images and video frames.</li>
+<li><strong><a href="https://github.com/TencentARC/GFPGAN">GFPGAN</a></strong> · repo · github.com · free<br>
+  Tencent ARC's generative face restoration model (v1.4 used here) that sharpens low-resolution or degraded faces.</li>
+<li><strong><a href="https://github.com/NVlabs/SegFormer">SegFormer</a></strong> · repo · github.com · free<br>
+  NVIDIA's transformer-based semantic segmentation model, used here to segment face/skin regions.</li>
+<li><strong><a href="https://x.com/grok">Grok</a></strong> · tool · x.com · free<br>
+  xAI's LLM chatbot; the creator runs a custom 'ML Grok Bot' on it to help debug and improve the pipeline.<br>
+  Also in: Using Grok Voice as a Personal Language Tutor (Speaking Practice) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110628395654824087">X</a> · <a href="../13-ai-tools/2026-10-15-using-grok-voice-as-a-personal-language-tutor-speaking.html">notes</a>), Demo: Using Grok's Voice Mode as a Japanese Pronunciation Coach (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110589457825161290">X</a> · <a href="../13-ai-tools/2026-10-15-demo-using-grok-s-voice-mode-as-a-japanese-pronunciation.html">notes</a>), Local $0 Video Head Swap: MiniMax H3 Ref2VA (INT8) + LoRA in ComfyUI (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108142208146882863">X</a> · <a href="../13-ai-tools/2026-10-08-local-0-video-head-swap-minimax-h3-ref2va-int8-lora-in.html">notes</a>), Chain Grok Bots to Get Trending X Posts (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2106197040569229819">X</a> · <a href="../07-agents/2026-10-03-chain-grok-bots-to-get-trending-x-posts.html">notes</a>) and 20 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Build a local multi-face video face-swap pipeline: InsightFace inswapper_128 for the swap, GFPGAN 1.4 for restoration, and SegFormer masks for skin-tone matching. Run it on one consumer GPU, using only faces you have consent to swap.</li>
+<li>Try to close the quality gap with viral swaps, for example with temporal smoothing across frames, better blending masks or higher-resolution restoration, and compare before/after results.</li>
+</ul><section class="more"><h2>More in Portfolio Projects</h2><ul><li><a href="2026-10-14-chatgpt-prompt-to-generate-standout-portfolio-project-ideas.html">ChatGPT Prompt to Generate Standout Portfolio Project Ideas</a> <span class="meta">Bashiri Smith, 2026-10-14</span></li><li><a href="2026-10-11-prompt-claude-to-plan-3-production-grade-ai-portfolio.html">Prompt Claude to Plan 3 Production-Grade AI Portfolio Projects</a> <span class="meta">Bashiri Smith, 2026-10-11</span></li><li><a href="2026-10-10-creator-shares-his-github-profile-donvito.html">Creator shares his GitHub profile (donvito)</a> <span class="meta">Melvin Vivas, 2026-10-10</span></li><li><a href="2026-10-08-generate-portfolio-ai-project-ideas-with-claude-and-hugging.html">Generate Portfolio AI Project Ideas with Claude and Hugging Face Tasks</a> <span class="meta">Bashiri Smith, 2026-10-08</span></li><li><a href="2026-10-07-5-ai-engineer-skills-mapped-to-5-portfolio-projects.html">5 AI Engineer Skills Mapped to 5 Portfolio Projects</a> <span class="meta">Bashiri Smith, 2026-10-07</span></li><li><a href="2026-10-04-automating-insurance-receipt-claims-with-ocr-and-jev.html">Automating Insurance Receipt Claims with OCR and Jev</a> <span class="meta">Melvin Vivas, 2026-10-04</span></li></ul><p><a href="../../topics/projects.html">All of Portfolio Projects</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

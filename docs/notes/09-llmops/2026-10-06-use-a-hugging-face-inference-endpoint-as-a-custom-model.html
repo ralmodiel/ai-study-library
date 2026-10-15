@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Use a Hugging Face Inference Endpoint as a Custom Model Provider in…</title>
+<meta name="description" content="Shows how to host an open model (a GGUF build of Qwen3.8-27B) on Hugging Face Inference Endpoints and add it to the Pi coding agent as a provider. The…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-10-06-use-a-hugging-face-inference-endpoint-as-a-custom-model.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Use a Hugging Face Inference Endpoint as a Custom Model Provider in…">
+<meta property="og:description" content="Shows how to host an open model (a GGUF build of Qwen3.8-27B) on Hugging Face Inference Endpoints and add it to the Pi coding agent as a provider. The…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-10-06-use-a-hugging-face-inference-endpoint-as-a-custom-model.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../fonts/ibm-plex-sans-normal-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/bricolage-grotesque-normal-600-750-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-10-06-use-a-hugging-face-inference-endpoint-as-a-custom-model.html#note","headline":"Use a Hugging Face Inference Endpoint as a Custom Model Provider in Pi Agent","description":"Shows how to host an open model (a GGUF build of Qwen3.8-27B) on Hugging Face Inference Endpoints and add it to the Pi coding agent as a provider. The endpoint offers an OpenAI-compatible API. You point Pi's models.json at the endpoint's /v1 URL, then the hosted model works like any other provider.","url":"https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-10-06-use-a-hugging-face-inference-endpoint-as-a-custom-model.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"LLMOps, Deployment & Monitoring"},{"@type":"Thing","name":"AI Agents, Tool Use & MCP"},{"@type":"Thing","name":"AI Dev Tools & Productivity"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2107428720831263036","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-10-06"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-10-06-use-a-hugging-face-inference-endpoint-as-a-custom-model.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"LLMOps, Deployment & Monitoring","item":"https://ralmodiel.github.io/ai-study-library/topics/llmops.html"},{"@type":"ListItem","position":4,"name":"Use a Hugging Face Inference Endpoint as a Custom Model Provider in Pi Agent"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/llmops.html">LLMOps, Deployment &amp; Monitoring</a> &rsaquo; <span aria-current="page">Use a Hugging Face Inference Endpoint as a Custom Model Provider in Pi Agent</span></nav><h1>Use a Hugging Face Inference Endpoint as a Custom Model Provider in Pi Agent</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2107428720831263036">a post by Melvin Vivas on X</a>, posted 6 October 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X post · 2026-10-06 · <a href="https://x.com/melvindvivas/status/2107428720831263036">Open on X</a></p>
+<p><strong>Topics:</strong> LLMOps, Deployment &amp; Monitoring, AI Agents, Tool Use &amp; MCP, AI Dev Tools &amp; Productivity · <strong>Level:</strong> intermediate</p>
+<h2>Summary</h2>
+<p>Shows how to host an open model (a GGUF build of Qwen3.8-27B) on Hugging Face Inference Endpoints and add it to the Pi coding agent as a provider. The endpoint offers an OpenAI-compatible API. You point Pi's models.json at the endpoint's /v1 URL, then the hosted model works like any other provider.</p>
+<h2>Key points</h2>
+<ul>
+<li>Deploy an open model on Hugging Face Inference Endpoints (endpoints.huggingface.co); the model used here is Qwen3.8-27B-UD-Q4_K_M.</li>
+<li>In Pi's models.json, add a 'huggingface' provider with baseUrl https://&lt;instance-id&gt;.endpoints.huggingface.cloud/v1 and api 'openai-completions'.</li>
+<li>Read the API key from an environment variable: apiKey '$HF_ENDPOINT_API_KEY'.</li>
+<li>Compatibility flags: supportsDeveloperRole false, supportsReasoningEffort false, maxTokensField 'max_tokens'.</li>
+<li>Model entry: id 'unsloth/Qwen3.8-27B-GGUF', reasoning false, text input, contextWindow 32768, maxTokens 16384.</li>
+<li>Replace &lt;instance-id&gt; with your endpoint ID and set HF_ENDPOINT_API_KEY before running Pi.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://endpoints.huggingface.co/">Hugging Face Inference Endpoints</a></strong> · tool · endpoints.huggingface.co · paid<br>
+  Paid managed service for deploying models from the Hugging Face Hub to dedicated, autoscaling infrastructure.<br>
+  Also in: Qwen3.8-27B on HF Inference Endpoints: Context Size Matters for Agent Builds (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107425789897769398">X</a> · <a href="2026-10-06-qwen3-8-27b-on-hf-inference-endpoints-context-size-matters.html">notes</a>), Pi Agent on a Self-Deployed Qwen 27B Q4_K_M via Hugging Face Inference Endpoints (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107421963581014039">X</a> · <a href="2026-10-06-pi-agent-on-a-self-deployed-qwen-27b-q4-k-m-via-hugging.html">notes</a>), Deploy Cheap Quantized GGUF Models on HF Inference Endpoints with llama.cpp (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107399598352584965">X</a> · <a href="2026-10-06-deploy-cheap-quantized-gguf-models-on-hf-inference.html">notes</a>), Deploy Open-Source Models with Hugging Face Inference Endpoints (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105897373000155331">X</a> · <a href="2026-10-02-deploy-open-source-models-with-hugging-face-inference.html">notes</a>) and 2 more</li>
+<li><strong><a href="https://huggingface.co/">Hugging Face</a></strong> · website · huggingface.co · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Named in the prompt as a beginner-friendly but powerful AI platform for models used in AI projects.<br>
+  Also in: llama.app: Run Local Models on a Mac Without the llama.cpp CLI (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108777288708108346">X</a> · <a href="../13-ai-tools/2026-10-10-llama-app-run-local-models-on-a-mac-without-the-llama-cpp.html">notes</a>), Grok Bot workflow: turn model-release posts into Colab notebooks (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108148567164739993">X</a> · <a href="../07-agents/2026-10-08-grok-bot-workflow-turn-model-release-posts-into-colab.html">notes</a>), Generate Portfolio AI Project Ideas with Claude and Hugging Face Tasks (Bashiri Smith on <a href="https://www.facebook.com/reel/943179135263212">Facebook</a> · <a href="../14-projects/2026-10-08-generate-portfolio-ai-project-ideas-with-claude-and-hugging.html">notes</a>), EmbeddingGemma 2 released on Hugging Face (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107511291816636923">X</a> · <a href="../05-embeddings-vectordb/2026-10-07-embeddinggemma-2-released-on-hugging-face.html">notes</a>) and 48 more</li>
+<li><strong><a href="https://x.com/pidotdev">Pi</a></strong> · tool · x.com · free<br>
+  A customizable coding agent that can be extended through its Extensions API and connected to several model providers.<br>
+  Also in: Qwen3.8-27B on HF Inference Endpoints: Context Size Matters for Agent Builds (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107425789897769398">X</a> · <a href="2026-10-06-qwen3-8-27b-on-hf-inference-endpoints-context-size-matters.html">notes</a>), Pi Agent on a Self-Deployed Qwen 27B Q4_K_M via Hugging Face Inference Endpoints (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107421963581014039">X</a> · <a href="2026-10-06-pi-agent-on-a-self-deployed-qwen-27b-q4-k-m-via-hugging.html">notes</a>), OpenAI Makes GPT-6 Astra and GPT-6.1 Sol About 50% Faster (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107179508277362990">X</a> · <a href="../16-trends/2026-10-06-openai-makes-gpt-6-astra-and-gpt-6-1-sol-about-50-faster.html">notes</a>), Pi Durable: A Runtime for Crash-Proof, Long-Running, Multiplayer Agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107030156082901466">X</a> · <a href="../07-agents/2026-10-05-pi-durable-a-runtime-for-crash-proof-long-running.html">notes</a>) and 49 more</li>
+<li><strong><a href="https://huggingface.co/unsloth/Qwen3.8-27B-GGUF">unsloth/Qwen3.8-27B-GGUF</a></strong> · tool · huggingface.co · free<br>
+  Unsloth's GGUF quantized versions of the Qwen3.8 27B model, ready for llama.cpp and other GGUF runtimes.<br>
+  Also in: Pi Agent on a Self-Deployed Qwen 27B Q4_K_M via Hugging Face Inference Endpoints (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107421963581014039">X</a> · <a href="2026-10-06-pi-agent-on-a-self-deployed-qwen-27b-q4-k-m-via-hugging.html">notes</a>), Deploy Cheap Quantized GGUF Models on HF Inference Endpoints with llama.cpp (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107399598352584965">X</a> · <a href="2026-10-06-deploy-cheap-quantized-gguf-models-on-hf-inference.html">notes</a>), Unsloth passes 500M model downloads on Hugging Face (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102849447885734173">X</a> · <a href="../16-trends/2026-09-24-unsloth-passes-500m-model-downloads-on-hugging-face.html">notes</a>), Running Qwen3.8 27B Locally on an RTX 3090 with llama.cpp and the Pi Harness (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2094355129768296765">X</a> · <a href="2026-08-31-running-qwen3-8-27b-locally-on-an-rtx-3090-with-llama-cpp.html">notes</a>) and 2 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Deploy an open model on Hugging Face Inference Endpoints.</li>
+<li>Add the provider block to Pi's models.json, replacing &lt;instance-id&gt; with your endpoint ID.</li>
+<li>Set the HF_ENDPOINT_API_KEY environment variable.</li>
+<li>Run a self-hosted open model as the backend for a coding agent instead of a proprietary API.</li>
+</ul><section class="more"><h2>More in LLMOps, Deployment &amp; Monitoring</h2><ul><li><a href="2026-10-14-local-ai-vs-cloud-ai-when-running-models-locally-makes-sense.html">Local AI vs Cloud AI: When Running Models Locally Makes Sense</a> <span class="meta">Melvin Vivas, 2026-10-14</span></li><li><a href="2026-10-14-local-ai-vs-cloud-ai-using-the-right-model-for-the-right-job.html">Local AI vs Cloud AI: Using the Right Model for the Right Job</a> <span class="meta">Melvin Vivas, 2026-10-14</span></li><li><a href="2026-10-09-monthly-claude-platform-api-credits-for-max-and-team-plans.html">Monthly Claude Platform API credits for Max and Team plans</a> <span class="meta">Melvin Vivas, 2026-10-09</span></li><li><a href="2026-10-06-qwen3-8-27b-on-hf-inference-endpoints-context-size-matters.html">Qwen3.8-27B on HF Inference Endpoints: Context Size Matters for Agent Builds</a> <span class="meta">Melvin Vivas, 2026-10-06</span></li><li><a href="2026-10-06-pi-agent-on-a-self-deployed-qwen-27b-q4-k-m-via-hugging.html">Pi Agent on a Self-Deployed Qwen 27B Q4_K_M via Hugging Face Inference Endpoints</a> <span class="meta">Melvin Vivas, 2026-10-06</span></li><li><a href="2026-10-06-deploy-cheap-quantized-gguf-models-on-hf-inference.html">Deploy Cheap Quantized GGUF Models on HF Inference Endpoints with llama.cpp</a> <span class="meta">Melvin Vivas, 2026-10-06</span></li></ul><p><a href="../../topics/llmops.html">All of LLMOps, Deployment &amp; Monitoring</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

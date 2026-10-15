@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Evals Matter: Making AI Apps Survive More Than a Demo | AI…</title>
+<meta name="description" content="Bashiri Smith argues that because LLM outputs are non-deterministic, getting one good answer doesn&#x27;t prove your AI system is reliable. Evaluation is the key…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/08-evals/2026-10-13-why-evals-matter-making-ai-apps-survive-more-than-a-demo.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Why Evals Matter: Making AI Apps Survive More Than a Demo | AI…">
+<meta property="og:description" content="Bashiri Smith argues that because LLM outputs are non-deterministic, getting one good answer doesn&#x27;t prove your AI system is reliable. Evaluation is the key…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/08-evals/2026-10-13-why-evals-matter-making-ai-apps-survive-more-than-a-demo.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../fonts/ibm-plex-sans-normal-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/bricolage-grotesque-normal-600-750-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/08-evals/2026-10-13-why-evals-matter-making-ai-apps-survive-more-than-a-demo.html#note","headline":"Why Evals Matter: Making AI Apps Survive More Than a Demo","description":"Bashiri Smith argues that because LLM outputs are non-deterministic, getting one good answer doesn't prove your AI system is reliable. Evaluation is the key skill for engineers moving into AI roles. He quotes an unnamed AI expert who says hiring may come down to building a big project that holds…","url":"https://ralmodiel.github.io/ai-study-library/notes/08-evals/2026-10-13-why-evals-matter-making-ai-apps-survive-more-than-a-demo.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"Evaluation (Evals) & Testing"},{"@type":"Thing","name":"Retrieval-Augmented Generation (RAG)"},{"@type":"Thing","name":"Resume, Job Search & Interviews"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"VideoObject","url":"https://www.facebook.com/reel/39138114069136942","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#bashiri-smith"},"datePublished":"2026-10-13"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/08-evals/2026-10-13-why-evals-matter-making-ai-apps-survive-more-than-a-demo.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#bashiri-smith","name":"Bashiri Smith","url":"https://baswe.ai/","sameAs":["https://www.facebook.com/basweai","https://www.youtube.com/@BashiFuirkashi","https://www.instagram.com/bashi_fuirkashi/","https://www.tiktok.com/@bashifuirkashi","https://www.linkedin.com/in/bashiri-smith/","https://x.com/bashifuirkashi","https://www.skool.com/baswe-ai"],"description":"Helps aspiring and working software engineers move into AI engineering roles.","brand":{"@type":"Brand","name":"BASWE.Ai"}},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"Evaluation (Evals) & Testing","item":"https://ralmodiel.github.io/ai-study-library/topics/evals.html"},{"@type":"ListItem","position":4,"name":"Why Evals Matter: Making AI Apps Survive More Than a Demo"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/evals.html">Evaluation (Evals) &amp; Testing</a> &rsaquo; <span aria-current="page">Why Evals Matter: Making AI Apps Survive More Than a Demo</span></nav><h1>Why Evals Matter: Making AI Apps Survive More Than a Demo</h1>
+<aside class="source"><p>This note summarises <a href="https://www.facebook.com/reel/39138114069136942">a reel by Bashiri Smith on Facebook</a>, posted 13 October 2026. The original belongs to Bashiri Smith.</p><p>Follow Bashiri Smith: <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p></aside>
+<p>Bashiri Smith · Facebook reel · 2026-10-13 · 0:49 · 5,192 views · <a href="https://www.facebook.com/reel/39138114069136942">Open on Facebook</a></p>
+<p><strong>Topics:</strong> Evaluation (Evals) &amp; Testing, Retrieval-Augmented Generation (RAG), Resume, Job Search &amp; Interviews · <strong>Level:</strong> beginner</p>
+<h2>Summary</h2>
+<p>Bashiri Smith argues that because LLM outputs are non-deterministic, getting one good answer doesn't prove your AI system is reliable. Evaluation is the key skill for engineers moving into AI roles. He quotes an unnamed AI expert who says hiring may come down to building a big project that holds up when someone tries to break it with tools like Codex. He lists five areas to evaluate (retrieval quality, groundedness, task success, guardrails, cost/latency) and shares his free AI evaluation guide.</p>
+<h2>Key points</h2>
+<ul>
+<li>LLMs are non-deterministic: the same input can give different outputs, so one good answer doesn't prove reliability.</li>
+<li>Test your system with messy questions, irrelevant context and adversarial instructions meant to break it, not just the happy path.</li>
+<li>Retrieval quality: did the RAG system actually find the information needed to answer?</li>
+<li>Groundedness: is the answer supported by the retrieved information?</li>
+<li>Task success: did the agent actually complete the job?</li>
+<li>Guardrails: how does the app handle attempts to manipulate it (e.g. prompt injection)?</li>
+<li>Cost and latency: measure cost per successful request and how long each request takes.</li>
+<li>Evals help you find failures, measure improvements and catch regressions before users do. The creator says many engineers moving into AI roles have weak eval skills, and many job postings require them.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://drive.google.com/file/d/1BQwIzI5tWC4Rd6jmloCQMueQnwAYuM1M/view?usp=drive_link">Evaluation field guide (AI evaluation guide)</a></strong> · pdf · drive.google.com · free<br>
+  The creator's guide to evaluating AI apps: retrieval quality, groundedness, task success, guardrails, and cost/latency.</li>
+<li><strong><a href="https://openai.com/codex">OpenAI Codex</a></strong> · tool · openai.com · paid · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  OpenAI's coding agent. In the diagram it writes code, fixes review findings and drives the build loop. The creator also used it to make this video.<br>
+  Also in: Is AI Getting Cheaper? How to Measure LLM Cost Per Task and Per Intelligence Level (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110256582101729700">X</a> · <a href="../03-llm-fundamentals/2026-10-14-is-ai-getting-cheaper-how-to-measure-llm-cost-per-task-and.html">notes</a>), Using Grok Bot to orchestrate Claude Code, Codex and Hermes (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2109485274661331013">X</a> · <a href="../07-agents/2026-10-12-using-grok-bot-to-orchestrate-claude-code-codex-and-hermes.html">notes</a>), ChatGPT Dots on Mobile: Setting Up an Always-On Proactive Agent (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108953582435463508">X</a> · <a href="../07-agents/2026-10-11-chatgpt-dots-on-mobile-setting-up-an-always-on-proactive.html">notes</a>), Codex Composer Predictions Beta: Next-Message Suggestions for Pro Users (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108823036887810366">X</a> · <a href="../13-ai-tools/2026-10-10-codex-composer-predictions-beta-next-message-suggestions.html">notes</a>) and 260 more</li>
+</ul>
+<h2>From the PDF shared here: Evaluation Field Guide (baswe.ai engineer accelerator – Ops and Evaluation module)</h2>
+<p><a href="https://drive.google.com/file/d/1BQwIzI5tWC4Rd6jmloCQMueQnwAYuM1M/view?usp=sharing">Open the original</a> · 41 pages</p>
+<p>Bashiri Smith's 41-page practitioner's guide to evaluating AI systems. It covers eval fundamentals (eval-driven development, golden datasets, metric types, basic statistics), deterministic and overlap metrics for LLM outputs, LLM-as-a-judge (rubric design, judge biases, checking judges against human labels), RAG evaluation (retrieval metrics and the RAG triad), agent trajectory evaluation, model benchmarking and fine-tune evaluation, and production evals (tracing, online signals, A/B tests, drift, guardrails, CI eval gates). It ends with a map of the eval tool stack, four portfolio projects and interview signals. Read it once end to end, then use it as a reference, and build one of the portfolio projects.</p>
+<ul>
+<li><strong><a href="https://langfuse.com">Langfuse</a></strong> · tool · langfuse.com · free<br>
+  Purpose-built tool for viewing traces, running evals and managing prompts.<br>
+  Also in: Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="../01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), 7 Habits to Become an AI Engineer: Books, Tooling, Research &amp; Shipping (Bashiri Smith on <a href="https://www.facebook.com/reel/1081423530962902">Facebook</a> · <a href="../01-roadmap/2026-09-25-7-habits-to-become-an-ai-engineer-books-tooling-research.html">notes</a>), Taking a RAG App to Production: Evals, Guardrails, Cost and Tracing (Bashiri Smith on <a href="https://www.facebook.com/reel/1223253343329020">Facebook</a> · <a href="../06-rag/2026-09-12-taking-a-rag-app-to-production-evals-guardrails-cost-and.html">notes</a>)</li>
+<li><strong><a href="https://docs.smith.langchain.com">LangSmith</a></strong> · tool · docs.smith.langchain.com · free<br>
+  Purpose-built tool for viewing traces, running evals and managing prompts.<br>
+  Also in: Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="../01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), 7 Habits to Become an AI Engineer: Books, Tooling, Research &amp; Shipping (Bashiri Smith on <a href="https://www.facebook.com/reel/1081423530962902">Facebook</a> · <a href="../01-roadmap/2026-09-25-7-habits-to-become-an-ai-engineer-books-tooling-research.html">notes</a>)</li>
+<li><strong><a href="https://github.com/vibrantlabsai/ragas">RAGAS</a></strong> · tool · github.com · free<br>
+  Listed under RAG evaluation tools in the guide's evaluation stack.<br>
+  Also in: Find Hidden AI Engineering Jobs by Searching for Skills, Not Job Titles (Bashiri Smith on <a href="https://www.facebook.com/reel/1130986979613448">Facebook</a> · <a href="../15-career/2026-10-05-find-hidden-ai-engineering-jobs-by-searching-for-skills-not.html">notes</a>), SWE-to-AI Engineer Plan for 2027: LLMs, RAG, Agents, Evals, Job Search (Bashiri Smith on <a href="https://www.facebook.com/reel/1087338640563321">Facebook</a> · <a href="../01-roadmap/2026-10-02-swe-to-ai-engineer-plan-for-2027-llms-rag-agents-evals-job.html">notes</a>), Taking a RAG App to Production: Evals, Guardrails, Cost and Tracing (Bashiri Smith on <a href="https://www.facebook.com/reel/1223253343329020">Facebook</a> · <a href="../06-rag/2026-09-12-taking-a-rag-app-to-production-evals-guardrails-cost-and.html">notes</a>)</li>
+<li><strong><a href="https://github.com/promptfoo/promptfoo">promptfoo</a></strong> · repo · github.com · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Listed under eval frameworks for defining and running evaluations, offline and in CI.<br>
+  Also in: OpenAI Retires Its Evals Platform and Recommends promptfoo (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107488226961502683">X</a> · <a href="2026-10-06-openai-retires-its-evals-platform-and-recommends-promptfoo.html">notes</a>), Running LLM evals with promptfoo on local llama.cpp models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2092862288072253675">X</a> · <a href="2026-08-27-running-llm-evals-with-promptfoo-on-local-llama-cpp-models.html">notes</a>)</li>
+<li><strong><a href="https://github.com/Arize-ai/phoenix">Arize Phoenix</a></strong> · tool · github.com · free<br>
+  Purpose-built tool for viewing traces, running evals and managing prompts.</li>
+<li><strong><a href="https://www.braintrust.dev">Braintrust</a></strong> · tool · braintrust.dev · free<br>
+  Purpose-built tool for viewing traces, running evals and managing prompts.</li>
+<li><strong><a href="https://github.com/openai/evals">OpenAI Evals</a></strong> · repo · github.com · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Listed under eval frameworks for defining and running evaluations.<br>
+  Also in: Is OpenAI Evals Still Maintained? (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2092886423674507462">X</a> · <a href="2026-08-27-is-openai-evals-still-maintained.html">notes</a>)</li>
+<li><strong><a href="https://github.com/wandb/weave">Weights &amp; Biases Weave</a></strong> · tool · github.com · free<br>
+  Purpose-built tool for viewing traces, running evals and managing prompts.</li>
+<li><strong><a href="https://github.com/confident-ai/deepeval">DeepEval</a></strong> · tool · github.com · free<br>
+  Listed under eval frameworks for defining and running evaluations, offline and in CI.</li>
+<li><strong><a href="https://github.com/guardrails-ai/guardrails">Guardrails AI</a></strong> · tool · github.com · free<br>
+  Listed under guardrails tools for enforcing quality and safety on every request at runtime.</li>
+<li><strong><a href="https://github.com/NVIDIA-NeMo/Guardrails">NeMo Guardrails</a></strong> · tool · github.com · free<br>
+  Listed under guardrails tools for enforcing quality and safety on every request at runtime.</li>
+<li><strong><a href="https://www.trulens.org">TruLens</a></strong> · tool · trulens.org · free<br>
+  Listed under RAG evaluation tools in the guide's evaluation stack.</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Comment 'evals' on the reel to get the link to the AI evaluation guide (it's also in the caption).</li>
+<li>Test your AI app with messy questions, irrelevant context and adversarial instructions, not just one good demo answer.</li>
+<li>Measure retrieval quality, groundedness, task success, guardrail behavior, and cost/latency for your app.</li>
+<li>Use evals to catch regressions before users do.</li>
+<li>Build and deploy a large AI project that holds up when others actively try to break it (e.g. with AI coding agents), and back it with an eval suite covering retrieval, groundedness, task success, guardrails, and cost/latency.</li>
+</ul><section class="more"><h2>More in Evaluation (Evals) &amp; Testing</h2><ul><li><a href="2026-10-12-mlflow-3-17-0-jev-models-as-llm-judges-in-genai-evaluate.html">MLflow 3.17.0: Jev models as LLM judges in GenAI evaluate</a> <span class="meta">Melvin Vivas, 2026-10-12</span></li><li><a href="2026-10-08-decision-model-rankings-by-spend-and-token-share.html">Decision Model Rankings by Spend and Token Share</a> <span class="meta">Melvin Vivas, 2026-10-08</span></li><li><a href="2026-10-07-local-evals-v0-1-0-run-llm-evals-locally.html">Local Evals v0.1.0: Run LLM Evals Locally</a> <span class="meta">Melvin Vivas, 2026-10-07</span></li></ul><p><a href="../../topics/evals.html">All of Evaluation (Evals) &amp; Testing</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

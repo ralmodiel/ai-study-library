@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pi Durable: A Runtime for Crash-Proof, Long-Running, Multiplayer…</title>
+<meta name="description" content="This video introduces Pi Durable, an experimental runtime released with Pi 1.0 (the transcript says &quot;Arendil&quot;, which is most likely Earendil). Pi on its own…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-05-pi-durable-a-runtime-for-crash-proof-long-running.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Pi Durable: A Runtime for Crash-Proof, Long-Running, Multiplayer…">
+<meta property="og:description" content="This video introduces Pi Durable, an experimental runtime released with Pi 1.0 (the transcript says &quot;Arendil&quot;, which is most likely Earendil). Pi on its own…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-05-pi-durable-a-runtime-for-crash-proof-long-running.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../fonts/ibm-plex-sans-normal-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/bricolage-grotesque-normal-600-750-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-05-pi-durable-a-runtime-for-crash-proof-long-running.html#note","headline":"Pi Durable: A Runtime for Crash-Proof, Long-Running, Multiplayer Agents","description":"This video introduces Pi Durable, an experimental runtime released with Pi 1.0 (the transcript says \"Arendil\", which is most likely Earendil). Pi on its own is a coding agent that one person drives from a terminal. Pi Durable is a harness for agents that run in Slack, on servers or in the cloud…","url":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-05-pi-durable-a-runtime-for-crash-proof-long-running.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"AI Agents, Tool Use & MCP"},{"@type":"Thing","name":"LLMOps, Deployment & Monitoring"},{"@type":"Thing","name":"AI System Design & Architecture"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2107030156082901466","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-10-05"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-05-pi-durable-a-runtime-for-crash-proof-long-running.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"AI Agents, Tool Use & MCP","item":"https://ralmodiel.github.io/ai-study-library/topics/agents.html"},{"@type":"ListItem","position":4,"name":"Pi Durable: A Runtime for Crash-Proof, Long-Running, Multiplayer Agents"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/agents.html">AI Agents, Tool Use &amp; MCP</a> &rsaquo; <span aria-current="page">Pi Durable: A Runtime for Crash-Proof, Long-Running, Multiplayer Agents</span></nav><h1>Pi Durable: A Runtime for Crash-Proof, Long-Running, Multiplayer Agents</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2107030156082901466">a video post by Melvin Vivas on X</a>, posted 5 October 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X video post · 2026-10-05 · 2:58 · 302 views · <a href="https://x.com/melvindvivas/status/2107030156082901466">Open on X</a></p>
+<p><strong>Topics:</strong> AI Agents, Tool Use &amp; MCP, LLMOps, Deployment &amp; Monitoring, AI System Design &amp; Architecture · <strong>Level:</strong> advanced</p>
+<h2>Summary</h2>
+<p>This video introduces Pi Durable, an experimental runtime released with Pi 1.0 (the transcript says "Arendil", which is most likely Earendil). Pi on its own is a coding agent that one person drives from a terminal. Pi Durable is a harness for agents that run in Slack, on servers or in the cloud. The video explains how it uses checkpointed tasks, pluggable storage, forked conversations and multi-client streaming so agents can survive crashes and be steered by many people at once.</p>
+<h2>Key points</h2>
+<ul>
+<li>Pi Durable is a 'harness': storage plus the machinery to run many model conversations in parallel. Conversations call tools, tools run in execution environments, and everything the harness does (model calls, tool runs) is a task.</li>
+<li>Storage is pluggable. Memory, SQLite and JSONL backends come built in, and the interface is small enough to build on Postgres, a key-value store or a Cloudflare Durable Object. Only the working set stays in memory; everything else stays on disk.</li>
+<li>Each step of a run is a task that saves a checkpoint before it moves on. If the process crashes, a new process opens the same storage and resumes each task from its last checkpoint.</li>
+<li>Tools marked ReplaySafe simply rerun after a crash. Tools with side effects, such as a deploy, are never repeated. The model is told it was interrupted, and a request ID makes every submission happen exactly once.</li>
+<li>Forks branch from any point in a transcript without copying history, like a Slack thread spun off a channel. Sub-agents are just conversations owned by the tool call that started them.</li>
+<li>Extensions bundle prompt sections, tools, hooks and tasks. App state (to-do lists, plans) lives in typed JSON documents committed atomically with the transcript. Compaction runs in the background, and you can hot-swap extension code while agents keep running.</li>
+<li>Multiplayer: any number of clients can attach to a conversation. Each gets the current view, then streams only what changes, so people can join late, reconnect or steer the agent mid-run.</li>
+<li>It is MIT-licensed, about 15,000 lines of TypeScript, and installed from npm. It is experimental, so the API may change.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://github.com/earendil-works/pi/blob/main/packages/durable/README.md">Pi Durable</a></strong> · tool · github.com · free<br>
+  An experimental, MIT-licensed TypeScript runtime for building long-running, crash-proof, multiplayer agents with checkpointed tasks and pluggable storage.</li>
+<li><strong><a href="https://x.com/pidotdev">Pi</a></strong> · tool · x.com · free<br>
+  A customizable coding agent that can be extended through its Extensions API and connected to several model providers.<br>
+  Also in: Use a Hugging Face Inference Endpoint as a Custom Model Provider in Pi Agent (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107428720831263036">X</a> · <a href="../09-llmops/2026-10-06-use-a-hugging-face-inference-endpoint-as-a-custom-model.html">notes</a>), Qwen3.8-27B on HF Inference Endpoints: Context Size Matters for Agent Builds (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107425789897769398">X</a> · <a href="../09-llmops/2026-10-06-qwen3-8-27b-on-hf-inference-endpoints-context-size-matters.html">notes</a>), Pi Agent on a Self-Deployed Qwen 27B Q4_K_M via Hugging Face Inference Endpoints (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107421963581014039">X</a> · <a href="../09-llmops/2026-10-06-pi-agent-on-a-self-deployed-qwen-27b-q4-k-m-via-hugging.html">notes</a>), OpenAI Makes GPT-6 Astra and GPT-6.1 Sol About 50% Faster (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107179508277362990">X</a> · <a href="../16-trends/2026-10-06-openai-makes-gpt-6-astra-and-gpt-6-1-sol-about-50-faster.html">notes</a>) and 49 more</li>
+<li><strong><a href="https://earendil.com">Earendil</a></strong> · other · earendil.com · free<br>
+  The company that released Pi Durable alongside Pi 1.0 (transcribed as 'Arendil').</li>
+<li><strong><a href="https://www.sqlite.org">SQLite</a></strong> · tool · sqlite.org · free<br>
+  An embedded SQL database, and one of Pi Durable's built-in storage backends.<br>
+  Also in: Why Plan Mode Still Matters in AI Coding Agents (Codex, Claude, Cursor) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104223654678839637">X</a> · <a href="../13-ai-tools/2026-09-27-why-plan-mode-still-matters-in-ai-coding-agents-codex.html">notes</a>), Running Qwen3.8-27B EXL3 Locally on an RTX 3090 with 220K+ Context (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2094737166354293091">X</a> · <a href="../09-llmops/2026-09-01-running-qwen3-8-27b-exl3-locally-on-an-rtx-3090-with-220k.html">notes</a>), One-Shotting a Slack Clone with Fable 5 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2064807455435956586">X</a> · <a href="../13-ai-tools/2026-06-11-one-shotting-a-slack-clone-with-fable-5.html">notes</a>), Google Antigravity 2.0: Multi-Agent Desktop App Walkthrough (Subagents, Scheduled Tasks) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2056815299677290730">X</a> · <a href="../13-ai-tools/2026-05-19-google-antigravity-2-0-multi-agent-desktop-app-walkthrough.html">notes</a>) and 1 more</li>
+<li><strong><a href="https://www.postgresql.org">PostgreSQL</a></strong> · tool · postgresql.org · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  An open-source relational database that can be used to build a custom Pi Durable storage backend.<br>
+  Also in: Prompt Claude to Plan 3 Production-Grade AI Portfolio Projects (Bashiri Smith on <a href="https://www.facebook.com/reel/1823043605359066">Facebook</a> · <a href="../14-projects/2026-10-11-prompt-claude-to-plan-3-production-grade-ai-portfolio.html">notes</a>), Why Plan Mode Still Matters in AI Coding Agents (Codex, Claude, Cursor) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104223654678839637">X</a> · <a href="../13-ai-tools/2026-09-27-why-plan-mode-still-matters-in-ai-coding-agents-codex.html">notes</a>)</li>
+<li><strong><a href="https://developers.cloudflare.com/durable-objects/">Cloudflare Durable Objects</a></strong> · tool · developers.cloudflare.com · check price<br>
+  Cloudflare's stateful serverless primitive, mentioned as a possible storage backend for Pi Durable.</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Install Pi Durable from npm and start building durable agents.</li>
+<li>Read the Pi Durable source; it is small enough (about 15k lines of TypeScript) for you or your agent to read.</li>
+<li>Build a Slack-based agent on Pi Durable that survives process crashes and lets several team members steer it at the same time.</li>
+<li>Write a custom Pi Durable storage backend on Postgres, a key-value store or a Cloudflare Durable Object.</li>
+</ul><section class="more"><h2>More in AI Agents, Tool Use &amp; MCP</h2><ul><li><a href="2026-10-05-grok-bot-business-ideas-template-daily-market-scan-agent.html">Grok Bot Business Ideas Template: Daily Market Scan Agent</a> <span class="meta">Melvin Vivas, 2026-10-05</span></li><li><a href="2026-10-05-grok-bot-template-ideas-credits-finder-email-linkedin.html">Grok Bot Template Ideas: Credits Finder, Email, LinkedIn</a> <span class="meta">Melvin Vivas, 2026-10-05</span></li><li><a href="2026-10-05-coworker-v0-7-2-open-source-desktop-ai-assistant.html">Coworker v0.7.2: Open-Source Desktop AI Assistant</a> <span class="meta">Melvin Vivas, 2026-10-05</span></li><li><a href="2026-10-05-email-assist-grok-bot-template-for-inbox-summaries.html">Email Assist Grok Bot template for inbox summaries</a> <span class="meta">Melvin Vivas, 2026-10-05</span></li><li><a href="2026-10-05-x-researcher-a-research-bot-the-creator-built-on-grok.html">X Researcher: a research bot the creator built on Grok</a> <span class="meta">Melvin Vivas, 2026-10-05</span></li><li><a href="2026-10-05-coworker-an-open-source-desktop-ai-assistant-with-scheduled.html">Coworker: an open-source desktop AI assistant with scheduled jobs</a> <span class="meta">Melvin Vivas, 2026-10-05</span></li></ul><p><a href="../../topics/agents.html">All of AI Agents, Tool Use &amp; MCP</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

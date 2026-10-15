@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>llama.app: Run Local Models on a Mac Without the llama.cpp CLI | AI…</title>
+<meta name="description" content="The llama.cpp team at Hugging Face has launched llama.app, a Mac desktop app for running local LLMs. It picks models that fit your Mac&#x27;s hardware and is…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-10-10-llama-app-run-local-models-on-a-mac-without-the-llama-cpp.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="llama.app: Run Local Models on a Mac Without the llama.cpp CLI | AI…">
+<meta property="og:description" content="The llama.cpp team at Hugging Face has launched llama.app, a Mac desktop app for running local LLMs. It picks models that fit your Mac&#x27;s hardware and is…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-10-10-llama-app-run-local-models-on-a-mac-without-the-llama-cpp.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../fonts/ibm-plex-sans-normal-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/bricolage-grotesque-normal-600-750-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-10-10-llama-app-run-local-models-on-a-mac-without-the-llama-cpp.html#note","headline":"llama.app: Run Local Models on a Mac Without the llama.cpp CLI","description":"The llama.cpp team at Hugging Face has launched llama.app, a Mac desktop app for running local LLMs. It picks models that fit your Mac's hardware and is easier to install than using llama.cpp from the command line.","url":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-10-10-llama-app-run-local-models-on-a-mac-without-the-llama-cpp.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"AI Dev Tools & Productivity"},{"@type":"Thing","name":"LLM Fundamentals"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2108777288708108346","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-10-10"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-10-10-llama-app-run-local-models-on-a-mac-without-the-llama-cpp.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"AI Dev Tools & Productivity","item":"https://ralmodiel.github.io/ai-study-library/topics/ai-tools.html"},{"@type":"ListItem","position":4,"name":"llama.app: Run Local Models on a Mac Without the llama.cpp CLI"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/ai-tools.html">AI Dev Tools &amp; Productivity</a> &rsaquo; <span aria-current="page">llama.app: Run Local Models on a Mac Without the llama.cpp CLI</span></nav><h1>llama.app: Run Local Models on a Mac Without the llama.cpp CLI</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2108777288708108346">a post by Melvin Vivas on X</a>, posted 10 October 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X post · 2026-10-10 · <a href="https://x.com/melvindvivas/status/2108777288708108346">Open on X</a></p>
+<p><strong>Topics:</strong> AI Dev Tools &amp; Productivity, LLM Fundamentals · <strong>Level:</strong> beginner</p>
+<h2>Summary</h2>
+<p>The llama.cpp team at Hugging Face has launched llama.app, a Mac desktop app for running local LLMs. It picks models that fit your Mac's hardware and is easier to install than using llama.cpp from the command line.</p>
+<h2>Key points</h2>
+<ul>
+<li>llama.app is a Mac app from the llama.cpp team at Hugging Face.</li>
+<li>It runs local LLMs that fit your Mac's hardware.</li>
+<li>It's easier than installing and running llama.cpp from the command line.</li>
+<li>Good for trying local inference without the cloud or command-line setup.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://llama.app/">Llama (llama.app)</a></strong> · tool · llama.app · check price<br>
+  A Mac desktop app from the llama.cpp team for running local AI models on your computer.</li>
+<li><strong><a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a></strong> · repo · github.com · free<br>
+  An open-source C/C++ engine for running GGUF models locally. Its llama-server command provides an OpenAI-compatible HTTP server.<br>
+  Also in: Deploy Cheap Quantized GGUF Models on HF Inference Endpoints with llama.cpp (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107399598352584965">X</a> · <a href="../09-llmops/2026-10-06-deploy-cheap-quantized-gguf-models-on-hf-inference.html">notes</a>), Run Local LLMs on the Computer You Already Have: A Beginner's Path (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107061873413943463">X</a> · <a href="../03-llm-fundamentals/2026-10-05-run-local-llms-on-the-computer-you-already-have-a-beginner.html">notes</a>), Remote-control Codex and Claude Code in WSL from your phone (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2106080382613615041">X</a> · <a href="2026-10-03-remote-control-codex-and-claude-code-in-wsl-from-your-phone.html">notes</a>), Running LLMs Locally Without an Expensive Rig (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104363353045123168">X</a> · <a href="../03-llm-fundamentals/2026-09-28-running-llms-locally-without-an-expensive-rig.html">notes</a>) and 32 more</li>
+<li><strong><a href="https://huggingface.co/">Hugging Face</a></strong> · website · huggingface.co · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Named in the prompt as a beginner-friendly but powerful AI platform for models used in AI projects.<br>
+  Also in: Grok Bot workflow: turn model-release posts into Colab notebooks (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108148567164739993">X</a> · <a href="../07-agents/2026-10-08-grok-bot-workflow-turn-model-release-posts-into-colab.html">notes</a>), Generate Portfolio AI Project Ideas with Claude and Hugging Face Tasks (Bashiri Smith on <a href="https://www.facebook.com/reel/943179135263212">Facebook</a> · <a href="../14-projects/2026-10-08-generate-portfolio-ai-project-ideas-with-claude-and-hugging.html">notes</a>), EmbeddingGemma 2 released on Hugging Face (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107511291816636923">X</a> · <a href="../05-embeddings-vectordb/2026-10-07-embeddinggemma-2-released-on-hugging-face.html">notes</a>), EmbeddingGemma 2: One On-Device Model for Multimodal Embeddings (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107510338300342732">X</a> · <a href="../05-embeddings-vectordb/2026-10-07-embeddinggemma-2-one-on-device-model-for-multimodal.html">notes</a>) and 48 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Try llama.app to run a local model that fits your Mac.</li>
+</ul><section class="more"><h2>More in AI Dev Tools &amp; Productivity</h2><ul><li><a href="2026-10-11-rebuilding-a-personal-website-with-opus-5-5-in-devin.html">Rebuilding a personal website with Opus 5.5 in Devin</a> <span class="meta">Melvin Vivas, 2026-10-11</span></li><li><a href="2026-10-11-free-talk-how-one-engineer-shipped-2-500-prs-in-a-month.html">Free talk: how one engineer shipped 2,500 PRs in a month</a> <span class="meta">Melvin Vivas, 2026-10-11</span></li><li><a href="2026-10-10-codex-composer-predictions-beta-next-message-suggestions.html">Codex Composer Predictions Beta: Next-Message Suggestions for Pro Users</a> <span class="meta">Melvin Vivas, 2026-10-10</span></li><li><a href="2026-10-10-try-devin-by-connecting-your-chatgpt-go-plus-or-pro-plan.html">Try Devin by Connecting Your ChatGPT Go, Plus or Pro Plan</a> <span class="meta">Melvin Vivas, 2026-10-10</span></li><li><a href="2026-10-10-coding-from-your-phone-grok-bot-hands-tasks-to-cursor-cloud.html">Coding from your phone: Grok Bot hands tasks to Cursor Cloud Agents</a> <span class="meta">Melvin Vivas, 2026-10-10</span></li><li><a href="2026-10-09-making-a-40-second-anime-episode-locally-with-comfyui-on-an.html">Making a 40-Second Anime Episode Locally with ComfyUI on an RTX 3090</a> <span class="meta">Melvin Vivas, 2026-10-09</span></li></ul><p><a href="../../topics/ai-tools.html">All of AI Dev Tools &amp; Productivity</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

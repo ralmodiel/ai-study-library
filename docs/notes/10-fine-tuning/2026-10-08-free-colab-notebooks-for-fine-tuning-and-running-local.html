@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Colab notebooks for fine-tuning and running local models | AI…</title>
+<meta name="description" content="The creator shares a GitHub repo of notebooks for fine-tuning and running inference on local/open-weight models. Every notebook runs on Google Colab&#x27;s free T4…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/10-fine-tuning/2026-10-08-free-colab-notebooks-for-fine-tuning-and-running-local.html">
+<meta name="robots" content="noindex, follow">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Free Colab notebooks for fine-tuning and running local models | AI…">
+<meta property="og:description" content="The creator shares a GitHub repo of notebooks for fine-tuning and running inference on local/open-weight models. Every notebook runs on Google Colab&#x27;s free T4…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/10-fine-tuning/2026-10-08-free-colab-notebooks-for-fine-tuning-and-running-local.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../fonts/ibm-plex-sans-normal-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/bricolage-grotesque-normal-600-750-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/10-fine-tuning/2026-10-08-free-colab-notebooks-for-fine-tuning-and-running-local.html#note","headline":"Free Colab notebooks for fine-tuning and running local models","description":"The creator shares a GitHub repo of notebooks for fine-tuning and running inference on local/open-weight models. Every notebook runs on Google Colab's free T4 GPU, so anyone can try fine-tuning at no cost.","url":"https://ralmodiel.github.io/ai-study-library/notes/10-fine-tuning/2026-10-08-free-colab-notebooks-for-fine-tuning-and-running-local.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"Fine-tuning & Model Customization"},{"@type":"Thing","name":"LLM Fundamentals"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2108156982444396687","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-10-08"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/10-fine-tuning/2026-10-08-free-colab-notebooks-for-fine-tuning-and-running-local.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"Fine-tuning & Model Customization","item":"https://ralmodiel.github.io/ai-study-library/topics/fine-tuning.html"},{"@type":"ListItem","position":4,"name":"Free Colab notebooks for fine-tuning and running local models"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/fine-tuning.html">Fine-tuning &amp; Model Customization</a> &rsaquo; <span aria-current="page">Free Colab notebooks for fine-tuning and running local models</span></nav><h1>Free Colab notebooks for fine-tuning and running local models</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2108156982444396687">a post by Melvin Vivas on X</a>, posted 8 October 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X post · 2026-10-08 · <a href="https://x.com/melvindvivas/status/2108156982444396687">Open on X</a></p>
+<p><strong>Topics:</strong> Fine-tuning &amp; Model Customization, LLM Fundamentals · <strong>Level:</strong> intermediate</p>
+<h2>Summary</h2>
+<p>The creator shares a GitHub repo of notebooks for fine-tuning and running inference on local/open-weight models. Every notebook runs on Google Colab's free T4 GPU, so anyone can try fine-tuning at no cost.</p>
+<h2>Key points</h2>
+<ul>
+<li>The repo donvito/notebooks has fine-tuning and inference notebooks for local models</li>
+<li>All notebooks are made to run on Google Colab's free T4 GPU</li>
+<li>You don't need paid hardware to practice fine-tuning small open models</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://github.com/donvito/notebooks">donvito/notebooks</a></strong> · repo · github.com · free<br>
+  The creator's notebooks for fine-tuning and running local models, which you can run in Google Colab, including a GLiNER2.5-Decide intent classification example.<br>
+  Also in: Try EmbeddingGemma 2 multimodal embeddings in Colab (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108377172004266323">X</a> · <a href="../05-embeddings-vectordb/2026-10-09-try-embeddinggemma-2-multimodal-embeddings-in-colab.html">notes</a>), Colab Notebook for Liquid AI's d1-3B Decision Model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108224364907049089">X</a> · <a href="../03-llm-fundamentals/2026-10-08-colab-notebook-for-liquid-ai-s-d1-3b-decision-model.html">notes</a>), Fine-tune and Run Local Models for Free on Google Colab's T4 GPU (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108160656486867360">X</a> · <a href="2026-10-08-fine-tune-and-run-local-models-for-free-on-google-colab-s.html">notes</a>), EmbeddingGemma 2 Colab Notebook for FAQ Semantic Search (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107846458586337440">X</a> · <a href="../05-embeddings-vectordb/2026-10-07-embeddinggemma-2-colab-notebook-for-faq-semantic-search.html">notes</a>) and 8 more</li>
+<li><strong><a href="https://colab.research.google.com/">Google Colab</a></strong> · tool · colab.research.google.com · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Free GPU notebooks.<br>
+  Also in: Liquid AI's LFM2.5-24B-A2B: a local MoE model for agent tasks (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110239211244982766">X</a> · <a href="../03-llm-fundamentals/2026-10-14-liquid-ai-s-lfm2-5-24b-a2b-a-local-moe-model-for-agent-tasks.html">notes</a>), A100 80GB GPUs in Google Colab via Google AI Pro plans (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108823994233508305">X</a> · <a href="2026-10-10-a100-80gb-gpus-in-google-colab-via-google-ai-pro-plans.html">notes</a>), Try EmbeddingGemma 2 multimodal embeddings in Colab (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108377172004266323">X</a> · <a href="../05-embeddings-vectordb/2026-10-09-try-embeddinggemma-2-multimodal-embeddings-in-colab.html">notes</a>), A day of work done from a phone with Grok Bot agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108249363432788364">X</a> · <a href="../07-agents/2026-10-09-a-day-of-work-done-from-a-phone-with-grok-bot-agents.html">notes</a>) and 24 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Open the notebooks in Google Colab and run them on the free T4 GPU</li>
+<li>Fine-tune a small open-weight model on the free Colab T4 GPU using the provided notebooks</li>
+</ul><section class="more"><h2>More in Fine-tuning &amp; Model Customization</h2><ul><li><a href="2026-10-10-a100-80gb-gpus-in-google-colab-via-google-ai-pro-plans.html">A100 80GB GPUs in Google Colab via Google AI Pro plans</a> <span class="meta">Melvin Vivas, 2026-10-10</span></li><li><a href="2026-10-08-the-open-env-arena-agents-design-rl-environments-ranked-on.html">The Open Env Arena: Agents Design RL Environments, Ranked on a Leaderboard</a> <span class="meta">Melvin Vivas, 2026-10-08</span></li><li><a href="2026-10-08-fine-tune-and-run-local-models-for-free-on-google-colab-s.html">Fine-tune and Run Local Models for Free on Google Colab&#x27;s T4 GPU</a> <span class="meta">Melvin Vivas, 2026-10-08</span></li><li><a href="2026-10-08-agent-tasks-unsloth-fine-tuning-comfyui-face-swap-script.html">Agent tasks: Unsloth fine-tuning, ComfyUI face swap, script writing</a> <span class="meta">Melvin Vivas, 2026-10-08</span></li><li><a href="2026-10-08-train-your-own-decision-model-locally-with-unsloth.html">Train Your Own Decision Model Locally with Unsloth</a> <span class="meta">Melvin Vivas, 2026-10-08</span></li><li><a href="2026-10-02-using-an-ml-agent-to-train-an-open-source-tts-model-on-your.html">Using an ML agent to train an open-source TTS model on your voice</a> <span class="meta">Melvin Vivas, 2026-10-02</span></li></ul><p><a href="../../topics/fine-tuning.html">All of Fine-tuning &amp; Model Customization</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

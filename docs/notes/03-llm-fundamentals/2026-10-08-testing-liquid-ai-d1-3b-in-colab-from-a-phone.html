@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Testing Liquid AI d1-3B in Colab from a Phone | AI Engineer Study…</title>
+<meta name="description" content="The creator tests Liquid AI&#x27;s d1-3B model on his phone, using a Colab notebook that Grok Bot generated. It shows that small models can be tried in Colab…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/03-llm-fundamentals/2026-10-08-testing-liquid-ai-d1-3b-in-colab-from-a-phone.html">
+<meta name="robots" content="noindex, follow">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Testing Liquid AI d1-3B in Colab from a Phone | AI Engineer Study…">
+<meta property="og:description" content="The creator tests Liquid AI&#x27;s d1-3B model on his phone, using a Colab notebook that Grok Bot generated. It shows that small models can be tried in Colab…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/03-llm-fundamentals/2026-10-08-testing-liquid-ai-d1-3b-in-colab-from-a-phone.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../fonts/ibm-plex-sans-normal-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/bricolage-grotesque-normal-600-750-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/03-llm-fundamentals/2026-10-08-testing-liquid-ai-d1-3b-in-colab-from-a-phone.html#note","headline":"Testing Liquid AI d1-3B in Colab from a Phone","description":"The creator tests Liquid AI's d1-3B model on his phone, using a Colab notebook that Grok Bot generated. It shows that small models can be tried in Colab without a local setup.","url":"https://ralmodiel.github.io/ai-study-library/notes/03-llm-fundamentals/2026-10-08-testing-liquid-ai-d1-3b-in-colab-from-a-phone.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"LLM Fundamentals"},{"@type":"Thing","name":"AI Dev Tools & Productivity"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2108222376433619271","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-10-08"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/03-llm-fundamentals/2026-10-08-testing-liquid-ai-d1-3b-in-colab-from-a-phone.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"LLM Fundamentals","item":"https://ralmodiel.github.io/ai-study-library/topics/llm-fundamentals.html"},{"@type":"ListItem","position":4,"name":"Testing Liquid AI d1-3B in Colab from a Phone"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/llm-fundamentals.html">LLM Fundamentals</a> &rsaquo; <span aria-current="page">Testing Liquid AI d1-3B in Colab from a Phone</span></nav><h1>Testing Liquid AI d1-3B in Colab from a Phone</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2108222376433619271">a post by Melvin Vivas on X</a>, posted 8 October 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X post · 2026-10-08 · <a href="https://x.com/melvindvivas/status/2108222376433619271">Open on X</a></p>
+<p><strong>Topics:</strong> LLM Fundamentals, AI Dev Tools &amp; Productivity · <strong>Level:</strong> beginner</p>
+<h2>Summary</h2>
+<p>The creator tests Liquid AI's d1-3B model on his phone, using a Colab notebook that Grok Bot generated. It shows that small models can be tried in Colab without a local setup.</p>
+<h2>Key points</h2>
+<ul>
+<li>The creator ran a Colab notebook for d1-3B from his phone.</li>
+<li>An AI assistant (Grok Bot) generated the notebook.</li>
+<li>Small models like d1-3B are easy to try out in Colab.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://x.com/liquidai">Liquid AI (@liquidai) on X</a></strong> · website · x.com · free<br>
+  An AI company that builds efficient foundation models. The quoted post shows its PII handling working on Japanese text.<br>
+  Also in: Liquid AI's LFM2.5-24B-A2B: a local MoE model for agent tasks (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110239211244982766">X</a> · <a href="2026-10-14-liquid-ai-s-lfm2-5-24b-a2b-a-local-moe-model-for-agent-tasks.html">notes</a>), Colab Notebook for Liquid AI's d1-3B Decision Model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108224364907049089">X</a> · <a href="2026-10-08-colab-notebook-for-liquid-ai-s-d1-3b-decision-model.html">notes</a>), Liquid AI Open d1: d1-3B and d1-omni-600M Decision Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108145995800535296">X</a> · <a href="2026-10-08-liquid-ai-open-d1-d1-3b-and-d1-omni-600m-decision-models.html">notes</a>), Liquid AI's open d1 decision models: small multimodal models that run locally (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107887350483488934">X</a> · <a href="2026-10-08-liquid-ai-s-open-d1-decision-models-small-multimodal-models.html">notes</a>) and 25 more</li>
+<li><strong><a href="https://huggingface.co/LiquidAI/d1-3B">d1-3B</a></strong> · tool · huggingface.co · free<br>
+  Open, small multimodal decision models from Liquid AI that can run locally and accept video input.<br>
+  Also in: Colab Notebook for Liquid AI's d1-3B Decision Model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108224364907049089">X</a> · <a href="2026-10-08-colab-notebook-for-liquid-ai-s-d1-3b-decision-model.html">notes</a>), Liquid AI releases Open d1 open-weight multimodal decision models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108086307675357668">X</a> · <a href="2026-10-08-liquid-ai-releases-open-d1-open-weight-multimodal-decision.html">notes</a>), Liquid AI's open d1 decision models: small multimodal models that run locally (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107887350483488934">X</a> · <a href="2026-10-08-liquid-ai-s-open-d1-decision-models-small-multimodal-models.html">notes</a>)</li>
+<li><strong><a href="https://colab.research.google.com/">Google Colab</a></strong> · tool · colab.research.google.com · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Free GPU notebooks.<br>
+  Also in: Liquid AI's LFM2.5-24B-A2B: a local MoE model for agent tasks (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110239211244982766">X</a> · <a href="2026-10-14-liquid-ai-s-lfm2-5-24b-a2b-a-local-moe-model-for-agent-tasks.html">notes</a>), A100 80GB GPUs in Google Colab via Google AI Pro plans (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108823994233508305">X</a> · <a href="../10-fine-tuning/2026-10-10-a100-80gb-gpus-in-google-colab-via-google-ai-pro-plans.html">notes</a>), Try EmbeddingGemma 2 multimodal embeddings in Colab (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108377172004266323">X</a> · <a href="../05-embeddings-vectordb/2026-10-09-try-embeddinggemma-2-multimodal-embeddings-in-colab.html">notes</a>), A day of work done from a phone with Grok Bot agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108249363432788364">X</a> · <a href="../07-agents/2026-10-09-a-day-of-work-done-from-a-phone-with-grok-bot-agents.html">notes</a>) and 24 more</li>
+</ul><section class="more"><h2>More in LLM Fundamentals</h2><ul><li><a href="2026-10-13-muse-wonder-vs-opus-5-5-same-prompt-very-different-api-cost.html">Muse Wonder vs Opus 5.5: Same Prompt, Very Different API Cost</a> <span class="meta">Melvin Vivas, 2026-10-13</span></li><li><a href="2026-10-10-ai-engineer-vocab-quiz-11-acronyms-to-know-for-interviews.html">AI Engineer Vocab Quiz: 11 Acronyms to Know for Interviews</a> <span class="meta">Bashiri Smith, 2026-10-10</span></li><li><a href="2026-10-08-colab-notebook-for-liquid-ai-s-d1-3b-decision-model.html">Colab Notebook for Liquid AI&#x27;s d1-3B Decision Model</a> <span class="meta">Melvin Vivas, 2026-10-08</span></li><li><a href="2026-10-08-liquid-ai-open-d1-d1-3b-and-d1-omni-600m-decision-models.html">Liquid AI Open d1: d1-3B and d1-omni-600M Decision Models</a> <span class="meta">Melvin Vivas, 2026-10-08</span></li><li><a href="2026-10-08-liquid-ai-releases-open-d1-open-weight-multimodal-decision.html">Liquid AI releases Open d1 open-weight multimodal decision models</a> <span class="meta">Melvin Vivas, 2026-10-08</span></li><li><a href="2026-10-08-claude-haiku-5-5-in-devin-beats-sonnet-5-at-about-1-8-the.html">Claude Haiku 5.5 in Devin: beats Sonnet 5 at about 1/8 the cost</a> <span class="meta">Melvin Vivas, 2026-10-08</span></li></ul><p><a href="../../topics/llm-fundamentals.html">All of LLM Fundamentals</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

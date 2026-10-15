@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A 5-Step Framework for Designing a Grok Bot Automation | AI Engineer…</title>
+<meta name="description" content="A simple checklist for planning a Grok Bot (an AI assistant bot that runs on a schedule): Purpose, Plugins, Output, Routine, Test. The example is a bot that…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-06-a-5-step-framework-for-designing-a-grok-bot-automation.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="A 5-Step Framework for Designing a Grok Bot Automation | AI Engineer…">
+<meta property="og:description" content="A simple checklist for planning a Grok Bot (an AI assistant bot that runs on a schedule): Purpose, Plugins, Output, Routine, Test. The example is a bot that…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-06-a-5-step-framework-for-designing-a-grok-bot-automation.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../fonts/ibm-plex-sans-normal-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/bricolage-grotesque-normal-600-750-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-06-a-5-step-framework-for-designing-a-grok-bot-automation.html#note","headline":"A 5-Step Framework for Designing a Grok Bot Automation","description":"A simple checklist for planning a Grok Bot (an AI assistant bot that runs on a schedule): Purpose, Plugins, Output, Routine, Test. The example is a bot that finds LinkedIn leads, saves them to Google Sheets and runs every morning. The same thinking works for any agent that uses tools and runs on a…","url":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-06-a-5-step-framework-for-designing-a-grok-bot-automation.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"AI Agents, Tool Use & MCP"},{"@type":"Thing","name":"AI Dev Tools & Productivity"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2107283624773227002","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-10-06"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-06-a-5-step-framework-for-designing-a-grok-bot-automation.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"AI Agents, Tool Use & MCP","item":"https://ralmodiel.github.io/ai-study-library/topics/agents.html"},{"@type":"ListItem","position":4,"name":"A 5-Step Framework for Designing a Grok Bot Automation"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/agents.html">AI Agents, Tool Use &amp; MCP</a> &rsaquo; <span aria-current="page">A 5-Step Framework for Designing a Grok Bot Automation</span></nav><h1>A 5-Step Framework for Designing a Grok Bot Automation</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2107283624773227002">a post by Melvin Vivas on X</a>, posted 6 October 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X post · 2026-10-06 · <a href="https://x.com/melvindvivas/status/2107283624773227002">Open on X</a></p>
+<p><strong>Topics:</strong> AI Agents, Tool Use &amp; MCP, AI Dev Tools &amp; Productivity · <strong>Level:</strong> beginner</p>
+<h2>Summary</h2>
+<p>A simple checklist for planning a Grok Bot (an AI assistant bot that runs on a schedule): Purpose, Plugins, Output, Routine, Test. The example is a bot that finds LinkedIn leads, saves them to Google Sheets and runs every morning. The same thinking works for any agent that uses tools and runs on a schedule.</p>
+<h2>Key points</h2>
+<ul>
+<li>Purpose: decide the one job the bot should do.</li>
+<li>Plugins: list the tools and data sources it needs access to.</li>
+<li>Output: decide where results go (e.g. Google Sheets).</li>
+<li>Routine: set when and how often it runs (e.g. every morning).</li>
+<li>Test: run it by hand before you automate it.</li>
+<li>Order: Purpose → Plugins → Output → Routine → Test.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://x.ai/bot">Grok Bot</a></strong> · tool · x.ai · paid<br>
+  An early-beta AI agent product from the Grok family that runs in its own computer and browser instance and does tasks in your tools.<br>
+  Also in: Language Coach Bot Template for Grok Bot (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110721679018369478">X</a> · <a href="../13-ai-tools/2026-10-15-language-coach-bot-template-for-grok-bot.html">notes</a>), ComfyUI Templates: Chain Ready-Made Workflows Instead of Building From Scratch (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110638054184833491">X</a> · <a href="../13-ai-tools/2026-10-15-comfyui-templates-chain-ready-made-workflows-instead-of.html">notes</a>), Language Coach Bot Template for Grok Bot (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110632657814262194">X</a> · <a href="../13-ai-tools/2026-10-15-language-coach-bot-template-for-grok-bot-2.html">notes</a>), How to Customize Grok Voice 3.0 in Grok Bot (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110578219422548378">X</a> · <a href="../13-ai-tools/2026-10-15-how-to-customize-grok-voice-3-0-in-grok-bot.html">notes</a>) and 97 more</li>
+<li><strong><a href="https://www.linkedin.com">LinkedIn</a></strong> · website · linkedin.com · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Professional networking site and job board where you can filter job searches by number of applicants and posting date.<br>
+  Also in: ChatGPT Prompt to Generate Standout Portfolio Project Ideas (Bashiri Smith on <a href="https://www.facebook.com/reel/1279924090928838">Facebook</a> · <a href="../14-projects/2026-10-14-chatgpt-prompt-to-generate-standout-portfolio-project-ideas.html">notes</a>), Get More Interviews: Prove You Built Your Projects With Video Walkthroughs (Bashiri Smith on <a href="https://www.facebook.com/reel/1751630569968263">Facebook</a> · <a href="../15-career/2026-10-11-get-more-interviews-prove-you-built-your-projects-with.html">notes</a>), Find Hidden AI Engineering Jobs by Searching for Skills, Not Job Titles (Bashiri Smith on <a href="https://www.facebook.com/reel/1130986979613448">Facebook</a> · <a href="../15-career/2026-10-05-find-hidden-ai-engineering-jobs-by-searching-for-skills-not.html">notes</a>), Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="../01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>) and 7 more</li>
+<li><strong><a href="https://www.google.com/sheets/about/">Google Sheets</a></strong> · tool · google.com · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Google's online spreadsheet app, used here as the place where the agent stores its results.<br>
+  Also in: Track a viral X post with a scheduled agent that logs to Google Sheets (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108639899431964694">X</a> · <a href="2026-10-10-track-a-viral-x-post-with-a-scheduled-agent-that-logs-to.html">notes</a>), Tracking a Viral X Post's Growth with a Grok Bot Agent (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108629275129925765">X</a> · <a href="2026-10-10-tracking-a-viral-x-post-s-growth-with-a-grok-bot-agent.html">notes</a>), Organizing Grok Bot Lead Collection in One Google Sheet (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105928546699092061">X</a> · <a href="2026-10-02-organizing-grok-bot-lead-collection-in-one-google-sheet.html">notes</a>), Morning digest from a chief-of-staff agent (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2105858275996741808">X</a> · <a href="2026-10-02-morning-digest-from-a-chief-of-staff-agent.html">notes</a>) and 2 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Answer Purpose, Plugins, Output and Routine before you build a bot.</li>
+<li>Run the bot by hand to test it before you schedule it.</li>
+<li>A lead-finder bot that searches LinkedIn every morning and saves leads to Google Sheets.</li>
+</ul><section class="more"><h2>More in AI Agents, Tool Use &amp; MCP</h2><ul><li><a href="2026-10-06-use-the-grok-bot-guides-to-improve-your-bots.html">Use the Grok Bot Guides to Improve Your Bots</a> <span class="meta">Melvin Vivas, 2026-10-06</span></li><li><a href="2026-10-06-devin-s-dreaming-graph-based-agent-memory-beyond-markdown.html">Devin&#x27;s &quot;Dreaming&quot;: Graph-Based Agent Memory Beyond Markdown Files</a> <span class="meta">Melvin Vivas, 2026-10-06</span></li><li><a href="2026-10-06-business-ideas-grok-bot-template-daily-ranked-ai-business.html">Business Ideas Grok Bot Template: Daily Ranked AI Business Bets</a> <span class="meta">Melvin Vivas, 2026-10-06</span></li><li><a href="2026-10-06-useful-plugins-to-connect-to-a-grok-bot.html">Useful Plugins to Connect to a Grok Bot</a> <span class="meta">Melvin Vivas, 2026-10-06</span></li><li><a href="2026-10-06-steering-running-agents-with-run-steer-in-the-cursor-sdk.html">Steering Running Agents with run.steer() in the Cursor SDK</a> <span class="meta">Melvin Vivas, 2026-10-06</span></li><li><a href="2026-10-05-grok-bot-business-ideas-template-daily-market-scan-agent.html">Grok Bot Business Ideas Template: Daily Market Scan Agent</a> <span class="meta">Melvin Vivas, 2026-10-05</span></li></ul><p><a href="../../topics/agents.html">All of AI Agents, Tool Use &amp; MCP</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

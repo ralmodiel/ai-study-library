@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Local AI vs Cloud AI: Using the Right Model for the Right Job | AI…</title>
+<meta name="description" content="Melvin Vivas explains when running AI models locally (on your own computer or company infrastructure) makes sense compared with cloud AI APIs. He covers three…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-10-14-local-ai-vs-cloud-ai-using-the-right-model-for-the-right-job.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Local AI vs Cloud AI: Using the Right Model for the Right Job | AI…">
+<meta property="og:description" content="Melvin Vivas explains when running AI models locally (on your own computer or company infrastructure) makes sense compared with cloud AI APIs. He covers three…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-10-14-local-ai-vs-cloud-ai-using-the-right-model-for-the-right-job.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../fonts/ibm-plex-sans-normal-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/bricolage-grotesque-normal-600-750-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-10-14-local-ai-vs-cloud-ai-using-the-right-model-for-the-right-job.html#note","headline":"Local AI vs Cloud AI: Using the Right Model for the Right Job","description":"Melvin Vivas explains when running AI models locally (on your own computer or company infrastructure) makes sense compared with cloud AI APIs. He covers three reasons to go local: privacy and control, cost at high volume, and working offline. He also argues that small fine-tuned models can match…","url":"https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-10-14-local-ai-vs-cloud-ai-using-the-right-model-for-the-right-job.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"LLMOps, Deployment & Monitoring"},{"@type":"Thing","name":"Fine-tuning & Model Customization"},{"@type":"Thing","name":"LLM Fundamentals"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2110311987439919140","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-10-14"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-10-14-local-ai-vs-cloud-ai-using-the-right-model-for-the-right-job.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"LLMOps, Deployment & Monitoring","item":"https://ralmodiel.github.io/ai-study-library/topics/llmops.html"},{"@type":"ListItem","position":4,"name":"Local AI vs Cloud AI: Using the Right Model for the Right Job"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/llmops.html">LLMOps, Deployment &amp; Monitoring</a> &rsaquo; <span aria-current="page">Local AI vs Cloud AI: Using the Right Model for the Right Job</span></nav><h1>Local AI vs Cloud AI: Using the Right Model for the Right Job</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2110311987439919140">a video post by Melvin Vivas on X</a>, posted 14 October 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X video post · 2026-10-14 · 3:25 · 1,379 views · <a href="https://x.com/melvindvivas/status/2110311987439919140">Open on X</a></p>
+<p><strong>Topics:</strong> LLMOps, Deployment &amp; Monitoring, Fine-tuning &amp; Model Customization, LLM Fundamentals · <strong>Level:</strong> beginner</p>
+<h2>Summary</h2>
+<p>Melvin Vivas explains when running AI models locally (on your own computer or company infrastructure) makes sense compared with cloud AI APIs. He covers three reasons to go local: privacy and control, cost at high volume, and working offline. He also argues that small fine-tuned models can match or beat large general-purpose models on narrow tasks. His recommendation is a hybrid strategy: local models for repetitive, high-volume or privacy-sensitive work, and cloud models for advanced tasks like coding.</p>
+<h2>Key points</h2>
+<ul>
+<li>Privacy and control: hospitals, banks and law firms can process sensitive documents on their own infrastructure without sending data to an outside AI provider. They still need proper security controls.</li>
+<li>Cost: with high volume (thousands of invoices, emails or documents a day), running a smaller model on your own hardware can be cheaper than paying for every API request.</li>
+<li>Offline AI: local models work without internet, which helps mobile apps, factories, remote sites and places with poor connectivity.</li>
+<li>You don't always need a huge LLM. Tasks like classifying emails, pulling data from documents or detecting sensitive information can often be done by a small specialized model, sometimes on ordinary computers without expensive GPUs.</li>
+<li>A small model fine-tuned on your company's own data (support tickets, email types, industry documents) can sometimes outperform a much larger general model on that one task.</li>
+<li>Example: in a post on X, Coinbase described fine-tuning a small Qwen-based model for fraud management. Smaller models are cheaper and faster to run locally.</li>
+<li>Cloud AI is easier to use, needs less maintenance and gives access to more powerful models. At low request volumes, an API may actually be cheaper.</li>
+<li>Recommended hybrid: use local models for repetitive, high-volume or privacy-sensitive tasks, and cloud models for advanced capabilities like coding when your data policies allow it.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://github.com/QwenLM">Qwen</a></strong> · tool · github.com · free<br>
+  Alibaba's family of open-weight language models, including small models suited to fine-tuning and running locally.<br>
+  Also in: Local AI vs Cloud AI: When Running Models Locally Makes Sense (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110323764785528879">X</a> · <a href="2026-10-14-local-ai-vs-cloud-ai-when-running-models-locally-makes-sense.html">notes</a>), OpenCode Go: Open Coding Models (DeepSeek, Qwen, Kimi, GLM) for $10/mo (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099099181327814984">X</a> · <a href="../13-ai-tools/2026-09-13-opencode-go-open-coding-models-deepseek-qwen-kimi-glm-for.html">notes</a>), Orchestrator + Subagents in opencode with Open Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098410568680177970">X</a> · <a href="../07-agents/2026-09-11-orchestrator-subagents-in-opencode-with-open-models.html">notes</a>), Why Chinese AI Models Are Mostly Open Source (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2079119057413115995">X</a> · <a href="../16-trends/2026-07-20-why-chinese-ai-models-are-mostly-open-source.html">notes</a>) and 1 more</li>
+<li><strong><a href="https://www.coinbase.com/blog/part-three-owning-intelligence-series">Coinbase X post on fine-tuning a Qwen-based model for fraud management</a></strong> · article · coinbase.com · free · open in a browser to verify<br>
+  Coinbase's case study showing a small fine-tuned Qwen-based model handling a fraud management task.<br>
+  Also in: Local AI vs Cloud AI: When Running Models Locally Makes Sense (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110323764785528879">X</a> · <a href="2026-10-14-local-ai-vs-cloud-ai-when-running-models-locally-makes-sense.html">notes</a>)</li>
+<li><strong><a href="https://chatgpt.com/">ChatGPT</a></strong> · tool · chatgpt.com · free · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  OpenAI's AI assistant (web, desktop and mobile apps), used for chat, coding, writing and image generation.<br>
+  Also in: Local AI vs Cloud AI: When Running Models Locally Makes Sense (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110323764785528879">X</a> · <a href="2026-10-14-local-ai-vs-cloud-ai-when-running-models-locally-makes-sense.html">notes</a>), ChatGPT Prompt to Generate Standout Portfolio Project Ideas (Bashiri Smith on <a href="https://www.facebook.com/reel/1279924090928838">Facebook</a> · <a href="../14-projects/2026-10-14-chatgpt-prompt-to-generate-standout-portfolio-project-ideas.html">notes</a>), ChatGPT Dots on Mobile: Setting Up an Always-On Proactive Agent (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108953582435463508">X</a> · <a href="../07-agents/2026-10-11-chatgpt-dots-on-mobile-setting-up-an-always-on-proactive.html">notes</a>), Try Devin by Connecting Your ChatGPT Go, Plus or Pro Plan (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108764500803629107">X</a> · <a href="../13-ai-tools/2026-10-10-try-devin-by-connecting-your-chatgpt-go-plus-or-pro-plan.html">notes</a>) and 30 more</li>
+<li><strong><a href="https://claude.ai">Claude Opus 5.5</a></strong> · tool · claude.ai · paid · open in a browser to verify · <strong>recommended by both</strong> Bashiri Smith &amp; Melvin Vivas<br>
+  Anthropic's AI assistant, used throughout the guide to tailor resumes, add live roles to the tracker, match connections to target companies and find hiring managers.<br>
+  Also in: ComfyUI Templates: Chain Ready-Made Workflows Instead of Building From Scratch (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110638054184833491">X</a> · <a href="../13-ai-tools/2026-10-15-comfyui-templates-chain-ready-made-workflows-instead-of.html">notes</a>), Local AI vs Cloud AI: When Running Models Locally Makes Sense (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110323764785528879">X</a> · <a href="2026-10-14-local-ai-vs-cloud-ai-when-running-models-locally-makes-sense.html">notes</a>), Gemini 4 Argon reportedly close to Claude Opus 5.5 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110244142257410188">X</a> · <a href="../16-trends/2026-10-14-gemini-4-argon-reportedly-close-to-claude-opus-5-5.html">notes</a>), Gemini 4 Argon in Cursor: CursorBench Score and Pricing (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110091203857494425">X</a> · <a href="../13-ai-tools/2026-10-14-gemini-4-argon-in-cursor-cursorbench-score-and-pricing.html">notes</a>) and 71 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Sort your AI workloads by volume, privacy sensitivity and difficulty to decide what should run locally and what should use the cloud.</li>
+<li>For narrow tasks such as classification, extraction or detecting sensitive data, try a small specialized model before reaching for a large general-purpose LLM.</li>
+<li>Think about fine-tuning a small model (for example, a Qwen-based one) on your own company data for specific tasks.</li>
+<li>Compare API cost per request with the cost of running your own hardware at your real request volume.</li>
+<li>Fine-tune a small local model to classify incoming emails or support tickets.</li>
+<li>Build a local, offline pipeline that extracts fields from invoices or industry-specific documents.</li>
+<li>Run a local model that detects sensitive information in documents before anything is sent to a cloud API.</li>
+<li>Build a hybrid router that sends high-volume or sensitive tasks to a local model and complex tasks (like coding) to a cloud model.</li>
+</ul><section class="more"><h2>More in LLMOps, Deployment &amp; Monitoring</h2><ul><li><a href="2026-10-14-local-ai-vs-cloud-ai-when-running-models-locally-makes-sense.html">Local AI vs Cloud AI: When Running Models Locally Makes Sense</a> <span class="meta">Melvin Vivas, 2026-10-14</span></li><li><a href="2026-10-09-monthly-claude-platform-api-credits-for-max-and-team-plans.html">Monthly Claude Platform API credits for Max and Team plans</a> <span class="meta">Melvin Vivas, 2026-10-09</span></li><li><a href="2026-10-06-use-a-hugging-face-inference-endpoint-as-a-custom-model.html">Use a Hugging Face Inference Endpoint as a Custom Model Provider in Pi Agent</a> <span class="meta">Melvin Vivas, 2026-10-06</span></li><li><a href="2026-10-06-qwen3-8-27b-on-hf-inference-endpoints-context-size-matters.html">Qwen3.8-27B on HF Inference Endpoints: Context Size Matters for Agent Builds</a> <span class="meta">Melvin Vivas, 2026-10-06</span></li></ul><p><a href="../../topics/llmops.html">All of LLMOps, Deployment &amp; Monitoring</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

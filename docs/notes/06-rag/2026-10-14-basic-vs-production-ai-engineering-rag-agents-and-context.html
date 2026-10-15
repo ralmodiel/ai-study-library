@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Basic vs Production AI Engineering: RAG, Agents, and Context over…</title>
+<meta name="description" content="A skit comparing &quot;wannabe&quot; and production-level AI engineering habits. Basic RAG (chunk, embed, store, retrieve) is set against production RAG, which adds…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/06-rag/2026-10-14-basic-vs-production-ai-engineering-rag-agents-and-context.html">
+<meta name="robots" content="noindex, follow">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Basic vs Production AI Engineering: RAG, Agents, and Context over…">
+<meta property="og:description" content="A skit comparing &quot;wannabe&quot; and production-level AI engineering habits. Basic RAG (chunk, embed, store, retrieve) is set against production RAG, which adds…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/06-rag/2026-10-14-basic-vs-production-ai-engineering-rag-agents-and-context.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../fonts/ibm-plex-sans-normal-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/bricolage-grotesque-normal-600-750-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/06-rag/2026-10-14-basic-vs-production-ai-engineering-rag-agents-and-context.html#note","headline":"Basic vs Production AI Engineering: RAG, Agents, and Context over Prompts","description":"A skit comparing \"wannabe\" and production-level AI engineering habits. Basic RAG (chunk, embed, store, retrieve) is set against production RAG, which adds hybrid search, re-ranking, query rewriting and retrieval measurement. Agents should have tightly scoped tools and controlled state (for example…","url":"https://ralmodiel.github.io/ai-study-library/notes/06-rag/2026-10-14-basic-vs-production-ai-engineering-rag-agents-and-context.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"Retrieval-Augmented Generation (RAG)"},{"@type":"Thing","name":"AI Agents, Tool Use & MCP"},{"@type":"Thing","name":"Evaluation (Evals) & Testing"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"VideoObject","url":"https://www.facebook.com/reel/2197919444403928","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#bashiri-smith"},"datePublished":"2026-10-14"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/06-rag/2026-10-14-basic-vs-production-ai-engineering-rag-agents-and-context.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#bashiri-smith","name":"Bashiri Smith","url":"https://baswe.ai/","sameAs":["https://www.facebook.com/basweai","https://www.youtube.com/@BashiFuirkashi","https://www.instagram.com/bashi_fuirkashi/","https://www.tiktok.com/@bashifuirkashi","https://www.linkedin.com/in/bashiri-smith/","https://x.com/bashifuirkashi","https://www.skool.com/baswe-ai"],"description":"Helps aspiring and working software engineers move into AI engineering roles.","brand":{"@type":"Brand","name":"BASWE.Ai"}},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"Retrieval-Augmented Generation (RAG)","item":"https://ralmodiel.github.io/ai-study-library/topics/rag.html"},{"@type":"ListItem","position":4,"name":"Basic vs Production AI Engineering: RAG, Agents, and Context over Prompts"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/rag.html">Retrieval-Augmented Generation (RAG)</a> &rsaquo; <span aria-current="page">Basic vs Production AI Engineering: RAG, Agents, and Context over Prompts</span></nav><h1>Basic vs Production AI Engineering: RAG, Agents, and Context over Prompts</h1>
+<aside class="source"><p>This note summarises <a href="https://www.facebook.com/reel/2197919444403928">a reel by Bashiri Smith on Facebook</a>, posted 14 October 2026. The original belongs to Bashiri Smith.</p><p>Follow Bashiri Smith: <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p></aside>
+<p>Bashiri Smith · Facebook reel · 2026-10-14 · 1:05 · 3,146 views · <a href="https://www.facebook.com/reel/2197919444403928">Open on Facebook</a></p>
+<p><strong>Topics:</strong> Retrieval-Augmented Generation (RAG), AI Agents, Tool Use &amp; MCP, Evaluation (Evals) &amp; Testing · <strong>Level:</strong> intermediate</p>
+<h2>Summary</h2>
+<p>A skit comparing "wannabe" and production-level AI engineering habits. Basic RAG (chunk, embed, store, retrieve) is set against production RAG, which adds hybrid search, re-ranking, query rewriting and retrieval measurement. Agents should have tightly scoped tools and controlled state (for example with LangGraph) instead of being an open-ended LLM loop. The video also says the real job is supplying the right context, the right data and reliable evaluation, not mastering prompt engineering. It ends with a pitch for the creator's paid Skool community.</p>
+<h2>Key points</h2>
+<ul>
+<li>Basic RAG means chunking documents, embedding them, storing them in a vector DB and retrieving. That is a demo, not a product.</li>
+<li>Production RAG uses hybrid search (keyword plus vector) with a re-ranking step.</li>
+<li>Rewrite or transform the user's query before it hits the index.</li>
+<li>Measure retrieval quality before trusting any generated answer.</li>
+<li>An unconstrained 'LLM in a loop with tools' wastes tokens and behaves unpredictably. Scope the tools tightly.</li>
+<li>Control agent state explicitly (e.g., with LangGraph) so you know exactly what the agent is doing.</li>
+<li>The creator argues prompt engineering is not the core skill. The job is giving the model the right context and data, plus reliable evaluation.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://www.langchain.com/langgraph">LangGraph</a></strong> · tool · langchain.com · free<br>
+  Graph-based agent framework with typed state, checkpointing, cycles and human-in-the-loop interrupts. The guide calls it the production default for complex stateful agents.<br>
+  Also in: The 3 AI Engineering Skills: Generative AI, RAG, and Agentic AI (Bashiri Smith on <a href="https://www.facebook.com/reel/1588273506104344">Facebook</a> · <a href="../01-roadmap/2026-10-10-the-3-ai-engineering-skills-generative-ai-rag-and-agentic-ai.html">notes</a>), Graph Engineering Explained: Nodes, Edges, and State for AI Agent Workflows (Bashiri Smith on <a href="https://www.facebook.com/reel/1094451143559463">Facebook</a> · <a href="../07-agents/2026-10-03-graph-engineering-explained-nodes-edges-and-state-for-ai.html">notes</a>), Step-by-Step Roadmap to a $200K+ AI Engineering Role (Bashiri Smith on <a href="https://www.facebook.com/reel/1054905907373537">Facebook</a> · <a href="../01-roadmap/2026-10-01-step-by-step-roadmap-to-a-200k-ai-engineering-role.html">notes</a>), LangChain vs. LangGraph Explained with One RAG Chatbot (Bashiri Smith on <a href="https://www.facebook.com/reel/1394445942341422">Facebook</a> · <a href="2026-09-29-langchain-vs-langgraph-explained-with-one-rag-chatbot.html">notes</a>) and 5 more</li>
+<li><strong><a href="https://www.skool.com/baswe-ai/about">BASWE.Ai Engineer (Skool community)</a></strong> · community · skool.com · paid<br>
+  The creator's paid community and program, with an AI learning roadmap (including the full ops and evaluation track), daily calls with engineers and recruiters, resume and portfolio help, and a job-search pipeline.<br>
+  Also in: ChatGPT Prompt to Generate Standout Portfolio Project Ideas (Bashiri Smith on <a href="https://www.facebook.com/reel/1279924090928838">Facebook</a> · <a href="../14-projects/2026-10-14-chatgpt-prompt-to-generate-standout-portfolio-project-ideas.html">notes</a>), Vector Database vs. Graph Database: When to Use Each (and Both for RAG) (Bashiri Smith on <a href="https://www.facebook.com/reel/1116524034087992">Facebook</a> · <a href="../05-embeddings-vectordb/2026-10-13-vector-database-vs-graph-database-when-to-use-each-and-both.html">notes</a>), The 5 Levels of RAG: From Naive Retrieval to Agentic RAG (Bashiri Smith on <a href="https://www.facebook.com/reel/1642289027572440">Facebook</a> · <a href="2026-10-12-the-5-levels-of-rag-from-naive-retrieval-to-agentic-rag.html">notes</a>), Get More Interviews: Prove You Built Your Projects With Video Walkthroughs (Bashiri Smith on <a href="https://www.facebook.com/reel/1751630569968263">Facebook</a> · <a href="../15-career/2026-10-11-get-more-interviews-prove-you-built-your-projects-with.html">notes</a>) and 93 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Upgrade basic RAG with hybrid search and re-ranking.</li>
+<li>Add a query-rewriting step before retrieval.</li>
+<li>Set up retrieval-quality evaluation before trusting answers.</li>
+<li>Scope agent tools tightly and manage agent state explicitly (e.g., with LangGraph).</li>
+<li>Focus on context, data and evaluation rather than prompt engineering alone.</li>
+<li>Turn a basic RAG demo into a production-style pipeline: hybrid search, re-ranking, query rewriting and retrieval evals.</li>
+<li>Rebuild a free-running tool-calling agent as a LangGraph workflow with scoped tools and explicit state.</li>
+</ul><section class="more"><h2>More in Retrieval-Augmented Generation (RAG)</h2><ul><li><a href="2026-10-12-the-5-levels-of-rag-from-naive-retrieval-to-agentic-rag.html">The 5 Levels of RAG: From Naive Retrieval to Agentic RAG</a> <span class="meta">Bashiri Smith, 2026-10-12</span></li><li><a href="2026-10-11-production-rag-check-retrieval-answer-support-and-unseen.html">Production RAG: Check Retrieval, Answer Support, and Unseen Questions</a> <span class="meta">Bashiri Smith, 2026-10-11</span></li><li><a href="2026-10-07-entity-linking-connecting-text-mentions-to-structured.html">Entity Linking: Connecting Text Mentions to Structured Records</a> <span class="meta">Melvin Vivas, 2026-10-07</span></li></ul><p><a href="../../topics/rag.html">All of Retrieval-Augmented Generation (RAG)</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Train Your Own Decision Model Locally with Unsloth | AI Engineer…</title>
+<meta name="description" content="Melvin shares news that you can now train your own &#x27;decision model&#x27; on a base LLM such as Qwen3.5 or Gemma 4 using Unsloth&#x27;s open-source repo. The quoted post…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/10-fine-tuning/2026-10-08-train-your-own-decision-model-locally-with-unsloth.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Train Your Own Decision Model Locally with Unsloth | AI Engineer…">
+<meta property="og:description" content="Melvin shares news that you can now train your own &#x27;decision model&#x27; on a base LLM such as Qwen3.5 or Gemma 4 using Unsloth&#x27;s open-source repo. The quoted post…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/10-fine-tuning/2026-10-08-train-your-own-decision-model-locally-with-unsloth.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../fonts/ibm-plex-sans-normal-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/bricolage-grotesque-normal-600-750-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/10-fine-tuning/2026-10-08-train-your-own-decision-model-locally-with-unsloth.html#note","headline":"Train Your Own Decision Model Locally with Unsloth","description":"Melvin shares news that you can now train your own 'decision model' on a base LLM such as Qwen3.5 or Gemma 4 using Unsloth's open-source repo. The quoted post says fine-tuning Qwen3.5 0.8B raised its aggregate accuracy from 20.7% to 74.3% across 3 decision benchmarks, using only 4GB of VRAM.","url":"https://ralmodiel.github.io/ai-study-library/notes/10-fine-tuning/2026-10-08-train-your-own-decision-model-locally-with-unsloth.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"Fine-tuning & Model Customization"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2107882655836737768","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-10-08"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/10-fine-tuning/2026-10-08-train-your-own-decision-model-locally-with-unsloth.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"Fine-tuning & Model Customization","item":"https://ralmodiel.github.io/ai-study-library/topics/fine-tuning.html"},{"@type":"ListItem","position":4,"name":"Train Your Own Decision Model Locally with Unsloth"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/fine-tuning.html">Fine-tuning &amp; Model Customization</a> &rsaquo; <span aria-current="page">Train Your Own Decision Model Locally with Unsloth</span></nav><h1>Train Your Own Decision Model Locally with Unsloth</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2107882655836737768">a post by Melvin Vivas on X</a>, posted 8 October 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X post · 2026-10-08 · <a href="https://x.com/melvindvivas/status/2107882655836737768">Open on X</a></p>
+<p><strong>Topics:</strong> Fine-tuning &amp; Model Customization · <strong>Level:</strong> intermediate</p>
+<h2>Summary</h2>
+<p>Melvin shares news that you can now train your own 'decision model' on a base LLM such as Qwen3.5 or Gemma 4 using Unsloth's open-source repo. The quoted post says fine-tuning Qwen3.5 0.8B raised its aggregate accuracy from 20.7% to 74.3% across 3 decision benchmarks, using only 4GB of VRAM.</p>
+<h2>Key points</h2>
+<ul>
+<li>Decision models can be fine-tuned from small open base models like Qwen3.5 or Gemma 4.</li>
+<li>The Qwen3.5 0.8B result: aggregate accuracy rose from 20.7% to 74.3% across 3 decision benchmarks.</li>
+<li>Training ran locally on just 4GB of VRAM.</li>
+<li>The tooling is Unsloth's open-source repo.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://unsloth.ai/docs">Unsloth</a></strong> · tool · unsloth.ai · free<br>
+  Open-source library for fast, memory-efficient fine-tuning of open LLMs (LoRA/QLoRA) on a single GPU or in Colab.<br>
+  Also in: Agent tasks: Unsloth fine-tuning, ComfyUI face swap, script writing (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108048829652287911">X</a> · <a href="2026-10-08-agent-tasks-unsloth-fine-tuning-comfyui-face-swap-script.html">notes</a>), Run Local LLMs on the Computer You Already Have: A Beginner's Path (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107061873413943463">X</a> · <a href="../03-llm-fundamentals/2026-10-05-run-local-llms-on-the-computer-you-already-have-a-beginner.html">notes</a>), Remote-control Codex and Claude Code in WSL from your phone (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2106080382613615041">X</a> · <a href="../13-ai-tools/2026-10-03-remote-control-codex-and-claude-code-in-wsl-from-your-phone.html">notes</a>), Run Laya Decision models locally with Unsloth on 4GB RAM (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2104744976089579549">X</a> · <a href="../09-llmops/2026-09-29-run-laya-decision-models-locally-with-unsloth-on-4gb-ram.html">notes</a>) and 33 more</li>
+<li><strong><a href="https://qwen.ai/blog?id=qwen3.5">Qwen 3.5</a></strong> · tool · qwen.ai · free<br>
+  Alibaba Qwen open model family with small on-device variants and toggleable reasoning.<br>
+  Also in: Workshop AI: Building Apps with Cloud and Local Agents (GLM 5, Qwen 3.5) (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2037540661747142980">X</a> · <a href="../13-ai-tools/2026-03-27-workshop-ai-building-apps-with-cloud-and-local-agents-glm-5.html">notes</a>), Qwen3.5 0.8B Does Real-Time Local Video Captioning (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2037107865597731226">X</a> · <a href="../03-llm-fundamentals/2026-03-26-qwen3-5-0-8b-does-real-time-local-video-captioning.html">notes</a>), Qwen3.5 0.8B Real-Time Video Captioning on Mac Studio (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2037050598735176057">X</a> · <a href="../03-llm-fundamentals/2026-03-26-qwen3-5-0-8b-real-time-video-captioning-on-mac-studio.html">notes</a>), Qwen 3.5 Is the Local Model That Holds Up in Claude Code (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2030349085488886020">X</a> · <a href="../13-ai-tools/2026-03-08-qwen-3-5-is-the-local-model-that-holds-up-in-claude-code.html">notes</a>) and 8 more</li>
+<li><strong><a href="https://ai.google.dev/gemma">Gemma 4</a></strong> · tool · ai.google.dev · free<br>
+  Google's family of open-weight models in several sizes, built to run on devices and offline, with multimodal and agentic abilities, and open to fine-tuning.<br>
+  Also in: A100 80GB GPUs in Google Colab via Google AI Pro plans (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108823994233508305">X</a> · <a href="2026-10-10-a100-80gb-gpus-in-google-colab-via-google-ai-pro-plans.html">notes</a>), A day of work done from a phone with Grok Bot agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108249363432788364">X</a> · <a href="../07-agents/2026-10-09-a-day-of-work-done-from-a-phone-with-grok-bot-agents.html">notes</a>), Agent tasks: Unsloth fine-tuning, ComfyUI face swap, script writing (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108048829652287911">X</a> · <a href="2026-10-08-agent-tasks-unsloth-fine-tuning-comfyui-face-swap-script.html">notes</a>), EmbeddingGemma 2: open multimodal embeddings model for on-device use (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107507805397868845">X</a> · <a href="../05-embeddings-vectordb/2026-10-07-embeddinggemma-2-open-multimodal-embeddings-model-for-on.html">notes</a>) and 30 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Try fine-tuning a small base model (Qwen3.5 0.8B or Gemma 4) into a decision model with Unsloth.</li>
+<li>Fine-tune Qwen3.5 0.8B locally on a 4GB GPU into a decision model and compare its benchmark accuracy before and after.</li>
+</ul><section class="more"><h2>More in Fine-tuning &amp; Model Customization</h2><ul><li><a href="2026-10-08-fine-tune-and-run-local-models-for-free-on-google-colab-s.html">Fine-tune and Run Local Models for Free on Google Colab&#x27;s T4 GPU</a> <span class="meta">Melvin Vivas, 2026-10-08</span></li><li><a href="2026-10-08-free-colab-notebooks-for-fine-tuning-and-running-local.html">Free Colab notebooks for fine-tuning and running local models</a> <span class="meta">Melvin Vivas, 2026-10-08</span></li><li><a href="2026-10-08-agent-tasks-unsloth-fine-tuning-comfyui-face-swap-script.html">Agent tasks: Unsloth fine-tuning, ComfyUI face swap, script writing</a> <span class="meta">Melvin Vivas, 2026-10-08</span></li><li><a href="2026-10-02-using-an-ml-agent-to-train-an-open-source-tts-model-on-your.html">Using an ML agent to train an open-source TTS model on your voice</a> <span class="meta">Melvin Vivas, 2026-10-02</span></li><li><a href="2026-09-25-run-local-models-on-a-free-gpu-with-google-colab-t4.html">Run Local Models on a Free GPU with Google Colab (T4)</a> <span class="meta">Melvin Vivas, 2026-09-25</span></li><li><a href="2026-09-25-free-colab-notebooks-for-local-model-fine-tuning-and.html">Free Colab Notebooks for Local Model Fine-Tuning and Inference</a> <span class="meta">Melvin Vivas, 2026-09-25</span></li></ul><p><a href="../../topics/fine-tuning.html">All of Fine-tuning &amp; Model Customization</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>
