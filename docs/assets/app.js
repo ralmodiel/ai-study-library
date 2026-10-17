@@ -171,6 +171,8 @@
   };
   const checkRow = (key, label, body, cls = "") => `<li class="row${cls}${done.has(key) ? " is-done" : ""}"><input class="check" type="checkbox" data-done="${esc(key)}" ${done.has(key) ? "checked" : ""} aria-label="Mark ${esc(label)} as done"><div class="main">${body}</div></li>`;
 
+  const xRow = ([e, k]) => checkRow(k, e.name, `<div class="top"><span class="name">${safeUrl(e.url) ? `<a class="ext" href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.name)}</a>` : esc(e.name)}</span> <span class="tag">${esc(e.type || "Resource")}</span></div>${e.why ? `<p class="desc">${esc(e.why)}</p>` : ""}${e.hours ? `<div class="plan-note"><b>Time:</b> ${esc(hrs(e.hours))}</div>` : ""}`);
+
   function viewPlans() {
     const plans = D.plans || [];
     if (!plans.length) return empty();
@@ -192,20 +194,21 @@
       // topic and creator filters also apply to the build and the outside fillers
       const topicOk = !state.topic || w.topics.includes(state.topic);
       const buildWho = w.build.from && V[w.build.from] ? V[w.build.from].who : "";
-      const extra = w.extra.map(e => [e, "x:" + e.url]).filter(([e, k]) => topicOk && !state.who && matches({ name: e.name, desc: e.why }) && !hidden(k));
+      const allX = w.extra.map(e => [e, "x:" + e.url]).filter(([e, k]) => topicOk && !state.who && matches({ name: e.name, desc: e.why }) && !hidden(k));
+      const extra = allX.filter(([e]) => !e.optional), optX = allX.filter(([e]) => e.optional);
       const optional = w.optional.filter(o => o.kind === "r" ? R[o.id] && visible(R[o.id], "r:" + o.id) : V[o.id] && visible(V[o.id], "v:" + o.id));
       const build = w.build.text && topicOk && (!state.who || buildWho === state.who) && !hidden(bKey) && matches({ desc: w.build.text }) ? w.build : null;
-      if (!core.length && !reels.length && !build && !extra.length && !optional.length) continue;
+      if (!core.length && !reels.length && !build && !allX.length && !optional.length) continue;
       shown++;
-      const keys = [...w.core.map(c => "r:" + c.id), ...w.reels.map(id => "v:" + id), ...(w.build.text ? [bKey] : []), ...w.extra.map(e => "x:" + e.url)];
+      const keys = [...w.core.map(c => "r:" + c.id), ...w.reels.map(id => "v:" + id), ...(w.build.text ? [bKey] : []), ...w.extra.filter(e => !e.optional).map(e => "x:" + e.url)];
       const src = build && build.from && V[build.from];
       out += `<section class="group week"><div class="group-h"><h2>Week ${Number(w.n)}: ${esc(w.title)}</h2>${countSpan(keys)}</div>
         ${w.goal ? `<p class="group-desc goal"><b>Goal</b> ${esc(w.goal)}${w.hours ? ` (${hrs(w.hours)} in total)` : ""}</p>` : ""}
         ${core.length ? `<div class="sub">Core</div><ul class="list">${core.map(c => resRow(R[c.id], doLine(c.portion, c.hours))).join("")}</ul>` : ""}
         ${reels.length ? `<div class="sub">From the creators&rsquo; posts</div><ul class="list">${reels.map(v => reelRow(v, false, true)).join("")}</ul>` : ""}
         ${build ? `<div class="sub">Build</div><ul class="list">${checkRow(bKey, `week ${w.n} build`, `<div class="name plain">${esc(build.text)}</div>${build.hours || src ? `<div class="meta">${build.hours ? hrs(build.hours) : ""}${build.hours && src ? " &middot; " : ""}${src ? `Idea from <a href="#reels" data-reel="${esc(src.id)}">${esc(src.title)}</a>` : ""}</div>` : ""}`, " build")}</ul>` : ""}
-        ${extra.length ? `<div class="sub">Fill the gap <span class="sub-note">not from the creators</span></div><ul class="list">${extra.map(([e, k]) => checkRow(k, e.name, `<div class="top"><span class="name">${safeUrl(e.url) ? `<a class="ext" href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.name)}</a>` : esc(e.name)}</span> <span class="tag">${esc(e.type || "Resource")}</span></div>${e.why ? `<p class="desc">${esc(e.why)}</p>` : ""}${e.hours ? `<div class="plan-note"><b>Time:</b> ${esc(hrs(e.hours))}</div>` : ""}`)).join("")}</ul>` : ""}
-        ${optional.length ? `<details class="opt"${terms().length ? " open" : ""}><summary>Optional <span class="sub-note">${optional.length} more if you have time</span></summary><ul class="list">${optional.map(o => o.kind === "r" ? resRow(R[o.id]) : reelRow(V[o.id], false, true)).join("")}</ul></details>` : ""}
+        ${extra.length ? `<div class="sub">Fill the gap <span class="sub-note">not from the creators</span></div><ul class="list">${extra.map(xRow).join("")}</ul>` : ""}
+        ${optional.length || optX.length ? `<details class="opt"${terms().length ? " open" : ""}><summary>Optional <span class="sub-note">${optional.length + optX.length} more if you have time</span></summary>${optional.length ? `<ul class="list">${optional.map(o => o.kind === "r" ? resRow(R[o.id]) : reelRow(V[o.id], false, true)).join("")}</ul>` : ""}${optX.length ? `<div class="sub">Fill the gap <span class="sub-note">not from the creators</span></div><ul class="list">${optX.map(xRow).join("")}</ul>` : ""}</details>` : ""}
       </section>`;
     }
     if (!shown) return out + empty();

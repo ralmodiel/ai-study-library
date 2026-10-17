@@ -69,11 +69,18 @@
   How modern LLMs turn text into tokens, pass them through attention layers and generate text with different sampling strategies, with a short list of the best explainers. (about 15 min)</li>
 <li><strong><a href="https://github.com/mlabonne/llm-course#1-running-llms">LLM Course: Running LLMs (Maxime Labonne)</a></strong> · Course · github.com<br>
   Using LLMs through APIs or running open models locally, plus prompt engineering and structuring outputs, with links to the tools for each. (about 15 min)</li>
+<li><strong><a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/10-llms-from-scratch">Phase 10: LLMs from Scratch (AI Engineering from Scratch, Rohit Ghumare)</a></strong> · Course · github.com<br>
+  24 build-it-yourself lessons on how LLMs work, from tokenizers through pre-training and scaling. Skim the lesson list and bookmark the ones behind this week's topics. (about 15 min)</li>
 </ul>
 <p class="lbl"><strong>Optional</strong></p>
 <ul>
 <li><strong><a href="https://www.youtube.com/watch?v=ZSOecQCdea4">The Complete AI Engineer Roadmap for 2026 (Exact Courses + Step-by-Step)</a></strong> · Video · youtube.com · the creator's own</li>
 <li><strong><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices">Prompting best practices (Claude Platform Docs)</a></strong> · Docs · platform.claude.com</li>
+</ul>
+<p class="lbl"><strong>Optional, to fill the gap</strong> (not from the creators)</p>
+<ul>
+<li><strong><a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/11-llm-engineering/05-context-engineering">Context Engineering (AI Engineering from Scratch, Rohit Ghumare)</a></strong> · Tutorial · github.com<br>
+  A hands-on lesson: build a context assembler that budgets the window between instructions, retrieved documents, tools and conversation memory. (about 1.5 h)</li>
 </ul>
 <h2>Week 2: Embeddings and RAG</h2>
 <p class="goal"><strong>Goal</strong> Explain embeddings and vector search, and run RAG over your own documents that cites sources and says when it doesn't know. (about 14.5 h in total)</p>
@@ -105,14 +112,21 @@
   A 4-step process: define the use case, shortlist from MTEB by task, size, dimensions and max tokens, then build a small hand-labelled set (50-100 documents plus test queries) from your own data and compare models on precision and recall. (about 30 min)</li>
 <li><strong><a href="https://github.com/mlabonne/llm-course#3-retrieval-augmented-generation">LLM Course: RAG (Maxime Labonne)</a></strong> · Course · github.com<br>
   Orchestrators, retrievers, memory and evaluation for retrieval-augmented generation; the sections just before and after cover vector storage and advanced RAG. (about 15 min)</li>
+<li><strong><a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/11-llm-engineering">Phase 11: LLM Engineering (AI Engineering from Scratch, Rohit Ghumare)</a></strong> · Course · github.com<br>
+  17 lessons on putting LLMs to work: prompt and context engineering, RAG, fine-tuning and evals. Skim the lesson list; the RAG lessons fit this week. (about 15 min)</li>
 </ul>
 <p class="lbl"><strong>Optional</strong></p>
 <ul>
 <li><strong><a href="https://www.youtube.com/watch?v=vT-DpLvf29Q">Complete RAG tutorial 2026, with free labs</a></strong> · Video · youtube.com</li>
 <li><strong><a href="https://www.youtube.com/watch?v=YNcoFoRwoc8">Build Production-Ready Retrieval RAG Pipeline in LangChain | Hybrid Search (BM25), Re-ranking &amp; HyDE (Venelin Valkov)</a></strong> · Video · youtube.com</li>
 </ul>
+<p class="lbl"><strong>Optional, to fill the gap</strong> (not from the creators)</p>
+<ul>
+<li><strong><a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/11-llm-engineering/07-advanced-rag">Advanced RAG (AI Engineering from Scratch, Rohit Ghumare)</a></strong> · Tutorial · github.com<br>
+  A hands-on lesson: hybrid search that combines BM25 keyword matching with vector search, plus a cross-encoder reranker and better chunking. (about 1.5 h)</li>
+</ul>
 <h2>Week 3: Evals, then tools and agents</h2>
-<p class="goal"><strong>Goal</strong> Score your assistant on a golden test set, then turn it into a tool-calling agent with an MCP tool, without losing quality. (about 15 h in total)</p>
+<p class="goal"><strong>Goal</strong> Score your assistant on a golden test set, then turn it into a tool-calling agent with an MCP tool, without losing quality. (about 15.5 h in total)</p>
 <p class="lbl"><strong>Core</strong></p>
 <ul>
 <li><strong><a href="https://drive.google.com/file/d/1BQwIzI5tWC4Rd6jmloCQMueQnwAYuM1M/view?usp=sharing">Evaluation Field Guide (baswe.ai engineer accelerator – Ops and Evaluation module)</a></strong> · PDF · drive.google.com · the creator's own<br>
@@ -141,12 +155,21 @@
   Automated benchmarks, human evaluation and model-based (LLM-as-judge) evaluation, and why a metric that becomes the target stops being a good measure. (about 15 min)</li>
 <li><strong><a href="https://github.com/mlabonne/llm-course#8-securing-llms">LLM Course: Securing LLMs (Maxime Labonne)</a></strong> · Course · github.com<br>
   LLM-specific weaknesses (prompt injection, data and prompt leaking, jailbreaks, backdoors) and how to defend against them with red teaming and guardrails. (about 15 min)</li>
+<li><strong><a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/13-tools-and-protocols">Phase 13: Tools and Protocols (AI Engineering from Scratch, Rohit Ghumare)</a></strong> · Course · github.com<br>
+  From function calling and tool schemas to MCP and other agent protocols, with security and governance. The phase page suggests shorter routes through its 45 lessons. (about 15 min)</li>
+<li><strong><a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/14-agent-engineering">Phase 14: Agent Engineering (AI Engineering from Scratch, Rohit Ghumare)</a></strong> · Course · github.com<br>
+  Agents built from first principles, starting with the agent loop. The phase page lists two shorter routes if you do not need all of it. (about 15 min)</li>
 </ul>
 <p class="lbl"><strong>Optional</strong></p>
 <ul>
 <li><strong><a href="https://huggingface.co/learn/agents-course">Hugging Face Agents Course</a></strong> · Course · huggingface.co</li>
 <li><strong><a href="https://aibackends.com/blog/ai-agents-vs-ai-workflows">AI Agents vs AI Workflows: How to Choose for Production (AIBackends blog)</a></strong> · Article · aibackends.com · the creator's own</li>
 <li><strong><a href="https://github.com/promptfoo/promptfoo">promptfoo</a></strong> · Repo · github.com</li>
+</ul>
+<p class="lbl"><strong>Optional, to fill the gap</strong> (not from the creators)</p>
+<ul>
+<li><strong><a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/13-tools-and-protocols/07-building-an-mcp-server">Build an MCP Server (AI Engineering from Scratch, Rohit Ghumare)</a></strong> · Tutorial · github.com<br>
+  A hands-on lesson: the same stateless notes server built in Python and in TypeScript, using only the standard library for the protocol core. (about 1.5 h)</li>
 </ul>
 <h2>Week 4: Ship it and start applying</h2>
 <p class="goal"><strong>Goal</strong> Ship the assistant as a traced, containerized API, present it as a portfolio project, and start a targeted job search. (about 15.5 h in total)</p>
@@ -178,11 +201,28 @@
   Ways to ship LLM apps, from local servers and demos to production servers and edge devices. (about 15 min)</li>
 <li><strong><a href="https://github.com/mlabonne/llm-course#6-inference-optimization">LLM Course: Inference Optimization (Maxime Labonne)</a></strong> · Course · github.com<br>
   Flash Attention, the key-value cache and speculative decoding: the main ways to make generation faster and cheaper. (about 15 min)</li>
+<li><strong><a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/17-infrastructure-and-production">Phase 17: Infrastructure and Production (AI Engineering from Scratch, Rohit Ghumare)</a></strong> · Course · github.com<br>
+  Shipping LLM apps: managed platforms, model routing, gateways, monitoring and cost. Skim the lesson list and bookmark what your project needs. (about 15 min)</li>
 </ul>
 <p class="lbl"><strong>Optional</strong></p>
 <ul>
 <li><strong><a href="https://drive.google.com/file/d/1VUHvpwfuL-9R6aijI49jH5AvRk7A_x20/view">100 AI Engineering Interview Questions Guide</a></strong> · PDF · drive.google.com · the creator's own</li>
 <li><a href="notes/09-llmops/2026-09-24-how-cursor-cut-agent-token-costs-by-7-without-losing-quality.html">How Cursor cut agent token costs by 7% without losing quality</a> · Melvin Vivas, X</li>
+</ul>
+<p class="lbl"><strong>Optional, to fill the gap</strong> (not from the creators)</p>
+<ul>
+<li><strong><a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/17-infrastructure-and-production/19-ai-gateways">AI Gateways (AI Engineering from Scratch, Rohit Ghumare)</a></strong> · Tutorial · github.com<br>
+  A lesson on gateways that sit between your app and model providers (LiteLLM, Portkey, Kong, Bifrost): routing, fallback, retries, rate limits and observability. (about 1 h)</li>
+<li><strong><a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/01-terminal-native-coding-agent">Project: Terminal Coding Agent (AI Engineering from Scratch, Rohit Ghumare)</a></strong> · Project · github.com<br>
+  Capstone: build a terminal coding agent with a plan, a sandboxed tool surface and a loop that recovers from errors. A stretch project for after the plan. (about 35 h)</li>
+<li><strong><a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/08-production-rag-chatbot">Project: Production RAG Chatbot (AI Engineering from Scratch, Rohit Ghumare)</a></strong> · Project · github.com<br>
+  Capstone: a RAG chatbot for a regulated field, with hybrid search, reranking, citations and a golden-set, red-team and RAGAS evaluation. A stretch project for after the plan. (about 30 h)</li>
+<li><strong><a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/10-multi-agent-software-team">Project: Multi-Agent Software Team (AI Engineering from Scratch, Rohit Ghumare)</a></strong> · Project · github.com<br>
+  Capstone: an architect, parallel coders, a reviewer and a tester working as one team. A stretch project for after the plan. (about 40 h)</li>
+<li><strong><a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/16-github-issue-to-pr-agent">Project: GitHub Issue-to-PR Agent (AI Engineering from Scratch, Rohit Ghumare)</a></strong> · Project · github.com<br>
+  Capstone: label an issue and get a tested pull request, built in a cloud sandbox with a minimal-permission GitHub App. A stretch project for after the plan. (about 30 h)</li>
+<li><strong><a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/13-mcp-server-with-registry">Project: MCP Server with Registry (AI Engineering from Scratch, Rohit Ghumare)</a></strong> · Project · github.com<br>
+  Capstone: a stateless MCP server with tool discovery, a registry, authorization, policy and audit. A stretch project for after the plan. (about 25 h)</li>
 </ul>
 <h2>Later</h2>
 <p>This plan leaves these topics for afterwards; they are all in the <a href="learning-path.html">learning path</a>: Programming &amp; ML Foundations; Fine-tuning &amp; Model Customization; AI Safety, Security &amp; Guardrails; AI System Design &amp; Architecture; AI Dev Tools &amp; Productivity; Industry Trends &amp; Job Market.</p>
