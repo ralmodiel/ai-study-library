@@ -40,7 +40,7 @@
 <p>An unofficial study plan built from the public posts of Bashiri Smith and Melvin Vivas, not affiliated with or endorsed by them. Items under <strong>Fill the gap</strong> are not from the creators: they cover skills their posts don't. Track your progress in the <a href="./#plans">library app</a>; ticks are saved in your browser.</p>
 </blockquote>
 <h2>Week 1: LLMs, prompts and APIs</h2>
-<p class="goal"><strong>Goal</strong> Explain how LLMs work and call an LLM API from Python that returns validated JSON, with tokens, latency and cost logged. (about 15 h in total)</p>
+<p class="goal"><strong>Goal</strong> Explain how LLMs work and call an LLM API from Python that returns validated JSON, with tokens, latency and cost logged. (about 15.5 h in total)</p>
 <p class="lbl"><strong>Core</strong></p>
 <ul>
 <li><strong><a href="https://www.youtube.com/watch?v=zjkBMFhNj_g">[1hr Talk] Intro to Large Language Models (Andrej Karpathy)</a></strong> · Video · youtube.com<br>
@@ -65,6 +65,10 @@
 <ul>
 <li><strong><a href="https://www.deeplearning.ai/courses/getting-structured-llm-output">Getting Structured LLM Output (DeepLearning.AI x .txt)</a></strong> · Course · deeplearning.ai<br>
   Vendor-neutral 1h21m course (updated Oct 2025) that moves from provider structured-output APIs with Pydantic to Instructor re-prompting and Outlines constrained decoding. Free with a DeepLearning.AI account during its platform beta. (about 2 h)</li>
+<li><strong><a href="https://github.com/mlabonne/llm-course#1-the-llm-architecture">LLM Course: LLM Architecture (Maxime Labonne)</a></strong> · Course · github.com<br>
+  How modern LLMs turn text into tokens, pass them through attention layers and generate text with different sampling strategies, with a short list of the best explainers. (about 15 min)</li>
+<li><strong><a href="https://github.com/mlabonne/llm-course#1-running-llms">LLM Course: Running LLMs (Maxime Labonne)</a></strong> · Course · github.com<br>
+  Using LLMs through APIs or running open models locally, plus prompt engineering and structuring outputs, with links to the tools for each. (about 15 min)</li>
 </ul>
 <p class="lbl"><strong>Optional</strong></p>
 <ul>
@@ -72,7 +76,7 @@
 <li><strong><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices">Prompting best practices (Claude Platform Docs)</a></strong> · Docs · platform.claude.com</li>
 </ul>
 <h2>Week 2: Embeddings and RAG</h2>
-<p class="goal"><strong>Goal</strong> Explain embeddings and vector search, and run RAG over your own documents that cites sources and says when it doesn't know. (about 14 h in total)</p>
+<p class="goal"><strong>Goal</strong> Explain embeddings and vector search, and run RAG over your own documents that cites sources and says when it doesn't know. (about 14.5 h in total)</p>
 <p class="lbl"><strong>Core</strong></p>
 <ul>
 <li><strong><a href="https://www.deeplearning.ai/short-courses/vector-databases-embeddings-applications/">Vector Databases: from Embeddings to Applications (DeepLearning.AI)</a></strong> · Course · deeplearning.ai<br>
@@ -99,6 +103,8 @@
   Shows how adding LLM-generated context to each chunk before embedding and BM25 indexing, plus reranking, cut failed retrievals by up to 67%, with a runnable cookbook. (about 30 min)</li>
 <li><strong><a href="https://weaviate.io/blog/how-to-choose-an-embedding-model">Step-by-Step Guide to Choosing the Best Embedding Model (Weaviate)</a></strong> · Article · weaviate.io<br>
   A 4-step process: define the use case, shortlist from MTEB by task, size, dimensions and max tokens, then build a small hand-labelled set (50-100 documents plus test queries) from your own data and compare models on precision and recall. (about 30 min)</li>
+<li><strong><a href="https://github.com/mlabonne/llm-course#3-retrieval-augmented-generation">LLM Course: RAG (Maxime Labonne)</a></strong> · Course · github.com<br>
+  Orchestrators, retrievers, memory and evaluation for retrieval-augmented generation; the sections just before and after cover vector storage and advanced RAG. (about 15 min)</li>
 </ul>
 <p class="lbl"><strong>Optional</strong></p>
 <ul>
@@ -106,7 +112,7 @@
 <li><strong><a href="https://www.youtube.com/watch?v=YNcoFoRwoc8">Build Production-Ready Retrieval RAG Pipeline in LangChain | Hybrid Search (BM25), Re-ranking &amp; HyDE (Venelin Valkov)</a></strong> · Video · youtube.com</li>
 </ul>
 <h2>Week 3: Evals, then tools and agents</h2>
-<p class="goal"><strong>Goal</strong> Score your assistant on a golden test set, then turn it into a tool-calling agent with an MCP tool, without losing quality. (about 14.5 h in total)</p>
+<p class="goal"><strong>Goal</strong> Score your assistant on a golden test set, then turn it into a tool-calling agent with an MCP tool, without losing quality. (about 15 h in total)</p>
 <p class="lbl"><strong>Core</strong></p>
 <ul>
 <li><strong><a href="https://drive.google.com/file/d/1BQwIzI5tWC4Rd6jmloCQMueQnwAYuM1M/view?usp=sharing">Evaluation Field Guide (baswe.ai engineer accelerator – Ops and Evaluation module)</a></strong> · PDF · drive.google.com · the creator's own<br>
@@ -131,6 +137,10 @@
 <ul>
 <li><strong><a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">The lethal trifecta for AI agents (Simon Willison)</a></strong> · Article · simonwillison.net<br>
   A 10-minute mental model of why an agent that has private data, untrusted content and an outbound channel can be hijacked to leak data, and why guardrail filters alone don't fix it. (about 15 min)</li>
+<li><strong><a href="https://github.com/mlabonne/llm-course#6-evaluation">LLM Course: Evaluation (Maxime Labonne)</a></strong> · Course · github.com<br>
+  Automated benchmarks, human evaluation and model-based (LLM-as-judge) evaluation, and why a metric that becomes the target stops being a good measure. (about 15 min)</li>
+<li><strong><a href="https://github.com/mlabonne/llm-course#8-securing-llms">LLM Course: Securing LLMs (Maxime Labonne)</a></strong> · Course · github.com<br>
+  LLM-specific weaknesses (prompt injection, data and prompt leaking, jailbreaks, backdoors) and how to defend against them with red teaming and guardrails. (about 15 min)</li>
 </ul>
 <p class="lbl"><strong>Optional</strong></p>
 <ul>
@@ -139,7 +149,7 @@
 <li><strong><a href="https://github.com/promptfoo/promptfoo">promptfoo</a></strong> · Repo · github.com</li>
 </ul>
 <h2>Week 4: Ship it and start applying</h2>
-<p class="goal"><strong>Goal</strong> Ship the assistant as a traced, containerized API, present it as a portfolio project, and start a targeted job search. (about 15 h in total)</p>
+<p class="goal"><strong>Goal</strong> Ship the assistant as a traced, containerized API, present it as a portfolio project, and start a targeted job search. (about 15.5 h in total)</p>
 <p class="lbl"><strong>Core</strong></p>
 <ul>
 <li><strong><a href="https://fastapi.tiangolo.com">FastAPI</a></strong> · Tool · fastapi.tiangolo.com<br>
@@ -164,6 +174,10 @@
 <ul>
 <li><strong><a href="https://developers.openai.com/api/docs/guides/latency-optimization">Latency optimization guide (OpenAI API docs)</a></strong> · Docs · developers.openai.com<br>
   Seven provider-agnostic principles (process tokens faster, generate fewer tokens, use fewer input tokens, make fewer requests, parallelise, stream to cut perceived wait, don't default to an LLM) with a worked example. (about 30 min)</li>
+<li><strong><a href="https://github.com/mlabonne/llm-course#7-deploying-llms">LLM Course: Deployment (Maxime Labonne)</a></strong> · Course · github.com<br>
+  Ways to ship LLM apps, from local servers and demos to production servers and edge devices. (about 15 min)</li>
+<li><strong><a href="https://github.com/mlabonne/llm-course#6-inference-optimization">LLM Course: Inference Optimization (Maxime Labonne)</a></strong> · Course · github.com<br>
+  Flash Attention, the key-value cache and speculative decoding: the main ways to make generation faster and cheaper. (about 15 min)</li>
 </ul>
 <p class="lbl"><strong>Optional</strong></p>
 <ul>

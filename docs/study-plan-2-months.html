@@ -40,7 +40,7 @@
 <p>An unofficial study plan built from the public posts of Bashiri Smith and Melvin Vivas, not affiliated with or endorsed by them. Items under <strong>Fill the gap</strong> are not from the creators: they cover skills their posts don't. Track your progress in the <a href="./#plans">library app</a>; ticks are saved in your browser.</p>
 </blockquote>
 <h2>Week 1: Roadmap and foundations</h2>
-<p class="goal"><strong>Goal</strong> Explain what AI engineers build and how neural networks and transformers work; scope your capstone with 25-30 test questions. (about 10.5 h in total)</p>
+<p class="goal"><strong>Goal</strong> Explain what AI engineers build and how neural networks and transformers work; scope your capstone with 25-30 test questions. (about 11 h in total)</p>
 <p class="lbl"><strong>Core</strong></p>
 <ul>
 <li><strong><a href="https://www.youtube.com/watch?v=ZSOecQCdea4">The Complete AI Engineer Roadmap for 2026 (Exact Courses + Step-by-Step)</a></strong> · Video · youtube.com · the creator's own<br>
@@ -65,6 +65,8 @@
 <ul>
 <li><strong><a href="https://pydantic.dev/docs/validation/latest/concepts/models/">Pydantic docs: Models</a></strong> · Docs · pydantic.dev<br>
   Type-hinted models and validation underpin FastAPI, structured-output SDKs (OpenAI parse, Instructor) and agent frameworks, so this is the Python skill AI work leans on most. (about 1 h)</li>
+<li><strong><a href="https://github.com/mlabonne/llm-course#-llm-fundamentals">LLM Course: LLM Fundamentals (Maxime Labonne)</a></strong> · Course · github.com<br>
+  The course's refresher on the maths, Python and neural networks behind LLMs. Its author suggests using it as a reference when needed rather than starting there. (about 15 min)</li>
 </ul>
 <p class="lbl"><strong>Optional</strong></p>
 <ul>
@@ -72,7 +74,7 @@
 <li><strong><a href="https://karpathy.ai/zero-to-hero.html">Neural Networks: Zero to Hero (Andrej Karpathy)</a></strong> · Course · karpathy.ai</li>
 </ul>
 <h2>Week 2: LLMs and prompting</h2>
-<p class="goal"><strong>Goal</strong> Explain tokens, context windows and LLM training, get reliable structured JSON from prompts, and call an LLM API from your service. (about 11.5 h in total)</p>
+<p class="goal"><strong>Goal</strong> Explain tokens, context windows and LLM training, get reliable structured JSON from prompts, and call an LLM API from your service. (about 12 h in total)</p>
 <p class="lbl"><strong>Core</strong></p>
 <ul>
 <li><strong><a href="https://www.youtube.com/watch?v=zjkBMFhNj_g">[1hr Talk] Intro to Large Language Models (Andrej Karpathy)</a></strong> · Video · youtube.com<br>
@@ -97,6 +99,10 @@
 <ul>
 <li><strong><a href="https://www.deeplearning.ai/courses/getting-structured-llm-output">Getting Structured LLM Output (DeepLearning.AI x .txt)</a></strong> · Course · deeplearning.ai<br>
   Vendor-neutral 1h21m course (updated Oct 2025) that moves from provider structured-output APIs with Pydantic to Instructor re-prompting and Outlines constrained decoding. Free with a DeepLearning.AI account during its platform beta. (about 2 h)</li>
+<li><strong><a href="https://github.com/mlabonne/llm-course#1-the-llm-architecture">LLM Course: LLM Architecture (Maxime Labonne)</a></strong> · Course · github.com<br>
+  How modern LLMs turn text into tokens, pass them through attention layers and generate text with different sampling strategies, with a short list of the best explainers. (about 15 min)</li>
+<li><strong><a href="https://github.com/mlabonne/llm-course#1-running-llms">LLM Course: Running LLMs (Maxime Labonne)</a></strong> · Course · github.com<br>
+  Using LLMs through APIs or running open models locally, plus prompt engineering and structuring outputs, with links to the tools for each. (about 15 min)</li>
 </ul>
 <p class="lbl"><strong>Optional</strong></p>
 <ul>
@@ -138,7 +144,7 @@
 <li><strong><a href="https://github.com/pgvector/pgvector">pgvector</a></strong> · Tool · github.com</li>
 </ul>
 <h2>Week 4: RAG</h2>
-<p class="goal"><strong>Goal</strong> Build RAG that cites sources and abstains when unsure, then improve it with chunking, query rewriting, reranking and hybrid search. (about 10 h in total)</p>
+<p class="goal"><strong>Goal</strong> Build RAG that cites sources and abstains when unsure, then improve it with chunking, query rewriting, reranking and hybrid search. (about 10.5 h in total)</p>
 <p class="lbl"><strong>Core</strong></p>
 <ul>
 <li><strong><a href="https://www.youtube.com/playlist?list=PLfaIDFEXuae2LXbO1_PKyVJiQ23ZztA0x">LangChain: RAG From Scratch (YouTube playlist)</a></strong> · Video · youtube.com<br>
@@ -163,6 +169,8 @@
 <ul>
 <li><strong><a href="https://www.anthropic.com/engineering/contextual-retrieval">Contextual Retrieval (Anthropic Engineering)</a></strong> · Article · anthropic.com<br>
   Shows how adding LLM-generated context to each chunk before embedding and BM25 indexing, plus reranking, cut failed retrievals by up to 67%, with a runnable cookbook. (about 30 min)</li>
+<li><strong><a href="https://github.com/mlabonne/llm-course#3-retrieval-augmented-generation">LLM Course: RAG (Maxime Labonne)</a></strong> · Course · github.com<br>
+  Orchestrators, retrievers, memory and evaluation for retrieval-augmented generation; the sections just before and after cover vector storage and advanced RAG. (about 15 min)</li>
 </ul>
 <p class="lbl"><strong>Optional</strong></p>
 <ul>
@@ -199,7 +207,7 @@
 <li><strong><a href="https://drive.google.com/drive/folders/1FZBljM8ivRkJYfkNHAN5VUlqJA-XbaSj?usp=sharing">BASWE: Agent Cheatsheet for AI Engineers</a></strong> · PDF · drive.google.com · the creator's own</li>
 </ul>
 <h2>Week 6: Evals and guardrails</h2>
-<p class="goal"><strong>Goal</strong> Evaluate retrieval and answers separately with a golden set and an LLM judge, and guard against prompt injection, jailbreaks and PII leaks. (about 10 h in total)</p>
+<p class="goal"><strong>Goal</strong> Evaluate retrieval and answers separately with a golden set and an LLM judge, and guard against prompt injection, jailbreaks and PII leaks. (about 10.5 h in total)</p>
 <p class="lbl"><strong>Core</strong></p>
 <ul>
 <li><strong><a href="https://drive.google.com/file/d/1BQwIzI5tWC4Rd6jmloCQMueQnwAYuM1M/view?usp=sharing">Evaluation Field Guide (baswe.ai engineer accelerator – Ops and Evaluation module)</a></strong> · PDF · drive.google.com · the creator's own<br>
@@ -226,6 +234,10 @@
   A 10-minute mental model of why an agent that has private data, untrusted content and an outbound channel can be hijacked to leak data, and why guardrail filters alone don't fix it. (about 15 min)</li>
 <li><strong><a href="https://hamel.dev/blog/posts/evals/">Your AI Product Needs Evals (Hamel Husain)</a></strong> · Article · hamel.dev<br>
   The standard first read: look at your data, write assertion-style unit tests, add human and LLM-judge review, and let evals drive iteration, all shown on a real product. (about 30 min)</li>
+<li><strong><a href="https://github.com/mlabonne/llm-course#6-evaluation">LLM Course: Evaluation (Maxime Labonne)</a></strong> · Course · github.com<br>
+  Automated benchmarks, human evaluation and model-based (LLM-as-judge) evaluation, and why a metric that becomes the target stops being a good measure. (about 15 min)</li>
+<li><strong><a href="https://github.com/mlabonne/llm-course#8-securing-llms">LLM Course: Securing LLMs (Maxime Labonne)</a></strong> · Course · github.com<br>
+  LLM-specific weaknesses (prompt injection, data and prompt leaking, jailbreaks, backdoors) and how to defend against them with red teaming and guardrails. (about 15 min)</li>
 </ul>
 <p class="lbl"><strong>Optional</strong></p>
 <ul>
@@ -234,7 +246,7 @@
 <li><a href="notes/11-safety/2026-04-15-detect-pii-and-phi-with-nvidia-s-gliner-pii-model.html">Detect PII and PHI with NVIDIA's GLiNER-PII Model</a> · Melvin Vivas, X</li>
 </ul>
 <h2>Week 7: Deploy, monitor, fine-tune</h2>
-<p class="goal"><strong>Goal</strong> Deploy the assistant in a container, trace latency and cost per request, and decide when fine-tuning beats RAG or prompting. (about 10 h in total)</p>
+<p class="goal"><strong>Goal</strong> Deploy the assistant in a container, trace latency and cost per request, and decide when fine-tuning beats RAG or prompting. (about 11 h in total)</p>
 <p class="lbl"><strong>Core</strong></p>
 <ul>
 <li><strong><a href="https://fastapi.tiangolo.com">FastAPI</a></strong> · Tool · fastapi.tiangolo.com<br>
@@ -259,6 +271,14 @@
 <ul>
 <li><strong><a href="https://developers.openai.com/api/docs/guides/latency-optimization">Latency optimization guide (OpenAI API docs)</a></strong> · Docs · developers.openai.com<br>
   Seven provider-agnostic principles (process tokens faster, generate fewer tokens, use fewer input tokens, make fewer requests, parallelise, stream to cut perceived wait, don't default to an LLM) with a worked example. (about 30 min)</li>
+<li><strong><a href="https://github.com/mlabonne/llm-course#2-pre-training-models">LLM Course: Pre-training (Maxime Labonne)</a></strong> · Course · github.com<br>
+  How base models are pre-trained: data preparation, distributed training and scaling. Background, not a skill you need to use: it explains where the models you call or fine-tune come from. (about 15 min)</li>
+<li><strong><a href="https://github.com/mlabonne/llm-course#4-supervised-fine-tuning">LLM Course: Supervised Fine-tuning (Maxime Labonne)</a></strong> · Course · github.com<br>
+  Full fine-tuning compared with LoRA and QLoRA, the main training parameters, and the tools to run them; the next section covers preference alignment such as DPO. (about 15 min)</li>
+<li><strong><a href="https://github.com/mlabonne/llm-course#7-deploying-llms">LLM Course: Deployment (Maxime Labonne)</a></strong> · Course · github.com<br>
+  Ways to ship LLM apps, from local servers and demos to production servers and edge devices. (about 15 min)</li>
+<li><strong><a href="https://github.com/mlabonne/llm-course#6-inference-optimization">LLM Course: Inference Optimization (Maxime Labonne)</a></strong> · Course · github.com<br>
+  Flash Attention, the key-value cache and speculative decoding: the main ways to make generation faster and cheaper. (about 15 min)</li>
 </ul>
 <p class="lbl"><strong>Optional</strong></p>
 <ul>
