@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meetily: Open-Source Local AI Meeting Notes App | AI Engineer Study…</title>
+<meta name="description" content="The creator shares Meetily, a free, open-source AI meeting-notes app that runs locally. It uses Whisper and Parakeet models to transcribe audio and local Qwen…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-10-22-meetily-open-source-local-ai-meeting-notes-app.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Meetily: Open-Source Local AI Meeting Notes App | AI Engineer Study…">
+<meta property="og:description" content="The creator shares Meetily, a free, open-source AI meeting-notes app that runs locally. It uses Whisper and Parakeet models to transcribe audio and local Qwen…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-10-22-meetily-open-source-local-ai-meeting-notes-app.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../fonts/ibm-plex-sans-normal-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/bricolage-grotesque-normal-600-750-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-10-22-meetily-open-source-local-ai-meeting-notes-app.html#note","headline":"Meetily: Open-Source Local AI Meeting Notes App","description":"The creator shares Meetily, a free, open-source AI meeting-notes app that runs locally. It uses Whisper and Parakeet models to transcribe audio and local Qwen and Gemma models to summarize. The creator plans to try connecting it to Grok Bot.","url":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-10-22-meetily-open-source-local-ai-meeting-notes-app.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"AI Dev Tools & Productivity"},{"@type":"Thing","name":"Portfolio Projects"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2113224845995786311","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-10-22"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/13-ai-tools/2026-10-22-meetily-open-source-local-ai-meeting-notes-app.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"AI Dev Tools & Productivity","item":"https://ralmodiel.github.io/ai-study-library/topics/ai-tools.html"},{"@type":"ListItem","position":4,"name":"Meetily: Open-Source Local AI Meeting Notes App"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/ai-tools.html">AI Dev Tools &amp; Productivity</a> &rsaquo; <span aria-current="page">Meetily: Open-Source Local AI Meeting Notes App</span></nav><h1>Meetily: Open-Source Local AI Meeting Notes App</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2113224845995786311">a post by Melvin Vivas on X</a>, posted 22 October 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X post · 2026-10-22 · <a href="https://x.com/melvindvivas/status/2113224845995786311">Open on X</a></p>
+<p><strong>Topics:</strong> AI Dev Tools &amp; Productivity, Portfolio Projects · <strong>Level:</strong> intermediate</p>
+<h2>Summary</h2>
+<p>The creator shares Meetily, a free, open-source AI meeting-notes app that runs locally. It uses Whisper and Parakeet models to transcribe audio and local Qwen and Gemma models to summarize. The creator plans to try connecting it to Grok Bot.</p>
+<h2>Key points</h2>
+<ul>
+<li>Meetily is free and open source.</li>
+<li>Audio transcription uses Whisper and Parakeet models.</li>
+<li>Summaries come from Qwen and Gemma models running locally.</li>
+<li>Running locally keeps meeting data on your own machine.</li>
+<li>The creator plans to try integrating it with Grok Bot.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://github.com/Zackriya-Solutions/meetily">Meetily (Zackriya-Solutions/meetily)</a></strong> · repo · github.com · free<br>
+  A free, open-source local AI meeting-notes app for transcription and summarization.</li>
+<li><strong><a href="https://github.com/QwenLM">Qwen</a></strong> · tool · github.com · free<br>
+  Alibaba's family of open-weight language models, including small models suited to fine-tuning and running locally.<br>
+  Also in: Local AI vs Cloud AI: When Running Models Locally Makes Sense (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110323764785528879">X</a> · <a href="../09-llmops/2026-10-14-local-ai-vs-cloud-ai-when-running-models-locally-makes-sense.html">notes</a>), Local AI vs Cloud AI: Using the Right Model for the Right Job (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110311987439919140">X</a> · <a href="../09-llmops/2026-10-14-local-ai-vs-cloud-ai-using-the-right-model-for-the-right-job.html">notes</a>), OpenCode Go: Open Coding Models (DeepSeek, Qwen, Kimi, GLM) for $10/mo (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099099181327814984">X</a> · <a href="2026-09-13-opencode-go-open-coding-models-deepseek-qwen-kimi-glm-for.html">notes</a>), Orchestrator + Subagents in opencode with Open Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098410568680177970">X</a> · <a href="../07-agents/2026-09-11-orchestrator-subagents-in-opencode-with-open-models.html">notes</a>) and 2 more</li>
+<li><strong><a href="https://ai.google.dev/gemma">Gemma 4</a></strong> · tool · ai.google.dev · free<br>
+  Google's family of open-weight models in several sizes, built to run on devices and offline, with multimodal and agentic abilities, and open to fine-tuning.<br>
+  Also in: New Gemma Developer Documentation Site (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110793882187497804">X</a> · <a href="../03-llm-fundamentals/2026-10-16-new-gemma-developer-documentation-site.html">notes</a>), A100 80GB GPUs in Google Colab via Google AI Pro plans (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108823994233508305">X</a> · <a href="../10-fine-tuning/2026-10-10-a100-80gb-gpus-in-google-colab-via-google-ai-pro-plans.html">notes</a>), A day of work done from a phone with Grok Bot agents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108249363432788364">X</a> · <a href="../07-agents/2026-10-09-a-day-of-work-done-from-a-phone-with-grok-bot-agents.html">notes</a>), Agent tasks: Unsloth fine-tuning, ComfyUI face swap, script writing (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108048829652287911">X</a> · <a href="../10-fine-tuning/2026-10-08-agent-tasks-unsloth-fine-tuning-comfyui-face-swap-script.html">notes</a>) and 32 more</li>
+<li><strong><a href="https://github.com/openai/whisper">Whisper</a></strong> · tool · github.com · free<br>
+  OpenAI's open-source speech-to-text model.</li>
+<li><strong><a href="https://research.nvidia.com/labs/conv-ai/blogs/2024/2024-01-parakeet">NVIDIA Parakeet</a></strong> · tool · research.nvidia.com · free<br>
+  NVIDIA's open speech-recognition models.</li>
+<li><strong><a href="https://x.ai/bot">Grok Bot</a></strong> · tool · x.ai · paid<br>
+  An AI personal assistant the creator describes as having memory, day planning, task scheduling and the ability to do background work without any coding.<br>
+  Also in: Turn repeated agent tasks into reusable Skills (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2113562511110967589">X</a> · <a href="2026-10-23-turn-repeated-agent-tasks-into-reusable-skills.html">notes</a>), Using a Grok Bot to find free AI credit giveaways (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2113485395761783204">X</a> · <a href="2026-10-23-using-a-grok-bot-to-find-free-ai-credit-giveaways.html">notes</a>), Grok Bot can now use phone calendar, contacts and reminders (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2113413003429486872">X</a> · <a href="../07-agents/2026-10-23-grok-bot-can-now-use-phone-calendar-contacts-and-reminders.html">notes</a>), Grok Bot Adds 1Password Integration for Agent Logins (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2113334918029963739">X</a> · <a href="../07-agents/2026-10-23-grok-bot-adds-1password-integration-for-agent-logins.html">notes</a>) and 129 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Check out the Meetily repo and try it for local meeting transcription and summaries.</li>
+<li>Connect Meetily's local meeting transcripts and summaries to an AI agent like Grok Bot for follow-up tasks.</li>
+</ul><section class="more"><h2>More in AI Dev Tools &amp; Productivity</h2><ul><li><a href="2026-10-23-using-a-grok-bot-to-find-free-ai-credit-giveaways.html">Using a Grok Bot to find free AI credit giveaways</a> <span class="meta">Melvin Vivas, 2026-10-23</span></li><li><a href="2026-10-23-grok-for-startups-free-credits-to-build-with-grok.html">Grok for Startups: free credits to build with Grok</a> <span class="meta">Melvin Vivas, 2026-10-23</span></li><li><a href="2026-10-23-export-gemini-app-web-apps-directly-to-google-sites.html">Export Gemini App Web Apps Directly to Google Sites</a> <span class="meta">Melvin Vivas, 2026-10-23</span></li><li><a href="2026-10-22-grok-imagine-for-ai-animated-character-videos-pointer-to-a.html">Grok Imagine for AI Animated Character Videos (Pointer to a Guide)</a> <span class="meta">Melvin Vivas, 2026-10-22</span></li><li><a href="2026-10-22-using-a-custom-grok-bot-persona-to-learn-arduino.html">Using a Custom Grok Bot Persona to Learn Arduino</a> <span class="meta">Melvin Vivas, 2026-10-22</span></li><li><a href="2026-10-22-using-a-grok-custom-bot-template-as-an-arduino-tutor.html">Using a Grok Custom Bot Template as an Arduino Tutor</a> <span class="meta">Melvin Vivas, 2026-10-22</span></li></ul><p><a href="../../topics/ai-tools.html">All of AI Dev Tools &amp; Productivity</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

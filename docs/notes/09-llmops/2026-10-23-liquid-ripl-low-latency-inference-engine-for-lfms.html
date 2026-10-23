@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Liquid RIPL: Low-Latency Inference Engine for LFMs | AI Engineer…</title>
+<meta name="description" content="Liquid AI announced Liquid RIPL (real-time inference pipeline), an ultra-low-latency inference engine. It is built to put Liquid Foundation Models (LFMs)…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-10-23-liquid-ripl-low-latency-inference-engine-for-lfms.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Liquid RIPL: Low-Latency Inference Engine for LFMs | AI Engineer…">
+<meta property="og:description" content="Liquid AI announced Liquid RIPL (real-time inference pipeline), an ultra-low-latency inference engine. It is built to put Liquid Foundation Models (LFMs)…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-10-23-liquid-ripl-low-latency-inference-engine-for-lfms.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../fonts/ibm-plex-sans-normal-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/bricolage-grotesque-normal-600-750-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-10-23-liquid-ripl-low-latency-inference-engine-for-lfms.html#note","headline":"Liquid RIPL: Low-Latency Inference Engine for LFMs","description":"Liquid AI announced Liquid RIPL (real-time inference pipeline), an ultra-low-latency inference engine. It is built to put Liquid Foundation Models (LFMs) directly in the request path of real-time workloads such as search, ads, fraud detection, recommendations and payments. The creator was struck…","url":"https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-10-23-liquid-ripl-low-latency-inference-engine-for-lfms.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"LLMOps, Deployment & Monitoring"},{"@type":"Thing","name":"LLM Fundamentals"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2113324141998997572","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-10-23"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/09-llmops/2026-10-23-liquid-ripl-low-latency-inference-engine-for-lfms.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"LLMOps, Deployment & Monitoring","item":"https://ralmodiel.github.io/ai-study-library/topics/llmops.html"},{"@type":"ListItem","position":4,"name":"Liquid RIPL: Low-Latency Inference Engine for LFMs"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/llmops.html">LLMOps, Deployment &amp; Monitoring</a> &rsaquo; <span aria-current="page">Liquid RIPL: Low-Latency Inference Engine for LFMs</span></nav><h1>Liquid RIPL: Low-Latency Inference Engine for LFMs</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2113324141998997572">a video post by Melvin Vivas on X</a>, posted 23 October 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X video post · 2026-10-23 · <a href="https://x.com/melvindvivas/status/2113324141998997572">Open on X</a></p>
+<p><strong>Topics:</strong> LLMOps, Deployment &amp; Monitoring, LLM Fundamentals · <strong>Level:</strong> intermediate</p>
+<h2>Summary</h2>
+<p>Liquid AI announced Liquid RIPL (real-time inference pipeline), an ultra-low-latency inference engine. It is built to put Liquid Foundation Models (LFMs) directly in the request path of real-time workloads such as search, ads, fraud detection, recommendations and payments. The creator was struck by how fast it is.</p>
+<h2>Key points</h2>
+<ul>
+<li>RIPL stands for real-time inference pipeline.</li>
+<li>It is built to run LFMs inside latency-critical request paths.</li>
+<li>Target workloads are search, ads, fraud, recommendations and payments.</li>
+<li>It generates complete responses end-to-end at very low latency.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://www.marktechpost.com/2026/10/22/liquid-ai-ripl-real-time-inference-engine/">Liquid RIPL</a></strong> · tool · marktechpost.com · paid<br>
+  Liquid AI's ultra-low-latency real-time inference pipeline for serving LFMs.</li>
+<li><strong><a href="https://x.com/liquidai">Liquid AI (@liquidai) on X</a></strong> · website · x.com · free<br>
+  Liquid AI's family of efficient foundation models, used here as the example of a model you can run in the browser with ONNX.<br>
+  Also in: Trying Liquid AI Decision Models (d1, d1 ultra) via API (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2113459801984495728">X</a> · <a href="../03-llm-fundamentals/2026-10-23-trying-liquid-ai-decision-models-d1-d1-ultra-via-api.html">notes</a>), ONNX + Transformers.js: Run Models Like Liquid LFM in the Browser (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2113406851035636192">X</a> · <a href="2026-10-22-onnx-transformers-js-run-models-like-liquid-lfm-in-the.html">notes</a>), Try Liquid AI's open d1-3B decision model in Colab (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2112131235430781260">X</a> · <a href="../03-llm-fundamentals/2026-10-19-try-liquid-ai-s-open-d1-3b-decision-model-in-colab.html">notes</a>), Liquid AI releases d1-ultra decision model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2111005084247294179">X</a> · <a href="../16-trends/2026-10-16-liquid-ai-releases-d1-ultra-decision-model.html">notes</a>) and 30 more</li>
+</ul><section class="more"><h2>More in LLMOps, Deployment &amp; Monitoring</h2><ul><li><a href="2026-10-23-claude-models-opus-5-5-generally-available-on-google-cloud.html">Claude models (Opus 5.5) generally available on Google Cloud</a> <span class="meta">Melvin Vivas, 2026-10-23</span></li><li><a href="2026-10-23-deepinfra-raising-gpu-prices.html">DeepInfra raising GPU prices</a> <span class="meta">Melvin Vivas, 2026-10-23</span></li><li><a href="2026-10-22-onnx-transformers-js-run-models-like-liquid-lfm-in-the.html">ONNX + Transformers.js: Run Models Like Liquid LFM in the Browser</a> <span class="meta">Melvin Vivas, 2026-10-22</span></li><li><a href="2026-10-22-railway-platform-incident-check-provider-status-pages.html">Railway Platform Incident: Check Provider Status Pages</a> <span class="meta">Melvin Vivas, 2026-10-22</span></li><li><a href="2026-10-21-run-pi-with-local-models-on-an-rtx-spark-laptop-via-llama.html">Run Pi with local models on an RTX Spark laptop via llama.cpp</a> <span class="meta">Melvin Vivas, 2026-10-21</span></li></ul><p><a href="../../topics/llmops.html">All of LLMOps, Deployment &amp; Monitoring</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

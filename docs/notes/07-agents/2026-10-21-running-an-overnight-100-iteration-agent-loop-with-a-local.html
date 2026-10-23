@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Running an Overnight 100-Iteration Agent Loop with a Local Qwen…</title>
+<meta name="description" content="Melvin Vivas shares a small experiment. He runs a coding agent on its own overnight, using a quantized local model on one consumer GPU. The setup is Pi agent…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-21-running-an-overnight-100-iteration-agent-loop-with-a-local.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Running an Overnight 100-Iteration Agent Loop with a Local Qwen…">
+<meta property="og:description" content="Melvin Vivas shares a small experiment. He runs a coding agent on its own overnight, using a quantized local model on one consumer GPU. The setup is Pi agent…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-21-running-an-overnight-100-iteration-agent-loop-with-a-local.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../fonts/ibm-plex-sans-normal-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/bricolage-grotesque-normal-600-750-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-21-running-an-overnight-100-iteration-agent-loop-with-a-local.html#note","headline":"Running an Overnight 100-Iteration Agent Loop with a Local Qwen Model","description":"Melvin Vivas shares a small experiment. He runs a coding agent on its own overnight, using a quantized local model on one consumer GPU. The setup is Pi agent with a loop plugin, running 100 times. Each time, the agent reviews the code, finds an improvement, makes it and checks it. The post only…","url":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-21-running-an-overnight-100-iteration-agent-loop-with-a-local.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"AI Agents, Tool Use & MCP"},{"@type":"Thing","name":"AI Dev Tools & Productivity"},{"@type":"Thing","name":"LLMOps, Deployment & Monitoring"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2112989953663869108","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-10-21"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-21-running-an-overnight-100-iteration-agent-loop-with-a-local.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"AI Agents, Tool Use & MCP","item":"https://ralmodiel.github.io/ai-study-library/topics/agents.html"},{"@type":"ListItem","position":4,"name":"Running an Overnight 100-Iteration Agent Loop with a Local Qwen Model"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/agents.html">AI Agents, Tool Use &amp; MCP</a> &rsaquo; <span aria-current="page">Running an Overnight 100-Iteration Agent Loop with a Local Qwen Model</span></nav><h1>Running an Overnight 100-Iteration Agent Loop with a Local Qwen Model</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2112989953663869108">a video post by Melvin Vivas on X</a>, posted 21 October 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X video post · 2026-10-21 · 0:14 · 1,422 views · <a href="https://x.com/melvindvivas/status/2112989953663869108">Open on X</a></p>
+<p><strong>Topics:</strong> AI Agents, Tool Use &amp; MCP, AI Dev Tools &amp; Productivity, LLMOps, Deployment &amp; Monitoring · <strong>Level:</strong> intermediate</p>
+<h2>Summary</h2>
+<p>Melvin Vivas shares a small experiment. He runs a coding agent on its own overnight, using a quantized local model on one consumer GPU. The setup is Pi agent with a loop plugin, running 100 times. Each time, the agent reviews the code, finds an improvement, makes it and checks it. The post only shows the setup. The results aren't shared yet.</p>
+<h2>Key points</h2>
+<ul>
+<li>Model: Qwen3.8-27B in the Q4_K_M quantization, published by Unsloth. It runs fully on local hardware.</li>
+<li>Hardware: a single NVIDIA RTX 3090 (24 GB VRAM). A 4-bit quantized 27B model fits on this kind of consumer GPU.</li>
+<li>Agent harness: Pi agent with a loop plugin, set to 100 iterations so it runs unattended.</li>
+<li>The task given each time: check the code, work out what can be improved, make the change and verify it.</li>
+<li>Adding a verification step to every iteration is meant to stop the agent from piling up broken changes over many cycles.</li>
+<li>Running locally means overnight autonomous runs cost no API fees. The trade-off is that a local model is slower and may be less capable.</li>
+<li>Results weren't shared in the post. The output was to be reviewed the next morning.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://huggingface.co/unsloth/Qwen3.8-27B-GGUF">Qwen3.8-27B-Q4_K_M (Unsloth)</a></strong> · tool · huggingface.co · free<br>
+  A 4-bit (Q4_K_M) quantized version of the 27B Qwen model from Unsloth, small enough to run on one consumer GPU.<br>
+  Also in: 100-Iteration Autonomous Coding Loop with Local Qwen on an RTX 3090 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2113215431188328470">X</a> · <a href="2026-10-22-100-iteration-autonomous-coding-loop-with-local-qwen-on-an.html">notes</a>), Prompting an Autonomous Agent Loop: Be Specific, Show Visible Progress (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2113120912220553381">X</a> · <a href="2026-10-22-prompting-an-autonomous-agent-loop-be-specific-show-visible.html">notes</a>), Use a Hugging Face Inference Endpoint as a Custom Model Provider in Pi Agent (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107428720831263036">X</a> · <a href="../09-llmops/2026-10-06-use-a-hugging-face-inference-endpoint-as-a-custom-model.html">notes</a>), Pi Agent on a Self-Deployed Qwen 27B Q4_K_M via Hugging Face Inference Endpoints (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107421963581014039">X</a> · <a href="../09-llmops/2026-10-06-pi-agent-on-a-self-deployed-qwen-27b-q4-k-m-via-hugging.html">notes</a>) and 5 more</li>
+<li><strong><a href="https://unsloth.ai/docs">Unsloth</a></strong> · tool · unsloth.ai · free<br>
+  Open-source library for fast, memory-efficient fine-tuning of open LLMs (LoRA/QLoRA) on a single GPU or in Colab.<br>
+  Also in: 100-Iteration Autonomous Coding Loop with Local Qwen on an RTX 3090 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2113215431188328470">X</a> · <a href="2026-10-22-100-iteration-autonomous-coding-loop-with-local-qwen-on-an.html">notes</a>), Prompting an Autonomous Agent Loop: Be Specific, Show Visible Progress (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2113120912220553381">X</a> · <a href="2026-10-22-prompting-an-autonomous-agent-loop-be-specific-show-visible.html">notes</a>), Agent tasks: Unsloth fine-tuning, ComfyUI face swap, script writing (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108048829652287911">X</a> · <a href="../10-fine-tuning/2026-10-08-agent-tasks-unsloth-fine-tuning-comfyui-face-swap-script.html">notes</a>), Train Your Own Decision Model Locally with Unsloth (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107882655836737768">X</a> · <a href="../10-fine-tuning/2026-10-08-train-your-own-decision-model-locally-with-unsloth.html">notes</a>) and 36 more</li>
+<li><strong><a href="https://x.com/pidotdev">Pi</a></strong> · tool · x.com · free<br>
+  A customizable coding agent that can be extended through its Extensions API and connected to several model providers.<br>
+  Also in: 100-Iteration Autonomous Coding Loop with Local Qwen on an RTX 3090 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2113215431188328470">X</a> · <a href="2026-10-22-100-iteration-autonomous-coding-loop-with-local-qwen-on-an.html">notes</a>), Pi Agent: A Highly Customizable Agent with Durable Sessions (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2113212619171713401">X</a> · <a href="2026-10-22-pi-agent-a-highly-customizable-agent-with-durable-sessions.html">notes</a>), Prompting an Autonomous Agent Loop: Be Specific, Show Visible Progress (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2113120912220553381">X</a> · <a href="2026-10-22-prompting-an-autonomous-agent-loop-be-specific-show-visible.html">notes</a>), Run Pi with local models on an RTX Spark laptop via llama.cpp (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2112743304525967634">X</a> · <a href="../09-llmops/2026-10-21-run-pi-with-local-models-on-an-rtx-spark-laptop-via-llama.html">notes</a>) and 54 more</li>
+<li><strong>Pi agent loop plugin</strong> · tool · check price<br>
+  A Pi agent plugin that runs a task over and over for a set number of iterations.</li>
+<li><strong><a href="https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3090/">NVIDIA GeForce RTX 3090</a></strong> · tool · nvidia.com · paid<br>
+  A consumer GPU with 24 GB of VRAM, used as the local hardware for image and video generation.<br>
+  Also in: Grok as "Director": Making a Local Anime Clip with ComfyUI on an RTX 3090 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2110938332914151664">X</a> · <a href="2026-10-16-grok-as-director-making-a-local-anime-clip-with-comfyui-on.html">notes</a>), Making a 40-Second Anime Episode Locally with ComfyUI on an RTX 3090 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108456419733495900">X</a> · <a href="../13-ai-tools/2026-10-09-making-a-40-second-anime-episode-locally-with-comfyui-on-an.html">notes</a>), Local $0 Video Head Swap: MiniMax H3 Ref2VA (INT8) + LoRA in ComfyUI (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108142208146882863">X</a> · <a href="../13-ai-tools/2026-10-08-local-0-video-head-swap-minimax-h3-ref2va-int8-lora-in.html">notes</a>), Portable Computer Now Runs AI Agents and Models Locally on NVIDIA RTX PCs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2099558149305024711">X</a> · <a href="2026-09-15-portable-computer-now-runs-ai-agents-and-models-locally-on.html">notes</a>) and 6 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Run an agent loop locally overnight: point a coding agent at a repo and have it check the code, find one improvement, apply it and verify it, repeated N times (e.g. 100), then review the results in the morning.</li>
+<li>Compare overnight self-improvement loops across local quantized models (e.g. different Qwen sizes or quantization levels) on the same codebase.</li>
+</ul><section class="more"><h2>More in AI Agents, Tool Use &amp; MCP</h2><ul><li><a href="2026-10-22-grok-bot-can-manage-x-livestreams-via-the-x-mcp.html">Grok Bot Can Manage X Livestreams via the X MCP</a> <span class="meta">Melvin Vivas, 2026-10-22</span></li><li><a href="2026-10-22-grok-bot-and-the-x-mcp-add-livestream-scheduling-and.html">Grok Bot and the X MCP Add Livestream Scheduling and Moderation</a> <span class="meta">Melvin Vivas, 2026-10-22</span></li><li><a href="2026-10-21-claude-duet-anthropic-s-research-preview-of-a-proactive.html">Claude Duet: Anthropic&#x27;s Research Preview of a Proactive Agent App</a> <span class="meta">Melvin Vivas, 2026-10-21</span></li><li><a href="2026-10-21-multi-agent-delegation-email-bot-hands-a-phishing-check-to.html">Multi-Agent Delegation: Email Bot Hands a Phishing Check to a Security Bot</a> <span class="meta">Melvin Vivas, 2026-10-21</span></li><li><a href="2026-10-20-keep-a-change-log-when-multiple-ai-agents-edit-one-notion.html">Keep a Change Log When Multiple AI Agents Edit One Notion Doc</a> <span class="meta">Melvin Vivas, 2026-10-20</span></li><li><a href="2026-10-20-a-custom-grok-bot-for-repurposing-old-hardware.html">A Custom Grok Bot for Repurposing Old Hardware</a> <span class="meta">Melvin Vivas, 2026-10-20</span></li></ul><p><a href="../../topics/agents.html">All of AI Agents, Tool Use &amp; MCP</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

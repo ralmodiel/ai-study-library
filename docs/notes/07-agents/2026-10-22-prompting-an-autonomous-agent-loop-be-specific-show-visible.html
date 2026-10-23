@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prompting an Autonomous Agent Loop: Be Specific, Show Visible…</title>
+<meta name="description" content="The creator restarted the 100-iteration local agent loop (Qwen3.8-27B Unsloth quant on an RTX 3090, run through Pi agent&#x27;s loop plugin) because the first…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-22-prompting-an-autonomous-agent-loop-be-specific-show-visible.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Prompting an Autonomous Agent Loop: Be Specific, Show Visible…">
+<meta property="og:description" content="The creator restarted the 100-iteration local agent loop (Qwen3.8-27B Unsloth quant on an RTX 3090, run through Pi agent&#x27;s loop plugin) because the first…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-22-prompting-an-autonomous-agent-loop-be-specific-show-visible.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../fonts/ibm-plex-sans-normal-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/bricolage-grotesque-normal-600-750-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-22-prompting-an-autonomous-agent-loop-be-specific-show-visible.html#note","headline":"Prompting an Autonomous Agent Loop: Be Specific, Show Visible Progress","description":"The creator restarted the 100-iteration local agent loop (Qwen3.8-27B Unsloth quant on an RTX 3090, run through Pi agent's loop plugin) because the first prompt was too conservative and general. The new prompt asks for UI changes so progress can be seen in the browser. The lesson: give autonomous…","url":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-22-prompting-an-autonomous-agent-loop-be-specific-show-visible.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"AI Agents, Tool Use & MCP"},{"@type":"Thing","name":"Prompt & Context Engineering"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2113120912220553381","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-10-22"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-22-prompting-an-autonomous-agent-loop-be-specific-show-visible.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"AI Agents, Tool Use & MCP","item":"https://ralmodiel.github.io/ai-study-library/topics/agents.html"},{"@type":"ListItem","position":4,"name":"Prompting an Autonomous Agent Loop: Be Specific, Show Visible Progress"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/agents.html">AI Agents, Tool Use &amp; MCP</a> &rsaquo; <span aria-current="page">Prompting an Autonomous Agent Loop: Be Specific, Show Visible Progress</span></nav><h1>Prompting an Autonomous Agent Loop: Be Specific, Show Visible Progress</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2113120912220553381">a post by Melvin Vivas on X</a>, posted 22 October 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X post · 2026-10-22 · <a href="https://x.com/melvindvivas/status/2113120912220553381">Open on X</a></p>
+<p><strong>Topics:</strong> AI Agents, Tool Use &amp; MCP, Prompt &amp; Context Engineering · <strong>Level:</strong> intermediate</p>
+<h2>Summary</h2>
+<p>The creator restarted the 100-iteration local agent loop (Qwen3.8-27B Unsloth quant on an RTX 3090, run through Pi agent's loop plugin) because the first prompt was too conservative and general. The new prompt asks for UI changes so progress can be seen in the browser. The lesson: give autonomous loops specific goals whose results you can see.</p>
+<h2>Key points</h2>
+<ul>
+<li>A vague, conservative prompt led to weak progress across the loop's iterations.</li>
+<li>The revised prompt asks for UI changes so each iteration's progress shows up in the browser.</li>
+<li>Setup: Qwen3.8-27B-Q4_K_M (Unsloth) on a local RTX 3090, with Pi agent's loop plugin set to 100 iterations.</li>
+<li>The per-iteration task is to check the code, find an improvement, and verify it.</li>
+<li>At the time of posting, the restarted loop was on iteration 5 of 100.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://huggingface.co/unsloth/Qwen3.8-27B-GGUF">Qwen3.8-27B-Q4_K_M (Unsloth)</a></strong> · tool · huggingface.co · free<br>
+  A 4-bit (Q4_K_M) quantized version of the 27B Qwen model from Unsloth, small enough to run on one consumer GPU.<br>
+  Also in: 100-Iteration Autonomous Coding Loop with Local Qwen on an RTX 3090 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2113215431188328470">X</a> · <a href="2026-10-22-100-iteration-autonomous-coding-loop-with-local-qwen-on-an.html">notes</a>), Running an Overnight 100-Iteration Agent Loop with a Local Qwen Model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2112989953663869108">X</a> · <a href="2026-10-21-running-an-overnight-100-iteration-agent-loop-with-a-local.html">notes</a>), Use a Hugging Face Inference Endpoint as a Custom Model Provider in Pi Agent (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107428720831263036">X</a> · <a href="../09-llmops/2026-10-06-use-a-hugging-face-inference-endpoint-as-a-custom-model.html">notes</a>), Pi Agent on a Self-Deployed Qwen 27B Q4_K_M via Hugging Face Inference Endpoints (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107421963581014039">X</a> · <a href="../09-llmops/2026-10-06-pi-agent-on-a-self-deployed-qwen-27b-q4-k-m-via-hugging.html">notes</a>) and 5 more</li>
+<li><strong><a href="https://unsloth.ai/docs">Unsloth</a></strong> · tool · unsloth.ai · free<br>
+  Open-source library for fast, memory-efficient fine-tuning of open LLMs (LoRA/QLoRA) on a single GPU or in Colab.<br>
+  Also in: 100-Iteration Autonomous Coding Loop with Local Qwen on an RTX 3090 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2113215431188328470">X</a> · <a href="2026-10-22-100-iteration-autonomous-coding-loop-with-local-qwen-on-an.html">notes</a>), Running an Overnight 100-Iteration Agent Loop with a Local Qwen Model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2112989953663869108">X</a> · <a href="2026-10-21-running-an-overnight-100-iteration-agent-loop-with-a-local.html">notes</a>), Agent tasks: Unsloth fine-tuning, ComfyUI face swap, script writing (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108048829652287911">X</a> · <a href="../10-fine-tuning/2026-10-08-agent-tasks-unsloth-fine-tuning-comfyui-face-swap-script.html">notes</a>), Train Your Own Decision Model Locally with Unsloth (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107882655836737768">X</a> · <a href="../10-fine-tuning/2026-10-08-train-your-own-decision-model-locally-with-unsloth.html">notes</a>) and 36 more</li>
+<li><strong><a href="https://x.com/pidotdev">Pi</a></strong> · tool · x.com · free<br>
+  A customizable coding agent that can be extended through its Extensions API and connected to several model providers.<br>
+  Also in: 100-Iteration Autonomous Coding Loop with Local Qwen on an RTX 3090 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2113215431188328470">X</a> · <a href="2026-10-22-100-iteration-autonomous-coding-loop-with-local-qwen-on-an.html">notes</a>), Pi Agent: A Highly Customizable Agent with Durable Sessions (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2113212619171713401">X</a> · <a href="2026-10-22-pi-agent-a-highly-customizable-agent-with-durable-sessions.html">notes</a>), Running an Overnight 100-Iteration Agent Loop with a Local Qwen Model (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2112989953663869108">X</a> · <a href="2026-10-21-running-an-overnight-100-iteration-agent-loop-with-a-local.html">notes</a>), Run Pi with local models on an RTX Spark laptop via llama.cpp (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2112743304525967634">X</a> · <a href="../09-llmops/2026-10-21-run-pi-with-local-models-on-an-rtx-spark-laptop-via-llama.html">notes</a>) and 54 more</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Make autonomous-loop prompts specific, and ask for changes you can see so progress is easy to check.</li>
+<li>Run an autonomous local-model loop that makes UI improvements to a web app, so progress can be watched in the browser.</li>
+</ul><section class="more"><h2>More in AI Agents, Tool Use &amp; MCP</h2><ul><li><a href="2026-10-22-how-non-technical-users-use-grok-bot-as-a-thinking-partner.html">How Non-Technical Users Use Grok Bot as a Thinking Partner</a> <span class="meta">Melvin Vivas, 2026-10-22</span></li><li><a href="2026-10-22-100-iteration-autonomous-coding-loop-with-local-qwen-on-an.html">100-Iteration Autonomous Coding Loop with Local Qwen on an RTX 3090</a> <span class="meta">Melvin Vivas, 2026-10-22</span></li><li><a href="2026-10-22-pi-agent-a-highly-customizable-agent-with-durable-sessions.html">Pi Agent: A Highly Customizable Agent with Durable Sessions</a> <span class="meta">Melvin Vivas, 2026-10-22</span></li><li><a href="2026-10-22-grok-bot-can-manage-x-livestreams-via-the-x-mcp.html">Grok Bot Can Manage X Livestreams via the X MCP</a> <span class="meta">Melvin Vivas, 2026-10-22</span></li><li><a href="2026-10-22-grok-bot-and-the-x-mcp-add-livestream-scheduling-and.html">Grok Bot and the X MCP Add Livestream Scheduling and Moderation</a> <span class="meta">Melvin Vivas, 2026-10-22</span></li><li><a href="2026-10-21-claude-duet-anthropic-s-research-preview-of-a-proactive.html">Claude Duet: Anthropic&#x27;s Research Preview of a Proactive Agent App</a> <span class="meta">Melvin Vivas, 2026-10-21</span></li></ul><p><a href="../../topics/agents.html">All of AI Agents, Tool Use &amp; MCP</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

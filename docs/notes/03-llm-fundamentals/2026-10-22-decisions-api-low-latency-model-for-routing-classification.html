@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Decisions API: Low-Latency Model for Routing, Classification and…</title>
+<meta name="description" content="Melvin Vivas shares a launch video for the Decisions API, now in public beta. It&#x27;s a fast &quot;decision model&quot; that lets an app choose the right model, tool or…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/03-llm-fundamentals/2026-10-22-decisions-api-low-latency-model-for-routing-classification.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Decisions API: Low-Latency Model for Routing, Classification and…">
+<meta property="og:description" content="Melvin Vivas shares a launch video for the Decisions API, now in public beta. It&#x27;s a fast &quot;decision model&quot; that lets an app choose the right model, tool or…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/03-llm-fundamentals/2026-10-22-decisions-api-low-latency-model-for-routing-classification.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../fonts/ibm-plex-sans-normal-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/bricolage-grotesque-normal-600-750-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/03-llm-fundamentals/2026-10-22-decisions-api-low-latency-model-for-routing-classification.html#note","headline":"Decisions API: Low-Latency Model for Routing, Classification and Actions","description":"Melvin Vivas shares a launch video for the Decisions API, now in public beta. It's a fast \"decision model\" that lets an app choose the right model, tool or action in near real time. The demo shows three uses: sorting loose user input into sales leads, steering a car in a game from video frames…","url":"https://ralmodiel.github.io/ai-study-library/notes/03-llm-fundamentals/2026-10-22-decisions-api-low-latency-model-for-routing-classification.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"LLM Fundamentals"},{"@type":"Thing","name":"LLMOps, Deployment & Monitoring"},{"@type":"Thing","name":"AI Agents, Tool Use & MCP"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2113406299983737343","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-10-22"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/03-llm-fundamentals/2026-10-22-decisions-api-low-latency-model-for-routing-classification.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"LLM Fundamentals","item":"https://ralmodiel.github.io/ai-study-library/topics/llm-fundamentals.html"},{"@type":"ListItem","position":4,"name":"Decisions API: Low-Latency Model for Routing, Classification and Actions"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/llm-fundamentals.html">LLM Fundamentals</a> &rsaquo; <span aria-current="page">Decisions API: Low-Latency Model for Routing, Classification and Actions</span></nav><h1>Decisions API: Low-Latency Model for Routing, Classification and Actions</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2113406299983737343">a video post by Melvin Vivas on X</a>, posted 22 October 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X video post · 2026-10-22 · 1:11 · 355 views · <a href="https://x.com/melvindvivas/status/2113406299983737343">Open on X</a></p>
+<p><strong>Topics:</strong> LLM Fundamentals, LLMOps, Deployment &amp; Monitoring, AI Agents, Tool Use &amp; MCP · <strong>Level:</strong> intermediate</p>
+<h2>Summary</h2>
+<p>Melvin Vivas shares a launch video for the Decisions API, now in public beta. It's a fast "decision model" that lets an app choose the right model, tool or action in near real time. The demo shows three uses: sorting loose user input into sales leads, steering a car in a game from video frames, and picking facial expressions for an animated character while GPT Live 1 handles the voice. Melvin says he hasn't tried it himself. He just notes that decision models are becoming popular.</p>
+<h2>Key points</h2>
+<ul>
+<li>The Decisions API is in public beta for all developers. Its job is to let an app choose the right model, tool or action in near real time.</li>
+<li>It is claimed to make decisions up to 10x faster than GPT-6 Luna through the Responses API.</li>
+<li>In the sales-lead demo, the server responded in under 100 ms. The video says it was not sped up.</li>
+<li>Use case 1: sorting messy free-text user input into sales leads.</li>
+<li>Use case 2: a game where the API reads frames of the road and obstacles and steers the car to the correct lane. It keeps up even at higher speeds, in a fraction of the time a reasoning model would take.</li>
+<li>Use case 3: a split setup where GPT Live 1 handles voice and the Decisions API picks the character's expression while the user talks.</li>
+<li>Design pattern: use a small, fast decision model for routing and classification next to bigger or slower models. This keeps interactions feeling instant.</li>
+<li>The creator says he hasn't tried it, so treat the speed claims as the vendor's own until you test them.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://developers.openai.com/api/docs/guides/decisions">Decisions API</a></strong> · tool · developers.openai.com · paid<br>
+  A low-latency model API (public beta) that makes fast classification, routing and action choices for apps.</li>
+<li><strong><a href="https://developers.openai.com/api/reference/python/resources/responses">Responses API</a></strong> · docs · developers.openai.com · free<br>
+  A general model API used as the speed baseline (calling GPT-6 Luna) in the Decisions API comparison.</li>
+<li><strong><a href="https://community.openai.com/t/announcing-gpt-6-sol-and-gpt-6-luna-in-the-api-codex-and-chatgpt/1399925">GPT-6 Luna</a></strong> · tool · community.openai.com · paid<br>
+  An OpenAI model aimed at fast, high-volume classification and routing.<br>
+  Also in: Coworker v0.7.0: Open-Source Multi-Bot Workspace with Primary Bot and Web Search (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2106336566365044857">X</a> · <a href="../07-agents/2026-10-03-coworker-v0-7-0-open-source-multi-bot-workspace-with.html">notes</a>), DigitalOcean Serverless Inference Now Serves OpenAI GPT-6 Models (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102970848785363330">X</a> · <a href="../09-llmops/2026-09-24-digitalocean-serverless-inference-now-serves-openai-gpt-6.html">notes</a>), Codex Orchestrator v0.2.1: GPT-6 Sol orchestrator with Luna subagents (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102622261295661558">X</a> · <a href="../07-agents/2026-09-23-codex-orchestrator-v0-2-1-gpt-6-sol-orchestrator-with-luna.html">notes</a>), DeepSWE results: GPT-6 Sol slightly below GPT-5.6 Sol, but cheaper (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2102570691870753159">X</a> · <a href="../16-trends/2026-09-23-deepswe-results-gpt-6-sol-slightly-below-gpt-5-6-sol-but.html">notes</a>) and 1 more</li>
+<li><strong><a href="https://openai.com/index/introducing-gpt-live-1-in-the-api/">GPT-Live-1</a></strong> · tool · openai.com · paid<br>
+  OpenAI's full-duplex voice model in the API for real-time voice agents that pair with a backend reasoning/tool model.<br>
+  Also in: GPT-Live-1 Voice Agents in the API, and Charlie Guo (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098353668613648877">X</a> · <a href="../07-agents/2026-09-11-gpt-live-1-voice-agents-in-the-api-and-charlie-guo.html">notes</a>), GPT-Live-1: OpenAI's Full-Duplex Voice Model for Voice Agents in the API (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2098299004706820418">X</a> · <a href="../07-agents/2026-09-11-gpt-live-1-openai-s-full-duplex-voice-model-for-voice.html">notes</a>)</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Try the Decisions API public beta and check the under-100 ms latency claim on your own workload.</li>
+<li>Compare it with a general model through the Responses API for routing and classification tasks.</li>
+<li>A tool that sorts free-text inbound messages into sales leads in real time.</li>
+<li>A simple driving game where a decision model reads frames and steers the car between lanes.</li>
+<li>An animated voice character: a real-time voice model handles speech while a decision model picks facial expressions.</li>
+</ul><section class="more"><h2>More in LLM Fundamentals</h2><ul><li><a href="2026-10-23-trying-liquid-ai-decision-models-d1-d1-ultra-via-api.html">Trying Liquid AI Decision Models (d1, d1 ultra) via API</a> <span class="meta">Melvin Vivas, 2026-10-23</span></li><li><a href="2026-10-21-run-lightonocr-3-0-8b-and-other-open-models-on-a-free-colab.html">Run LightOnOCR-3 0.8B and Other Open Models on a Free Colab T4</a> <span class="meta">Melvin Vivas, 2026-10-21</span></li><li><a href="2026-10-20-stealth-model-space-bunny-revealed-as-minimax-m3-1-flash.html">Stealth Model &#x27;Space Bunny&#x27; Revealed as MiniMax M3.1 Flash</a> <span class="meta">Melvin Vivas, 2026-10-20</span></li><li><a href="2026-10-19-try-liquid-ai-s-open-d1-3b-decision-model-in-colab.html">Try Liquid AI&#x27;s open d1-3B decision model in Colab</a> <span class="meta">Melvin Vivas, 2026-10-19</span></li></ul><p><a href="../../topics/llm-fundamentals.html">All of LLM Fundamentals</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>

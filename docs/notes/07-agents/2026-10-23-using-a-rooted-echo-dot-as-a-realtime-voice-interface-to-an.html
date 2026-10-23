@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Using a Rooted Echo Dot as a Realtime Voice Interface to an Agent…</title>
+<meta name="description" content="Melvin Vivas reposts a demo by Mike (Michael). Mike rooted an old 2nd-gen Amazon Echo Dot and connected it over WiFi to Grok realtime voice. That lets him…">
+<link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-23-using-a-rooted-echo-dot-as-a-realtime-voice-interface-to-an.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Engineer Study Library">
+<meta property="og:title" content="Using a Rooted Echo Dot as a Realtime Voice Interface to an Agent…">
+<meta property="og:description" content="Melvin Vivas reposts a demo by Mike (Michael). Mike rooted an old 2nd-gen Amazon Echo Dot and connected it over WiFi to Grok realtime voice. That lets him…">
+<meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-23-using-a-rooted-echo-dot-as-a-realtime-voice-interface-to-an.html">
+<meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2344bd">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preload" href="../../fonts/ibm-plex-sans-normal-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/bricolage-grotesque-normal-600-750-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/pages.css">
+<link rel="stylesheet" href="../../assets/consent.css?v=ec8939542e">
+<script src="../../assets/consent.js?v=60f790d54a"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-23-using-a-rooted-echo-dot-as-a-realtime-voice-interface-to-an.html#note","headline":"Using a Rooted Echo Dot as a Realtime Voice Interface to an Agent Fleet","description":"Melvin Vivas reposts a demo by Mike (Michael). Mike rooted an old 2nd-gen Amazon Echo Dot and connected it over WiFi to Grok realtime voice. That lets him talk to \"Charlie,\" a chief-of-staff agent that coordinates more than 30 sub-agents, from any room. In the demo Charlie asks the other agents…","url":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-23-using-a-rooted-echo-dot-as-a-realtime-voice-interface-to-an.html","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@id":"https://ralmodiel.github.io/ai-study-library/#website"},"about":[{"@type":"Thing","name":"AI Agents, Tool Use & MCP"},{"@type":"Thing","name":"LLMOps, Deployment & Monitoring"},{"@type":"Thing","name":"Portfolio Projects"}],"author":{"@id":"https://ralmodiel.github.io/ai-study-library/#maintainer"},"isBasedOn":{"@type":"SocialMediaPosting","url":"https://x.com/melvindvivas/status/2113455548607889901","author":{"@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas"},"datePublished":"2026-10-23"},"mainEntityOfPage":"https://ralmodiel.github.io/ai-study-library/notes/07-agents/2026-10-23-using-a-rooted-echo-dot-as-a-realtime-voice-interface-to-an.html","license":"https://creativecommons.org/licenses/by-nc/4.0/"},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/credits.html#melvin-vivas","name":"Melvin Vivas","url":"https://www.donvitocodes.com/","sameAs":["https://x.com/melvindvivas","https://x.com/donvito","https://github.com/donvito","https://www.melvinvivas.com/"],"description":"Software engineer building with AI, with a focus on local and open models and AI agents."},{"@type":"Person","@id":"https://ralmodiel.github.io/ai-study-library/#maintainer","name":"Roque Almodiel","url":"https://github.com/ralmodiel"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Library","item":"https://ralmodiel.github.io/ai-study-library/"},{"@type":"ListItem","position":2,"name":"Learning path","item":"https://ralmodiel.github.io/ai-study-library/learning-path.html"},{"@type":"ListItem","position":3,"name":"AI Agents, Tool Use & MCP","item":"https://ralmodiel.github.io/ai-study-library/topics/agents.html"},{"@type":"ListItem","position":4,"name":"Using a Rooted Echo Dot as a Realtime Voice Interface to an Agent Fleet"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><a class="brand" href="../../">AI Engineer Study Library</a>
+<nav class="menu" aria-label="Library"><a href="../../learning-path.html">Learning path</a><a href="../../study-plans.html">Study plans</a><a href="../../free-watch-list.html">Free to watch</a><a href="../../resources.html">All resources</a><a href="../../credits.html">Credits</a></nav></header>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">Library</a> &rsaquo; <a href="../../learning-path.html">Learning path</a> &rsaquo; <a href="../../topics/agents.html">AI Agents, Tool Use &amp; MCP</a> &rsaquo; <span aria-current="page">Using a Rooted Echo Dot as a Realtime Voice Interface to an Agent Fleet</span></nav><h1>Using a Rooted Echo Dot as a Realtime Voice Interface to an Agent Fleet</h1>
+<aside class="source"><p>This note summarises <a href="https://x.com/melvindvivas/status/2113455548607889901">a video post by Melvin Vivas on X</a>, posted 23 October 2026. The original belongs to Melvin Vivas.</p><p>Follow Melvin Vivas: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p></aside>
+<p>Melvin Vivas · X video post · 2026-10-23 · 3:00 · 1,614 views · <a href="https://x.com/melvindvivas/status/2113455548607889901">Open on X</a></p>
+<p><strong>Topics:</strong> AI Agents, Tool Use &amp; MCP, LLMOps, Deployment &amp; Monitoring, Portfolio Projects · <strong>Level:</strong> intermediate</p>
+<h2>Summary</h2>
+<p>Melvin Vivas reposts a demo by Mike (Michael). Mike rooted an old 2nd-gen Amazon Echo Dot and connected it over WiFi to Grok realtime voice. That lets him talk to "Charlie," a chief-of-staff agent that coordinates more than 30 sub-agents, from any room. In the demo Charlie asks the other agents for a status report and reads it back by voice. Mike also covers the trade-offs: small models running on the device itself, the cost of cloud realtime voice, and a plan to host voice services on a local AMD box with 96 GB of unified memory.</p>
+<h2>Key points</h2>
+<ul>
+<li>An old Amazon Echo Dot (2nd gen, about 10-12 years old) was rooted so it works as a plain WiFi audio device that can stream speech to any backend.</li>
+<li>The Dot connects only to one orchestrator agent ('Charlie, Chief of Staff'), so you get a dedicated realtime voice line to the agent fleet from any room where you put a device.</li>
+<li>Hub-and-spoke setup: Charlie gets a voice request ('give me a sit-rep'), hands it to the team of more than 30 agents (many built from templates), then sums up their results and anything waiting on human approval, like security updates and PR merge verdicts.</li>
+<li>Tiny models running on the Dot itself were tested and were weak ('pretty funny'), because the device has very little storage and compute.</li>
+<li>Cloud realtime voice with Grok sounded 'stellar' but costs money, so the creator turned it off once the demo had proved the idea.</li>
+<li>Long-term plan: run realtime voice services on a local AMD '395' machine (likely the Ryzen AI Max+ 395) with 96 GB of unified memory and serve voice to all the agents.</li>
+</ul>
+<h2>Resources mentioned</h2>
+<ul>
+<li><strong><a href="https://x.ai">Grok 4.7</a></strong> · tool · x.ai · paid<br>
+  xAI's Grok model with a realtime voice mode, used here as the speech backend for a voice agent.<br>
+  Also in: Overnight notebook generation with Grok Bot, Cursor cloud and Grok 4.7 (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2111998075770433974">X</a> · <a href="2026-10-19-overnight-notebook-generation-with-grok-bot-cursor-cloud.html">notes</a>), Keep agent orchestration on the model its harness was tuned for (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2108154466784674001">X</a> · <a href="2026-10-08-keep-agent-orchestration-on-the-model-its-harness-was-tuned.html">notes</a>), Comparing Opus 5.5, GPT-6 Astra and Grok 4.7 on OpenRouter (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2107828621532619197">X</a> · <a href="../03-llm-fundamentals/2026-10-07-comparing-opus-5-5-gpt-6-astra-and-grok-4-7-on-openrouter.html">notes</a>), Coworker: an open-source desktop AI assistant with scheduled jobs (Melvin Vivas on <a href="https://x.com/melvindvivas/status/2106811895902814639">X</a> · <a href="2026-10-05-coworker-an-open-source-desktop-ai-assistant-with-scheduled.html">notes</a>) and 3 more</li>
+<li><strong><a href="https://amazon.com/Echo-Dot-2nd-Generation/dp/B01DFKC2SO">Amazon Echo Dot (2nd Generation)</a></strong> · tool · amazon.com · paid<br>
+  Older Amazon smart speaker that was rooted and reused as a WiFi audio endpoint for a custom agent.</li>
+<li><strong><a href="https://www.insta360.com">Insta360 (conferencing camera)</a></strong> · tool · insta360.com · paid<br>
+  Insta360 camera hardware the creator uses for video conferencing in his lab.</li>
+<li><strong><a href="https://www.amd.com/en/blogs/2025/amd-ryzen-ai-max-395-processor-breakthrough-ai-.html">AMD Ryzen AI Max+ 395 (96 GB unified memory machine)</a></strong> · tool · amd.com · paid<br>
+  AMD chip with unified memory, suited to running local models and voice services.</li>
+</ul>
+<h2>Try this</h2>
+<ul>
+<li>Root or repurpose an old smart speaker (for example an Echo Dot 2nd gen) as a WiFi voice endpoint for your own agent.</li>
+<li>Build a 'chief of staff' orchestrator agent that takes voice requests, hands them to sub-agents, and reports back a status summary plus items that need your approval.</li>
+<li>Host realtime voice services (speech-to-text, LLM, text-to-speech) on a local machine with lots of unified memory instead of paying for cloud realtime voice, and serve them to multiple agents.</li>
+</ul><section class="more"><h2>More in AI Agents, Tool Use &amp; MCP</h2><ul><li><a href="2026-10-23-grok-bot-can-now-use-phone-calendar-contacts-and-reminders.html">Grok Bot can now use phone calendar, contacts and reminders</a> <span class="meta">Melvin Vivas, 2026-10-23</span></li><li><a href="2026-10-23-agent-skill-for-drawing-statecharts-checked-against-formal.html">Agent skill for drawing statecharts checked against formal specs</a> <span class="meta">Melvin Vivas, 2026-10-23</span></li><li><a href="2026-10-23-grok-bot-adds-1password-integration-for-agent-logins.html">Grok Bot Adds 1Password Integration for Agent Logins</a> <span class="meta">Melvin Vivas, 2026-10-23</span></li></ul><p><a href="../../topics/agents.html">All of AI Agents, Tool Use &amp; MCP</a></p></section>
+</main>
+<footer class="foot">
+<p class="foot-h">Built from the free content of these creators. Please follow and support them:</p>
+<p><b>Bashiri Smith</b> (BASWE.Ai): <a href="https://www.facebook.com/basweai">Bashiri Smith on Facebook</a> &middot; <a href="https://www.youtube.com/@BashiFuirkashi">Bashiri Smith on YouTube</a> &middot; <a href="https://www.instagram.com/bashi_fuirkashi/">Bashiri Smith on Instagram</a> &middot; <a href="https://www.tiktok.com/@bashifuirkashi">Bashiri Smith on TikTok</a> &middot; <a href="https://www.linkedin.com/in/bashiri-smith/">Bashiri Smith on LinkedIn</a> &middot; <a href="https://x.com/bashifuirkashi">Bashiri Smith on X</a> &middot; <a href="https://www.skool.com/baswe-ai">BASWE.Ai community (skool.com)</a> &middot; <a href="https://baswe.ai/">Bashiri Smith&#x27;s website (baswe.ai)</a></p><p><b>Melvin Vivas</b>: <a href="https://x.com/melvindvivas">Melvin Vivas on X (@melvindvivas)</a> &middot; <a href="https://x.com/donvito">Melvin Vivas on X (@donvito)</a> &middot; <a href="https://github.com/donvito">Melvin Vivas on GitHub</a> &middot; <a href="https://www.donvitocodes.com/">Melvin Vivas&#x27;s website (donvitocodes.com)</a> &middot; <a href="https://www.melvinvivas.com/">Melvin Vivas&#x27;s blog (melvinvivas.com)</a></p>
+<p>An unofficial study index: summaries and links only; every video, post and article belongs to its creator
+and is linked at the source. Summaries and notes: <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> (credit the creators).
+<a href="../../license.html">License</a> &middot; <a href="../../privacy.html">Privacy</a> &middot;
+<a href="#" data-cookie-settings>Cookie settings</a> &middot; <a href="https://github.com/ralmodiel/ai-study-library/issues">Corrections and removal requests</a></p>
+</footer>
+</body>
+</html>
