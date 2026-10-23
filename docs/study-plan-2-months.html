@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>2-month AI engineering study plan: the standard path</title>
-<meta name="description" content="Eight weeks on one capstone, an assistant that answers questions about your own documents, from the foundations through RAG, agents, evals and deployment to a…">
+<meta name="description" content="An 8-week AI engineering plan, about 10 h a week: foundations, LLMs, embeddings and RAG, agents, evals, deployment, and a portfolio project.">
 <link rel="canonical" href="https://ralmodiel.github.io/ai-study-library/study-plan-2-months.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AI Engineer Study Library">
 <meta property="og:title" content="2-month AI engineering study plan: the standard path">
-<meta property="og:description" content="Eight weeks on one capstone, an assistant that answers questions about your own documents, from the foundations through RAG, agents, evals and deployment to a…">
+<meta property="og:description" content="An 8-week AI engineering plan, about 10 h a week: foundations, LLMs, embeddings and RAG, agents, evals, deployment, and a portfolio project.">
 <meta property="og:url" content="https://ralmodiel.github.io/ai-study-library/study-plan-2-months.html">
 <meta property="og:image" content="https://ralmodiel.github.io/ai-study-library/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -39,7 +39,8 @@
 <blockquote>
 <p>An unofficial study plan built from the public posts of Bashiri Smith and Melvin Vivas, not affiliated with or endorsed by them. Items under <strong>Fill the gap</strong> are not from the creators: they cover skills their posts don't. Track your progress in the <a href="./#plans">library app</a>; ticks are saved in your browser.</p>
 </blockquote>
-<h2>Week 1: Roadmap and foundations</h2>
+<nav class="weeks-nav" aria-label="Weeks">Weeks: <a href="#week-1">1</a> <a href="#week-2">2</a> <a href="#week-3">3</a> <a href="#week-4">4</a> <a href="#week-5">5</a> <a href="#week-6">6</a> <a href="#week-7">7</a> <a href="#week-8">8</a></nav>
+<h2 id="week-1">Week 1: Roadmap and foundations</h2>
 <p class="goal"><strong>Goal</strong> Explain what AI engineers build and how neural networks and transformers work; scope your capstone with 25-30 test questions. (about 11 h in total)</p>
 <p class="lbl"><strong>Core</strong></p>
 <ul>
@@ -78,7 +79,7 @@
 <li><strong><a href="https://www.youtube.com/watch?v=Ub3GoFaUcds">Stanford CME 295, Lecture 1: Transformers</a></strong> · Video · youtube.com<br>
   Free university lecture from Stanford Online (Autumn 2025, lecture 1 of 9): NLP background, tokenization, embeddings, word2vec, RNNs and LSTMs, then attention and the Transformer. (about 1.5 h)</li>
 </ul>
-<h2>Week 2: LLMs and prompting</h2>
+<h2 id="week-2">Week 2: LLMs and prompting</h2>
 <p class="goal"><strong>Goal</strong> Explain tokens, context windows and LLM training, get reliable structured JSON from prompts, and call an LLM API from your service. (about 12 h in total)</p>
 <p class="lbl"><strong>Core</strong></p>
 <ul>
@@ -128,7 +129,7 @@
 <li><strong><a href="https://www.youtube.com/watch?v=k5Fh-UgTuCo">Stanford CME 295, Lecture 6: LLM Reasoning</a></strong> · Video · youtube.com<br>
   Free university lecture from Stanford Online (Autumn 2025, lecture 6 of 9): reasoning models, reinforcement learning for reasoning, GRPO and scaling. (about 2 h)</li>
 </ul>
-<h2>Week 3: Embeddings and vector search</h2>
+<h2 id="week-3">Week 3: Embeddings and vector search</h2>
 <p class="goal"><strong>Goal</strong> Explain embeddings and HNSW search, pick an embedding model by measuring recall on your data, and search your documents. (about 10 h in total)</p>
 <p class="lbl"><strong>Core</strong></p>
 <ul>
@@ -161,7 +162,7 @@
 <li><strong><a href="https://www.deeplearning.ai/courses/google-cloud-vertex-ai">Understanding and Applying Text Embeddings (DeepLearning.AI)</a></strong> · Course · deeplearning.ai</li>
 <li><strong><a href="https://github.com/pgvector/pgvector">pgvector</a></strong> · Tool · github.com</li>
 </ul>
-<h2>Week 4: RAG</h2>
+<h2 id="week-4">Week 4: RAG</h2>
 <p class="goal"><strong>Goal</strong> Build RAG that cites sources and abstains when unsure, then improve it with chunking, query rewriting, reranking and hybrid search. (about 10.5 h in total)</p>
 <p class="lbl"><strong>Core</strong></p>
 <ul>
@@ -205,7 +206,7 @@
 <li><strong><a href="https://www.youtube.com/watch?v=mHxLXzYjQRE">Production RAG with LangChain &amp; Vector Databases (freeCodeCamp)</a></strong> · Course · youtube.com<br>
   Whole course: RAG from basics to production: debugging, hybrid search, observability, optimization, scaling, hosting and security. (about 7.5 h)</li>
 </ul>
-<h2>Week 5: Agents, tools and MCP</h2>
+<h2 id="week-5">Week 5: Agents, tools and MCP</h2>
 <p class="goal"><strong>Goal</strong> Know when to use an agent or a fixed workflow, add tools with step limits and approval, and serve a tool over MCP. (about 10.5 h in total)</p>
 <p class="lbl"><strong>Core</strong></p>
 <ul>
@@ -246,14 +247,12 @@
   A hands-on lesson: the same stateless notes server built in Python and in TypeScript, using only the standard library for the protocol core. (about 1.5 h)</li>
 <li><strong><a href="https://www.youtube.com/watch?v=h-7S6HNq0Vg">Stanford CME 295, Lecture 7: Agentic LLMs</a></strong> · Video · youtube.com<br>
   Free university lecture from Stanford Online (Autumn 2025, lecture 7 of 9): retrieval-augmented generation, advanced RAG techniques, function calling, agents and the ReAct framework. (about 2 h)</li>
-<li><strong><a href="https://www.youtube.com/watch?v=Zy7EXDONlTY">Agentic AI: Complete Course for Beginners (freeCodeCamp)</a></strong> · Course · youtube.com<br>
-  Whole course: agentic AI end to end in one very long course. (about 24.5 h)</li>
 <li><strong><a href="https://www.youtube.com/watch?v=jGg_1h0qzaM">LangGraph Complete Course for Beginners (freeCodeCamp)</a></strong> · Course · youtube.com<br>
   Whole course: LangGraph state graphs built up over five practice graphs and four AI agents, ending with a RAG agent. (about 3 h)</li>
 <li><strong><a href="https://www.youtube.com/watch?v=DosHnyq78xY">Intro to MCP Servers: Model Context Protocol with Python (freeCodeCamp)</a></strong> · Course · youtube.com<br>
   Whole course: building and connecting MCP servers in Python. (about 1 h)</li>
 </ul>
-<h2>Week 6: Evals and guardrails</h2>
+<h2 id="week-6">Week 6: Evals and guardrails</h2>
 <p class="goal"><strong>Goal</strong> Evaluate retrieval and answers separately with a golden set and an LLM judge, and guard against prompt injection, jailbreaks and PII leaks. (about 10.5 h in total)</p>
 <p class="lbl"><strong>Core</strong></p>
 <ul>
@@ -299,9 +298,9 @@
 <li><strong><a href="https://www.youtube.com/watch?v=402EyLS59ho">RAG Evaluation Using DeepEval &amp; Confident AI (Yash Patil)</a></strong> · Video · youtube.com<br>
   Whole video: measuring a RAG pipeline with DeepEval metrics and tracking results in Confident AI. (about 29 min)</li>
 <li><strong><a href="https://www.youtube.com/watch?v=VbNPZ1n6_vY">Defending LLM: Prompt Injection (LiveOverflow)</a></strong> · Video · youtube.com<br>
-  Whole video: why prompt injection is hard to defend against, with examples of defenses that fail. (about 17 min)</li>
+  Whole video: why LLMs are inherently open to prompt injection, and the design choices that limit the damage: treating input as untrusted, prompt design, user isolation, narrow tasks, few-shot prompts, fine-tuning, input limits, temperature 0 and redundant checks. (about 17 min)</li>
 </ul>
-<h2>Week 7: Deploy, monitor, fine-tune</h2>
+<h2 id="week-7">Week 7: Deploy, monitor, fine-tune</h2>
 <p class="goal"><strong>Goal</strong> Deploy the assistant in a container, trace latency and cost per request, and decide when fine-tuning beats RAG or prompting. (about 11.5 h in total)</p>
 <p class="lbl"><strong>Core</strong></p>
 <ul>
@@ -358,8 +357,10 @@
   Whole course: images, containers, Dockerfiles, Docker Compose, volumes and a full demo project. (about 3 h)</li>
 <li><strong><a href="https://www.youtube.com/watch?v=R8_veQiYBjI">GitHub Actions Tutorial: CI/CD Pipeline with Docker (TechWorld with Nana)</a></strong> · Video · youtube.com<br>
   Whole video: workflows, events and jobs, and a CI pipeline that builds and pushes a Docker image. (about 32 min)</li>
+<li><strong><a href="https://www.youtube.com/watch?v=F2FmTdLtb_4">System Design Concepts Course and Interview Prep (freeCodeCamp)</a></strong> · Video · youtube.com<br>
+  Whole video: core system design concepts: scaling, load balancing, caching, databases and APIs. (about 53 min)</li>
 </ul>
-<h2>Week 8: Design, portfolio, job search</h2>
+<h2 id="week-8">Week 8: Design, portfolio, job search</h2>
 <p class="goal"><strong>Goal</strong> Walk through an AI system design with numbers and trade-offs, present your capstone as a case study, and run a targeted job search. (about 11 h in total)</p>
 <p class="lbl"><strong>Core</strong></p>
 <ul>
@@ -407,7 +408,7 @@
 <li><strong><a href="https://www.youtube.com/watch?v=Q86qzJ1K1Ss">Stanford CME 295, Lecture 9: Recap and Current Trends</a></strong> · Video · youtube.com<br>
   Free university lecture from Stanford Online (Autumn 2025, lecture 9 of 9): a recap of the whole course and the topics trending now. (about 2 h)</li>
 <li><strong><a href="https://www.youtube.com/watch?v=KwhgfwOSToQ">Forward Deployed Engineering 101 (Kevin Bai, Anthropic, at AI Engineer)</a></strong> · Video · youtube.com<br>
-  Whole video: what forward-deployed engineers do and how the role works at AI companies. (about 18 min)</li>
+  Whole video: the forward-deployed model as Palantir ran it: selling an outcome rather than a product or a service, the business case for large contracts, building on a reusable platform instead of one-off custom work, two questions to ask before starting, and what has changed now that building is agentic. (about 18 min)</li>
 </ul>
 <h2>Later</h2>
 <p>This plan leaves these topics for afterwards; they are all in the <a href="learning-path.html">learning path</a>: AI Dev Tools &amp; Productivity; Industry Trends &amp; Job Market.</p>

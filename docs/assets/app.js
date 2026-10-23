@@ -171,7 +171,7 @@
   };
   const checkRow = (key, label, body, cls = "") => `<li class="row${cls}${done.has(key) ? " is-done" : ""}"><input class="check" type="checkbox" data-done="${esc(key)}" ${done.has(key) ? "checked" : ""} aria-label="Mark ${esc(label)} as done"><div class="main">${body}</div></li>`;
 
-  const xRow = ([e, k]) => checkRow(k, e.name, `<div class="top"><span class="name">${safeUrl(e.url) ? `<a class="ext" href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.name)}</a>` : esc(e.name)}</span> <span class="tag">${esc(e.type || "Resource")}</span></div>${e.why ? `<p class="desc">${esc(e.why)}</p>` : ""}${e.hours ? `<div class="plan-note"><b>Time:</b> ${esc(hrs(e.hours))}</div>` : ""}`);
+  const xRow = ([e, k]) => checkRow(k, e.name, `<div class="top"><span class="name">${safeUrl(e.url) ? `<a class="ext" href="${esc(e.url)}" target="_blank" rel="noopener">${hl(e.name)}</a>` : hl(e.name)}</span> <span class="tag">${esc(D.short[e.type] || (e.type ? e.type[0].toUpperCase() + e.type.slice(1) : "Resource"))}</span></div>${e.why ? `<p class="desc">${hl(e.why)}</p>` : ""}${e.hours ? `<div class="plan-note"><b>Time:</b> ${esc(hrs(e.hours))}</div>` : ""}`);
 
   function viewPlans() {
     const plans = D.plans || [];
@@ -196,6 +196,7 @@
       const buildWho = w.build.from && V[w.build.from] ? V[w.build.from].who : "";
       const allX = w.extra.map(e => [e, "x:" + e.url]).filter(([e, k]) => topicOk && !state.who && matches({ name: e.name, desc: e.why }) && !hidden(k));
       const extra = allX.filter(([e]) => !e.optional), optX = allX.filter(([e]) => e.optional);
+      const optH = optX.reduce((a, [e]) => a + (e.hours || 0), 0);
       const optional = w.optional.filter(o => o.kind === "r" ? R[o.id] && visible(R[o.id], "r:" + o.id) : V[o.id] && visible(V[o.id], "v:" + o.id));
       const build = w.build.text && topicOk && (!state.who || buildWho === state.who) && !hidden(bKey) && matches({ desc: w.build.text }) ? w.build : null;
       if (!core.length && !reels.length && !build && !allX.length && !optional.length) continue;
@@ -208,7 +209,7 @@
         ${reels.length ? `<div class="sub">From the creators&rsquo; posts</div><ul class="list">${reels.map(v => reelRow(v, false, true)).join("")}</ul>` : ""}
         ${build ? `<div class="sub">Build</div><ul class="list">${checkRow(bKey, `week ${w.n} build`, `<div class="name plain">${esc(build.text)}</div>${build.hours || src ? `<div class="meta">${build.hours ? hrs(build.hours) : ""}${build.hours && src ? " &middot; " : ""}${src ? `Idea from <a href="#reels" data-reel="${esc(src.id)}">${esc(src.title)}</a>` : ""}</div>` : ""}`, " build")}</ul>` : ""}
         ${extra.length ? `<div class="sub">Fill the gap <span class="sub-note">not from the creators</span></div><ul class="list">${extra.map(xRow).join("")}</ul>` : ""}
-        ${optional.length || optX.length ? `<details class="opt"${terms().length ? " open" : ""}><summary>Optional <span class="sub-note">${optional.length + optX.length} more if you have time</span></summary>${optional.length ? `<ul class="list">${optional.map(o => o.kind === "r" ? resRow(R[o.id]) : reelRow(V[o.id], false, true)).join("")}</ul>` : ""}${optX.length ? `<div class="sub">Fill the gap <span class="sub-note">not from the creators</span></div><ul class="list">${optX.map(xRow).join("")}</ul>` : ""}</details>` : ""}
+        ${optional.length || optX.length ? `<details class="opt" data-week="${esc(plan.id)}:${Number(w.n)}"${terms().length ? " open" : ""}><summary>Optional <span class="sub-note">${optional.length + optX.length} more if you have time${optH >= 10 ? ` &middot; the outside items take ${hrs(optH)}` : ""}</span></summary>${optional.length ? `<ul class="list">${optional.map(o => o.kind === "r" ? resRow(R[o.id]) : reelRow(V[o.id], false, true)).join("")}</ul>` : ""}${optX.length ? `<div class="sub">Fill the gap <span class="sub-note">not from the creators</span></div><ul class="list">${optX.map(xRow).join("")}</ul>` : ""}</details>` : ""}
       </section>`;
     }
     if (!shown) return out + empty();
@@ -309,9 +310,17 @@
   }
 
   function render(keepScroll) {
-    const y = window.scrollY;
+    const y = window.scrollY, view = document.getElementById("view");
+    // keep open Optional lists open, and focus inside them, when ticking re-renders the plan
+    const openW = [...view.querySelectorAll("details.opt[open]")].map(d => d.dataset.week);
+    const focusW = document.activeElement?.closest?.("details.opt")?.dataset.week;
     tabs();
-    document.getElementById("view").innerHTML = VIEWS[state.tab]();
+    view.innerHTML = VIEWS[state.tab]();
+    for (const n of openW) { const d = view.querySelector(`details.opt[data-week="${n}"]`); if (d) d.open = true; }
+    if (focusW) {
+      const d = view.querySelector(`details.opt[data-week="${focusW}"]`);
+      (d?.querySelector("input.check") || d?.querySelector("summary"))?.focus({ preventScroll: true });
+    }
     progress();
     if (keepScroll) window.scrollTo(0, y);
   }
@@ -379,7 +388,11 @@
       document.getElementById("topic").value = ""; document.getElementById("who").value = ""; document.getElementById("q").value = "";
       render(true); return;
     }
-    if (a.dataset.plan !== undefined) { state.plan = a.dataset.plan; store.set("plan", state.plan); render(true); return; }
+    if (a.dataset.plan !== undefined) {
+      state.plan = a.dataset.plan; store.set("plan", state.plan); render(true);
+      document.querySelector(`.plan-chips [data-plan="${CSS.escape(state.plan)}"]`)?.focus();
+      return;
+    }
     e.preventDefault();
     if (a.dataset.reel) {
       state.tab = "reels"; state.q = ""; state.topic = ""; state.who = "";
