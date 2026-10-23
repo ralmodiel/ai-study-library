@@ -16,10 +16,12 @@ and the AI articles on [Melvin Vivas's blog](https://www.melvinvivas.com/), with
 
 - **[Study plans](https://ralmodiel.github.io/ai-study-library/study-plans.html):** week-by-week plans for
   [1 month](https://ralmodiel.github.io/ai-study-library/study-plan-1-month.html) (the fast track, about 15 hours a week),
-  [2 months](https://ralmodiel.github.io/ai-study-library/study-plan-2-months.html) (the standard path, about 10 hours a week) and
-  [3 months](https://ralmodiel.github.io/ai-study-library/study-plan-3-months.html) (the thorough path, about 8 hours a week). Each week has a goal, the
+  [2 months](https://ralmodiel.github.io/ai-study-library/study-plan-2-months.html) (the standard path, about 10 hours a week),
+  [3 months](https://ralmodiel.github.io/ai-study-library/study-plan-3-months.html) (the thorough path, about 8 hours a week) and
+  [6 months](https://ralmodiel.github.io/ai-study-library/study-plan-6-months.html) (from the ground up, about 8 hours a week, starting
+  with Python, Git, SQL and APIs). Each week has a goal, the
   core resources with the part to do, the creators' most useful posts and one build step on a single portfolio
-  project. A few outside resources fill gaps their posts leave and are marked as not from the creators.
+  project. Outside resources fill the gaps their posts leave and are marked as not from the creators.
 - **Free to watch:** the free videos, playlists and courses they recommend, grouped by topic in study order.
 - **[Learning path](https://ralmodiel.github.io/ai-study-library/learning-path.html):** 16 topics in study order,
   from roadmaps and LLM fundamentals to RAG, agents, evals and deployment. Each has its own page with the reels and
